@@ -50,16 +50,8 @@
   <!-- End Google Tag Manager (noscript) -->  
 
 <?php if( current_user_can('edit_pages') ) :
-  echo '<ul style="position: fixed; bottom: 0; z-index: 999;" class="no-print"><li style="display: inline-block;"><a href="' . site_url() . '/wp-admin" class="btn-primary" style="text-decoration: none; font-weight: bold;">Admin</a></li>';
-  if (!is_tax()) {
-    if (!is_post_type_archive('integration')) {
-      echo '<li style="display: inline-block; margin-left: 1rem;"><a href="' . site_url() . '/wp-admin/post.php?post=' . $post->ID . '&action=edit" class="btn-primary" style="text-decoration: none; font-weight: bold;">Edit</a></li>';
-    } else {
-      echo '<li style="display: inline-block; margin-left: 1rem;"><a href="' . site_url() . '/wp-admin/edit.php?post_type=integration&page=integration-settings" class="btn-primary" style="text-decoration: none; font-weight: bold;">Edit</a></li>';
-    }
-  } else {
-    echo '<li style="display: inline-block; margin-left: 1rem;"><a href="' . site_url() . '/wp-admin/term.php?taxonomy=integration_type&tag_ID=' . get_queried_object()->term_id . '" class="btn-primary" style="text-decoration: none; font-weight: bold;">Edit</a></li>';
-  }
+  echo '<ul style="position: fixed; left: 1rem; bottom: 1rem; z-index: 999;" class="no-print"><li style="display: inline-block;"><a href="' . site_url() . '/wp-admin" class="btn-solid--brand" style="text-decoration: none; font-weight: bold;">Admin</a></li>';
+  echo '<li style="display: inline-block; margin-left: 1rem;"><a href="' . site_url() . '/wp-admin/post.php?post=' . $post->ID . '&action=edit" class="btn-solid--brand-two" style="text-decoration: none; font-weight: bold;">Edit</a></li>';
   echo '</ul>';
   endif; ?>
 

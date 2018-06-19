@@ -37,3 +37,11 @@ HIDE ADMIN BAR
 ==========================================
 */
 add_filter('show_admin_bar', '__return_false');
+
+
+/*
+=========================
+ADDING POST FORMATS
+=========================
+*/
+add_theme_support( 'post-formats', array( 'video' ) );

@@ -2,10 +2,15 @@
 
 @import 
   'base/reset',
-  'base/typography';
+  'base/typography',
+  'base/buttons';
 
 @import 
   'modules/site-header',
-  'modules/eyebrow';
+  'modules/eyebrow',
+  'modules/site-footer';
+
+@import 
+  'page/single';
 
 @import 'utilities';

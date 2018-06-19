@@ -180,3 +180,18 @@ TYPOGRAPHY
 .has-text-center {
     text-align: center;
 }
+
+
+
+.video-outer {
+  padding: 56.25% 0 0 0;
+  position: relative;
+}
+
+.video-inner {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}

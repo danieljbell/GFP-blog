@@ -1,0 +1,268 @@
+.single .hero {
+  text-align: center;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  background-image: linear-gradient(rgba(black, 0.5), rgba(black, 0.5)), url(http://source.unsplash.com/1280x400);
+  background-position: center;
+  background-size: cover;
+  color: #fff;
+  text-shadow: 3px 3px 3px rgba(black, 0.5);
+  
+  h1 {
+    @include tablet {
+      font-size: 2.4rem;
+      margin-bottom: 0.25em;
+    }
+  }
+
+  h2 {
+    font-size: 1rem;
+    font-weight: normal;
+    max-width: 600px;
+    margin: 0 auto;
+    @include tablet {
+      font-size: 1.2rem;
+    }
+  }
+
+}
+
+.single .post {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  @include desktop {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+
+.single .post .site-width {
+  display: flex;
+  flex-direction: column;
+  @include desktop {
+    display: grid;
+    grid-gap: 3rem 4rem;
+    grid-template-columns: 150px 1fr 175px;
+  }
+}
+
+.single-author,
+.single-content,
+.single-footer {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  @include desktop {
+    max-width: unset;
+    margin-left: unset;
+    margin-right: unset;
+  }
+}
+
+.single-author {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  @include tablet {
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @include desktop {
+    display: block;
+  }
+}
+
+.single-author--headshot {
+  flex-shrink: 0;
+  
+  img {
+    max-width: 75px;
+    max-height: 75px;
+    border-radius: 50%;
+  }
+
+}
+
+.single-author--content {
+  padding-left: 1rem;
+  @include desktop {
+    padding-left: 0;
+  }
+}
+
+.single-author--date {
+  display: none;
+  @include desktop {
+    display: block;
+  }
+}
+
+.single-author--name {
+  font-weight: bold;
+  font-size: 1.2em;
+  .single .single-author & {
+    margin-bottom: 0;
+  }
+}
+
+.single-author--description {
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.single-content {
+  order: -1;
+  @include desktop {
+    order: 0;
+  }
+}
+
+.single-categories {
+  display: none;
+  @include desktop {
+    display: block;
+    font-size: 0.8rem;
+  }
+}
+
+.single-categories--list {
+  list-style-type: none;
+}
+
+.single-categories--item {
+  &:first-child .single-categories--link {
+    border-top: 1px solid $medium-gray;
+  }
+}
+
+.single-categories--link {
+  border-bottom: 1px solid $medium-gray;
+  display: block;
+  padding: 0.5em 1em;
+
+  &:hover {
+    text-decoration: none;
+  }
+  
+  span {
+    float: right;
+  }
+
+  &.single-categories--active {
+    color: $brand;
+    font-weight: bold;
+  }
+
+}
+
+.single-current-promo {
+  margin-top: 3rem;
+  background-color: $brand-two;
+  padding: 2rem 1rem;
+  color: #fff;
+  text-align: center;
+}
+
+.single-footer {
+  border-top: 1px solid $medium-gray;
+  margin-top: 3rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  display: flex;
+  @include desktop {
+    padding-bottom: 0;
+  }
+}
+
+.single-tags--list {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0.5rem
+}
+
+.single-tags--item {
+  margin-right: 0.5em;
+
+  a {
+    border: 1px solid $medium-gray;
+    background-color: $light-gray;
+    color: inherit;
+    font-size: 0.8rem;
+    display: block;
+    line-height: 1;
+    padding: .5em .75em;
+    border-radius: 4px;
+    transition: all 250ms ease-in-out;
+    text-decoration: none !important;
+    font-weight: normal !important;
+    &:hover {
+      background-color: $brand;
+      border-color: $brand;
+      color: #fff;
+    }
+  }
+
+}
+
+
+/*
+=========================
+POST UTLITIES
+=========================
+*/
+.single .post .alignright {
+  display: block;
+  margin: 1rem auto;
+  @include tablet {
+    float: right;
+    margin-top: 0;
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+  }
+}
+
+
+/*
+=========================
+TALK WITH A TECH STYLES
+=========================
+*/
+.single-tech-section {
+  background-color: $light-gray;
+  border: 1px solid $medium-gray;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  @include desktop { 
+    padding: 1.5rem;
+    position: relative;
+    left: -1.5rem;
+    width: calc(100% + 4rem);
+  }
+
+  h3 {
+    text-transform: uppercase;
+    border-bottom: 1px solid $medium-gray;
+    margin-bottom: 0.25em;
+  }
+  
+  .single & p {
+    margin-bottom: 0;
+  }
+
+  img {
+    width: 100%;
+    display: block;
+    margin: 1rem auto;
+    @include tablet {
+      width: auto;
+      float: right;
+      margin-top: 0;
+      margin-left: 2rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+}
