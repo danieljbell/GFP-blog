@@ -27,7 +27,6 @@ CREATING ADMIN NAV MENUS
 */
 register_nav_menus( array(
   'eyebrow' => __( 'Eyebrow' ),
-  'site-header' => __( 'Site Header' ),
   'shop-by-part' => __( 'Shop By Part' ),
   'shop-by-equipment' => __( 'Shop By Equipment' )
 ) );
