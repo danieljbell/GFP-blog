@@ -11,7 +11,7 @@
       
       <div class="site-width">
         <h1><?php echo ($current_cat[0]->slug === 'talk-with-a-tech') ? 'Talk With A Tech ' : '';  ?><?php echo get_the_title(); ?></h1>
-        <h2><?php echo strip_tags(the_excerpt()); ?></h2>
+        <h2><?php echo get_the_excerpt(); ?></h2>
       </div>
 
     </section>
@@ -21,12 +21,12 @@
       <div class="site-width">
         
         <aside class="single-author">
-          <p class="single-author--date"><small><?php echo get_the_date(); ?></small></p>
+          <time class="single-author--date" datetime="<?php echo get_the_date('Y-m-d'); ?>"><?php echo get_the_date(); ?></time>
           <div class="single-author--headshot">
             <?php echo get_avatar( get_the_author_meta( 'ID' ) ); ?>
           </div>
           <div class="single-author--content">
-            <p class="single-author--name"><?php the_author(); ?></p>
+            <p class="single-author--name"><a href="<?php echo get_author_posts_url(get_the_author_meta('id')); ?>"><?php the_author(); ?></a></p>
             <p class="single-author--description"><?php echo get_the_author_meta('description'); ?></p>
           </div>
         </aside>
@@ -63,19 +63,22 @@
             
             endif;
           ?>
-          <footer class="single-footer">
             <?php
               $posttags = get_the_tags();
               if ($posttags) {
-                echo '<span>Tags:</span>';
-                echo '<ul class="single-tags--list">';
-                  foreach($posttags as $tag) {
-                    echo '<li class="single-tags--item"><a href="/tag/' . $tag->slug . '">' . $tag->name . '</a></li>'; 
-                  }
-                echo '</ul>';
+                echo '<footer class="single-footer">';
+                  echo '<span>Tags:</span>';
+                  echo '<ul class="single-tags--list">';
+                    foreach($posttags as $tag) {
+                      echo '<li class="single-tags--item"><a href="/tag/' . $tag->slug . '">' . $tag->name . '</a></li>'; 
+                    }
+                  echo '</ul>';
+                echo '</footer>';
               }
             ?>
-          </footer>
+            <div class="single-comments">
+              <?php comments_template(); ?>
+            </div>
         </article>
 
         <aside class="single-categories">
@@ -92,7 +95,14 @@
             ?>
           </ul>
           <div class="single-current-promo">
-            asdfasdfasdf
+            <div class="single-current-promo-image">
+              <img src="//fillmurray.com/100/100" alt="">
+            </div>
+            <div class="single-current-promo-content">
+              <h4 class="single-current-promo-headline"><?php the_field('current_promo_headline', 'option'); ?></h4>
+              <p class="single-current-promo-copy"><?php the_field('current_promo_copy', 'option'); ?></p>
+              <a href="<?php echo the_field('current_promo_button_link'); ?>"><?php the_field('current_promo_button_text', 'option'); ?></a>
+            </div>
           </div>
         </aside>
 

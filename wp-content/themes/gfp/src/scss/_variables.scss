@@ -11,7 +11,7 @@ RESPONSIVE MIXINS
 =====================
 */
 @mixin tablet {
-    @media screen and (min-width: 600px) {
+    @media screen and (min-width: 600px) and (max-width: 1079px) {
         @content;
     }
 }

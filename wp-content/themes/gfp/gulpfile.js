@@ -34,7 +34,10 @@ gulp.task('css', function () {
 
 gulp.task('js', function () {
   gulp.src([
-    'src/js/modules/site-header.js'
+    'src/js/lib/atomic.min.js',
+    'src/js/modules/site-header.js',
+    'src/js/modules/single-post.js',
+    'src/js/modules/single-comments.js'
   ])
     .pipe(sourcemaps.init())
     .pipe(concat('global.js'))
@@ -53,7 +56,7 @@ gulp.task('watch', function() {
   gulp.watch('src/scss/**/*.scss', ['css']);
   gulp.watch('src/css/*.css', ['css']);
   gulp.watch('src/js/**/*.js', ['js']);
-  gulp.watch('src/img/*.{png,jpg,gif,svg}', ['images']).on('change', browserSync.reload);
+  gulp.watch('src/img/*.{png,jpg,gif,svg}', ['img']).on('change', browserSync.reload);
   gulp.watch(['*.php', 'page-templates/*.php',  'partials/**/*.php']).on('change', browserSync.reload);
 });
 

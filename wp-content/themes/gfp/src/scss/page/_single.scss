@@ -1,32 +1,3 @@
-.single .hero {
-  text-align: center;
-  padding-top: 4rem;
-  padding-bottom: 4rem;
-  background-image: linear-gradient(rgba(black, 0.5), rgba(black, 0.5)), url(http://source.unsplash.com/1280x400);
-  background-position: center;
-  background-size: cover;
-  color: #fff;
-  text-shadow: 3px 3px 3px rgba(black, 0.5);
-  
-  h1 {
-    @include tablet {
-      font-size: 2.4rem;
-      margin-bottom: 0.25em;
-    }
-  }
-
-  h2 {
-    font-size: 1rem;
-    font-weight: normal;
-    max-width: 600px;
-    margin: 0 auto;
-    @include tablet {
-      font-size: 1.2rem;
-    }
-  }
-
-}
-
 .single .post {
   padding-top: 2rem;
   padding-bottom: 2rem;
@@ -70,6 +41,7 @@
     margin-right: auto;
   }
   @include desktop {
+    text-align: center;
     display: block;
   }
 }
@@ -96,6 +68,8 @@
   display: none;
   @include desktop {
     display: block;
+    font-size: 0.85em;
+    margin-bottom: 1rem;
   }
 }
 
@@ -120,15 +94,17 @@
 }
 
 .single-categories {
-  display: none;
   @include desktop {
-    display: block;
     font-size: 0.8rem;
   }
 }
 
 .single-categories--list {
   list-style-type: none;
+  display: none;
+  @include desktop {
+    display: block;
+  }
 }
 
 .single-categories--item {
@@ -158,12 +134,20 @@
 }
 
 .single-current-promo {
-  margin-top: 3rem;
   background-color: $brand-two;
   padding: 2rem 1rem;
   color: #fff;
   text-align: center;
+
+  .single & {
+    margin-top: 3rem;
+  }
+
 }
+
+
+
+
 
 .single-footer {
   border-top: 1px solid $medium-gray;
@@ -187,20 +171,20 @@
   margin-right: 0.5em;
 
   a {
-    border: 1px solid $medium-gray;
-    background-color: $light-gray;
-    color: inherit;
-    font-size: 0.8rem;
+    border: 1px solid $brand-two;
+    // background-color: $light-gray;
+    color: $brand-two;
+    font-size: 0.75rem;
     display: block;
     line-height: 1;
-    padding: .5em .75em;
+    padding: .35em .5em;
     border-radius: 4px;
     transition: all 250ms ease-in-out;
     text-decoration: none !important;
     font-weight: normal !important;
     &:hover {
-      background-color: $brand;
-      border-color: $brand;
+      background-color: $brand-two;
+      border-color: $brand-two;
       color: #fff;
     }
   }
@@ -217,6 +201,12 @@ POST UTLITIES
   display: block;
   margin: 1rem auto;
   @include tablet {
+    float: right;
+    margin-top: 0;
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+  }
+  @include desktop {
     float: right;
     margin-top: 0;
     margin-left: 2rem;
@@ -257,6 +247,13 @@ TALK WITH A TECH STYLES
     display: block;
     margin: 1rem auto;
     @include tablet {
+      width: auto;
+      float: right;
+      margin-top: 0;
+      margin-left: 2rem;
+      margin-bottom: 1rem;
+    }
+    @include desktop {
       width: auto;
       float: right;
       margin-top: 0;

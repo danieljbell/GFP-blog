@@ -1,0 +1,71 @@
+.card {
+  display: grid;
+  @include tablet {
+    grid-template-columns: 100px 1fr;
+    grid-gap: 2rem;
+  }
+  @include desktop {
+    grid-template-columns: 100px 1fr;
+    grid-gap: 2rem;
+  }
+}
+
+.card-meta {
+  display: none;
+  @include tablet {
+    display: block;
+  }
+  @include desktop {
+    display: block;
+  }
+}
+
+// .card-content {
+//   display: inline-block;
+//   vertical-align: top;
+// }
+
+.card time {
+  font-size: 0.85em;
+}
+
+.card-category {
+  text-transform: uppercase;
+  font-weight: bold;
+  a {
+    font-size: 0.7em;
+    background-color: $brand-two;
+    display: inline-block;
+    padding: 0.25em 0.5em;
+    border-radius: 4px;
+    color: #fff;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.card-title {
+  font-size: 1.4rem;
+}
+
+.card-description {
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.card .single-tags--list {
+  padding-top: 0.25rem;
+  padding-left: 0;
+  display: none;
+  @include tablet {
+    display: flex;
+  }
+  @include desktop {
+    display: flex;
+  }
+}
+
+.card .single-tags--item a {
+  font-size: 0.6rem;
+}

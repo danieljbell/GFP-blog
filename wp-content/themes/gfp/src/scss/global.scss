@@ -8,9 +8,14 @@
 @import 
   'modules/site-header',
   'modules/eyebrow',
+  'modules/hero',
+  'modules/card',
+  'modules/post-listing',
+  'modules/comments',
   'modules/site-footer';
 
 @import 
-  'page/single';
+  'page/single',
+  'page/404';
 
 @import 'utilities';
