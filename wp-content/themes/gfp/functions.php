@@ -214,31 +214,31 @@ function custom_posts_groupby( $groupby, $query ) {
 
 
 
-add_filter('wp_nav_menu_objects', 'my_wp_nav_menu_objects', 10, 2);
+// add_filter('wp_nav_menu_objects', 'my_wp_nav_menu_objects', 10, 2);
 
-function my_wp_nav_menu_objects( $items, $args ) {
+// function my_wp_nav_menu_objects( $items, $args ) {
   
-  // loop
-  foreach( $items as &$item ) {
+//   // loop
+//   foreach( $items as &$item ) {
     
-    // vars
-    $icon = get_field('image', $item);
+//     // vars
+//     $icon = get_field('image', $item);
     
     
-    // append icon
-    if( $icon ) {
+//     // append icon
+//     if( $icon ) {
       
-      $item->title = '<img src="' . $icon["sizes"]["thumbnail"] . '">' . $item->title;
+//       $item->title = '<img src="' . $icon["sizes"]["thumbnail"] . '">' . $item->title;
       
-    }
+//     }
     
-  }
+//   }
   
   
-  // return
-  return $items;
+//   // return
+//   return $items;
   
-}
+// }
 
 function new_submenu_class($menu) {    
     $menu = preg_replace('/ class="sub-menu"/','/ class="navigation--level-two" /',$menu);        
