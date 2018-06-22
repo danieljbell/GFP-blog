@@ -3,7 +3,7 @@
   <div class="site-width">
     <div class="menu-item--logo-container">
       <a href="https://greenfarmparts.com">
-        <img src="<?php echo get_template_directory_uri(); ?>/dist/img/GFP-logo.svg" alt="Green Farm Parts">
+        <img src="<?php echo get_template_directory_uri(); ?>/dist/img/gfp-logo.svg" alt="Green Farm Parts">
       </a>
     </div>
     <nav>
