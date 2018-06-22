@@ -3,7 +3,7 @@
     <div class="site-width">
         <?php
           wp_nav_menu( array(
-            'menu' => 'eyebrow'
+            'menu' => 'Eyebrow'
           ) );
         ?>
     </div>
