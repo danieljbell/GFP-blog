@@ -21,3 +21,7 @@
     border-top: 1px solid $medium-gray;
   }
 }
+
+.post-listing--results {
+  grid-row: span 2;
+}
