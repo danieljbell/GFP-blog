@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
-  <base href="https://blog.greenfarmparts.com">
+  <base href="<?php echo site_url(); ?>">
   <meta charset="<?php bloginfo('charset'); ?>">
   <title><?php wp_title(''); ?></title>
   <meta http-equiv="x-ua-compatible" content="ie=edge">
