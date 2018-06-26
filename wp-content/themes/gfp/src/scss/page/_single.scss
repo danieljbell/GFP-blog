@@ -171,9 +171,8 @@
   margin-right: 0.5em;
 
   a {
-    border: 1px solid $brand-two;
-    // background-color: $light-gray;
-    color: $brand-two;
+    border: 1px solid $medium-gray;
+    color: darken($medium-gray, 20%);
     font-size: 0.75rem;
     display: block;
     line-height: 1;
