@@ -21,7 +21,10 @@
     <div class="post-listing--promo">
       <div class="single-current-promo">
         <div class="single-current-promo-image">
-          <img src="//fillmurray.com/100/100" alt="">
+          <?php
+            $promo_image = get_field('current_promo_image', 'option');
+            echo '<img src="' . $promo_image["sizes"]["medium"] . '">';
+          ?>
         </div>
         <div class="single-current-promo-content">
           <h4 class="single-current-promo-headline"><?php the_field('current_promo_headline', 'option'); ?></h4>
