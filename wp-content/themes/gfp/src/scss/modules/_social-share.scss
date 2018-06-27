@@ -2,6 +2,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-shrink: 0;
+  @include tablet {
+    padding-left: 2rem;
+  }
 }
 
 .social-share h4 {

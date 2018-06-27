@@ -166,8 +166,23 @@
   margin-bottom: 3rem;
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
+  @include tablet {
+    flex-direction: row;
+  }
   @include desktop {
     padding-bottom: 0;
+    flex-direction: row;
+  }
+}
+
+.single-footer .post-tags {
+  display: none;
+  @include tablet {
+    display: block;
+  }
+  @include desktop {
+    display: block;
   }
 }
 
