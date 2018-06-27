@@ -34,7 +34,6 @@
     
     <div class="post-listing--filters">
       <?php get_search_form(); ?>
-      filter me bro
     </div>
     
     <div class="post-listing--results">  
