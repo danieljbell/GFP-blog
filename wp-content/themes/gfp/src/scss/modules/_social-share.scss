@@ -6,6 +6,9 @@
   @include tablet {
     padding-left: 2rem;
   }
+  @include desktop {
+    padding-left: 2rem;
+  }
 }
 
 .social-share h4 {
