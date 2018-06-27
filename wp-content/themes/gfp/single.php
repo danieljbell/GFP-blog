@@ -70,11 +70,12 @@
             
             endif;
           ?>
+
+
             <?php
-              $posttags = get_the_tags();
-              if ($posttags) {
-                echo '<footer class="single-footer">';
-                  echo '<div class="social-share">Share dis, meoW!</div>';
+              echo '<footer class="single-footer">';
+                $posttags = get_the_tags();
+                if ($posttags) {
                   echo '<div class="post-tags">';
                     echo '<span>Tags:</span>';
                     echo '<ul class="single-tags--list">';
@@ -83,8 +84,22 @@
                       }
                     echo '</ul>';
                   echo '</div>';
-                echo '</footer>';
-              }
+                }
+                echo '<div class="social-share">';
+                  echo '<h4>Share on social</h4>';
+                  echo '<ul class="social-share--list">';
+                    echo '<li class="facebook-icon">';
+                      echo '<a href="http://www.facebook.com/sharer.php?u=' . get_the_permalink() . '" target="_blank" rel="noopener noreferrer">' . file_get_contents(get_stylesheet_directory_URI() . '/dist/img/facebook-icon.svg', false, $context) . '</a>';
+                    echo '</li>';
+                    echo '<li class="twitter-icon">';
+                      echo '<a href="http://twitter.com/intent/tweet?url=' . get_the_permalink() . '&text=' . get_the_title() . '" target="_blank" rel="noopener noreferrer">' . file_get_contents(get_stylesheet_directory_URI() . '/dist/img/twitter-icon.svg', false, $context) . '</a>';
+                    echo '</li>';
+                    echo '<li class="linkedin-icon">';
+                      echo '<a href="http://www.linkedin.com/shareArticle?mini=true&url=' . get_the_permalink() . '&title=' . get_the_title() . '" target="_blank" rel="noopener noreferrer">' . file_get_contents(get_stylesheet_directory_URI() . '/dist/img/linkedin-icon.svg', false, $context) . '</a>';
+                    echo '</li>';
+                  echo '</ul>';
+                echo '</div>';
+              echo '</footer>';
             ?>
             <div class="single-comments">
               <?php comments_template(); ?>
