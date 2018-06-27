@@ -45,16 +45,7 @@
     </div>
 
     <div class="post-listing--promo">
-      <div class="single-current-promo">
-        <div class="single-current-promo-image">
-          <img src="//fillmurray.com/100/100" alt="">
-        </div>
-        <div class="single-current-promo-content">
-          <h4 class="single-current-promo-headline"><?php the_field('current_promo_headline', 'option'); ?></h4>
-          <p class="single-current-promo-copy"><?php the_field('current_promo_copy', 'option'); ?></p>
-          <a href="<?php the_field('current_promo_button_link'); ?>"><?php the_field('current_promo_button_text', 'option'); ?></a>
-        </div>
-      </div>
+      <?php get_template_part('partials/display', 'current-promo') ?>
     </div>
 
   </div>
