@@ -16,15 +16,27 @@
 
 .site-header .menu-item--logo-container img {
   width: 100%;
-  max-width: 225px;
+  max-width: 185px;
   min-height: 45px;
   display: block;
-  transition: all 150ms ease-in-out;
+  padding: 0.75rem 0;
+  @include desktop {
+    max-width: 225px;
+    padding: 0;
+  }
 }
 
 .navigation--level-zero {
-  display: flex;
-  list-style-type: none;
+  position: absolute;
+  background-color: #ffffff;
+  left: 0;
+  right: 0;
+  @include desktop {
+    position: static;
+    background-color: transparent;
+    display: flex;
+    list-style-type: none;
+  }
 }
 
 .navigation--level-one {
@@ -123,12 +135,20 @@
 }
 
 .navigation--button {
+  width: 100%;
+  text-align: left;
   border: 0;
   padding: 2rem 1rem;
   background-color: transparent;
+  @include desktop {
+    text-align: center;
+    width: auto;
+  }
+  
   &:focus {
     outline: none;
   }
+
 }
 
 .menu-shop-by-part-container {

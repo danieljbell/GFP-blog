@@ -22,6 +22,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 250ms ease-in-out;
 }
 
 .social-share svg {
@@ -54,9 +55,7 @@
     background-color: #00aced;
   }
   &:hover a {
-    background-color: #00aced;
-    background-image: linear-gradient(#00aced, #00aced);
-    border-color: #00aced;
+    background-color: lighten(#00aced, 15%);
   }
 }
 
@@ -71,9 +70,7 @@
     background-color: #007bb6;
   }
   &:hover a {
-    background-color: #007bb6;
-    background-image: linear-gradient(#007bb6, #007bb6);
-    border-color: #007bb6;
+    background-color: lighten(#007bb6, 15%);
   }
 }
 
@@ -82,8 +79,6 @@
     background-color: #3b5998;
   }
   &:hover a {
-    background-color: #3b5998;
-    background-image: linear-gradient(#3b5998, #3b5998);
-    border-color: #3b5998;
+    background-color: lighten(#3b5998, 20%);
   }
 }

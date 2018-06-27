@@ -4,9 +4,11 @@ if (window.innerWidth > 1080) {
 }
 
 
-// if ((e.target.id === 'hamburger') || (e.target.classList.contains('hamburger-box')) || (e.target.classList.contains('hamburger-inner'))) {
-//   toggleMenu();
-// }
+document.querySelector('button#hamburger').addEventListener('click', function(e) {
+  toggleMenu();
+  var headerHeignt = document.querySelector('.site-header').offsetHeight;
+  document.querySelector('.navigation--level-zero').style.top = headerHeignt + 'px';
+});
 
 var headerTopButtons = document.querySelectorAll('.navigation--button');
 var navLevelOne = document.querySelectorAll('.navigation--level-one');

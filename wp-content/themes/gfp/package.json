@@ -29,6 +29,7 @@
     "gulp-sass": "^4.0.1",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify": "^3.0.0",
+    "hamburgers": "^0.9.3",
     "postcss-import": "^11.1.0",
     "pump": "^3.0.0"
   }

@@ -6,6 +6,11 @@
   'base/buttons';
 
 @import 
+  'modules/hamburgers',
+  '../../node_modules/hamburgers/_sass/hamburgers/base',
+  '../../node_modules/hamburgers/_sass/hamburgers/types/spin';  
+
+@import 
   'modules/site-header',
   'modules/eyebrow',
   'modules/hero',
