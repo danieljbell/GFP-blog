@@ -47,6 +47,13 @@ ADDING POST FORMATS
 */
 add_theme_support( 'post-formats', array( 'video' ) );
 
+/*
+==========================================
+ADDS POST THUMBNAILS
+==========================================
+*/
+add_theme_support( 'post-thumbnails' );
+
 
 /*
 =========================

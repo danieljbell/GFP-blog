@@ -7,7 +7,14 @@
   
   <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-    <section class="hero">
+    <?php
+      if (has_post_thumbnail()) {
+        $thumb_array = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
+        $hero_bg = 'background-image: linear-gradient(rgba(0,0,0, 0.5), rgba(0,0,0, 0.5)), url(' . $thumb_array[0] . ')';
+      }
+    ?>
+
+    <section class="hero" <?php if (has_post_thumbnail()) { echo 'style="' . $hero_bg . '"'; } ?>>
       
       <div class="site-width">
         <h1><?php echo ($current_cat[0]->slug === 'talk-with-a-tech') ? 'Talk With A Tech ' : '';  ?><?php echo get_the_title(); ?></h1>
@@ -67,12 +74,15 @@
               $posttags = get_the_tags();
               if ($posttags) {
                 echo '<footer class="single-footer">';
-                  echo '<span>Tags:</span>';
-                  echo '<ul class="single-tags--list">';
-                    foreach($posttags as $tag) {
-                      echo '<li class="single-tags--item"><a href="/tag/' . $tag->slug . '">' . $tag->name . '</a></li>'; 
-                    }
-                  echo '</ul>';
+                  echo '<div class="social-share">Share dis, meoW!</div>';
+                  echo '<div class="post-tags">';
+                    echo '<span>Tags:</span>';
+                    echo '<ul class="single-tags--list">';
+                      foreach($posttags as $tag) {
+                        echo '<li class="single-tags--item"><a href="/tag/' . $tag->slug . '">' . $tag->name . '</a></li>'; 
+                      }
+                    echo '</ul>';
+                  echo '</div>';
                 echo '</footer>';
               }
             ?>
