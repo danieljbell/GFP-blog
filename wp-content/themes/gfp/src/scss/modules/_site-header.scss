@@ -27,15 +27,36 @@
 }
 
 .navigation--level-zero {
+  display: none;
   position: absolute;
   background-color: #ffffff;
+  top: 0;
   left: 0;
   right: 0;
+  
   @include desktop {
     position: static;
     background-color: transparent;
     display: flex;
     list-style-type: none;
+  }
+
+  .menu-open & {
+    display: flex;
+    flex-direction: column;
+  }
+
+}
+
+.mobile-search {
+  width: 100%;
+  background-color: $light-gray;
+  border: 1px solid $medium-gray;
+  font-size: inherit;
+  font-family: inherit;
+  padding: 0.5rem 1rem;
+  @include desktop {
+    display: none;
   }
 }
 
@@ -136,17 +157,56 @@
 
 .navigation--button {
   width: 100%;
+  color: $brand;
   text-align: left;
   border: 0;
-  padding: 2rem 1rem;
   background-color: transparent;
+  padding: 1rem;
+  border-bottom: 1px solid $medium-gray;
   @include desktop {
+    border-bottom: 0;
+    padding: 2rem 1rem;
     text-align: center;
     width: auto;
   }
   
   &:focus {
     outline: none;
+  }
+
+}
+
+.mobile-search-container {
+  order: -2;
+}
+
+.cart-container {
+  display: block;
+  border-bottom: 1px solid $medium-gray;
+  order: -1;
+  padding: 0 1rem;
+  @include desktop {
+    order: 0;
+    padding: 1.4rem 0rem 1.4rem 1rem;
+    border-bottom: 0;
+  }
+
+  a {
+    font-weight: bold;
+    display: block;
+    padding: 1rem 0;
+    @include desktop {
+      padding: 0;
+    }
+  }
+
+  img {
+    float: right;
+    position: relative;
+    top: -8px;
+    @include desktop {
+      position: static;
+    }
   }
 
 }
@@ -165,9 +225,6 @@
 }
 
 .menu-item--menu-toggle {
-  @include tablet {
-    display: none;
-  }
   @include desktop {
     display: none;
   }

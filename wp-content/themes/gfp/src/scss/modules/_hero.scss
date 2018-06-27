@@ -8,6 +8,7 @@
   color: #fff;
   text-shadow: 3px 3px 3px rgba(black, 0.5);
   border-bottom: 7px solid $brand-two;
+  overflow: hidden;
   
   h1 {
     @include tablet {
