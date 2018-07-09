@@ -1,3 +1,12 @@
+$.ajax({
+  url: 'https://www.greenfarmparts.com/ZGlide-Z900-ZTrak-Mower-Suspension-p/jdzg900.htm'
+}).done(function(data) {
+  console.log(data);
+});
+
+
+
+
 if (window.innerWidth > 1080) {
     // $('.menu-item--top-level .sub-menu--level-one > li:first-child').addClass('active').find('.sub-menu--level-two').addClass('accordian-open');
     // alert('tad');
