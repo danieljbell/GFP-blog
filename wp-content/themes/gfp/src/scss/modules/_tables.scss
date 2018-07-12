@@ -46,11 +46,14 @@ td {
   display: flex;
   justify-content: space-between;
   padding: 0.1rem 1rem;
+  text-align: right;
   @include tablet {
+    text-align: left;
     display: table-cell;
     padding: 0.5rem 1rem;
   }
   @include desktop {
+    text-align: left;
     display: table-cell;
     padding: 0.5rem 1rem;
   }
@@ -58,6 +61,7 @@ td {
   &:before {
     content: attr(data-header);
     font-weight: bold;
+    text-align: left;
     @include tablet {
       display: none;
     }
@@ -84,6 +88,8 @@ td {
     }
     @include desktop {
       padding-bottom: 0.5rem;
+      padding-left: 0;
+      padding-right: 0;
     }
   }
 
@@ -121,4 +127,6 @@ td {
 
 tr:nth-child(2n+1) td {
   background-color: #f0f0f0;
+  // border-top: 1px solid $medium-gray;
+  // border-bottom: 1px solid $medium-gray;
 }

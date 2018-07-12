@@ -48,10 +48,10 @@
         <?php if (have_rows('common_parts')) : ?>
           <table>
             <tr>
-              <th width="35%">Part Type</th>
-              <th width="35%">Part Number</th>
-              <th>Price</th>
-              <th width="22%"></th>
+              <th>Part Type</th>
+              <th>Part Number</th>
+              <!-- <th>Price</th> -->
+              <th width="130"></th>
             </tr>
         <?php while (have_rows('common_parts')) : the_row(); ?>
             <?php
@@ -61,12 +61,32 @@
               // curl_setopt($getHTML, CURLOPT_HEADER, 0);
               // curl_setopt($getHTML, CURLOPT_RETURNTRANSFER, 1);
               // $returnProductData = curl_exec($getHTML);
+
+              // check for sold online or not
+              if (!get_sub_field('not_sold')) {
+                $available_online = '<button class="add-to-cart">Add to Cart</button>';
+                $product_link = '<a href="https://www.greenfarmparts.com/-p/' . get_sub_field('common_part_number') . '.htm">' . get_sub_field('common_part_number') . '</a>';
+              } else {
+                $available_online = '<button class="disabled">Not Sold Online</button>';
+                $product_link = get_sub_field('common_part_number');
+              }
+
+                // Add Serial Break on seperate line
+                $common_part_description = get_sub_field('common_part_description');
+                $common_part_description = explode('(', $common_part_description);
+                if (count($common_part_description) > 1) {
+                  $common_part_description = $common_part_description[0] . '<br><em>(' . $common_part_description[1] . '</em>';
+                } else {
+                  $common_part_description = get_sub_field('common_part_description');
+                }
             ?>
             <tr>
-              <td data-header="Part Type"><?php echo get_sub_field('common_part_description'); ?></td>
-              <td data-header="Part Number"><a href="https://www.greenfarmparts.com/-p/<?php echo get_sub_field('common_part_number'); ?>.htm"><?php echo get_sub_field('common_part_number'); ?></a></td>
-              <td data-header="Price">$9.99</td>
-              <td><button class="add-to-cart">Add to Cart</button></td>
+              <td data-header="Part Type" data-product-image="https://greenfarmparts.com/v/vspfiles/photos/<?php echo get_sub_field('common_part_number'); ?>-2T.jpg">
+                <?php echo $common_part_description; ?>    
+              </td>
+              <td data-header="Part Number"><?php echo $product_link; ?></td>
+              <!-- <td data-header="Price">$9.99</td> -->
+              <td><?php echo $available_online; ?></td>
             </tr>
             <?php if (have_rows('serial_breaks')) : while(have_rows('serial_breaks')) : the_row(); ?>
               <?php
@@ -77,8 +97,16 @@
               <tr>
                 <td data-header="Part Type"><?php echo $serial_break_common_part_description[0]; ?><br><em>(<?php echo $serial_break_common_part_description[1]; ?></em></td>
                 <td data-header="Part Number"><a href="https://www.greenfarmparts.com/-p/<?php echo get_sub_field('serial_break_common_part_number'); ?>.htm"><?php echo get_sub_field('serial_break_common_part_number'); ?></a></td>
-                <td data-header="Price">$9.99</td>
-                <td><button class="add-to-cart">Add to Cart</button></td>
+                <!-- <td data-header="Price">$9.99</td> -->
+                <td>
+                  <?php
+                    if (!get_sub_field('not_sold')) {
+                      echo '<button class="add-to-cart">Add to Cart</button>';
+                    } else {
+                      echo 'Not sold online';
+                    }
+                  ?>
+                </td>
               </tr>
             <?php endwhile; endif; ?>
         <?php endwhile; ?>
@@ -86,10 +114,154 @@
         <?php endif; ?>
       </section>
 
-      <section>
+      <section class="mar-y--most">
         <h2>Hourly Parts<span>for John Deere <?php echo $model_number . ' ' . $model_name; ?></span></h2>
-      </section>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut est soluta vitae ipsam facilis exercitationem, nulla ea. Illum possimus nisi suscipit, quae dolore blanditiis! Autem eligendi libero ullam, accusamus eius nihil facilis iure assumenda! Explicabo.</p>
+        <?php if (have_rows('hourly_parts')) : ?>
+          <table>
+            <tr>
+              <th>Part Type</th>
+              <th>Part Number</th>
+              <th width="75">Quantity</th>
+              <th>Hour Intervals</th>
+              <th width="130"></th>
+            </tr>
+        <?php while (have_rows('hourly_parts')) : the_row(); ?>
+            <?php
+              // $url = 'https://www.greenfarmparts.com/-p/' . get_sub_field('hourly_part_number') . '.htm';
+              // $getHTML = curl_init();
+              // curl_setopt($getHTML, CURLOPT_URL, $url);
+              // curl_setopt($getHTML, CURLOPT_HEADER, 0);
+              // curl_setopt($getHTML, CURLOPT_RETURNTRANSFER, 1);
+              // $returnProductData = curl_exec($getHTML);
 
+              // check for sold online or not
+              if (!get_sub_field('not_sold')) {
+                $available_online = '<button class="add-to-cart">Add to Cart</button>';
+                $product_link = '<a href="https://www.greenfarmparts.com/-p/' . get_sub_field('hourly_part_number') . '.htm">' . get_sub_field('hourly_part_number') . '</a>';
+              } else {
+                $available_online = '<button class="disabled">Not Sold Online</button>';
+                $product_link = get_sub_field('hourly_part_number');
+              }
+
+                // Add Serial Break on seperate line
+                $hourly_part_description = get_sub_field('hourly_part_description');
+                $hourly_part_description = explode('(', $hourly_part_description);
+                if (count($hourly_part_description) > 1) {
+                  $hourly_part_description = $hourly_part_description[0] . '<br><em>(' . $hourly_part_description[1] . '</em>';
+                } else {
+                  $hourly_part_description = get_sub_field('hourly_part_description');
+                }
+                $interval_hour = get_sub_field('interval');
+                $intervals = join("/", $interval_hour);
+            ?>
+            <tr>
+              <td data-header="Part Type" data-product-image="https://greenfarmparts.com/v/vspfiles/photos/<?php echo get_sub_field('hourly_part_number'); ?>-2T.jpg">
+                <?php echo $hourly_part_description; ?>    
+              </td>
+              <td data-header="Part Number"><?php echo $product_link; ?></td>
+              <td data-header="Quantity"><?php echo get_sub_field('quantity'); ?></td>
+              <td data-header="Hour Intervals"><?php echo $intervals; ?></td>
+              <td><?php echo $available_online; ?></td>
+            </tr>
+            <?php if (have_rows('serial_breaks')) : while(have_rows('serial_breaks')) : the_row(); ?>
+              <?php
+                // Add Serial Break on seperate line
+                $serial_break_hourly_part_description = get_sub_field('serial_break_hourly_part_description');
+                $serial_break_hourly_part_description = explode('(', $serial_break_hourly_part_description);
+              ?>
+              <tr>
+                <td data-header="Part Type"><?php echo $serial_break_hourly_part_description[0]; ?><br><em>(<?php echo $serial_break_hourly_part_description[1]; ?></em></td>
+                <td data-header="Part Number"><a href="https://www.greenfarmparts.com/-p/<?php echo get_sub_field('serial_break_hourly_part_number'); ?>.htm"><?php echo get_sub_field('serial_break_common_part_number'); ?></a></td>
+                <td data-header="Quantity">$9.99</td>
+                <td data-header="Hour Intervals">$9.99</td>
+                <td>
+                  <?php
+                    if (!get_sub_field('not_sold')) {
+                      echo '<button class="add-to-cart">Add to Cart</button>';
+                    } else {
+                      echo 'Not sold online';
+                    }
+                  ?>
+                </td>
+              </tr>
+            <?php endwhile; endif; ?>
+        <?php endwhile; ?>
+          </table>
+        <?php endif; ?>
+      </section>
+      
+      <section class="mar-y--most">
+        <h2>As Needed Parts <span>for John Deere <?php echo $model_number . ' ' . $model_name; ?></span></h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut est soluta vitae ipsam facilis exercitationem, nulla ea. Illum possimus nisi suscipit, quae dolore blanditiis! Autem eligendi libero ullam, accusamus eius nihil facilis iure assumenda! Explicabo.</p>
+        <?php if (have_rows('as_needed_parts')) : ?>
+          <table>
+            <tr>
+              <th>Part Type</th>
+              <th>Part Number</th>
+              <!-- <th>Price</th> -->
+              <th width="130"></th>
+            </tr>
+        <?php while (have_rows('as_needed_parts')) : the_row(); ?>
+            <?php
+              // $url = 'https://www.greenfarmparts.com/-p/' . get_sub_field('as_needed_part_number') . '.htm';
+              // $getHTML = curl_init();
+              // curl_setopt($getHTML, CURLOPT_URL, $url);
+              // curl_setopt($getHTML, CURLOPT_HEADER, 0);
+              // curl_setopt($getHTML, CURLOPT_RETURNTRANSFER, 1);
+              // $returnProductData = curl_exec($getHTML);
+
+              // check for sold online or not
+              if (!get_sub_field('not_sold')) {
+                $available_online = '<button class="add-to-cart">Add to Cart</button>';
+                $product_link = '<a href="https://www.greenfarmparts.com/-p/' . get_sub_field('as_needed_part_number') . '.htm">' . get_sub_field('as_needed_part_number') . '</a>';
+              } else {
+                $available_online = '<button class="disabled">Not Sold Online</button>';
+                $product_link = get_sub_field('as_needed_part_number');
+              }
+
+                // Add Serial Break on seperate line
+                $as_needed_part_description = get_sub_field('as_needed_part_description');
+                $as_needed_part_description = explode('(', $as_needed_part_description);
+                if (count($as_needed_part_description) > 1) {
+                  $as_needed_part_description = $as_needed_part_description[0] . '<br><em>(' . $as_needed_part_description[1] . '</em>';
+                } else {
+                  $as_needed_part_description = get_sub_field('as_needed_part_description');
+                }
+            ?>
+            <tr>
+              <td data-header="Part Type" data-product-image="https://greenfarmparts.com/v/vspfiles/photos/<?php echo get_sub_field('as_needed_part_number'); ?>-2T.jpg">
+                <?php echo $as_needed_part_description; ?>    
+              </td>
+              <td data-header="Part Number"><?php echo $product_link; ?></td>
+              <!-- <td data-header="Price">$9.99</td> -->
+              <td><?php echo $available_online; ?></td>
+            </tr>
+            <?php if (have_rows('serial_breaks')) : while(have_rows('serial_breaks')) : the_row(); ?>
+              <?php
+                // Add Serial Break on seperate line
+                $serial_break_as_needed_part_description = get_sub_field('serial_break_as_needed_part_description');
+                $serial_break_as_needed_part_description = explode('(', $serial_break_as_needed_part_description);
+              ?>
+              <tr>
+                <td data-header="Part Type"><?php echo $serial_break_as_needed_part_description[0]; ?><br><em>(<?php echo $serial_break_as_needed_part_description[1]; ?></em></td>
+                <td data-header="Part Number"><a href="https://www.greenfarmparts.com/-p/<?php echo get_sub_field('serial_break_as_needed_part_number'); ?>.htm"><?php echo get_sub_field('serial_break_as_needed_part_number'); ?></a></td>
+                <!-- <td data-header="Price">$9.99</td> -->
+                <td>
+                  <?php
+                    if (!get_sub_field('not_sold')) {
+                      echo '<button class="add-to-cart">Add to Cart</button>';
+                    } else {
+                      echo 'Not sold online';
+                    }
+                  ?>
+                </td>
+              </tr>
+            <?php endwhile; endif; ?>
+        <?php endwhile; ?>
+          </table>
+        <?php endif; ?>
+      </section>
 
     </article>
 
