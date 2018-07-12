@@ -30,7 +30,9 @@
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify": "^3.0.0",
     "hamburgers": "^0.9.3",
+    "handlebars": "^4.0.11",
     "postcss-import": "^11.1.0",
-    "pump": "^3.0.0"
+    "pump": "^3.0.0",
+    "vue": "^2.5.16"
   }
 }

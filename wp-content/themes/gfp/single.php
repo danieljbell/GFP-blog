@@ -14,6 +14,14 @@
       }
     ?>
 
+    <?php 
+      if (get_the_category()[0]->slug === 'maintenance-reminder') {
+        // echo '<div id="addTopCartWidget">';
+          get_template_part('partials/display', 'maintenance-reminder');
+        // echo '</div>';
+      } else {
+    ?>
+
     <section class="hero" <?php if (has_post_thumbnail()) { echo 'style="' . $hero_bg . '"'; } ?>>
       
       <div class="site-width">
@@ -40,22 +48,23 @@
         
         <article class="single-content">
           <?php
-            if ( have_rows('tech_section') ) : while ( have_rows('tech_section') ) : the_row();
-              if( get_row_layout() == 'text_only' ) :
-                echo the_sub_field('content');
-              endif;
-              if( get_row_layout() == 'section' ) :
-                $headline = get_sub_field('section_headline');
-                $content = get_sub_field('section_content');
-                $image = get_sub_field('section_image');
+            if ( have_rows('tech_section') ) : 
+              while ( have_rows('tech_section') ) : the_row();
+                if( get_row_layout() == 'text_only' ) :
+                  echo the_sub_field('content');
+                endif;
+                if( get_row_layout() == 'section' ) :
+                  $headline = get_sub_field('section_headline');
+                  $content = get_sub_field('section_content');
+                  $image = get_sub_field('section_image');
 
-                echo '<div class="single-tech-section">';
-                  echo '<h3>' . $headline . '</h3>';
-                  echo '<img src="' . $image["url"] . '" srcset="' . $image["sizes"]["medium"] . ' ' . $image["sizes"]["medium-width"] . 'w, ' . $image["sizes"]["large"] . ' ' . $image["sizes"]["large-width"] . 'w" sizes="(max-width: ' . $image["sizes"]["medium-width"] . 'px) 100vw, ' . $image["sizes"]["medium-width"] . 'px" alt="' . $headline . '">';
-                  echo $content;
-                echo '</div>';
-              endif;
-            endwhile;
+                  echo '<div class="single-tech-section">';
+                    echo '<h3>' . $headline . '</h3>';
+                    echo '<img src="' . $image["url"] . '" srcset="' . $image["sizes"]["medium"] . ' ' . $image["sizes"]["medium-width"] . 'w, ' . $image["sizes"]["large"] . ' ' . $image["sizes"]["large-width"] . 'w" sizes="(max-width: ' . $image["sizes"]["medium-width"] . 'px) 100vw, ' . $image["sizes"]["medium-width"] . 'px" alt="' . $headline . '">';
+                    echo $content;
+                  echo '</div>';
+                endif;
+              endwhile;
             
             elseif ($format === 'video') :
               echo '<div class="video-outer mar-b">';
@@ -66,6 +75,7 @@
               echo the_content();
 
             else :
+
               echo the_content();
             
             endif;
@@ -126,6 +136,7 @@
 
     </section>
 
+  <?php } ?>
 
   <?php endwhile; endif; ?>
 

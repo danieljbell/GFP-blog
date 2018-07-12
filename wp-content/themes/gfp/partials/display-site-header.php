@@ -2,14 +2,14 @@
 <header class="site-header">
   <div class="site-width">
     <div class="menu-item--logo-container">
-      <a href="https://greenfarmparts.com">
+      <a href="https://www.greenfarmparts.com">
         <img src="<?php echo get_template_directory_uri(); ?>/dist/img/gfp-logo.svg" alt="Green Farm Parts">
       </a>
     </div>
     <nav>
       <ul class="navigation--level-zero">
         <li class="mobile-search-container">
-          <form action="https://greenfarmparts.com/searchresults.asp" method="get" name="SearchBoxForm" id="mobileSearchBar">
+          <form action="https://www.greenfarmparts.com/searchresults.asp" method="get" name="SearchBoxForm" id="mobileSearchBar">
             <input placeholder="Search..." type="search" name="Search" class="mobile-search ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
           </form>
         </li>
@@ -32,9 +32,10 @@
           ?>
         </li>
         <li class="cart-container">
-          <a href="/shoppingcart.asp">
+          <a href="https://www.greenfarmparts.com/shoppingcart.asp">
             <span class="mobile-only">Shopping Cart</span>
-            <img src="https://greenfarmparts.com/v/vspfiles/templates/gfp-test/img/cart-icon.jpg" style="display: inline-block; vertical-align: middle; border-radius: 50%; max-width: 40px;">
+            <strong>0</strong>
+            <img src="https://www.greenfarmparts.com/v/vspfiles/templates/gfp-test/img/cart-icon.jpg" style="display: inline-block; vertical-align: middle; border-radius: 50%; max-width: 40px;">
           </a>
         </li>
       </ul>

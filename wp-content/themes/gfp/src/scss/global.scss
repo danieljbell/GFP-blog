@@ -14,6 +14,9 @@
   'modules/site-header',
   'modules/eyebrow',
   'modules/hero',
+  'modules/forms',
+  'modules/alerts',
+  'modules/tables',
   'modules/card',
   'modules/post-listing',
   'modules/comments',
@@ -23,6 +26,7 @@
 
 @import 
   'page/single',
+  'page/single--maintenance-reminder',
   'page/404';
 
 @import 'utilities';

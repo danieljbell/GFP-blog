@@ -16,6 +16,9 @@ ADD GLOBAL JS TO PAGE
 ==============================
 */
 function enqueue_global_js() {
+  // if (is_single() && in_category('12')) {
+  //   wp_enqueue_script('vue', get_stylesheet_directory_URI() . '/dist/js/vue.js', array(), '1.0.0', true);
+  // }
   wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.1', true);
 }
 add_action('wp_enqueue_scripts', 'enqueue_global_js');
