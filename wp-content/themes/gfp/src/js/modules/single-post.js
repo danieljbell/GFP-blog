@@ -5,6 +5,17 @@
 
   document.querySelector('.alert--cart-list').innerHTML = '';
 
+  /*
+  =============================================
+  MINIZES ALERT ON PAGE LOAD IF COOKIE PRESENT
+  =============================================
+  */
+  // if (document.cookie.split(';').filter(function(item) {
+  //   return item.indexOf('cartURL=') >= 0
+  // }).length) {
+  //   document.querySelector('.alert--add-to-cart').classList.add('alert--is-minimized');
+  // }
+
   
   /*
   =========================================
@@ -21,6 +32,52 @@
     var loc = e.target.value;
     window.location.href = '/' + loc;
   });
+
+
+  /*
+  ==============================================
+  SHOW PRODUCT IMAGE ON HOVER
+  @note = Only runs on screen larger than 1080px
+  ==============================================
+  */
+  var allRows = document.querySelectorAll('table tr');
+
+  for (var i = 0; i < allRows.length; i++) {
+    allRows[i].addEventListener('mouseenter', function(e) {
+      if ((window.innerWidth < 1080) || (e.target.querySelector('td:first-child').dataset.productSold === 'false')) {
+        return;
+      }
+      // console.log(e.target.querySelector('td:first-child').dataset.productSold);
+
+      var imgExists = e.target.querySelector('td:first-child .product-image-container');
+      if (imgExists) {
+        imgExists.classList.remove('product-image--is-hidden');
+        return;
+      }
+
+      var imgPath = e.target.querySelector('td:first-child').dataset.productImage;
+      var prodImg = document.createElement('img');
+      prodImg.classList.add('product-image');
+      
+      if (typeof imgPath === 'undefined') { 
+        prodImg.src = 'https://cdn3.volusion.com/yxhfe.dfqew/v/vspfiles/templates/gfp-test/images/nophoto.gif';
+      } else {
+        prodImg.src = imgPath;
+      }
+
+      var prodImgContainer = document.createElement('div');
+      prodImgContainer.classList.add('product-image-container');
+      prodImgContainer.appendChild(prodImg);
+      
+      var tableCell = e.target.querySelector('td:first-child').appendChild(prodImgContainer);
+      
+    });
+
+    allRows[i].addEventListener('mouseleave', function(e) {
+      e.target.querySelector('td:first-child .product-image-container').classList.add('product-image--is-hidden');
+    });
+  }
+
 
 
   /*
@@ -72,10 +129,11 @@
     var container = self.parentElement.parentElement;
     var classes = container.classList.toString();
 
-    if (classes.includes('alert--is-minimized')) {
+    if (classes.includes('alert--is-minimized') && classes.includes('alert--is-active')) {
       container.classList.remove('alert--is-minimized');
     } else {
       container.classList.add('alert--is-minimized');
+      container.classList.add('alert--is-active');
     }
   });
 
@@ -142,18 +200,9 @@
   document.querySelector('#saveForLater').addEventListener('click', function(e) {
     e.preventDefault();
 
+    document.cookie = 'cartURL=' + buildCartString();
 
-    atomic(buildCartString(), {
-      method: 'POST'
-    })
-    .then(function (response) {
-      console.log(response.data); // xhr.responseText
-      console.log(response.xhr);  // full response
-    })
-    .catch(function (error) {
-      console.log(error.status); // xhr.status
-      console.log(error.statusText); // xhr.statusText
-    });
+    document.querySelector('.alert--add-to-cart').classList.add('alert--is-minimized');
 
   });
 

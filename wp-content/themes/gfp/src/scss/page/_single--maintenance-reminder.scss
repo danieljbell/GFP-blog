@@ -14,10 +14,28 @@
 
 .single .category-maintenance-reminder #saveForLater {
   display: none;
-  @include tablet {
-    display: inline-block;  
-  }
-  @include desktop {
-    display: inline-block;    
-  }
+  // @include tablet {
+  //   display: inline-block;  
+  // }
+  // @include desktop {
+  //   display: inline-block;    
+  // }
+}
+
+.single .category-maintenance-reminder .product-image-container {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 1rem);
+  transform: translateY(-50%);
+  width: 100%;
+  max-width: 200px;
+  padding: 1rem;
+  border: 1px solid $medium-gray;
+  box-shadow: 4px 4px 10px rgba(black, 0.1);
+  text-align: center;
+  border-radius: 5px;
+}
+
+.single .category-maintenance-reminder .product-image--is-hidden {
+  opacity: 0;
 }

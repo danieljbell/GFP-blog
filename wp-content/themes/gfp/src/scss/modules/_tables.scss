@@ -47,6 +47,7 @@ td {
   justify-content: space-between;
   padding: 0.1rem 1rem;
   text-align: right;
+  position: relative;
   @include tablet {
     text-align: left;
     display: table-cell;

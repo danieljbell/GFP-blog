@@ -66,9 +66,11 @@
               if (!get_sub_field('not_sold')) {
                 $available_online = '<button class="add-to-cart">Add to Cart</button>';
                 $product_link = '<a href="https://www.greenfarmparts.com/-p/' . get_sub_field('common_part_number') . '.htm">' . get_sub_field('common_part_number') . '</a>';
+                $sold_online = 'true';
               } else {
                 $available_online = '<button class="disabled">Not Sold Online</button>';
                 $product_link = get_sub_field('common_part_number');
+                $sold_online = 'false';
               }
 
                 // Add Serial Break on seperate line
@@ -81,7 +83,7 @@
                 }
             ?>
             <tr>
-              <td data-header="Part Type" data-product-image="https://greenfarmparts.com/v/vspfiles/photos/<?php echo get_sub_field('common_part_number'); ?>-2T.jpg">
+              <td data-header="Part Type" data-product-sold="<?php echo $sold_online; ?>" data-product-image="https://greenfarmparts.com/v/vspfiles/photos/<?php echo get_sub_field('common_part_number'); ?>-2T.jpg">
                 <?php echo $common_part_description; ?>    
               </td>
               <td data-header="Part Number"><?php echo $product_link; ?></td>
