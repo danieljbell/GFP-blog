@@ -11,3 +11,13 @@
 .single .category-maintenance-reminder.post h2 span {
   display: none;
 }
+
+.single .category-maintenance-reminder #saveForLater {
+  display: none;
+  @include tablet {
+    display: inline-block;  
+  }
+  @include desktop {
+    display: inline-block;    
+  }
+}

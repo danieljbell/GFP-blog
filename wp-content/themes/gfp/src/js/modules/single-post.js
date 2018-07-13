@@ -95,13 +95,11 @@
     }
   });
 
-  document.querySelector('#submitCheckout').addEventListener('click', function(e) {
-    // cart url template: https://www.greenfarmparts.com/shoppingcart.asp?productcode=jdzg900&QTY.jdzg900=5
-    e.preventDefault();
-    var initURL = this.href;
+
+
+  function buildCartString() {
+    var initURL = 'https://www.greenfarmparts.com/shoppingcart.asp?';
     var allAddedProducts = [];
-
-
     var allAddedItems = document.querySelectorAll('.alert--cart-item');
 
     for (var i = 0; i < allAddedItems.length; i++) {
@@ -121,11 +119,41 @@
       }
     }
 
-    window.location.href = initURL;
-    // console.log(initURL);
-    // console.log(allAddedProducts);
+    return initURL;
+  }
+
+  /*
+  ====================================
+  CHECKOUT - Send products to Volusion
+  ====================================
+  */
+  document.querySelector('#submitCheckout').addEventListener('click', function(e) {
+    // cart url template: https://www.greenfarmparts.com/shoppingcart.asp?productcode=jdzg900&QTY.jdzg900=5
+    e.preventDefault();
+    window.location.href = buildCartString();
+
+  });
+
+  /*
+  =====================================================
+  SAVE FOR LATER - Send products to Volusion and cookie
+  =====================================================
+  */
+  document.querySelector('#saveForLater').addEventListener('click', function(e) {
+    e.preventDefault();
 
 
+    atomic(buildCartString(), {
+      method: 'POST'
+    })
+    .then(function (response) {
+      console.log(response.data); // xhr.responseText
+      console.log(response.xhr);  // full response
+    })
+    .catch(function (error) {
+      console.log(error.status); // xhr.status
+      console.log(error.statusText); // xhr.statusText
+    });
 
   });
 
