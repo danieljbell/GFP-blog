@@ -69,7 +69,7 @@
               // check for sold online or not
               if (!get_sub_field('not_sold')) {
                 $available_online = '<button class="add-to-cart">Add to Cart</button>';
-                $product_link = '<a href="https://www.greenfarmparts.com/-p/' . get_sub_field('common_part_number') . '.htm">' . get_sub_field('common_part_number') . '</a>';
+                $product_link = '<a href="https://www.greenfarmparts.com/-p/' . strtoupper(get_sub_field('common_part_number')) . '.htm">' . get_sub_field('common_part_number') . '</a>';
                 $sold_online = 'true';
               } else {
                 $available_online = '<button class="disabled">Not Sold Online</button>';
