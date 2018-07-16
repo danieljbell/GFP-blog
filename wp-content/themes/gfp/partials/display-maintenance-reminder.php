@@ -11,6 +11,8 @@
   $model_number = $returnDeereModel['Page']['analytics']['MetaData']['product-model-number'];
   $model_name = $returnDeereModel['Page']['analytics']['MetaData']['product-model-name'];
   $model_image = 'https://deere.com/' . $returnDeereModel['Page']['analytics']['MetaData']['product-image'];
+
+
 ?>  
 
 <section <?php post_class(); ?>>
@@ -261,6 +263,22 @@
               </tr>
             <?php endwhile; endif; ?>
         <?php endwhile; ?>
+            <?php
+              $add_on_parts = array(
+                array("Shop Towels", "TY26777"),
+                array("Hand Cleaner", "TY26081"),
+                array("Green Spray Paint", "TY25624"),
+                array("Yellow Spray Paint", "TY25641"),
+                array("Black Spray Paint", "TY25609")
+              );
+            ?>
+            <?php foreach ($add_on_parts as $part) :  ?>
+              <tr>
+                <td data-header="Part Type" data-product-image="https://greenfarmparts.com/v/vspfiles/photos/<?php echo $part[1]; ?>-2T.jpg"><?php echo $part[0]; ?></td>
+                <td data-header="Part Number"><a href="https://www.greenfarmparts.com/-p/<?php echo $part[1]; ?>.htm"><?php echo $part[1]; ?></a></td>
+                <td><button class="add-to-cart">Add to Cart</button></td>
+              </tr>
+            <?php endforeach; ?>
           </table>
         <?php endif; ?>
       </section>
