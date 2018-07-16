@@ -27,7 +27,8 @@
       <h1><?php echo get_the_title(); ?></h1>
 
       <?php
-        $model_modifiers = get_field('model_modifers'); 
+        $model_modifiers = get_field('model_modifers');
+        print_r($model_modifiers);
         echo '<select id="modelModifiers">';
           echo '<option selected disabled>Choose Different Model in this Series</option>';
         foreach ($model_modifiers as $post) {
