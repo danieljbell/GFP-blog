@@ -27,7 +27,7 @@
       <h1><?php echo get_the_title(); ?></h1>
 
       <?php
-        $model_modifiers = get_field('model_modifers');
+        $model_modifiers = get_field('model_modifiers');
         if ($model_modifiers) {
           print_r($model_modifiers);
           echo '<select id="modelModifiers">';
