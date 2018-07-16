@@ -24,14 +24,13 @@
   */
   var modelModiferSelect = document.querySelector('#modelModifiers');
   var mainContainer = document.querySelector('#main_content');
-  modelModiferSelect.addEventListener('change', function(e) {
-    
-    // mainContainer.style.height = mainContainer.offsetHeight;
-    // mainContainer.innerHTML = '<div class="site-width pad-y--most"><img src="https://fillmurray.com/200/200"></div>';
 
-    var loc = e.target.value;
-    window.location.href = '/' + loc;
-  });
+  if (modelModiferSelect) {
+    modelModiferSelect.addEventListener('change', function(e) {
+      var loc = e.target.value;
+      window.location.href = '/' + loc;
+    });
+  }
 
 
   /*
