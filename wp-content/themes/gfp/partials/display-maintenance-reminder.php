@@ -28,17 +28,19 @@
 
       <?php
         $model_modifiers = get_field('model_modifers');
-        print_r($model_modifiers);
-        echo '<select id="modelModifiers">';
-          echo '<option selected disabled>Choose Different Model in this Series</option>';
-        foreach ($model_modifiers as $post) {
-          setup_postdata($post);
-          global $post;
-          $post_slug = $post->post_name;
-          echo '<option value="' . $post_slug . '">' . str_replace('Maintenance Sheet', '', get_the_title()) . '</option>';
+        if ($model_modifiers) {
+          print_r($model_modifiers);
+          echo '<select id="modelModifiers">';
+            echo '<option selected disabled>Choose Different Model in this Series</option>';
+          foreach ($model_modifiers as $post) {
+            setup_postdata($post);
+            global $post;
+            $post_slug = $post->post_name;
+            echo '<option value="' . $post_slug . '">' . str_replace('Maintenance Sheet', '', get_the_title()) . '</option>';
+          }
+          wp_reset_postdata();
+          echo '</select>';
         }
-        wp_reset_postdata();
-        echo '</select>';
       ?>
 
       <section class="mar-y--most">
