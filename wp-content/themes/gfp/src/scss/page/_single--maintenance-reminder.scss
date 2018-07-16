@@ -2,6 +2,19 @@
   grid-template-columns: 350px 2fr;
 }
 
+.single .category-maintenance-reminder.post .model-image {
+  @include desktop {
+    height: 100%;
+    max-height: 300px;
+  }
+  img {
+    @include desktop {
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
 .single .category-maintenance-reminder.post h1 {
   font-size: 1.75rem;
   line-height: 1.1;
@@ -23,9 +36,11 @@
 }
 
 .single .category-maintenance-reminder .product-image-container {
+  background-color: #fff;
   position: absolute;
+  z-index: 1;
   top: 50%;
-  right: calc(100% + 1rem);
+  right: 0;
   transform: translateY(-50%);
   width: 100%;
   max-width: 200px;
@@ -38,4 +53,61 @@
 
 .single .category-maintenance-reminder .product-image--is-hidden {
   opacity: 0;
+}
+
+.maintenance-kit-container {
+  padding: 1.5rem;
+  border: 1px solid $medium-gray;
+  box-shadow: 4px 4px 8px rgba(black, 0.1);
+  display: block;
+  background-color: $light-gray;
+  border-radius: 5px;
+  display: none;
+  @include desktop {
+    display: block;
+    margin-top: 5rem;
+  }
+  
+  &:hover {
+    text-decoration: none;
+  }
+
+  h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  
+  img {
+    max-width: 125px;
+    display: block;
+    float: left;
+    padding-right: 1rem;
+  }
+
+  p {
+    color: lighten($black, 10%);
+    margin-bottom: 0 !important;
+  }
+
+  ul {
+    color: lighten($black, 10%);
+    padding-left: 1rem;
+    font-size: 0.9em;
+  }
+
+  .maintenance-kit-content {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
+}
+
+.maintenance-kit-container--is-fixed {
+  position: fixed;
+  max-width: 350px;
+  top: 3rem;
+  margin-top: 0 !important;
 }

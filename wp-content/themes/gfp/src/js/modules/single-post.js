@@ -46,7 +46,6 @@
       if ((window.innerWidth < 1080) || (e.target.querySelector('td:first-child').dataset.productSold === 'false')) {
         return;
       }
-      // console.log(e.target.querySelector('td:first-child').dataset.productSold);
 
       var imgExists = e.target.querySelector('td:first-child .product-image-container');
       if (imgExists) {
@@ -204,6 +203,33 @@
     document.querySelector('.alert--add-to-cart').classList.add('alert--is-minimized');
 
   });
+
+
+  /*
+  ==============================
+  STICKY MAINTENANCE KIT BUY NOW
+  ==============================
+  */
+
+  var maintenanceKitContainer = document.querySelector('.maintenance-kit-container');
+  if (maintenanceKitContainer && window.innerWidth > 1080) {
+    window.onload = function() {
+      var offsetTop = maintenanceKitContainer.offsetTop;
+      var baseFontSize = window.getComputedStyle(document.body, null).fontSize;
+      baseFontSize = parseInt(baseFontSize.split('px')[0]);
+
+      window.addEventListener('scroll', function(e) {
+        if (window.scrollY > (offsetTop - (baseFontSize * 3))) {
+          maintenanceKitContainer.classList.add('maintenance-kit-container--is-fixed');
+        }
+        if (window.scrollY < (offsetTop - (baseFontSize * 3))) {
+          maintenanceKitContainer.classList.remove('maintenance-kit-container--is-fixed');
+        }
+      });
+    }
+
+  }
+
 
 })();
 

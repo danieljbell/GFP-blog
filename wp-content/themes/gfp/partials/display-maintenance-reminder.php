@@ -11,7 +11,7 @@
   $model_number = $returnDeereModel['Page']['analytics']['MetaData']['product-model-number'];
   $model_name = $returnDeereModel['Page']['analytics']['MetaData']['product-model-name'];
   $model_image = 'https://deere.com/' . $returnDeereModel['Page']['analytics']['MetaData']['product-image'];
-
+  $maintenance_kit = get_field('maintenance_kit_part_number');
 
 ?>  
 
@@ -19,8 +19,32 @@
   <div class="site-width">
 
     <aside>
-      <img class="model-image" src="<?php echo $model_image; ?>" alt="John Deere <?php echo $model_number . ' ' . $model_name; ?>">
-
+      <div class="model-image">
+        <img src="<?php echo $model_image; ?>" alt="John Deere <?php echo $model_number . ' ' . $model_name; ?>">
+      </div>
+      <?php if ($maintenance_kit) : ?>
+        <a href="https://greenfarmparts.com/-p/<?php echo $maintenance_kit; ?>.htm" title="Maintenance Kit: <?php echo $maintenance_kit; ?> for a John Deere <?php echo $model_number . ' ' . $model_name; ?>" class="maintenance-kit-container">
+          <h2>Need A Home Maintenance Kit<span> for your John Deere <?php echo $model_number . ' ' . $model_name; ?> </span>?</h2>
+          <div class="maintenance-kit-content">
+            <div class="maintenance-kit-img">
+              <img src="https://greenfarmparts.com/v/vspfiles/photos/<?php echo $maintenance_kit; ?>-2T.jpg" alt="Maintenance Kit: <?php echo $maintenance_kit; ?> for a John Deere <?php echo $model_number . ' ' . $model_name; ?>">
+            </div>
+            <?php if (have_rows('maintenance_part_items')) : ?>
+              <div class="maintenance-kit-copy">
+                <p><strong>Kit Includes:</strong></p>
+                <ul>
+                  <?php while (have_rows('maintenance_part_items')) : the_row(); ?>
+                    <li><?php echo get_sub_field('maintenance_part_item'); ?></li>
+                  <?php endwhile; ?>
+                </ul>
+              </div>  
+            <?php endif; ?>
+          </div>
+          <div class="has-text-center">
+            <div class="btn-solid--brand">Buy <?php echo strtoupper($maintenance_kit); ?> Now</div>
+          </div>
+        </a>
+      <?php endif; ?>
     </aside>
       
     <article>
@@ -35,7 +59,8 @@
             setup_postdata($post);
             global $post;
             $post_slug = $post->post_name;
-            echo '<option value="' . $post_slug . '">' . str_replace('Maintenance Sheet', '', get_the_title()) . '</option>';
+            $stripped_title = str_replace('John Deere ', '', str_replace('Maintenance Sheet', '', get_the_title()));
+            echo '<option value="' . $post_slug . '">' . $stripped_title . '</option>';
           }
           wp_reset_postdata();
           echo '</select>';
