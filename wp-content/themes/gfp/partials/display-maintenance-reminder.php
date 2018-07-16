@@ -29,7 +29,6 @@
       <?php
         $model_modifiers = get_field('model_modifiers');
         if ($model_modifiers) {
-          print_r($model_modifiers);
           echo '<select id="modelModifiers">';
             echo '<option selected disabled>Choose Different Model in this Series</option>';
           foreach ($model_modifiers as $post) {
