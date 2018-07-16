@@ -23,11 +23,13 @@
         <img src="<?php echo $model_image; ?>" alt="John Deere <?php echo $model_number . ' ' . $model_name; ?>">
       </div>
       <?php if ($maintenance_kit) : ?>
-        <a href="https://greenfarmparts.com/-p/<?php echo $maintenance_kit; ?>.htm" title="Maintenance Kit: <?php echo $maintenance_kit; ?> for a John Deere <?php echo $model_number . ' ' . $model_name; ?>" class="maintenance-kit-container">
+        <div class="maintenance-kit-container">
           <h2>Need A Home Maintenance Kit<span> for your John Deere <?php echo $model_number . ' ' . $model_name; ?> </span>?</h2>
           <div class="maintenance-kit-content">
             <div class="maintenance-kit-img">
-              <img src="https://greenfarmparts.com/v/vspfiles/photos/<?php echo $maintenance_kit; ?>-2T.jpg" alt="Maintenance Kit: <?php echo $maintenance_kit; ?> for a John Deere <?php echo $model_number . ' ' . $model_name; ?>">
+              <a href="https://greenfarmparts.com/-p/<?php echo $maintenance_kit; ?>.htm" title="Maintenance Kit: <?php echo $maintenance_kit; ?> for a John Deere <?php echo $model_number . ' ' . $model_name; ?>">
+                <img src="https://greenfarmparts.com/v/vspfiles/photos/<?php echo $maintenance_kit; ?>-2T.jpg" alt="Maintenance Kit: <?php echo $maintenance_kit; ?> for a John Deere <?php echo $model_number . ' ' . $model_name; ?>">
+              </a>
             </div>
             <?php if (have_rows('maintenance_part_items')) : ?>
               <div class="maintenance-kit-copy">
@@ -41,9 +43,12 @@
             <?php endif; ?>
           </div>
           <div class="has-text-center">
-            <div class="btn-solid--brand">Buy <?php echo strtoupper($maintenance_kit); ?> Now</div>
+            <a href="https://greenfarmparts.com/-p/<?php echo $maintenance_kit; ?>.htm" title="Maintenance Kit: <?php echo $maintenance_kit; ?> for a John Deere <?php echo $model_number . ' ' . $model_name; ?>" class="btn-solid--brand">Buy <?php echo strtoupper($maintenance_kit); ?> Now</a>
+            <?php if (have_rows('maintenance_kit_serial_breaks')) : while (have_rows('maintenance_kit_serial_breaks')) : the_row(); ?>
+              <a href="https://greenfarmparts.com/-p/<?php echo get_sub_field('serial_break_maintenance_kit_part_number'); ?>.htm" title="Maintenance Kit: <?php echo get_sub_field('serial_break_maintenance_kit_part_number'); ?> for a John Deere <?php echo $model_number . ' ' . $model_name; ?>" class="btn-solid--brand">Buy <?php echo strtoupper(get_sub_field('serial_break_maintenance_kit_part_number')); ?> Now</a>
+            <?php endwhile; endif; ?>
           </div>
-        </a>
+        </div>
       <?php endif; ?>
     </aside>
       
