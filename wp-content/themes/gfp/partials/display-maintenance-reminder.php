@@ -57,6 +57,7 @@
       <?php
         $model_modifiers = get_field('model_modifiers');
         if ($model_modifiers) {
+          echo '<h4>Looking for a different model?</h4><p style="margin-bottom: 0.5rem;">Browse other models in this series below</p>';
           echo '<select id="modelModifiers">';
             echo '<option selected disabled>Choose Different Model in this Series</option>';
           foreach ($model_modifiers as $post) {
