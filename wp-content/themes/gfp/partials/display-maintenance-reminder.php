@@ -61,7 +61,7 @@
             echo '<option selected disabled>Choose Different Model in this Series</option>';
           foreach ($model_modifiers as $post) {
             setup_postdata($post);
-            global $post;
+            // global $post;
             $post_slug = $post->post_name;
             $stripped_title = str_replace('John Deere ', '', str_replace('Maintenance Sheet', '', get_the_title()));
             if (('/' . $post_slug . '/') == $_SERVER['REQUEST_URI']) {
