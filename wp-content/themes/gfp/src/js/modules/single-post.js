@@ -28,7 +28,7 @@
   if (modelModiferSelect) {
     modelModiferSelect.addEventListener('change', function(e) {
       var loc = e.target.value;
-      window.location.href = '/' + loc;
+      window.location.href = window.location.origin + '/' + loc;
     });
   }
 
