@@ -64,7 +64,7 @@
             global $post;
             $post_slug = $post->post_name;
             $stripped_title = str_replace('John Deere ', '', str_replace('Maintenance Sheet', '', get_the_title()));
-            if ($post_slug = $_SERVER['REQUEST_URI']) {
+            if (('/' . $post_slug . '/') == $_SERVER['REQUEST_URI']) {
               echo '<option selected value="' . $post_slug . '">' . $stripped_title . '</option>';
             } else {
               echo '<option value="' . $post_slug . '">' . $stripped_title . '</option>';
