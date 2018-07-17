@@ -12,7 +12,6 @@
   $model_name = $returnDeereModel['Page']['analytics']['MetaData']['product-model-name'];
   $model_image = 'https://deere.com/' . $returnDeereModel['Page']['analytics']['MetaData']['product-image'];
   $maintenance_kit = get_field('maintenance_kit_part_number');
-
 ?>  
 
 <section <?php post_class(); ?>>
@@ -65,7 +64,11 @@
             global $post;
             $post_slug = $post->post_name;
             $stripped_title = str_replace('John Deere ', '', str_replace('Maintenance Sheet', '', get_the_title()));
-            echo '<option value="' . $post_slug . '">' . $stripped_title . '</option>';
+            if ($post_slug = $_SERVER['REQUEST_URI']) {
+              echo '<option selected value="' . $post_slug . '">' . $stripped_title . '</option>';
+            } else {
+              echo '<option value="' . $post_slug . '">' . $stripped_title . '</option>';
+            }
           }
           wp_reset_postdata();
           echo '</select>';
