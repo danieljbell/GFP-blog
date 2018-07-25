@@ -23,6 +23,9 @@
             background-color: darken($bgc, 15%);
         }
     }
+    &.disabled {
+        background-color: #ccc;
+    }
 }
 
 @mixin outlineButton($c: #fff, $hover-color: #fff) {
@@ -71,3 +74,4 @@ OUTLINE BUTTONS
 .btn-outline--white {
     @include outlineButton(#fff, $black);
 }
+

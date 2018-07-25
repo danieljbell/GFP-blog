@@ -37,7 +37,8 @@ gulp.task('js', function () {
     'src/js/lib/atomic.min.js',
     'src/js/modules/site-header.js',
     'src/js/modules/single-post.js',
-    'src/js/modules/single-comments.js'
+    'src/js/modules/single-comments.js',
+    'src/js/modules/post-listing.js'
   ])
     .pipe(sourcemaps.init())
     .pipe(concat('global.js'))
