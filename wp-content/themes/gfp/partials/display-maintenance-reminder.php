@@ -77,7 +77,7 @@
     <article>
       <h1><?php echo get_the_title(); ?></h1>
       <h2><?php echo get_the_excerpt(); ?></h2>
-      <p>Common sense goes a long ways when maintaining your machine. If you have extreme heat, dust, or terrain that you operate in you, service frequency will need to increase. Additionally, if you run your John Deere mower or tractor constantly at slow or low speeds or for short periods of time, eingine oil will degrade and need change more often.</p>
+      <p>Common sense goes a long ways when maintaining your machine. If you have extreme heat, dust, or terrain that you operate in you, service frequency will need to increase.</p>
 
       <section class="mar-y--most">
         <?php // echo str_replace('Maintenance Sheet', '', get_the_title()); ?>
@@ -85,7 +85,7 @@
 
       <section class="mar-y--most">
         <h3>Service Schedule Parts<span> for John Deere <?php echo $model_number . ' ' . $model_name; ?></span></h3>
-        <p>While your John Deere machine is certainly built with quality parts and components, you can easily service your machine yourself using a John Deere maintenance kit or service kits or by getting the specific John Deere part needed to keep your John Deere mower or tractor running for a long time. These are the parts on your John Deere <?php echo $formal_model_name; ?> that need to be regularly serviced.</p>
+        <p>While your John Deere machine is certainly built with quality parts, they have a limited life. Good news is you can easily service your machine yourself using a John Deere maintenance kit or service kits or by getting the specific John Deere part needed to keep your John Deere mower or tractor running for a long time. These are the parts on your John Deere <?php echo $formal_model_name; ?> that need to be regularly serviced.</p>
         <?php if (have_rows('hourly_parts')) : ?>
           <table>
             <tr>
