@@ -16,7 +16,7 @@ ADD GLOBAL JS TO PAGE
 ==============================
 */
 function enqueue_global_js() {
-  wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.5', true);
+  wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.6', true);
 }
 add_action('wp_enqueue_scripts', 'enqueue_global_js');
 

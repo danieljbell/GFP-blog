@@ -161,28 +161,31 @@
         <?php 
           if (have_rows('service_interval_page')) {
             $posts = get_field('service_interval_page');
-            echo '<ul class="accordian">';
-              foreach ($posts as $post) {
-                setup_postdata($post);
-                if (have_rows('service_interval', $post->ID)) : while (have_rows('service_interval', $post->ID)) : the_row();
-                  echo '<li class="accordian--item">';
-                    echo '<button class="accordian--title">' . get_sub_field('interval') . '</button>';
-                    echo '<ul class="accordian--content">';
-                      if (have_rows('interval_checklist')) : while (have_rows('interval_checklist')) : the_row();
-                        $item_array = get_sub_field('interval_checklist_item');
-                        echo '<li>';
-                          if ($item_array['url'] !== '#0') {
-                            echo '<a href="' . $item_array['url'] . '">' . $item_array['title'] . '</a>';
-                          } else {
-                            echo $item_array['title'];
-                          }
-                        echo '</li>';
-                      endwhile; endif;
-                    echo '</ul>';
-                  echo '</li>';
-                endwhile; endif;
-              }
-            echo '</ul>';
+            echo '<div class="service-checklist">';
+              echo '<h3>Service Interval Checklist <span>for ' . $formal_model_name . '</span></h3>';
+              echo '<ul class="accordian">';
+                foreach ($posts as $post) {
+                  setup_postdata($post);
+                  if (have_rows('service_interval', $post->ID)) : while (have_rows('service_interval', $post->ID)) : the_row();
+                    echo '<li class="accordian--item">';
+                      echo '<button class="accordian--title">' . get_sub_field('interval') . '</button>';
+                      echo '<ul class="accordian--content">';
+                        if (have_rows('interval_checklist')) : while (have_rows('interval_checklist')) : the_row();
+                          $item_array = get_sub_field('interval_checklist_item');
+                          echo '<li>';
+                            if ($item_array['url'] !== '#0') {
+                              echo '<a href="' . $item_array['url'] . '">' . $item_array['title'] . '</a>';
+                            } else {
+                              echo $item_array['title'];
+                            }
+                          echo '</li>';
+                        endwhile; endif;
+                      echo '</ul>';
+                    echo '</li>';
+                  endwhile; endif;
+                }
+              echo '</ul>';
+            echo '</div>';
             wp_reset_postdata();
           }
         ?>
