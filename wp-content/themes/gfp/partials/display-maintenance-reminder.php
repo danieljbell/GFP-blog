@@ -12,6 +12,8 @@
   $model_name = $returnDeereModel['Page']['analytics']['MetaData']['product-model-name'];
   $model_image = 'https://deere.com/' . $returnDeereModel['Page']['analytics']['MetaData']['product-image'];
   $maintenance_kit = get_field('maintenance_kit_part_number');
+
+  $formal_model_name = $model_number . ' ' . $model_name;
 ?>  
 
 <section <?php post_class(); ?>>
@@ -21,9 +23,30 @@
       <div class="model-image">
         <img src="<?php echo $model_image; ?>" alt="John Deere <?php echo $model_number . ' ' . $model_name; ?>">
       </div>
+      <?php
+        $model_modifiers = get_field('model_modifiers');
+        if ($model_modifiers) {
+          echo '<h4>Looking for a different model in this series?</h4><p style="margin-bottom: 0.5rem;">Browse other models in this series below</p>';
+          echo '<select id="modelModifiers">';
+            echo '<option selected disabled>Choose Different Model in this Series</option>';
+          foreach ($model_modifiers as $post) {
+            setup_postdata($post);
+            // global $post;
+            $post_slug = $post->post_name;
+            $stripped_title = str_replace('John Deere ', '', str_replace('Maintenance Sheet', '', get_the_title()));
+            if (('/' . $post_slug . '/') == $_SERVER['REQUEST_URI']) {
+              echo '<option selected value="' . $post_slug . '">' . $stripped_title . '</option>';
+            } else {
+              echo '<option value="' . $post_slug . '">' . $stripped_title . '</option>';
+            }
+          }
+          wp_reset_postdata();
+          echo '</select>';
+        }
+      ?>
       <?php if ($maintenance_kit) : ?>
         <div class="maintenance-kit-container">
-          <h2>Need A Home Maintenance Kit<span> for your John Deere <?php echo $model_number . ' ' . $model_name; ?> </span>?</h2>
+          <h3>Need A Home Maintenance Kit<span> for your John Deere <?php echo $model_number . ' ' . $model_name; ?> </span>?</h3>
           <div class="maintenance-kit-content">
             <div class="maintenance-kit-img">
               <a href="https://greenfarmparts.com/-p/<?php echo $maintenance_kit; ?>.htm" title="Maintenance Kit: <?php echo $maintenance_kit; ?> for a John Deere <?php echo $model_number . ' ' . $model_name; ?>">
@@ -53,110 +76,15 @@
       
     <article>
       <h1><?php echo get_the_title(); ?></h1>
-
-      <?php
-        $model_modifiers = get_field('model_modifiers');
-        if ($model_modifiers) {
-          echo '<h4>Looking for a different model?</h4><p style="margin-bottom: 0.5rem;">Browse other models in this series below</p>';
-          echo '<select id="modelModifiers">';
-            echo '<option selected disabled>Choose Different Model in this Series</option>';
-          foreach ($model_modifiers as $post) {
-            setup_postdata($post);
-            // global $post;
-            $post_slug = $post->post_name;
-            $stripped_title = str_replace('John Deere ', '', str_replace('Maintenance Sheet', '', get_the_title()));
-            if (('/' . $post_slug . '/') == $_SERVER['REQUEST_URI']) {
-              echo '<option selected value="' . $post_slug . '">' . $stripped_title . '</option>';
-            } else {
-              echo '<option value="' . $post_slug . '">' . $stripped_title . '</option>';
-            }
-          }
-          wp_reset_postdata();
-          echo '</select>';
-        }
-      ?>
+      <h2><?php echo get_the_excerpt(); ?></h2>
 
       <section class="mar-y--most">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni possimus quasi nobis voluptates sint aliquid in quas rerum, optio quisquam recusandae ratione corporis suscipit quis!</p>
+        <?php // echo str_replace('Maintenance Sheet', '', get_the_title()); ?>
       </section>
 
       <section class="mar-y--most">
-        <h2>Common Parts<span>for John Deere <?php echo $model_number . ' ' . $model_name; ?></span></h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut est soluta vitae ipsam facilis exercitationem, nulla ea. Illum possimus nisi suscipit, quae dolore blanditiis! Autem eligendi libero ullam, accusamus eius nihil facilis iure assumenda! Explicabo.</p>
-        <?php if (have_rows('common_parts')) : ?>
-          <table>
-            <tr>
-              <th>Part Type</th>
-              <th>Part Number</th>
-              <!-- <th>Price</th> -->
-              <th width="130"></th>
-            </tr>
-        <?php while (have_rows('common_parts')) : the_row(); ?>
-            <?php
-              // $url = 'https://www.greenfarmparts.com/-p/' . get_sub_field('common_part_number') . '.htm';
-              // $getHTML = curl_init();
-              // curl_setopt($getHTML, CURLOPT_URL, $url);
-              // curl_setopt($getHTML, CURLOPT_HEADER, 0);
-              // curl_setopt($getHTML, CURLOPT_RETURNTRANSFER, 1);
-              // $returnProductData = curl_exec($getHTML);
-
-              // check for sold online or not
-              if (!get_sub_field('not_sold')) {
-                $available_online = '<button class="add-to-cart">Add to Cart</button>';
-                $product_link = '<a href="https://www.greenfarmparts.com/-p/' . get_sub_field('common_part_number') . '.htm">' . strtoupper(get_sub_field('common_part_number')) . '</a>';
-                $sold_online = 'true';
-              } else {
-                $available_online = '<button class="disabled">Not Sold Online</button>';
-                $product_link = get_sub_field('common_part_number');
-                $sold_online = 'false';
-              }
-
-                // Add Serial Break on seperate line
-                $common_part_description = get_sub_field('common_part_description');
-                $common_part_description = explode('(', $common_part_description);
-                if (count($common_part_description) > 1) {
-                  $common_part_description = $common_part_description[0] . '<br><em>(' . $common_part_description[1] . '</em>';
-                } else {
-                  $common_part_description = get_sub_field('common_part_description');
-                }
-            ?>
-            <tr>
-              <td data-header="Part Type" data-product-sold="<?php echo $sold_online; ?>" data-product-image="https://greenfarmparts.com/v/vspfiles/photos/<?php echo get_sub_field('common_part_number'); ?>-2T.jpg">
-                <?php echo $common_part_description; ?>    
-              </td>
-              <td data-header="Part Number"><?php echo $product_link; ?></td>
-              <!-- <td data-header="Price">$9.99</td> -->
-              <td><?php echo $available_online; ?></td>
-            </tr>
-            <?php if (have_rows('serial_breaks')) : while(have_rows('serial_breaks')) : the_row(); ?>
-              <?php
-                // Add Serial Break on seperate line
-                $serial_break_common_part_description = get_sub_field('serial_break_common_part_description');
-                $serial_break_common_part_description = explode('(', $serial_break_common_part_description);
-              ?>
-              <tr>
-                <td data-header="Part Type"><?php echo $serial_break_common_part_description[0]; ?><br><em>(<?php echo $serial_break_common_part_description[1]; ?></em></td>
-                <td data-header="Part Number"><a href="https://www.greenfarmparts.com/-p/<?php echo get_sub_field('serial_break_common_part_number'); ?>.htm"><?php echo get_sub_field('serial_break_common_part_number'); ?></a></td>
-                <!-- <td data-header="Price">$9.99</td> -->
-                <td>
-                  <?php
-                    if (!get_sub_field('not_sold')) {
-                      echo '<button class="add-to-cart">Add to Cart</button>';
-                    } else {
-                      echo 'Not sold online';
-                    }
-                  ?>
-                </td>
-              </tr>
-            <?php endwhile; endif; ?>
-        <?php endwhile; ?>
-          </table>
-        <?php endif; ?>
-      </section>
-
-      <section class="mar-y--most">
-        <h2>Hourly Parts<span>for John Deere <?php echo $model_number . ' ' . $model_name; ?></span></h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut est soluta vitae ipsam facilis exercitationem, nulla ea. Illum possimus nisi suscipit, quae dolore blanditiis! Autem eligendi libero ullam, accusamus eius nihil facilis iure assumenda! Explicabo.</p>
+        <h3>Service Interval Parts<span> for John Deere <?php echo $model_number . ' ' . $model_name; ?></span></h3>
+        <p>While your John Deere machine is certainly built with quality parts and componenst, over time some things These are the parts on your <?php echo $formal_model_name; ?> that need to be regularly serviced. Over time, these parts wear</p>
         <?php if (have_rows('hourly_parts')) : ?>
           <table>
             <tr>
@@ -230,9 +158,83 @@
           </table>
         <?php endif; ?>
       </section>
+
+      <section class="mar-y--most">
+        <h3>Common Parts<span> for John Deere <?php echo $model_number . ' ' . $model_name; ?></span></h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut est soluta vitae ipsam facilis exercitationem, nulla ea. Illum possimus nisi suscipit, quae dolore blanditiis! Autem eligendi libero ullam, accusamus eius nihil facilis iure assumenda! Explicabo.</p>
+        <?php if (have_rows('common_parts')) : ?>
+          <table>
+            <tr>
+              <th>Part Type</th>
+              <th>Part Number</th>
+              <!-- <th>Price</th> -->
+              <th width="130"></th>
+            </tr>
+        <?php while (have_rows('common_parts')) : the_row(); ?>
+            <?php
+              // $url = 'https://www.greenfarmparts.com/-p/' . get_sub_field('common_part_number') . '.htm';
+              // $getHTML = curl_init();
+              // curl_setopt($getHTML, CURLOPT_URL, $url);
+              // curl_setopt($getHTML, CURLOPT_HEADER, 0);
+              // curl_setopt($getHTML, CURLOPT_RETURNTRANSFER, 1);
+              // $returnProductData = curl_exec($getHTML);
+
+              // check for sold online or not
+              if (!get_sub_field('not_sold')) {
+                $available_online = '<button class="add-to-cart">Add to Cart</button>';
+                $product_link = '<a href="https://www.greenfarmparts.com/-p/' . get_sub_field('common_part_number') . '.htm">' . strtoupper(get_sub_field('common_part_number')) . '</a>';
+                $sold_online = 'true';
+              } else {
+                $available_online = '<button class="disabled">Not Sold Online</button>';
+                $product_link = get_sub_field('common_part_number');
+                $sold_online = 'false';
+              }
+
+                // Add Serial Break on seperate line
+                $common_part_description = get_sub_field('common_part_description');
+                $common_part_description = explode('(', $common_part_description);
+                if (count($common_part_description) > 1) {
+                  $common_part_description = $common_part_description[0] . '<br><em>(' . $common_part_description[1] . '</em>';
+                } else {
+                  $common_part_description = get_sub_field('common_part_description');
+                }
+            ?>
+            <tr>
+              <td data-header="Part Type" data-product-sold="<?php echo $sold_online; ?>" data-product-image="https://greenfarmparts.com/v/vspfiles/photos/<?php echo get_sub_field('common_part_number'); ?>-2T.jpg">
+                <?php echo $common_part_description; ?>    
+              </td>
+              <td data-header="Part Number"><?php echo $product_link; ?></td>
+              <!-- <td data-header="Price">$9.99</td> -->
+              <td><?php echo $available_online; ?></td>
+            </tr>
+            <?php if (have_rows('serial_breaks')) : while(have_rows('serial_breaks')) : the_row(); ?>
+              <?php
+                // Add Serial Break on seperate line
+                $serial_break_common_part_description = get_sub_field('serial_break_common_part_description');
+                $serial_break_common_part_description = explode('(', $serial_break_common_part_description);
+              ?>
+              <tr>
+                <td data-header="Part Type"><?php echo $serial_break_common_part_description[0]; ?><br><em>(<?php echo $serial_break_common_part_description[1]; ?></em></td>
+                <td data-header="Part Number"><a href="https://www.greenfarmparts.com/-p/<?php echo get_sub_field('serial_break_common_part_number'); ?>.htm"><?php echo get_sub_field('serial_break_common_part_number'); ?></a></td>
+                <!-- <td data-header="Price">$9.99</td> -->
+                <td>
+                  <?php
+                    if (!get_sub_field('not_sold')) {
+                      echo '<button class="add-to-cart">Add to Cart</button>';
+                    } else {
+                      echo 'Not sold online';
+                    }
+                  ?>
+                </td>
+              </tr>
+            <?php endwhile; endif; ?>
+        <?php endwhile; ?>
+          </table>
+        <?php endif; ?>
+      </section>
       
       <section class="mar-y--most">
-        <h2>As Needed Parts <span>for John Deere <?php echo $model_number . ' ' . $model_name; ?></span></h2>
+        <h3>As Needed Parts<span> for John Deere <?php echo $model_number . ' ' . $model_name; ?></span></h3>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut est soluta vitae ipsam facilis exercitationem, nulla ea. Illum possimus nisi suscipit, quae dolore blanditiis! Autem eligendi libero ullam, accusamus eius nihil facilis iure assumenda! Explicabo.</p>
         <?php if (have_rows('as_needed_parts')) : ?>
           <table>
