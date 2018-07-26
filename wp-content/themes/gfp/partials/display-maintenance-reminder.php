@@ -77,6 +77,7 @@
     <article>
       <h1><?php echo get_the_title(); ?></h1>
       <h2><?php echo get_the_excerpt(); ?></h2>
+      <p>Common sense goes a long ways when maintaining your machine. If you have extreme heat, dust, or terrain that you operate in you, service frequency will need to increase. Additionally, if you run your John Deere mower or tractor constantly at slow or low speeds or for short periods of time, eingine oil will degrade and need change more often.</p>
 
       <section class="mar-y--most">
         <?php // echo str_replace('Maintenance Sheet', '', get_the_title()); ?>
@@ -86,31 +87,33 @@
         <?php 
           if (have_rows('service_interval_page')) {
             $posts = get_field('service_interval_page');
-            foreach ($posts as $post) {
-              setup_postdata($post);
-              if (have_rows('service_interval', $post->ID)) : while (have_rows('service_interval', $post->ID)) : the_row();
-                echo '<li>';
-                  echo get_sub_field('interval');
-                  echo '<ul>';
-                    if (have_rows('interval_checklist')) : while (have_rows('interval_checklist')) : the_row();
-                      $item_array = get_sub_field('interval_checklist_item');
-                      echo '<li>';
-                        if ($item_array['url'] !== '#0') {
-                          echo '<a href="' . $item_array['url'] . '">' . $item_array['title'] . '</a>';
-                        } else {
-                          echo $item_array['title'];
-                        }
-                      echo '</li>';
-                    endwhile; endif;
-                  echo '</ul>';
-                echo '</li>';
-              endwhile; endif;
-            }
+            echo '<ul class="accordian">';
+              foreach ($posts as $post) {
+                setup_postdata($post);
+                if (have_rows('service_interval', $post->ID)) : while (have_rows('service_interval', $post->ID)) : the_row();
+                  echo '<li class="accordian--item">';
+                    echo '<button class="accordian--title">' . get_sub_field('interval') . '</button>';
+                    echo '<ul class="accordian--content">';
+                      if (have_rows('interval_checklist')) : while (have_rows('interval_checklist')) : the_row();
+                        $item_array = get_sub_field('interval_checklist_item');
+                        echo '<li>';
+                          if ($item_array['url'] !== '#0') {
+                            echo '<a href="' . $item_array['url'] . '">' . $item_array['title'] . '</a>';
+                          } else {
+                            echo $item_array['title'];
+                          }
+                        echo '</li>';
+                      endwhile; endif;
+                    echo '</ul>';
+                  echo '</li>';
+                endwhile; endif;
+              }
+            echo '</ul>';
             wp_reset_postdata();
           }
         ?>
-        <h3>Service Interval Parts<span> for John Deere <?php echo $model_number . ' ' . $model_name; ?></span></h3>
-        <p>While your John Deere machine is certainly built with quality parts and componenst, over time some things These are the parts on your <?php echo $formal_model_name; ?> that need to be regularly serviced. Over time, these parts wear</p>
+        <h3>Service Schedule Parts<span> for John Deere <?php echo $model_number . ' ' . $model_name; ?></span></h3>
+        <p>While your John Deere machine is certainly built with quality parts and components, you can easily service your machine yourself using a John Deere maintenance kit or service kits or by getting the specific John Deere part needed to keep your John Deere mower or tractor running for a long time. These are the parts on your John Deere <?php echo $formal_model_name; ?> that need to be regularly serviced.</p>
         <?php if (have_rows('hourly_parts')) : ?>
           <table>
             <tr>
@@ -186,8 +189,8 @@
       </section>
 
       <section class="mar-y--most">
-        <h3>Common Parts<span> for John Deere <?php echo $model_number . ' ' . $model_name; ?></span></h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut est soluta vitae ipsam facilis exercitationem, nulla ea. Illum possimus nisi suscipit, quae dolore blanditiis! Autem eligendi libero ullam, accusamus eius nihil facilis iure assumenda! Explicabo.</p>
+        <h3>Commonly Used Parts<span> for John Deere <?php echo $model_number . ' ' . $model_name; ?></span></h3>
+        <p>Outside of the schedule service intervals, you may need a part for a quick repair. While this is not an inclusive list of all the John Deere parts for <?php echo $formal_model_name; ?>, these are the typical parts that we see purchased for your model. To see all the John Deere parts for your model, view our parts diagrams here.</p>
         <?php if (have_rows('common_parts')) : ?>
           <table>
             <tr>
@@ -261,7 +264,7 @@
       
       <section class="mar-y--most">
         <h3>As Needed Parts<span> for John Deere <?php echo $model_number . ' ' . $model_name; ?></span></h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut est soluta vitae ipsam facilis exercitationem, nulla ea. Illum possimus nisi suscipit, quae dolore blanditiis! Autem eligendi libero ullam, accusamus eius nihil facilis iure assumenda! Explicabo.</p>
+        <p>Regardless of your John Deere model, these John Deere parts are used frequently in maintaining and your <?php echo $formal_model_name; ?> and can be used around your garage.</p>
         <?php if (have_rows('as_needed_parts')) : ?>
           <table>
             <tr>
