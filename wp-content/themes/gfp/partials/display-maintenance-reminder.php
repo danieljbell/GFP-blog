@@ -83,6 +83,32 @@
       </section>
 
       <section class="mar-y--most">
+        <?php 
+          if (have_rows('service_interval_page')) {
+            $posts = get_field('service_interval_page');
+            foreach ($posts as $post) {
+              setup_postdata($post);
+              if (have_rows('service_interval', $post->ID)) : while (have_rows('service_interval', $post->ID)) : the_row();
+                echo '<li>';
+                  echo get_sub_field('interval');
+                  echo '<ul>';
+                    if (have_rows('interval_checklist')) : while (have_rows('interval_checklist')) : the_row();
+                      $item_array = get_sub_field('interval_checklist_item');
+                      echo '<li>';
+                        if ($item_array['url'] !== '#0') {
+                          echo '<a href="' . $item_array['url'] . '">' . $item_array['title'] . '</a>';
+                        } else {
+                          echo $item_array['title'];
+                        }
+                      echo '</li>';
+                    endwhile; endif;
+                  echo '</ul>';
+                echo '</li>';
+              endwhile; endif;
+            }
+            wp_reset_postdata();
+          }
+        ?>
         <h3>Service Interval Parts<span> for John Deere <?php echo $model_number . ' ' . $model_name; ?></span></h3>
         <p>While your John Deere machine is certainly built with quality parts and componenst, over time some things These are the parts on your <?php echo $formal_model_name; ?> that need to be regularly serviced. Over time, these parts wear</p>
         <?php if (have_rows('hourly_parts')) : ?>
