@@ -84,34 +84,6 @@
       </section>
 
       <section class="mar-y--most">
-        <?php 
-          if (have_rows('service_interval_page')) {
-            $posts = get_field('service_interval_page');
-            echo '<ul class="accordian">';
-              foreach ($posts as $post) {
-                setup_postdata($post);
-                if (have_rows('service_interval', $post->ID)) : while (have_rows('service_interval', $post->ID)) : the_row();
-                  echo '<li class="accordian--item">';
-                    echo '<button class="accordian--title">' . get_sub_field('interval') . '</button>';
-                    echo '<ul class="accordian--content">';
-                      if (have_rows('interval_checklist')) : while (have_rows('interval_checklist')) : the_row();
-                        $item_array = get_sub_field('interval_checklist_item');
-                        echo '<li>';
-                          if ($item_array['url'] !== '#0') {
-                            echo '<a href="' . $item_array['url'] . '">' . $item_array['title'] . '</a>';
-                          } else {
-                            echo $item_array['title'];
-                          }
-                        echo '</li>';
-                      endwhile; endif;
-                    echo '</ul>';
-                  echo '</li>';
-                endwhile; endif;
-              }
-            echo '</ul>';
-            wp_reset_postdata();
-          }
-        ?>
         <h3>Service Schedule Parts<span> for John Deere <?php echo $model_number . ' ' . $model_name; ?></span></h3>
         <p>While your John Deere machine is certainly built with quality parts and components, you can easily service your machine yourself using a John Deere maintenance kit or service kits or by getting the specific John Deere part needed to keep your John Deere mower or tractor running for a long time. These are the parts on your John Deere <?php echo $formal_model_name; ?> that need to be regularly serviced.</p>
         <?php if (have_rows('hourly_parts')) : ?>
@@ -186,6 +158,34 @@
         <?php endwhile; ?>
           </table>
         <?php endif; ?>
+        <?php 
+          if (have_rows('service_interval_page')) {
+            $posts = get_field('service_interval_page');
+            echo '<ul class="accordian">';
+              foreach ($posts as $post) {
+                setup_postdata($post);
+                if (have_rows('service_interval', $post->ID)) : while (have_rows('service_interval', $post->ID)) : the_row();
+                  echo '<li class="accordian--item">';
+                    echo '<button class="accordian--title">' . get_sub_field('interval') . '</button>';
+                    echo '<ul class="accordian--content">';
+                      if (have_rows('interval_checklist')) : while (have_rows('interval_checklist')) : the_row();
+                        $item_array = get_sub_field('interval_checklist_item');
+                        echo '<li>';
+                          if ($item_array['url'] !== '#0') {
+                            echo '<a href="' . $item_array['url'] . '">' . $item_array['title'] . '</a>';
+                          } else {
+                            echo $item_array['title'];
+                          }
+                        echo '</li>';
+                      endwhile; endif;
+                    echo '</ul>';
+                  echo '</li>';
+                endwhile; endif;
+              }
+            echo '</ul>';
+            wp_reset_postdata();
+          }
+        ?>
       </section>
 
       <section class="mar-y--most">
