@@ -1,0 +1,47 @@
+.tooltip--links {
+  text-align: left;
+  border-radius: 5px;
+  box-shadow: 2px 2px 20px rgba(black, 0.2);
+  padding: 1rem 2rem;
+  // list-style-type: none;
+  font-size: 0.85em;
+  width: calc(100% + 3rem);
+  position: relative;
+  z-index: 1;
+  left: -1.5rem;
+  top: 1rem;
+  &:before {
+    content: url(../img/tooltip--notch.svg);
+    display: block;
+    width: 30px;
+    height: 15px;
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+    bottom: 100%;
+    transform: translateX(-50%);
+    filter: drop-shadow(1px 7px 10px rgba(black, 0.6));
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    z-index: -1;
+    border-radius: 5px;   
+  }
+}
+
+.tooltip--links.tooltip--is-hidden {
+  display: none;
+}
+
+.tooltip--item {
+  padding-bottom: 1em;
+  &:last-child {
+    padding-bottom: 0;
+  }
+}

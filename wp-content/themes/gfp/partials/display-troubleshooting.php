@@ -86,5 +86,53 @@
       ?>
 
     </article>
+
+    <aside>
+        
+        <?php
+          // Loop over tags
+          foreach (get_the_tags() as $tag) {
+            // if tag is set as a model then query for posts
+            if (get_field('is_model', $tag)) {
+              $args = array(
+                'post_type' => 'post',
+                'tax_query' => array(
+                  'relation' => 'AND',
+                  array(
+                    'taxonomy' => 'category',
+                    'field'    => 'slug',
+                    'terms'    => array( 'maintenance-reminder' ),
+                  ),
+                  array(
+                    'taxonomy' => 'post_tag',
+                    'field'    => 'term_id',
+                    'terms'  => $tag->term_id,
+                  ),
+                ),
+              );
+              $query = new WP_Query( $args );
+              if ($query->have_posts()) : 
+                echo '<div class="related-maintenance-reminder">';
+                  echo '<h4>Need a maintenance guide for your ' . $post_title . '?</h4>';
+                  echo '<div class="mar-t">';
+                    echo '<button class="tooltip--toggle btn-solid--brand">Get Your Guide</button>';
+                    echo '<ul class="tooltip--links">';
+                      while ($query->have_posts()) : $query->the_post();
+                        $post_title = str_replace('John Deere ', '', get_the_title());
+                        $post_title = str_replace(' Maintenance Sheet', '', $post_title);
+                        echo '<li class="tooltip--item"><a href="' . get_the_permalink() . '">' . $post_title . '</a></li>';
+                      endwhile;
+                    echo '</ul>';
+                  echo '</div>';
+                echo '</div>';
+              endif;
+              wp_reset_postdata();
+            }
+          }
+        ?>
+
+      </div>
+    </aside>
+
   </div>
 </section>

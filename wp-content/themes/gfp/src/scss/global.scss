@@ -24,11 +24,13 @@
   'modules/social-share',
   'modules/accordian',
   'modules/sticky-navigation',
+  'modules/tooltips',
   'modules/site-footer';
 
 @import 
   'page/single',
   'page/single--maintenance-reminder',
+  'page/single--troubleshooting',
   'page/404';
 
 @import 'utilities';

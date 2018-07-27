@@ -1,0 +1,12 @@
+.single .category-troubleshooting.post .site-width {
+  grid-template-columns: 200px 1fr 200px;
+}
+
+.related-maintenance-reminder {
+  padding: 1rem;
+  text-align: center;
+  background: $light-gray;
+  border: 1px solid $medium-gray;
+  box-shadow: 3px 3px 6px rgba(black, 0.2);
+  border-radius: 5px;
+}

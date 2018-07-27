@@ -25,9 +25,6 @@
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
   box-shadow: 3px 3px 6px rgba(black, 0.1);
-  &:focus {
-    outline: none;
-  }
   &:after {
     content: '\002B';
     font-size: 2rem;
