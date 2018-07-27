@@ -16,9 +16,9 @@
 
     <?php 
       if (get_the_category()[0]->slug === 'maintenance-reminder') {
-        // echo '<div id="addTopCartWidget">';
-          get_template_part('partials/display', 'maintenance-reminder');
-        // echo '</div>';
+        get_template_part('partials/display', 'maintenance-reminder');
+      } elseif (get_the_category()[0]->slug === 'troubleshooting') {
+        get_template_part('partials/display', 'troubleshooting');
       } else {
     ?>
 

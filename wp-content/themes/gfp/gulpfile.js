@@ -39,7 +39,8 @@ gulp.task('js', function () {
     'src/js/modules/single-post.js',
     'src/js/modules/single-comments.js',
     'src/js/modules/post-listing.js',
-    'src/js/modules/accordian.js'
+    'src/js/modules/accordian.js',
+    'src/js/modules/sticky-navigation.js'
   ])
     .pipe(sourcemaps.init())
     .pipe(concat('global.js'))
