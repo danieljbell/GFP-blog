@@ -25,7 +25,7 @@ wp-content/*
 !wp-content/mu-plugins/*
 
 # DON'T ignore current theme
-!wp-content/themes/gfp/
+!wp-content/themes/gfp/*
 
 # ignore current theme build files
 wp-content/themes/gfp/node_modules/
