@@ -115,14 +115,20 @@
                 echo '<div class="related-maintenance-reminder">';
                   echo '<h4>Need a maintenance guide for your ' . $post_title . '?</h4>';
                   echo '<div class="mar-t">';
-                    echo '<button class="tooltip--toggle btn-solid--brand">Get Your Guide</button>';
-                    echo '<ul class="tooltip--links">';
+                    if ($query->post_count > 1) {
+                      echo '<button class="tooltip--toggle btn-solid--brand">Get Your Guide</button>';
+                      echo '<ul class="tooltip--links">';
+                        while ($query->have_posts()) : $query->the_post();
+                          $post_title = str_replace('John Deere ', '', get_the_title());
+                          $post_title = str_replace(' Maintenance Sheet', '', $post_title);
+                          echo '<li class="tooltip--item"><a href="' . get_the_permalink() . '">' . $post_title . '</a></li>';
+                        endwhile;
+                      echo '</ul>';
+                    } else {
                       while ($query->have_posts()) : $query->the_post();
-                        $post_title = str_replace('John Deere ', '', get_the_title());
-                        $post_title = str_replace(' Maintenance Sheet', '', $post_title);
-                        echo '<li class="tooltip--item"><a href="' . get_the_permalink() . '">' . $post_title . '</a></li>';
+                        echo '<a href="' . get_the_permalink() . '" class="btn-solid--brand">Get Your Guide</a>';
                       endwhile;
-                    echo '</ul>';
+                    }
                   echo '</div>';
                 echo '</div>';
               endif;
