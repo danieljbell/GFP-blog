@@ -193,7 +193,7 @@
 
       <section class="mar-y--most">
         <h3>Commonly Used Parts<span> for John Deere <?php echo $model_number . ' ' . $model_name; ?></span></h3>
-        <p>Outside of the schedule service intervals, you may need a part for a quick repair. While this is not an inclusive list of all the John Deere parts for <?php echo $formal_model_name; ?>, these are the typical parts that we see purchased for your model. To see all the John Deere parts for your model, view our parts diagrams here.</p>
+        <p>Outside of the schedule service intervals, you may need a part for a quick repair. While this is not an inclusive list of all the John Deere parts for <?php echo $formal_model_name; ?>, these are the typical parts that we see purchased for your model. To see all the John Deere parts for your model, view our parts diagrams <a href="https://www.greenfarmparts.com/articles.asp?ID=287" target="_blank" rel="noopener noreferrer">here</a>.</p>
         <?php if (have_rows('common_parts')) : ?>
           <table>
             <tr>
