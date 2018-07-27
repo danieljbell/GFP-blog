@@ -27,7 +27,7 @@
         $model_modifiers = get_field('model_modifiers');
         if ($model_modifiers) {
           echo '<h4>Looking for a different model in this series?</h4><p style="margin-bottom: 0.5rem;">Browse other models in this series below</p>';
-          echo '<select id="modelModifiers">';
+          echo '<select id="modelModifiers" style="width: 100%;">';
             echo '<option selected disabled>Choose Different Model in this Series</option>';
           foreach ($model_modifiers as $post) {
             setup_postdata($post);
@@ -160,33 +160,10 @@
         <?php endif; ?>
         <?php 
           if (have_rows('service_interval_page')) {
-            $posts = get_field('service_interval_page');
-            echo '<div class="service-checklist">';
-              echo '<h3>Service Interval Checklist <span>for ' . $formal_model_name . '</span></h3>';
-              echo '<ul class="accordian">';
-                foreach ($posts as $post) {
-                  setup_postdata($post);
-                  if (have_rows('service_interval', $post->ID)) : while (have_rows('service_interval', $post->ID)) : the_row();
-                    echo '<li class="accordian--item">';
-                      echo '<button class="accordian--title">' . get_sub_field('interval') . '</button>';
-                      echo '<ul class="accordian--content">';
-                        if (have_rows('interval_checklist')) : while (have_rows('interval_checklist')) : the_row();
-                          $item_array = get_sub_field('interval_checklist_item');
-                          echo '<li>';
-                            if ($item_array['url'] !== '#0') {
-                              echo '<a href="' . $item_array['url'] . '">' . $item_array['title'] . '</a>';
-                            } else {
-                              echo $item_array['title'];
-                            }
-                          echo '</li>';
-                        endwhile; endif;
-                      echo '</ul>';
-                    echo '</li>';
-                  endwhile; endif;
-                }
-              echo '</ul>';
+            echo '<div class="service-checklist has-text-center">';
+              echo '<h3>Want to see a service interval checklist for your ' . $formal_model_name . '?</h3>';
+              echo '<button id="launchModal" class="btn-solid--brand">Get the Checklist</button>';
             echo '</div>';
-            wp_reset_postdata();
           }
         ?>
       </section>
@@ -379,6 +356,43 @@
       <div class="has-text-center mar-t--more">
         <button id="saveForLater" class="btn-outline--brand-two">Save for Later</button>
         <a id="submitCheckout" href="https://www.greenfarmparts.com/shoppingcart.asp?" class="btn-solid--brand">Checkout</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal modal--is-hidden">
+    <div class="modal-container">
+      <button class="modal--close">&times;</button>
+      <div class="modal-content">
+        <h2 class="modal-heading"><?php echo $formal_model_name; ?> Service Checklist</h2>
+        <?php
+          if (have_rows('service_interval_page')) {
+            $posts = get_field('service_interval_page');
+              echo '<ul class="accordian">';
+                foreach ($posts as $post) {
+                  setup_postdata($post);
+                  if (have_rows('service_interval', $post->ID)) : while (have_rows('service_interval', $post->ID)) : the_row();
+                    echo '<li class="accordian--item">';
+                      echo '<button class="accordian--title">' . get_sub_field('interval') . '</button>';
+                      echo '<ul class="accordian--content">';
+                        if (have_rows('interval_checklist')) : while (have_rows('interval_checklist')) : the_row();
+                          $item_array = get_sub_field('interval_checklist_item');
+                          echo '<li>';
+                            if ($item_array['url'] !== '#0') {
+                              echo '<a href="' . $item_array['url'] . '">' . $item_array['title'] . '</a>';
+                            } else {
+                              echo $item_array['title'];
+                            }
+                          echo '</li>';
+                        endwhile; endif;
+                      echo '</ul>';
+                    echo '</li>';
+                  endwhile; endif;
+                }
+              echo '</ul>';
+            wp_reset_postdata();
+          }
+        ?>              
       </div>
     </div>
   </div>

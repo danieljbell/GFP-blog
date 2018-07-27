@@ -128,15 +128,18 @@
 
 .service-checklist {
   margin-top: 2rem;
-  padding: 2rem 3rem 3rem;
   background-color: $light-gray;
   border-radius: 5px;
   border: 1px solid $medium-gray;
+  padding: 1.5rem;
+  @include desktop {
+    padding: 2rem 3rem;
+  }
 
   h3 {
     text-align: center;
-    font-size: 1.5em;
-    margin-bottom: 1rem;
+    max-width: 500px;
+    margin: 0 auto 1rem;
   }
 
 }

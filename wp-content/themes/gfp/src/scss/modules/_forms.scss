@@ -1,7 +1,7 @@
 select,
 input,
 textarea {
-  padding: 1rem;
+  padding: 0.5rem;
   font-family: inherit;
   font-size: 0.9em;
   border: 1px solid #ccc;
@@ -9,7 +9,9 @@ textarea {
 }
 
 select {
-  
+  -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 input {
