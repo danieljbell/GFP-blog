@@ -104,7 +104,7 @@ foreach (get_the_tags() as $tag) {
         }
       ?>
       
-
+      <button class="btn-solid--brand" data-modal-launch="sign-up-form">See the Schedule</button>
 
       <?php if ($maintenance_kit) : ?>
         <div class="maintenance-kit-container">
@@ -157,7 +157,7 @@ foreach (get_the_tags() as $tag) {
                       echo '</div>';
                       echo '<div class="related-model-content">';
                         echo '<h3 class="mar-b">Need a Service Checklist?</h3>';
-                        echo '<button id="launchModal" class="btn-solid--brand">See the Schedule</button>';
+                        echo '<button class="btn-solid--brand" data-modal-launch="service-checklist">See the Schedule</button>';
                       echo '</div>';
                   endwhile;
                 echo '</li>';
@@ -456,7 +456,7 @@ foreach (get_the_tags() as $tag) {
 <?php
   if ($service_query->have_posts()) :
 ?>
-  <div class="modal modal--is-hidden">
+  <div class="modal modal--is-hidden" data-modal="service-checklist">
     <div class="modal-container">
       <button class="modal--close">&times;</button>
       <div class="modal-content">
@@ -499,4 +499,77 @@ foreach (get_the_tags() as $tag) {
   wp_reset_postdata();
 ?>
 
+
+<div class="modal modal--is-hidden" data-modal="sign-up-form">
+  <div class="modal-container">
+    <button class="modal--close">&times;</button>
+    <div class="modal-content">
+      <div class="has-text-center" style="max-width: 300px; margin: 0 auto;">
+        <h2 class="modal-heading">Sign Up for Maintenance Reminder Emails</h2>
+        <p>We will periodically send you emails based on how you submit the form.</p>
+      </div>
+      <form action="https://greenfarmparts.us12.list-manage.com/subscribe/post-json?u=c80372a35929a7b281b76c090&id=d4452378de&c=?" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate form--maintenance-sign-up" target="_blank" novalidate>
+        <div id="mc_embed_signup_scroll">
+          <div class="mc-field-group">
+            <label for="mce-EMAIL">Email Address</label>
+            <input required type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+          </div>
+          <div class="mc-field-group">
+            <label for="mce-FNAME">First Name</label>
+            <input type="text" value="" name="FNAME" class="" id="mce-FNAME">
+          </div>
+          <div class="mc-field-group">
+            <label for="mce-LNAME">Last Name</label>
+            <input type="text" value="" name="LNAME" class="" id="mce-LNAME">
+          </div>
+          <div class="mc-field-group">
+            <label for="mce-MODEL">Model</label>
+            <select name="MODEL" class="required" id="mce-MODEL">
+              <option value=""></option>
+              <option value="E100">E100</option>
+              <option value="E110">E110</option>
+              <option value="E120">E120</option>
+            </select>
+          </div>
+          <div class="mc-field-group size1of2">
+            <label for="mce-CURRENT_HR">Current Hours </label>
+            <input type="number" name="CURRENT_HR" class="" value="" id="mce-CURRENT_HR" min="0">
+          </div>
+          <div class="mc-field-group">
+            <label for="mce-MOWING_TIM">Mowing Duration </label>
+            <select name="MOWING_TIM" class="" id="mce-MOWING_TIM">
+              <option value=""></option>
+              <option value="Small-Medium Yard (Less than 1.5 hours)">Small-Medium Yard (Less than 1.5 hours)</option>
+              <option value="Large Property (More than 1.5 hours)">Large Property (More than 1.5 hours)</option>
+            </select>
+          </div>
+          <div class="mc-field-group input-group">
+            <ul>
+              <li><input type="checkbox" value="1" name="group[141][1]" id="mce-group[141]-141-0"><label for="mce-group[141]-141-0">Give me maintenance reminders via email communications.</label></li>
+            </ul>
+          </div>
+          <div class="mc-field-group input-group">
+            <ul>
+              <li><input type="checkbox" value="2" name="group[145][2]" id="mce-group[145]-145-0"><label for="mce-group[145]-145-0">I consent to having my maintenance reminder engagement tracked and analyzed.</label></li>
+            </ul>
+          </div>
+          <div id="mce-responses" class="clear">
+            <div class="response" id="mce-error-response" style="display:none"></div>
+            <div class="response" id="mce-success-response" style="display:none"></div>
+          </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+          <div style="position: absolute; left: -5000px;" aria-hidden="true">
+            <input type="text" name="b_c80372a35929a7b281b76c090_d4452378de" tabindex="-1" value="">
+          </div>
+          <div class="clear has-text-center">
+            <input type="submit" value="Keep Me Notified" name="subscribe" id="mc-embedded-subscribe" class="button btn-solid--brand">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 </section>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

@@ -22,3 +22,52 @@ select {
 input {
 
 }
+
+.form--maintenance-sign-up {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.form--maintenance-sign-up input[type='text'],
+.form--maintenance-sign-up input[type='email'],
+.form--maintenance-sign-up input[type='number'],
+.form--maintenance-sign-up select {
+  width: 100%;
+  background-color: $light-gray;
+  border-radius: 5px;
+  box-shadow: 3px 3px 8px rgba(black, 0.1);
+}
+
+.form--maintenance-sign-up .mc-field-group {
+  margin-bottom: 1rem;
+}
+
+.form--maintenance-sign-up label + input,
+.form--maintenance-sign-up label + select {
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.form--maintenance-sign-up .input-group ul {
+  list-style-type: none;
+  margin: 1.5rem 0;
+}
+
+.form--maintenance-sign-up .input-group li {
+  display: table;
+  * {
+    display: table-cell;
+    &:last-child {
+      padding-left: 0.5rem;
+    }
+  }
+}
+
+.form--maintenance-sign-up input[type="submit"] {
+  display: block;
+  width: 100%;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-size: 1.1rem;
+}

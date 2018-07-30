@@ -42,6 +42,7 @@ gulp.task('js', function () {
     'src/js/modules/accordian.js',
     'src/js/modules/tooltip.js',
     'src/js/modules/modal.js',
+    'src/js/modules/sign-up-form.js',
     'src/js/modules/sticky-navigation.js'
   ])
     .pipe(sourcemaps.init())
