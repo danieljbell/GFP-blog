@@ -1,11 +1,11 @@
 .card {
   display: grid;
   @include tablet {
-    grid-template-columns: 100px 1fr;
+    grid-template-columns: 1fr;
     grid-gap: 2rem;
   }
   @include desktop {
-    grid-template-columns: 100px 1fr;
+    grid-template-columns: 1fr;
     grid-gap: 2rem;
   }
 }

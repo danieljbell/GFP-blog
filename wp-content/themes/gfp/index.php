@@ -1,5 +1,9 @@
 <?php get_header(); ?>
 
+<?php
+  // print_r();
+?>
+
 <section class="hero">
       
   <div class="site-width">
@@ -8,14 +12,22 @@
 
       if (is_search()) {
         $page_title = 'Search for:&nbsp; ' . htmlspecialchars($_GET["s"]);
+        $subtitle = '';
       }
       if (is_category()) {
         $queried_object = get_queried_object();
         $page_title = 'Content Categorized As "' . $queried_object->name . '"';
+        $count = get_the_category();
+        $count = $count[0]->count;
+        $subtitle = '<h2>' . $count . ' ' . $page_subtitle . '</h2>';
       }
       if (is_tag()) {
         $queried_object = get_queried_object();
         $page_title = 'Content Tagged As "' . $queried_object->name . '"';
+        $count = get_the_tags();
+
+        print_r($count);
+        // $count = $count[0]->count;
       }
       if (is_author()) {
         $queried_object = get_queried_object();
@@ -23,7 +35,8 @@
       }
     ?>
     <h1><?php echo $page_title ?></h1>
-    <h2><?php echo $wp_query->post_count . ' ' . $page_subtitle; ?></h2>
+    <?php echo $subtitle; ?>
+    
   </div>
 
 </section>

@@ -14,6 +14,7 @@
     @include button();
     background-color: $bgc;
     color: $c;
+    border: 0;
     &:hover {
         text-decoration: none;
         @if $hover == lighten {

@@ -103,8 +103,6 @@ foreach (get_the_tags() as $tag) {
           echo '</select>';
         }
       ?>
-      
-      <button class="btn-solid--brand" data-modal-launch="sign-up-form">See the Schedule</button>
 
       <?php if ($maintenance_kit) : ?>
         <div class="maintenance-kit-container">
@@ -156,8 +154,8 @@ foreach (get_the_tags() as $tag) {
                         echo '<img src="/wp-content/themes/gfp/dist/img/tools.svg" alt="">';
                       echo '</div>';
                       echo '<div class="related-model-content">';
-                        echo '<h3 class="mar-b">Need a Service Checklist?</h3>';
-                        echo '<button class="btn-solid--brand" data-modal-launch="service-checklist">See the Schedule</button>';
+                        echo '<h3 class="mar-b">Need a Service Checklist<span> for a ' . $formal_model_name . ' </span>?</h3>';
+                        echo '<a href="' . get_the_permalink() . '" >See the Schedule</a>';
                       echo '</div>';
                   endwhile;
                 echo '</li>';
@@ -170,17 +168,26 @@ foreach (get_the_tags() as $tag) {
                   while ($troubleshooting_query->have_posts()) :
                     $troubleshooting_query->the_post();
                       echo '<div class="related-model-image">';
-                      echo '<img src="/wp-content/themes/gfp/dist/img/question.svg" alt="">';
+                        echo '<img src="/wp-content/themes/gfp/dist/img/question.svg" alt="">';
                       echo '</div>';
                       echo '<div class="related-model-content">';
-                        echo '<h3 class="mar-b">Mower Problems?</h3>';
-                        echo '<a href="' . get_the_permalink() . '" class="btn-solid--brand">See Troubleshooting Guide</a>';
+                        echo '<h3 class="mar-b">Having Problems<span> with your ' . $formal_model_name . '</span>?</h3>';
+                        echo '<a href="' . get_the_permalink() . '">See Troubleshooting Guide</a>';
                       echo '</div>';
                   endwhile;
                 echo '</li>';
               endif;
               wp_reset_postdata();
             ?>
+            <li class="related-model-link-item">
+              <div class="related-model-image">
+                <img src="/wp-content/themes/gfp/dist/img/alarm.svg" alt="">
+              </div>
+              <div class="related-model-content">
+                <h3 class="mar-b">Want to Sign Up for Maintenance Reminders?</h3>
+                <button data-modal-launch="sign-up-form">Get Notified</button>
+              </div>
+            </li>
         </ul>
       </section>
 
@@ -504,7 +511,7 @@ foreach (get_the_tags() as $tag) {
   <div class="modal-container">
     <button class="modal--close">&times;</button>
     <div class="modal-content">
-      <div class="has-text-center" style="max-width: 300px; margin: 0 auto;">
+      <div class="has-text-center">
         <h2 class="modal-heading">Sign Up for Maintenance Reminder Emails</h2>
         <p>We will periodically send you emails based on how you submit the form.</p>
       </div>

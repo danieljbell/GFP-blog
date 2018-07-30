@@ -6,7 +6,7 @@ ADD GLOBAL CSS TO PAGE
 ==============================
 */
 function enqueue_global_css() {
-    wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '1.0.14');
+    wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '1.0.15');
 }
 add_action('wp_enqueue_scripts', 'enqueue_global_css');
 

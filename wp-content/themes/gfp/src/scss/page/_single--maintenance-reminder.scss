@@ -131,11 +131,6 @@
   border-radius: 5px;
   border: 1px solid $medium-gray;
   padding: 1.5rem;
-  // @include tablet {
-  //   background-color: transparent;
-  //   border: 0;
-  //   padding: 0;
-  // }
   @include desktop {
     padding: 3rem 2rem;
   }
@@ -143,33 +138,19 @@
 
 .related-model-link-list {
   list-style-type: none;
-  @include tablet {
-    display: table;
-    width: 100%;
-  }
-  @include desktop {
-    display: table;
-    width: 100%;
-  }
 }
 
 .related-model-link-item {
   margin-bottom: 2rem;
   display: table;
-  @include tablet {
-    width: 50%;
-    display: table-cell;
-    margin-bottom: 0rem;
-    text-align: center;
-  }
-  @include desktop {
-    width: 50%;
-    display: table-cell;
-    margin-bottom: 0rem;
-    text-align: center;
-  }
+  width: 100%;
 
   &:last-child {
+    margin-bottom: 0;
+  }
+
+  h3 {
+    font-size: 1rem;
     margin-bottom: 0;
   }
 
@@ -179,29 +160,23 @@
 .related-model-content {
   display: table-cell;
   vertical-align: top;
-  @include tablet {
-    display: block;
-  }
-  @include desktop {
-    display: block;
-  }
+}
+
+.related-model-image {
+  width: 75px;
 }
 
 .related-model-image img {
   width: 100%;
-  max-width: 60px;
-  max-height: 60px;
+  max-width: 50px;
+  max-height: 50px;
 }
 
-.related-model-content {
-  padding-left: 1rem;
-  .btn-solid--brand {
-    font-size: 0.8em;
-  }
-  @include tablet {
-    padding-left: 0;
-  }
-  @include desktop {
-    padding-left: 0;
+.related-model-content button {
+  border: 0;
+  background-color: transparent;
+  color: $brand;
+  &:hover {
+    text-decoration: underline;
   }
 }
