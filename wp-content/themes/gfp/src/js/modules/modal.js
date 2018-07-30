@@ -15,6 +15,14 @@
       document.body.classList.remove('modal--is-open');
     });
 
+    document.addEventListener('keyup', function(e) {
+      if (e.keyCode != 27) {
+        return;
+      }
+      document.body.classList.remove('modal--is-open');
+      document.querySelector('.modal').classList.add('modal--is-hidden');
+    });
+
   }
 
 })();
