@@ -16,6 +16,65 @@
   $formal_model_name = $model_number . ' ' . $model_name;
 ?>  
 
+
+<?php
+/*
+=====================================================
+LOOP OVER TAGS TO GET TROUBLESHOOTING RELATED CONTENT
+=====================================================
+*/  
+foreach (get_the_tags() as $tag) {
+  // if tag is set as a model then query for posts
+  if (get_field('is_model', $tag)) {
+    $troubleshooting_args = array(
+      'post_type' => 'post',
+      'tax_query' => array(
+        'relation' => 'AND',
+        array(
+          'taxonomy' => 'category',
+          'field'    => 'slug',
+          'terms'    => array( 'troubleshooting' ),
+        ),
+        array(
+          'taxonomy' => 'post_tag',
+          'field'    => 'term_id',
+          'terms'  => $tag->term_id,
+        ),
+      ),
+    );
+    $troubleshooting_query = new WP_Query( $troubleshooting_args );
+  }
+}
+
+/*
+=====================================================
+LOOP OVER TAGS TO GET SERVICE RELATED CONTENT
+=====================================================
+*/  
+foreach (get_the_tags() as $tag) {
+  // if tag is set as a model then query for posts
+  if (get_field('is_model', $tag)) {
+    $service_args = array(
+      'post_type' => 'post',
+      'tax_query' => array(
+        'relation' => 'AND',
+        array(
+          'taxonomy' => 'category',
+          'field'    => 'slug',
+          'terms'    => array( 'service-intervals' ),
+        ),
+        array(
+          'taxonomy' => 'post_tag',
+          'field'    => 'term_id',
+          'terms'  => $tag->term_id,
+        ),
+      ),
+    );
+    $service_query = new WP_Query( $service_args );
+  }
+}
+?>
+
 <section <?php post_class(); ?>>
   <div class="site-width">
 
@@ -44,6 +103,9 @@
           echo '</select>';
         }
       ?>
+      
+
+
       <?php if ($maintenance_kit) : ?>
         <div class="maintenance-kit-container">
           <h3>Need A Home Maintenance Kit<span> for your John Deere <?php echo $model_number . ' ' . $model_name; ?> </span>?</h3>
@@ -78,9 +140,48 @@
       <h1><?php echo get_the_title(); ?></h1>
       <h2><?php echo get_the_excerpt(); ?></h2>
       <p>Common sense goes a long ways when maintaining your machine. If you have extreme heat, dust, or terrain that you operate in you, service frequency will need to increase.</p>
+      
 
-      <section class="mar-y--most">
-        <?php // echo str_replace('Maintenance Sheet', '', get_the_title()); ?>
+      <?php
+        if ( ($troubleshooting_query->have_posts()) || ($service_query->have_posts()) )
+      ?>
+      <section class="mar-y--most pad-b related-model-links">
+        <ul class="related-model-link-list">
+            <?php
+              if ($service_query->have_posts()) :
+                echo '<li class="related-model-link-item">';
+                  while ($service_query->have_posts()) :
+                    $service_query->the_post();
+                      echo '<div class="related-model-image">';
+                        echo '<img src="/wp-content/themes/gfp/dist/img/tools.svg" alt="">';
+                      echo '</div>';
+                      echo '<div class="related-model-content">';
+                        echo '<h3 class="mar-b">Need a Service Checklist?</h3>';
+                        echo '<button id="launchModal" class="btn-solid--brand">See the Schedule</button>';
+                      echo '</div>';
+                  endwhile;
+                echo '</li>';
+              endif;
+              wp_reset_postdata();
+            ?>
+            <?php
+              if ($troubleshooting_query->have_posts()) :
+                echo '<li class="related-model-link-item">';
+                  while ($troubleshooting_query->have_posts()) :
+                    $troubleshooting_query->the_post();
+                      echo '<div class="related-model-image">';
+                      echo '<img src="/wp-content/themes/gfp/dist/img/question.svg" alt="">';
+                      echo '</div>';
+                      echo '<div class="related-model-content">';
+                        echo '<h3 class="mar-b">Mower Problems?</h3>';
+                        echo '<a href="' . get_the_permalink() . '" class="btn-solid--brand">See Troubleshooting Guide</a>';
+                      echo '</div>';
+                  endwhile;
+                echo '</li>';
+              endif;
+              wp_reset_postdata();
+            ?>
+        </ul>
       </section>
 
       <section class="mar-y--most">
@@ -158,14 +259,6 @@
         <?php endwhile; ?>
           </table>
         <?php endif; ?>
-        <?php 
-          if (have_rows('service_interval_page')) {
-            echo '<div class="service-checklist has-text-center">';
-              echo '<h3>Want to see a service interval checklist for your ' . $formal_model_name . '?</h3>';
-              echo '<button id="launchModal" class="btn-solid--brand">Get the Checklist</button>';
-            echo '</div>';
-          }
-        ?>
       </section>
 
       <section class="mar-y--most">
@@ -360,41 +453,43 @@
     </div>
   </div>
 
+<?php
+  if ($service_query->have_posts()) :
+?>
   <div class="modal modal--is-hidden">
     <div class="modal-container">
       <button class="modal--close">&times;</button>
       <div class="modal-content">
         <h2 class="modal-heading"><?php echo $formal_model_name; ?> Service Checklist</h2>
+        <ul class="accordian">
         <?php
-          if (have_rows('service_interval_page')) {
-            $posts = get_field('service_interval_page');
-              echo '<ul class="accordian">';
-                foreach ($posts as $post) {
-                  setup_postdata($post);
-                  if (have_rows('service_interval', $post->ID)) : while (have_rows('service_interval', $post->ID)) : the_row();
-                    echo '<li class="accordian--item">';
-                      echo '<button class="accordian--title">' . get_sub_field('interval') . '</button>';
-                      echo '<ul class="accordian--content">';
-                        if (have_rows('interval_checklist')) : while (have_rows('interval_checklist')) : the_row();
-                          $item_array = get_sub_field('interval_checklist_item');
-                          echo '<li>';
-                            if ($item_array['url'] !== '#0') {
-                              echo '<a href="' . $item_array['url'] . '">' . $item_array['title'] . '</a>';
-                            } else {
-                              echo $item_array['title'];
-                            }
-                          echo '</li>';
-                        endwhile; endif;
-                      echo '</ul>';
+          while ($service_query->have_posts()) : $service_query->the_post();
+            if (have_rows('service_interval', $post->ID)) : while (have_rows('service_interval', $post->ID)) : the_row();
+              echo '<li class="accordian--item">';
+                echo '<button class="accordian--title">' . get_sub_field('interval') . '</button>';
+                echo '<ul class="accordian--content">';
+                  if (have_rows('interval_checklist')) : while (have_rows('interval_checklist')) : the_row();
+                    $item_array = get_sub_field('interval_checklist_item');
+                    echo '<li>';
+                      if ($item_array['url'] !== '#0') {
+                        echo '<a href="' . $item_array['url'] . '">' . $item_array['title'] . '</a>';
+                      } else {
+                        echo $item_array['title'];
+                      }
                     echo '</li>';
                   endwhile; endif;
-                }
-              echo '</ul>';
-            wp_reset_postdata();
-          }
-        ?>              
+                echo '</ul>';
+              echo '</li>';
+              endwhile; endif;
+            endwhile;
+          ?>
+        </ul>
       </div>
     </div>
   </div>
+<?php
+  endif;
+  wp_reset_postdata();
+?>
 
 </section>
