@@ -484,6 +484,13 @@ foreach (get_the_tags() as $tag) {
             endwhile;
           ?>
         </ul>
+        <div class="has-text-center mar-t--more">
+          <?php
+            while ($service_query->have_posts()) : $service_query->the_post();
+              echo '<a href="' . get_the_permalink() . '" class="btn-solid--brand">View As Full Page</a>';
+            endwhile;
+          ?>
+        </div>
       </div>
     </div>
   </div>

@@ -178,7 +178,7 @@
 .related-model-image,
 .related-model-content {
   display: table-cell;
-  vertical-align: middle;
+  vertical-align: top;
   @include tablet {
     display: block;
   }

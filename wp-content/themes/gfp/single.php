@@ -19,6 +19,8 @@
         get_template_part('partials/display', 'maintenance-reminder');
       } elseif (get_the_category()[0]->slug === 'troubleshooting') {
         get_template_part('partials/display', 'troubleshooting');
+      } elseif (get_the_category()[0]->slug === 'service-intervals') {
+        get_template_part('partials/display', 'service-intervals');
       } else {
     ?>
 
