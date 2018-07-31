@@ -32,7 +32,7 @@
   if (modelModiferSelect) {
     modelModiferSelect.addEventListener('change', function(e) {
       var loc = e.target.value;
-      window.location.href = window.location.origin + '/' + loc;
+      window.location.href = loc;
     });
   }
 
