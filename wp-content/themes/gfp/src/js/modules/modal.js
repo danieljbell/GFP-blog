@@ -10,6 +10,18 @@
         var modalID = e.target.dataset.modalLaunch;
         document.querySelector('.modal[data-modal=' + modalID + ']').classList.remove('modal--is-hidden');
         document.body.classList.add('modal--is-open');
+
+        // Populate Model Field with Current Model Page
+        if (modalID = 'sign-up-form') {
+          var pageTags = document.querySelectorAll('meta[property="article:tag"]');
+          for (var i = 0; i < pageTags.length; i++) {
+            if ((pageTags[i].content.includes('John Deere')) && (pageTags[i].content !== 'John Deere Lawn Tractor')) {
+              var model = pageTags[i].content.split('John Deere ')[1];
+              document.querySelector('#mce-MODEL').value = model;
+            }
+          }
+        }
+
       });
     }
 
