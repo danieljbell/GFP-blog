@@ -112,34 +112,16 @@ foreach (get_the_tags() as $tag) {
           echo '<select id="modelModifiers" style="width: 100%;">';
             echo '<option selected disabled>Choose Different Model in this Series</option>';
           while ($related_model_args_query->have_posts()) : $related_model_args_query->the_post();
+            $is_current_page = str_replace(site_url(), '', get_the_permalink());
             $stripped_title = str_replace('John Deere ', '', str_replace('Maintenance Sheet', '', get_the_title()));
-            if (('/' . $post_slug . '/') == $_SERVER['REQUEST_URI']) {
-              echo '<option selected value="' . $post_slug . '">' . $stripped_title . '</option>';
+            if ($is_current_page === $_SERVER['REQUEST_URI']) {
+              echo '<option selected value="' . get_the_permalink() . '">' . $stripped_title . '</option>';
             } else {
-              echo '<option value="' . $post_slug . '">' . $stripped_title . '</option>';
+              echo '<option value="' . get_the_permalink() . '">' . $stripped_title . '</option>';
             }
           endwhile;
           echo '</select>';
         endif; wp_reset_postdata();
-        // $model_modifiers = get_field('model_modifiers');
-        // if ($model_modifiers) {
-        //   echo '<h4>Looking for a different model in this series?</h4><p style="margin-bottom: 0.5rem;">Browse other models in this series below</p>';
-        //   echo '<select id="modelModifiers" style="width: 100%;">';
-        //     echo '<option selected disabled>Choose Different Model in this Series</option>';
-        //   foreach ($model_modifiers as $post) {
-        //     setup_postdata($post);
-        //     // global $post;
-        //     $post_slug = $post->post_name;
-        //     $stripped_title = str_replace('John Deere ', '', str_replace('Maintenance Sheet', '', get_the_title()));
-        //     if (('/' . $post_slug . '/') == $_SERVER['REQUEST_URI']) {
-        //       echo '<option selected value="' . $post_slug . '">' . $stripped_title . '</option>';
-        //     } else {
-        //       echo '<option value="' . $post_slug . '">' . $stripped_title . '</option>';
-        //     }
-        //   }
-        //   wp_reset_postdata();
-        //   echo '</select>';
-        // }
       ?>
 
       <?php if ($maintenance_kit) : ?>
