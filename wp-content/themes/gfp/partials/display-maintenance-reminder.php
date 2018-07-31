@@ -83,6 +83,44 @@ foreach (get_the_tags() as $tag) {
         <img src="<?php echo $model_image; ?>" alt="John Deere <?php echo $model_number . ' ' . $model_name; ?>">
       </div>
       <?php
+        foreach (get_the_tags() as $tag) {
+          if (get_field('is_series', $tag)) {
+            // print_r($tag->term_id);
+            $related_model_args = array(
+              'post_type' => 'post',
+              'order' => 'ASC',
+              'tax_query' => array(
+                'relation' => 'AND',
+                array(
+                  'taxonomy' => 'category',
+                  'field'    => 'slug',
+                  'terms'    => array( 'maintenance-reminder' ),
+                ),
+                array(
+                  'taxonomy' => 'post_tag',
+                  'field'    => 'term_id',
+                  'terms'  => $tag->term_id,
+                ),
+              ),
+            );
+            $related_model_args_query = new WP_Query( $related_model_args );
+          }
+        }
+        
+        if ($related_model_args_query->have_posts()) :
+          echo '<h4>Looking for a different model in this series?</h4><p style="margin-bottom: 0.5rem;">Browse other models in this series below</p>';
+          echo '<select id="modelModifiers" style="width: 100%;">';
+            echo '<option selected disabled>Choose Different Model in this Series</option>';
+          while ($related_model_args_query->have_posts()) : $related_model_args_query->the_post();
+            $stripped_title = str_replace('John Deere ', '', str_replace('Maintenance Sheet', '', get_the_title()));
+            if (('/' . $post_slug . '/') == $_SERVER['REQUEST_URI']) {
+              echo '<option selected value="' . $post_slug . '">' . $stripped_title . '</option>';
+            } else {
+              echo '<option value="' . $post_slug . '">' . $stripped_title . '</option>';
+            }
+          endwhile;
+          echo '</select>';
+        endif; wp_reset_postdata();
         // $model_modifiers = get_field('model_modifiers');
         // if ($model_modifiers) {
         //   echo '<h4>Looking for a different model in this series?</h4><p style="margin-bottom: 0.5rem;">Browse other models in this series below</p>';
