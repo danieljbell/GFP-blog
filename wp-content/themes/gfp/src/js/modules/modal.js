@@ -17,7 +17,7 @@
           for (var i = 0; i < pageTags.length; i++) {
             if ((pageTags[i].content.includes('John Deere')) && (pageTags[i].content !== 'John Deere Lawn Tractor')) {
               var model = pageTags[i].content.split('John Deere ')[1];
-              document.querySelector('#mce-MODEL').value = model;
+              document.querySelector('#mce-MODEL').value = model.toUpperCase();
             }
           }
         }

@@ -9,6 +9,11 @@
 
       loadPosts.addEventListener('click', function(e) {
           var url = window.location.origin + '/wp-json/wp/v2/posts?offset=' + (offset * postCount);
+          if (document.body.classList.contains('category')) {
+            var cat = document.body.classList;
+            console.log(cat);
+            // url = window.location.origin + '/wp-json/wp/v2/posts?offset=' + (offset * postCount);
+          }
           
           atomic(url)
             .then(function (response) {
