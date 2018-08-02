@@ -208,6 +208,17 @@ foreach (get_the_tags() as $tag) {
                 <button data-modal-launch="sign-up-form">Get Notified</button>
               </div>
             </li>
+            <?php if (get_field('parts_diagram_link')) : ?>
+              <li class="related-model-link-item">
+                <div class="related-model-image">
+                  <img src="/wp-content/themes/gfp/dist/img/cogs.svg" alt="">
+                </div>
+                <div class="related-model-content">
+                  <h3 class="mar-b">Need a detailed diagram<span> for your <?php echo $formal_model_name; ?></span>?</h3>
+                  <a href="<?php echo get_field('parts_diagram_link'); ?>">View Now</a>
+                </div>
+              </li>
+            <?php endif; ?>
         </ul>
       </section>
 
