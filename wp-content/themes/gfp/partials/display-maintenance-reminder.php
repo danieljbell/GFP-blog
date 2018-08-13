@@ -1,19 +1,23 @@
 <?php
   $deere_permalink = get_field('deere_permalink');
-  $url = $deere_permalink . 'index.json';
-  $getJSON = curl_init();
-  curl_setopt($getJSON, CURLOPT_URL, $url);
-  curl_setopt($getJSON, CURLOPT_HEADER, 0);
-  curl_setopt($getJSON, CURLOPT_RETURNTRANSFER, 1);
+
+  if ($deere_permalink) {
+    $url = $deere_permalink . 'index.json';
+    $getJSON = curl_init();
+    curl_setopt($getJSON, CURLOPT_URL, $url);
+    curl_setopt($getJSON, CURLOPT_HEADER, 0);
+    curl_setopt($getJSON, CURLOPT_RETURNTRANSFER, 1);
+    
+    $returnDeereModel = json_decode(curl_exec($getJSON), true);
+
+    $model_number = $returnDeereModel['Page']['analytics']['MetaData']['product-model-number'];
+    $model_name = $returnDeereModel['Page']['analytics']['MetaData']['product-model-name'];
+    $model_image = 'https://deere.com/' . $returnDeereModel['Page']['analytics']['MetaData']['product-image'];
+    $maintenance_kit = get_field('maintenance_kit_part_number');
+
+    $formal_model_name = $model_number . ' ' . $model_name;
+  }
   
-  $returnDeereModel = json_decode(curl_exec($getJSON), true);
-
-  $model_number = $returnDeereModel['Page']['analytics']['MetaData']['product-model-number'];
-  $model_name = $returnDeereModel['Page']['analytics']['MetaData']['product-model-name'];
-  $model_image = 'https://deere.com/' . $returnDeereModel['Page']['analytics']['MetaData']['product-image'];
-  $maintenance_kit = get_field('maintenance_kit_part_number');
-
-  $formal_model_name = $model_number . ' ' . $model_name;
 ?>  
 
 
