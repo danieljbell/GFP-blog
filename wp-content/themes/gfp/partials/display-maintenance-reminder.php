@@ -89,7 +89,7 @@ foreach (get_the_tags() as $tag) {
       <?php
         foreach (get_the_tags() as $tag) {
           if (get_field('is_series', $tag)) {
-            // print_r($tag->term_id);
+            $has_series = true;
             $related_model_args = array(
               'post_type' => 'post',
               'order' => 'ASC',
@@ -111,7 +111,7 @@ foreach (get_the_tags() as $tag) {
           }
         }
         
-        if ($related_model_args_query->have_posts()) :
+        if ($has_series && $related_model_args_query->have_posts()) :
           echo '<h4>Looking for a different model in this series?</h4><p style="margin-bottom: 0.5rem;">Browse other models in this series below</p>';
           echo '<select id="modelModifiers" style="width: 100%;">';
             echo '<option selected disabled>Choose Different Model in this Series</option>';
@@ -165,7 +165,7 @@ foreach (get_the_tags() as $tag) {
       
 
       <?php
-        if ( ($troubleshooting_query->have_posts()) || ($service_query->have_posts()) )
+        if ( ($has_series && $troubleshooting_query->have_posts()) || ($has_series && $service_query->have_posts()) ) :
       ?>
       <section class="mar-y--most pad-b related-model-links">
         <ul class="related-model-link-list">
@@ -225,6 +225,9 @@ foreach (get_the_tags() as $tag) {
             <?php endif; ?>
         </ul>
       </section>
+      <?php
+        endif;
+      ?>
 
       <section class="mar-y--most">
         <h3>Service Schedule Parts<span> for John Deere <?php echo $model_number . ' ' . $model_name; ?></span></h3>
@@ -255,49 +258,18 @@ foreach (get_the_tags() as $tag) {
                 $available_online = '<button class="disabled">Not Sold Online</button>';
                 $product_link = get_sub_field('hourly_part_number');
               }
-
-                // Add Serial Break on seperate line
                 $hourly_part_description = get_sub_field('hourly_part_description');
-                $hourly_part_description = explode('(', $hourly_part_description);
-                if (count($hourly_part_description) > 1) {
-                  $hourly_part_description = $hourly_part_description[0] . '<br><em>(' . $hourly_part_description[1] . '</em>';
-                } else {
-                  $hourly_part_description = get_sub_field('hourly_part_description');
-                }
                 $interval_hour = get_sub_field('interval');
-                $intervals = join("/", $interval_hour);
             ?>
             <tr>
               <td data-header="Part Type" data-product-image="https://greenfarmparts.com/v/vspfiles/photos/<?php echo get_sub_field('hourly_part_number'); ?>-2T.jpg">
-                <?php echo $hourly_part_description; ?>    
+                <?php print_r($hourly_part_description); ?>    
               </td>
               <td data-header="Part Number"><?php echo $product_link; ?></td>
               <td data-header="Quantity"><?php echo get_sub_field('quantity'); ?></td>
-              <td data-header="Hour Intervals"><?php echo $intervals; ?></td>
+              <td data-header="Hour Intervals"><?php echo $interval_hour; ?></td>
               <td><?php echo $available_online; ?></td>
             </tr>
-            <?php if (have_rows('serial_breaks')) : while(have_rows('serial_breaks')) : the_row(); ?>
-              <?php
-                // Add Serial Break on seperate line
-                $serial_break_hourly_part_description = get_sub_field('serial_break_hourly_part_description');
-                $serial_break_hourly_part_description = explode('(', $serial_break_hourly_part_description);
-              ?>
-              <tr>
-                <td data-header="Part Type"><?php echo $serial_break_hourly_part_description[0]; ?><br><em>(<?php echo $serial_break_hourly_part_description[1]; ?></em></td>
-                <td data-header="Part Number"><a href="https://www.greenfarmparts.com/-p/<?php echo get_sub_field('serial_break_hourly_part_number'); ?>.htm"><?php echo get_sub_field('serial_break_common_part_number'); ?></a></td>
-                <td data-header="Quantity">$9.99</td>
-                <td data-header="Hour Intervals">$9.99</td>
-                <td>
-                  <?php
-                    if (!get_sub_field('not_sold')) {
-                      echo '<button class="add-to-cart">Add to Cart</button>';
-                    } else {
-                      echo 'Not sold online';
-                    }
-                  ?>
-                </td>
-              </tr>
-            <?php endwhile; endif; ?>
         <?php endwhile; ?>
           </table>
         <?php endif; ?>
@@ -351,27 +323,6 @@ foreach (get_the_tags() as $tag) {
               <!-- <td data-header="Price">$9.99</td> -->
               <td><?php echo $available_online; ?></td>
             </tr>
-            <?php if (have_rows('serial_breaks')) : while(have_rows('serial_breaks')) : the_row(); ?>
-              <?php
-                // Add Serial Break on seperate line
-                $serial_break_common_part_description = get_sub_field('serial_break_common_part_description');
-                $serial_break_common_part_description = explode('(', $serial_break_common_part_description);
-              ?>
-              <tr>
-                <td data-header="Part Type"><?php echo $serial_break_common_part_description[0]; ?><br><em>(<?php echo $serial_break_common_part_description[1]; ?></em></td>
-                <td data-header="Part Number"><a href="https://www.greenfarmparts.com/-p/<?php echo get_sub_field('serial_break_common_part_number'); ?>.htm"><?php echo get_sub_field('serial_break_common_part_number'); ?></a></td>
-                <!-- <td data-header="Price">$9.99</td> -->
-                <td>
-                  <?php
-                    if (!get_sub_field('not_sold')) {
-                      echo '<button class="add-to-cart">Add to Cart</button>';
-                    } else {
-                      echo 'Not sold online';
-                    }
-                  ?>
-                </td>
-              </tr>
-            <?php endwhile; endif; ?>
         <?php endwhile; ?>
           </table>
         <?php endif; ?>
@@ -423,27 +374,6 @@ foreach (get_the_tags() as $tag) {
               <!-- <td data-header="Price">$9.99</td> -->
               <td><?php echo $available_online; ?></td>
             </tr>
-            <?php if (have_rows('serial_breaks')) : while(have_rows('serial_breaks')) : the_row(); ?>
-              <?php
-                // Add Serial Break on seperate line
-                $serial_break_as_needed_part_description = get_sub_field('serial_break_as_needed_part_description');
-                $serial_break_as_needed_part_description = explode('(', $serial_break_as_needed_part_description);
-              ?>
-              <tr>
-                <td data-header="Part Type"><?php echo $serial_break_as_needed_part_description[0]; ?><br><em>(<?php echo $serial_break_as_needed_part_description[1]; ?></em></td>
-                <td data-header="Part Number"><a href="https://www.greenfarmparts.com/-p/<?php echo get_sub_field('serial_break_as_needed_part_number'); ?>.htm"><?php echo get_sub_field('serial_break_as_needed_part_number'); ?></a></td>
-                <!-- <td data-header="Price">$9.99</td> -->
-                <td>
-                  <?php
-                    if (!get_sub_field('not_sold')) {
-                      echo '<button class="add-to-cart">Add to Cart</button>';
-                    } else {
-                      echo 'Not sold online';
-                    }
-                  ?>
-                </td>
-              </tr>
-            <?php endwhile; endif; ?>
         <?php endwhile; ?>
             <?php
               $add_on_parts = array(
