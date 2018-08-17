@@ -243,13 +243,6 @@ foreach (get_the_tags() as $tag) {
             </tr>
         <?php while (have_rows('hourly_parts')) : the_row(); ?>
             <?php
-              // $url = 'https://www.greenfarmparts.com/-p/' . get_sub_field('hourly_part_number') . '.htm';
-              // $getHTML = curl_init();
-              // curl_setopt($getHTML, CURLOPT_URL, $url);
-              // curl_setopt($getHTML, CURLOPT_HEADER, 0);
-              // curl_setopt($getHTML, CURLOPT_RETURNTRANSFER, 1);
-              // $returnProductData = curl_exec($getHTML);
-
               // check for sold online or not
               if (!get_sub_field('not_sold')) {
                 $available_online = '<button class="add-to-cart">Add to Cart</button>';
@@ -259,6 +252,10 @@ foreach (get_the_tags() as $tag) {
                 $product_link = get_sub_field('hourly_part_number');
               }
                 $hourly_part_description = get_sub_field('hourly_part_description');
+                $exploded_descrption = explode(' ', $hourly_part_description);
+                for ($i=0; $i < count($exploded_descrption); $i++) { 
+                  $something = strtolower($hourly_part_description[$i]);
+                }
                 $interval_hour = get_sub_field('interval');
             ?>
             <tr>

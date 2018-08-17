@@ -14,6 +14,9 @@
             console.log(cat);
             // url = window.location.origin + '/wp-json/wp/v2/posts?offset=' + (offset * postCount);
           }
+
+          loadPosts.disabled = true;
+          loadPosts.classList.add('disabled');
           
           atomic(url)
             .then(function (response) {
@@ -32,6 +35,9 @@
                   description: data[i].excerpt.rendered.slice(3, -5),
                 });
               }
+
+              loadPosts.disabled = false;
+              loadPosts.classList.remove('disabled');
               
               if (response.data.length < 10) {
                 loadPosts.textContent = 'All Posts Loaded';
