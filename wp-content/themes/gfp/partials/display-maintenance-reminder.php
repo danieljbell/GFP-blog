@@ -252,10 +252,6 @@ foreach (get_the_tags() as $tag) {
                 $product_link = get_sub_field('hourly_part_number');
               }
                 $hourly_part_description = get_sub_field('hourly_part_description');
-                $exploded_descrption = explode(' ', $hourly_part_description);
-                for ($i=0; $i < count($exploded_descrption); $i++) { 
-                  $something = strtolower($hourly_part_description[$i]);
-                }
                 $interval_hour = get_sub_field('interval');
             ?>
             <tr>
@@ -264,7 +260,7 @@ foreach (get_the_tags() as $tag) {
               </td>
               <td data-header="Part Number"><?php echo $product_link; ?></td>
               <td data-header="Quantity"><?php echo get_sub_field('quantity'); ?></td>
-              <td data-header="Hour Intervals"><?php if (count(explode(',', $interval_hour)) < 2) echo 'Every '; echo $interval_hour;  ?></td>
+              <td data-header="Hour Intervals"><?php print_r($interval_hour);// if (count(explode(',', $interval_hour)) < 2) echo 'Every '; echo $interval_hour;  ?></td>
               <td><?php echo $available_online; ?></td>
             </tr>
         <?php endwhile; ?>
