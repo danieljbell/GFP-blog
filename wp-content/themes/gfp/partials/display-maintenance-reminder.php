@@ -58,6 +58,7 @@ LOOP OVER TAGS TO GET SERVICE RELATED CONTENT
 foreach (get_the_tags() as $tag) {
   // if tag is set as a model then query for posts
   if (get_field('is_model', $tag)) {
+    $has_model = true;
     $service_args = array(
       'post_type' => 'post',
       'tax_query' => array(
@@ -165,12 +166,12 @@ foreach (get_the_tags() as $tag) {
       
 
       <?php
-        if ( ($has_series && $troubleshooting_query->have_posts()) || ($has_series && $service_query->have_posts()) ) :
+        // if ( ($has_model && $troubleshooting_query->have_posts()) || ($has_model && $service_query->have_posts()) ) :
       ?>
       <section class="mar-y--most pad-b related-model-links">
         <ul class="related-model-link-list">
             <?php
-              if ($service_query->have_posts()) :
+              if ($has_model && $service_query->have_posts()) :
                 echo '<li class="related-model-link-item">';
                   while ($service_query->have_posts()) :
                     $service_query->the_post();
@@ -187,7 +188,7 @@ foreach (get_the_tags() as $tag) {
               wp_reset_postdata();
             ?>
             <?php
-              if ($troubleshooting_query->have_posts()) :
+              if ($has_model && $troubleshooting_query->have_posts()) :
                 echo '<li class="related-model-link-item">';
                   while ($troubleshooting_query->have_posts()) :
                     $troubleshooting_query->the_post();
@@ -226,7 +227,7 @@ foreach (get_the_tags() as $tag) {
         </ul>
       </section>
       <?php
-        endif;
+        // endif;
       ?>
 
       <section class="mar-y--most">
@@ -404,53 +405,6 @@ foreach (get_the_tags() as $tag) {
     </div>
   </div>
 
-<?php
-  if ($service_query->have_posts()) :
-?>
-  <div class="modal modal--is-hidden" data-modal="service-checklist">
-    <div class="modal-container">
-      <button class="modal--close">&times;</button>
-      <div class="modal-content">
-        <h2 class="modal-heading"><?php echo $formal_model_name; ?> Service Checklist</h2>
-        <ul class="accordian">
-        <?php
-          while ($service_query->have_posts()) : $service_query->the_post();
-            if (have_rows('service_interval', $post->ID)) : while (have_rows('service_interval', $post->ID)) : the_row();
-              echo '<li class="accordian--item">';
-                echo '<button class="accordian--title">' . get_sub_field('interval') . '</button>';
-                echo '<ul class="accordian--content">';
-                  if (have_rows('interval_checklist')) : while (have_rows('interval_checklist')) : the_row();
-                    $item_array = get_sub_field('interval_checklist_item');
-                    echo '<li>';
-                      if ($item_array['url'] !== '#0') {
-                        echo '<a href="' . $item_array['url'] . '">' . $item_array['title'] . '</a>';
-                      } else {
-                        echo $item_array['title'];
-                      }
-                    echo '</li>';
-                  endwhile; endif;
-                echo '</ul>';
-              echo '</li>';
-              endwhile; endif;
-            endwhile;
-          ?>
-        </ul>
-        <div class="has-text-center mar-t--more">
-          <?php
-            while ($service_query->have_posts()) : $service_query->the_post();
-              echo '<a href="' . get_the_permalink() . '" class="btn-solid--brand">View As Full Page</a>';
-            endwhile;
-          ?>
-        </div>
-      </div>
-    </div>
-  </div>
-<?php
-  endif;
-  wp_reset_postdata();
-?>
-
-
 <div class="modal modal--is-hidden" data-modal="sign-up-form">
   <div class="modal-container">
     <button class="modal--close">&times;</button>
@@ -595,6 +549,55 @@ foreach (get_the_tags() as $tag) {
     </div>
   </div>
 </div>
+
+<?php
+  if ($service_query->have_posts()) :
+?>
+  <div class="modal modal--is-hidden" data-modal="service-checklist">
+    <div class="modal-container">
+      <button class="modal--close">&times;</button>
+      <div class="modal-content">
+        <h2 class="modal-heading"><?php echo $formal_model_name; ?> Service Checklist</h2>
+        <ul class="accordian">
+        <?php
+          while ($service_query->have_posts()) : $service_query->the_post();
+            if (have_rows('service_interval', $post->ID)) : while (have_rows('service_interval', $post->ID)) : the_row();
+              echo '<li class="accordian--item">';
+                echo '<button class="accordian--title">' . get_sub_field('interval') . '</button>';
+                echo '<ul class="accordian--content">';
+                  if (have_rows('interval_checklist')) : while (have_rows('interval_checklist')) : the_row();
+                    $item_array = get_sub_field('interval_checklist_item');
+                    echo '<li>';
+                      if ($item_array['url'] !== '#0') {
+                        echo '<a href="' . $item_array['url'] . '">' . $item_array['title'] . '</a>';
+                      } else {
+                        echo $item_array['title'];
+                      }
+                    echo '</li>';
+                  endwhile; endif;
+                echo '</ul>';
+              echo '</li>';
+              endwhile; endif;
+            endwhile;
+          ?>
+        </ul>
+        <div class="has-text-center mar-t--more">
+          <?php
+            while ($service_query->have_posts()) : $service_query->the_post();
+              echo '<a href="' . get_the_permalink() . '" class="btn-solid--brand">View As Full Page</a>';
+            endwhile;
+          ?>
+        </div>
+      </div>
+    </div>
+  </div>
+<?php
+  endif;
+  wp_reset_postdata();
+?>
+
+
+
 
 </section>
 
