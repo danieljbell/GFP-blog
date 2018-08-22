@@ -1,0 +1,29 @@
+.error404 .hero {
+  display: flex;
+  align-items: center;
+  min-height: 75vh;
+  background-image: linear-gradient(rgba(black, 0.5), rgba(black, 0.5)), url(../img/hero--main.jpg);
+
+  .site-width {
+    position: relative;
+    z-index: 1;
+    &:after {
+      content: '';
+      position: absolute;
+      top: -4rem;
+      left: 2rem;
+      right: 2rem;
+      bottom: -4rem;
+      background-color: #000;
+      z-index: -1;
+      border-radius: 50%;
+      filter: blur(25px);
+      opacity: 0.7;
+    }
+  }
+  
+  form {
+    margin-top: 2rem;
+  }
+
+}

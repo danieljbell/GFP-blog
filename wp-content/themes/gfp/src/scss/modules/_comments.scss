@@ -1,0 +1,93 @@
+.comment-notes,
+.comment-form-email,
+.comment-form-url,
+.comment-form-cookies-consent,
+.logged-in-as {
+  display: none;
+}
+
+.comment-author img {
+  display: none;
+}
+
+.comment-author cite {
+  font-style: normal;
+  font-weight: bold;
+}
+
+.commentlist {
+  list-style-type: none;
+}
+
+.commentlist .comment {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  box-shadow: 2px 2px 15px rgba(black, 0.1);
+  border: 1px solid $light-gray;
+}
+
+.comment-body {
+  position: relative;
+}
+
+.comment-body .comment-meta {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 0.8em;
+}
+
+.comment-body p:last-child {
+  margin-bottom: 0;
+}
+
+h3#comments {
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+h3#reply-title {
+  margin-bottom: 0.5rem;
+}
+
+.comment-respond {
+  margin-top: 3rem;
+  border: 1px solid $medium-gray;
+  background-color: $light-gray; 
+  padding: 1rem;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-form-author {
+  order: -1;
+}
+
+.comment-respond input {
+  display: block;
+  border: 1px solid $medium-gray;
+  font-family: inherit;
+  font-size: 0.8rem;
+  padding: 0.25em;
+}
+
+.comment-respond textarea {
+  width: 100%;
+  border: 1px solid $medium-gray;
+  font-family: inherit;
+  font-size: 0.8rem;
+  padding: 0.5em;
+}
+
+.comment-respond input[type="submit"] {
+  @include solidButton($brand-two, #fff, 'darken');
+}
+
+.single-comments button {
+  @include solidButton($brand-two, #fff, 'darken');
+  display: block;
+  margin: 0 auto;
+}

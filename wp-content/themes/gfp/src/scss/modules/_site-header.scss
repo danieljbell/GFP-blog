@@ -1,0 +1,244 @@
+.site-header {
+  box-shadow: 0 15px 15px -5px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 10;
+  background-color: #fff;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.site-header > .site-width {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-header .menu-item--logo-container img {
+  width: 100%;
+  max-width: 185px;
+  min-height: 45px;
+  display: block;
+  padding: 0.75rem 0;
+  @include desktop {
+    max-width: 225px;
+    padding: 0;
+  }
+}
+
+.navigation--level-zero {
+  display: none;
+  position: absolute;
+  background-color: #ffffff;
+  top: 0;
+  left: 0;
+  right: 0;
+  
+  @include desktop {
+    position: static;
+    background-color: transparent;
+    display: flex;
+    list-style-type: none;
+  }
+
+  .menu-open & {
+    display: flex;
+    flex-direction: column;
+  }
+
+}
+
+.mobile-search {
+  width: 100%;
+  background-color: $light-gray;
+  border: 1px solid $medium-gray;
+  font-size: inherit;
+  font-family: inherit;
+  padding: 0.5rem 1rem;
+  @include desktop {
+    display: none;
+  }
+}
+
+.navigation--level-one {
+  display: none;
+  list-style-type: none;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 2rem 0;
+  position: relative;
+
+  &.active {
+    display: block;
+  }
+
+  > li {
+
+    > a {
+      font-size: 0.85em;
+      max-width: calc(200px - 2rem);
+      display: block;
+      border-bottom: 1px solid $medium-gray;
+      padding: 0.5em 0.75em;
+      
+      &:hover {
+        text-decoration: none;
+      }
+
+      &.active {
+        background-color: $brand;
+        color: #fff;
+        border-color: transparent;
+        position: relative;
+        
+        &:after {
+          content: url(../img/nav--active.svg);
+          position: absolute;
+          left: calc(200px - 3rem);
+          width: 33px;
+          top: 0;
+        }
+
+        & + .navigation--level-two {
+          display: grid;
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+.navigation--level-two {
+  display: none;
+  position: absolute;
+  left: 200px;
+  top: 2rem;
+  right: 0;
+  z-index: 1;
+  // display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 1rem;
+
+  > li {
+    list-style-type: none;
+    text-align: center;
+
+    a {
+      display: block;
+      background-color: #fff;
+      padding: 1rem;
+      font-weight: bold;
+      font-size: 0.9em;
+      border-radius: 3px;
+      box-shadow: 2px 2px 4px rgba(black, 0.04);
+      transition: all 250ms ease-in-out;
+      
+      &:hover {
+        text-decoration: none;
+        box-shadow: 4px 4px 6px rgba(black, 0.15);
+        transform: scale(1.03) translate(-2px, -2px);
+      }
+
+    }
+    
+    img {
+      display: block;
+      margin: 0 auto 0.5rem;
+      max-width: 60px;
+      max-height: 60px;
+    }
+
+  }
+
+}
+
+.navigation--button {
+  width: 100%;
+  color: $brand;
+  text-align: left;
+  border: 0;
+  background-color: transparent;
+  padding: 1rem;
+  border-bottom: 1px solid $medium-gray;
+  @include desktop {
+    border-bottom: 0;
+    padding: 2rem 1rem;
+    text-align: center;
+    width: auto;
+  }
+  
+  &:focus {
+    outline: none;
+  }
+
+}
+
+.mobile-search-container {
+  order: -2;
+}
+
+.cart-container {
+  display: block;
+  border-bottom: 1px solid $medium-gray;
+  order: -1;
+  padding: 0 1rem;
+  position: relative;
+  @include desktop {
+    order: 0;
+    padding: 1.4rem 0rem 1.4rem 1rem;
+    border-bottom: 0;
+  }
+
+  strong {
+    position: absolute;
+    font-size: 1.25rem;
+    top: 1px;
+    right: 15px;
+    z-index: 1;
+    @include desktop {
+      top: 10px;
+      right: 0;
+    }
+  }
+
+  a {
+    font-weight: bold;
+    display: block;
+    padding: 1rem 0;
+    @include desktop {
+      padding: 0;
+    }
+  }
+
+  img {
+    float: right;
+    position: relative;
+    top: -8px;
+    @include desktop {
+      position: static;
+    }
+  }
+
+}
+
+.menu-shop-by-part-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background-color: $light-gray;
+  
+  &.active {
+    border-top: 5px solid $brand-two;
+    border-bottom: 5px solid $brand-two;
+  }
+
+}
+
+.menu-item--menu-toggle {
+  @include desktop {
+    display: none;
+  }
+}

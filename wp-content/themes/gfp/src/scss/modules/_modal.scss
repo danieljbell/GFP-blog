@@ -1,0 +1,58 @@
+.modal--is-open {
+  overflow: hidden;
+}
+
+.modal {
+  overflow: scroll;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(black, 0.8);
+  &.modal--is-hidden {
+    display: none;
+  }
+}
+
+.modal-container {
+  max-width: 600px;
+  padding: 4rem 1rem;
+  margin: 0 auto;
+  position: relative;
+  @include desktop {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.modal--close {
+  background-color: transparent;
+  color: #fff;
+  padding: 1.5rem;
+  font-size: 2rem;
+  position: absolute;
+  border: 0;
+  top: 1rem;
+  right: -0.5rem;
+  line-height: 0;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 5px;
+  box-shadow: 3px 6px 20px rgba(black, 0.9);
+}
+
+.modal-heading {
+  font-weight: bold !important; 
+  text-align: center;
+  font-size: 1.25rem !important;
+}
+
+
+.modal[data-modal="sign-up-form"] .modal-container {
+  max-width: 350px;
+}

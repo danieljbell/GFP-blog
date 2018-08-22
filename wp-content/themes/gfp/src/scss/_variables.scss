@@ -1,0 +1,29 @@
+$brand: #29652d;
+$brand-two: #bdd341;
+$black: #444;
+$medium-gray: #ccc;
+$light-gray: #f0f0f0;
+
+
+/*
+=====================
+RESPONSIVE MIXINS
+=====================
+*/
+@mixin tablet {
+    @media screen and (min-width: 600px) and (max-width: 1079px) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media screen and (min-width: 1080px) {
+        @content;
+    }
+}
+
+@mixin hd {
+    @media screen and (min-width: 1281px) {
+        @content;
+    }
+}

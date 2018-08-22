@@ -1,0 +1,133 @@
+table {
+  width: 100%;
+  border: 1px solid #ccc;
+}
+
+th,
+td {
+  padding: 0.5rem 1rem;
+  background-color: #fff;
+  text-align: left;
+  font-size: 0.9em;
+  
+  &:last-child {
+    text-align: center;
+  }
+
+}
+
+tr {
+  display: flex;
+  flex-direction: column;
+  @include tablet {
+    display: table-row;
+  }
+  @include desktop {
+    display: table-row;
+  }
+}
+
+th {
+  background-color: $brand;
+  color: #fff;
+  text-transform: uppercase;
+  display: none;
+  @include tablet {
+    display: table-cell;
+  }
+  @include desktop {
+    display: table-cell;
+  }
+}
+
+td {
+  font-size: 0.85em;
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.1rem 1rem;
+  text-align: right;
+  position: relative;
+  @include tablet {
+    text-align: left;
+    display: table-cell;
+    padding: 0.5rem 1rem;
+  }
+  @include desktop {
+    text-align: left;
+    display: table-cell;
+    padding: 0.5rem 1rem;
+  }
+
+  &:before {
+    content: attr(data-header);
+    font-weight: bold;
+    text-align: left;
+    @include tablet {
+      display: none;
+    }
+    @include desktop {
+      display: none;
+    }
+  }
+
+  &:first-child {
+    padding-top: 1rem;
+    @include tablet {
+      padding-top: 0.5rem;
+    }
+    @include desktop {
+      padding-top: 0.5rem;
+    }
+  }
+
+  &:last-child {
+    padding-bottom: 1rem;
+    justify-content: center;
+    @include tablet {
+      padding-bottom: 0.5rem;
+    }
+    @include desktop {
+      padding-bottom: 0.5rem;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  button {
+    font-size: 0.9em;
+    padding: 0.25em 0.75em;
+    background-color: $brand-two;
+    border: 0;
+    color: #fff;
+    transition: all 250ms ease-in-out;
+
+    &:hover {
+      background-color: darken($brand-two, 15%);
+    }
+
+    &.disabled {
+      background-color: $medium-gray;
+      &:hover {
+        background-color: darken($medium-gray, 15%);   
+      }
+    }
+
+    span {
+      @include tablet {
+        display: none;
+      }
+      @include desktop {
+        display: none;
+      }
+    }
+
+  }
+
+}
+
+tr:nth-child(2n+1) td {
+  background-color: #f0f0f0;
+  // border-top: 1px solid $medium-gray;
+  // border-bottom: 1px solid $medium-gray;
+}
