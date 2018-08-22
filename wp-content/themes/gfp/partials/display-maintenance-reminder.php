@@ -405,199 +405,150 @@ foreach (get_the_tags() as $tag) {
     </div>
   </div>
 
-<div class="modal modal--is-hidden" data-modal="sign-up-form">
-  <div class="modal-container">
-    <button class="modal--close">&times;</button>
-    <div class="modal-content">
-      <div class="has-text-center">
-        <h2 class="modal-heading">Sign Up for Maintenance Reminder Emails</h2>
-        <p>We will periodically send you emails based on how you submit the form.</p>
-      </div>
-      <form action="https://greenfarmparts.us12.list-manage.com/subscribe/post-json?u=c80372a35929a7b281b76c090&id=d4452378de&c=?" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate form--maintenance-sign-up" target="_blank" novalidate>
-        <div id="mc_embed_signup_scroll">
-          <div class="mc-field-group">
-            <label for="mce-EMAIL">Email Address</label>
-            <input required type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
-          </div>
-          <div class="mc-field-group">
-            <label for="mce-FNAME">First Name</label>
-            <input type="text" value="" name="FNAME" class="" id="mce-FNAME">
-          </div>
-          <div class="mc-field-group">
-            <label for="mce-LNAME">Last Name</label>
-            <input type="text" value="" name="LNAME" class="" id="mce-LNAME">
-          </div>
-          <div class="mc-field-group">
-            <label for="mce-MODEL">Model</label>
-            <select name="MODEL" class="required" id="mce-MODEL">
-            <option value="" disabled selected>Choose Your Model</option>
-            <option value="115">115</option>
-            <option value="125">125</option>
-            <option value="L100">L100</option>
-            <option value="L110">L110</option>
-            <option value="LA155">LA155</option>
-            <option value="D100">D100</option>
-            <option value="D105">D105</option>
-            <option value="D110">D110</option>
-            <option value="D125">D125</option>
-            <option value="D130">D130</option>
-            <option value="D140">D140</option>
-            <option value="D170">D170</option>
-            <option value="E100">E100</option>
-            <option value="E110">E110</option>
-            <option value="E120">E120</option>
-            <option value="E130">E130</option>
-            <option value="E140">E140</option>
-            <option value="E150">E150</option>
-            <option value="E160">E160</option>
-            <option value="E170">E170</option>
-            <option value="E180">E180</option>
-            <option value="S240">S240</option>
-            <option value="X300R">X300R</option>
-            <option value="X304">X304</option>
-            <option value="X310">X310</option>
-            <option value="X324">X324</option>
-            <option value="X330">X330</option>
-            <option value="X340">X340</option>
-            <option value="X350">X350</option>
-            <option value="X350R">X350R</option>
-            <option value="X354">X354</option>
-            <option value="X360">X360</option>
-            <option value="X370">X370</option>
-            <option value="X380">X380</option>
-            <option value="X384">X384</option>
-            <option value="X384">X384</option>
-            <option value="X390">X390</option>
-            <option value="X394">X394</option>
-            <option value="X520">X520</option>
-            <option value="X534">X534</option>
-            <option value="X540">X540</option>
-            <option value="X570">X570</option>
-            <option value="X580">X580</option>
-            <option value="X580">X580</option>
-            <option value="X584">X584</option>
-            <option value="X590">X590</option>
-            <option value="X710">X710</option>
-            <option value="X728">X728</option>
-            <option value="X730">X730</option>
-            <option value="X734">X734</option>
-            <option value="X738">X738</option>
-            <option value="X739">X739</option>
-            <option value="X739">X739</option>
-            <option value="X750">X750</option>
-            <option value="X754">X754</option>
-            <option value="X758">X758</option>
-            <option value="Z225">Z225</option>
-            <option value="Z235">Z235</option>
-            <option value="Z255">Z255</option>
-            <option value="Z335E">Z335E</option>
-            <option value="Z335M">Z335M</option>
-            <option value="Z345M">Z345M</option>
-            <option value="Z345R">Z345R</option>
-            <option value="Z355E">Z355E</option>
-            <option value="Z355R">Z355R</option>
-            <option value="Z375R">Z375R</option>
-            <option value="Z425">Z425</option>
-            <option value="Z435">Z435</option>
-            <option value="Z445">Z445</option>
-            <option value="Z465">Z465</option>
-            <option value="Z525E">Z525E</option>
-            <option value="Z535M">Z535M</option>
-            <option value="Z535R">Z535R</option>
-            <option value="Z540M">Z540M</option>
-            <option value="Z540R">Z540R</option>
-            <option value="Z625">Z625</option>
-            <option value="Z645">Z645</option>
-            <option value="Z655">Z655</option>
-            <option value="Z665">Z665</option>
-            </select>
-          </div>
-          <div class="mc-field-group size1of2">
-            <label for="mce-CURRENT_HR">Current Hours </label>
-            <input type="number" name="CURRENT_HR" class="" value="" id="mce-CURRENT_HR" min="0">
-          </div>
-          <div class="mc-field-group">
-            <label for="mce-MOWING_TIM">Mowing Duration </label>
-            <select name="MOWING_TIM" class="" id="mce-MOWING_TIM">
-              <option value="" selected disabled>How long does it take to mow?</option>
-              <option value="Small-Medium Yard (Less than 1.5 hours)">Small-Medium Yard (Less than 1.5 hours)</option>
-              <option value="Large Property (More than 1.5 hours)">Large Property (More than 1.5 hours)</option>
-            </select>
-          </div>
-          <div class="mc-field-group input-group">
-            <ul>
-              <li><input type="checkbox" value="1" name="group[141][1]" id="mce-group[141]-141-0" checked><label for="mce-group[141]-141-0">Give me maintenance reminders via email communications.</label></li>
-            </ul>
-          </div>
-          <div class="mc-field-group input-group">
-            <ul>
-              <li><input type="checkbox" value="2" name="group[145][2]" id="mce-group[145]-145-0" checked><label for="mce-group[145]-145-0">I consent to having my maintenance reminder engagement tracked and analyzed.</label></li>
-            </ul>
-          </div>
-          <div id="mce-responses" class="clear">
-            <div class="response" id="mce-error-response" style="display:none"></div>
-            <div class="response" id="mce-success-response" style="display:none"></div>
-          </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-          <div style="position: absolute; left: -5000px;" aria-hidden="true">
-            <input type="text" name="b_c80372a35929a7b281b76c090_d4452378de" tabindex="-1" value="">
-          </div>
-          <div class="clear has-text-center">
-            <input type="submit" value="Keep Me Notified" name="subscribe" id="mc-embedded-subscribe" class="button btn-solid--brand">
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<?php
-  if ($service_query->have_posts()) :
-?>
-  <div class="modal modal--is-hidden" data-modal="service-checklist">
+  <div class="modal modal--is-hidden" data-modal="sign-up-form">
     <div class="modal-container">
       <button class="modal--close">&times;</button>
       <div class="modal-content">
-        <h2 class="modal-heading"><?php echo $formal_model_name; ?> Service Checklist</h2>
-        <ul class="accordian">
-        <?php
-          while ($service_query->have_posts()) : $service_query->the_post();
-            if (have_rows('service_interval', $post->ID)) : while (have_rows('service_interval', $post->ID)) : the_row();
-              echo '<li class="accordian--item">';
-                echo '<button class="accordian--title">' . get_sub_field('interval') . '</button>';
-                echo '<ul class="accordian--content">';
-                  if (have_rows('interval_checklist')) : while (have_rows('interval_checklist')) : the_row();
-                    $item_array = get_sub_field('interval_checklist_item');
-                    echo '<li>';
-                      if ($item_array['url'] !== '#0') {
-                        echo '<a href="' . $item_array['url'] . '">' . $item_array['title'] . '</a>';
-                      } else {
-                        echo $item_array['title'];
-                      }
-                    echo '</li>';
-                  endwhile; endif;
-                echo '</ul>';
-              echo '</li>';
-              endwhile; endif;
-            endwhile;
-          ?>
-        </ul>
-        <div class="has-text-center mar-t--more">
-          <?php
-            while ($service_query->have_posts()) : $service_query->the_post();
-              echo '<a href="' . get_the_permalink() . '" class="btn-solid--brand">View As Full Page</a>';
-            endwhile;
-          ?>
+        <div class="has-text-center">
+          <h2 class="modal-heading">Sign Up for Maintenance Reminder Emails</h2>
+          <p>We will periodically send you emails based on how you submit the form.</p>
         </div>
+        <form action="https://greenfarmparts.us12.list-manage.com/subscribe/post-json?u=c80372a35929a7b281b76c090&id=d4452378de&c=?" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate form--maintenance-sign-up" target="_blank" novalidate>
+          <div id="mc_embed_signup_scroll">
+            <div class="mc-field-group">
+              <label for="mce-EMAIL">Email Address</label>
+              <input required type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+            </div>
+            <div class="mc-field-group">
+              <label for="mce-FNAME">First Name</label>
+              <input type="text" value="" name="FNAME" class="" id="mce-FNAME">
+            </div>
+            <div class="mc-field-group">
+              <label for="mce-LNAME">Last Name</label>
+              <input type="text" value="" name="LNAME" class="" id="mce-LNAME">
+            </div>
+            <div class="mc-field-group">
+              <label for="mce-MODEL">Model</label>
+              <select name="MODEL" class="required" id="mce-MODEL">
+              <option value="" disabled selected>Choose Your Model</option>
+              <option value="115">115</option>
+              <option value="125">125</option>
+              <option value="L100">L100</option>
+              <option value="L110">L110</option>
+              <option value="LA155">LA155</option>
+              <option value="D100">D100</option>
+              <option value="D105">D105</option>
+              <option value="D110">D110</option>
+              <option value="D125">D125</option>
+              <option value="D130">D130</option>
+              <option value="D140">D140</option>
+              <option value="D170">D170</option>
+              <option value="E100">E100</option>
+              <option value="E110">E110</option>
+              <option value="E120">E120</option>
+              <option value="E130">E130</option>
+              <option value="E140">E140</option>
+              <option value="E150">E150</option>
+              <option value="E160">E160</option>
+              <option value="E170">E170</option>
+              <option value="E180">E180</option>
+              <option value="S240">S240</option>
+              <option value="X300R">X300R</option>
+              <option value="X304">X304</option>
+              <option value="X310">X310</option>
+              <option value="X324">X324</option>
+              <option value="X330">X330</option>
+              <option value="X340">X340</option>
+              <option value="X350">X350</option>
+              <option value="X350R">X350R</option>
+              <option value="X354">X354</option>
+              <option value="X360">X360</option>
+              <option value="X370">X370</option>
+              <option value="X380">X380</option>
+              <option value="X384">X384</option>
+              <option value="X384">X384</option>
+              <option value="X390">X390</option>
+              <option value="X394">X394</option>
+              <option value="X520">X520</option>
+              <option value="X534">X534</option>
+              <option value="X540">X540</option>
+              <option value="X570">X570</option>
+              <option value="X580">X580</option>
+              <option value="X580">X580</option>
+              <option value="X584">X584</option>
+              <option value="X590">X590</option>
+              <option value="X710">X710</option>
+              <option value="X728">X728</option>
+              <option value="X730">X730</option>
+              <option value="X734">X734</option>
+              <option value="X738">X738</option>
+              <option value="X739">X739</option>
+              <option value="X739">X739</option>
+              <option value="X750">X750</option>
+              <option value="X754">X754</option>
+              <option value="X758">X758</option>
+              <option value="Z225">Z225</option>
+              <option value="Z235">Z235</option>
+              <option value="Z255">Z255</option>
+              <option value="Z335E">Z335E</option>
+              <option value="Z335M">Z335M</option>
+              <option value="Z345M">Z345M</option>
+              <option value="Z345R">Z345R</option>
+              <option value="Z355E">Z355E</option>
+              <option value="Z355R">Z355R</option>
+              <option value="Z375R">Z375R</option>
+              <option value="Z425">Z425</option>
+              <option value="Z435">Z435</option>
+              <option value="Z445">Z445</option>
+              <option value="Z465">Z465</option>
+              <option value="Z525E">Z525E</option>
+              <option value="Z535M">Z535M</option>
+              <option value="Z535R">Z535R</option>
+              <option value="Z540M">Z540M</option>
+              <option value="Z540R">Z540R</option>
+              <option value="Z625">Z625</option>
+              <option value="Z645">Z645</option>
+              <option value="Z655">Z655</option>
+              <option value="Z665">Z665</option>
+              </select>
+            </div>
+            <div class="mc-field-group size1of2">
+              <label for="mce-CURRENT_HR">Current Hours </label>
+              <input type="number" name="CURRENT_HR" class="" value="" id="mce-CURRENT_HR" min="0">
+            </div>
+            <div class="mc-field-group">
+              <label for="mce-MOWING_TIM">Mowing Duration </label>
+              <select name="MOWING_TIM" class="" id="mce-MOWING_TIM">
+                <option value="" selected disabled>How long does it take to mow?</option>
+                <option value="Small-Medium Yard (Less than 1.5 hours)">Small-Medium Yard (Less than 1.5 hours)</option>
+                <option value="Large Property (More than 1.5 hours)">Large Property (More than 1.5 hours)</option>
+              </select>
+            </div>
+            <div class="mc-field-group input-group">
+              <ul>
+                <li><input type="checkbox" value="1" name="group[141][1]" id="mce-group[141]-141-0" checked><label for="mce-group[141]-141-0">Give me maintenance reminders via email communications.</label></li>
+              </ul>
+            </div>
+            <div class="mc-field-group input-group">
+              <ul>
+                <li><input type="checkbox" value="2" name="group[145][2]" id="mce-group[145]-145-0" checked><label for="mce-group[145]-145-0">I consent to having my maintenance reminder engagement tracked and analyzed.</label></li>
+              </ul>
+            </div>
+            <div id="mce-responses" class="clear">
+              <div class="response" id="mce-error-response" style="display:none"></div>
+              <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+              <input type="text" name="b_c80372a35929a7b281b76c090_d4452378de" tabindex="-1" value="">
+            </div>
+            <div class="clear has-text-center">
+              <input type="submit" value="Keep Me Notified" name="subscribe" id="mc-embedded-subscribe" class="button btn-solid--brand">
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
-<?php
-  endif;
-  wp_reset_postdata();
-?>
-
-
-
 
 </section>
 

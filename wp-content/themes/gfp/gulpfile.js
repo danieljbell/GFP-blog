@@ -53,10 +53,10 @@ gulp.task('js', function () {
     .pipe(browserSync.stream());
 });
 
-gulp.task('js-libs', function () {
-  gulp.src('node_modules/vue/dist/vue.js')
-    .pipe(gulp.dest('./dist/js'));
-});
+// gulp.task('js-libs', function () {
+//   gulp.src('node_modules/vue/dist/vue.js')
+//     .pipe(gulp.dest('./dist/js'));
+// });
 
 gulp.task('img', function() {
   gulp.src('src/img/*')
@@ -77,4 +77,4 @@ gulp.task('browser-sync', function() {
     });
 });
 
-gulp.task('default', ['css', 'js-libs', 'js', 'img', 'watch', 'browser-sync']);
+gulp.task('default', ['css', 'js', 'img', 'watch', 'browser-sync']);

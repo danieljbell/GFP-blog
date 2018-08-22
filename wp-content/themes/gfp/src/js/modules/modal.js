@@ -7,7 +7,6 @@
 
     for (var i = 0; i < launchModal.length; i++) {
       launchModal[i].addEventListener('click', function(e) {
-        console.log(e);
         var modalID = e.target.dataset.modalLaunch;
         document.querySelector('.modal[data-modal=' + modalID + ']').classList.remove('modal--is-hidden');
         document.body.classList.add('modal--is-open');
