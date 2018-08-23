@@ -1,4 +1,4 @@
-if (window.jQuery) {
+if (window.jQuery && document.body.classList.contains('single-post')) {
 
   (function() {
 

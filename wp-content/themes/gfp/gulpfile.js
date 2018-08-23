@@ -68,7 +68,7 @@ gulp.task('watch', function() {
   gulp.watch('src/css/*.css', ['css']);
   gulp.watch('src/js/**/*.js', ['js']);
   gulp.watch('src/img/*.{png,jpg,gif,svg}', ['img']).on('change', browserSync.reload);
-  gulp.watch(['*.php', 'page-templates/*.php',  'partials/**/*.php']).on('change', browserSync.reload);
+  gulp.watch(['*.php', 'page-templates/*.php',  'partials/**/*.php', 'woocommerce/**/*.php']).on('change', browserSync.reload);
 });
 
 gulp.task('browser-sync', function() {

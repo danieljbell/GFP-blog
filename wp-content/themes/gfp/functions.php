@@ -74,7 +74,24 @@ if( function_exists('acf_add_options_page') ) {
 }
 
 
-
+/*
+==========================================
+REMOVE WP EMOJICONS
+==========================================
+*/
+function disable_wp_emojicons() {
+  // all actions related to emojis
+  remove_action( 'admin_print_styles', 'print_emoji_styles' );
+  remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+  remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+  remove_action( 'wp_print_styles', 'print_emoji_styles' );
+  remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
+  remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
+  remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
+  // filter to remove TinyMCE emojis
+  add_filter( 'tiny_mce_plugins', 'disable_emojicons_tinymce' );
+}
+add_action( 'init', 'disable_wp_emojicons' );
 
 
 
@@ -252,4 +269,40 @@ function new_submenu_class($menu) {
     return $menu;      
 }
 
-add_filter('wp_nav_menu','new_submenu_class'); 
+add_filter('wp_nav_menu','new_submenu_class');
+
+
+/*
+==============================
+REMOVE WOOCOMMERCE STYLESHEETS
+==============================
+*/
+add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
+
+/*
+=====================================
+CHANGE PLACEHOLDER IMAGE FOR PRODUCTS
+=====================================
+*/
+add_filter('woocommerce_placeholder_img_src', 'custom_woocommerce_placeholder_img_src');
+
+function custom_woocommerce_placeholder_img_src( $src ) {
+    // $upload_dir = wp_upload_dir();
+    // $uploads = untrailingslashit( $upload_dir['baseurl'] );
+    // replace with path to your image
+    $src = '//fillmurray.com/300/300';
+     
+    return $src;
+}
+
+/*
+================================
+CHANGE THE BREADCRUMB SEPARATOR
+================================
+*/
+add_filter( 'woocommerce_breadcrumb_defaults', 'wcc_change_breadcrumb_delimiter' );
+function wcc_change_breadcrumb_delimiter( $defaults ) {
+  // Change the breadcrumb delimeter from '/' to '>'
+  $defaults['delimiter'] = '<span class="breadcrumb-delimiter">&gt;</span>';
+  return $defaults;
+}
