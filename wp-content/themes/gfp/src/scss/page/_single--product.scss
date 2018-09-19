@@ -3,6 +3,7 @@
 
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 
   // &:after {
   //   content: "";
@@ -10,23 +11,53 @@
   //   clear: both;
   // }
 
-  @supports (display: ggggrid) {
-    display: grid;
-    grid-template-columns: 400px 1fr;
-    grid-gap: 3rem;
+  @include desktop {
+    @supports (display: grid) {
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      grid-gap: 3rem;
+    }
   }
+
 }
 
 .single-product .woocommerce-product-gallery {
-  // max-width: 400px;
-  // margin-right: 3rem;
-  // float: left;
   flex-basis: 400px;
+  position: relative;
+  @include desktop {
+    margin-right: 3rem;
+    @supports (display: grid) {
+      margin-right: 0;
+    }
+  }
 
-  @supports (display: ggggrid) {
-    max-width: auto;
-    margin-right: auto;
-    float: none;
+
+  img {
+    height: auto;
+  }
+
+  .woocommerce-product-gallery__trigger {
+    position: absolute;
+    z-index: 1;
+    top: 1rem;
+    right: 1rem;
+    background-color: #fff;
+    padding: 0.7em;
+    border-radius: 50%;
+    border: 1px solid $medium-gray;
+    box-shadow: 0px 0px 20px rgba(black,0.2);
+  }
+
+  .flex-viewport,
+  .woocommerce-product-gallery__image {
+    height: 400px !important;
+  }
+
+  .woocommerce-product-gallery__image img {
+    object-fit: none;
+    height: 400px;
+    display: block;
+    margin: 0 auto;
   }
 
 }
@@ -41,5 +72,41 @@
   li {
     display: table-cell;
     width: 25%;
+  }
+}
+
+.single--part-fitment-list {
+  // border: 1px solid red;
+}
+
+.single--part-fitment-item {
+  list-style-type: none;
+  display: inline-block;
+  margin-right: 0.5rem;
+  margin-bottom: 0.25rem;
+  
+  a {
+    border: 1px solid $medium-gray;
+    display: block;
+    font-size: 0.8em;
+    padding: 0.25em 0.5em;
+    border-radius: 50px;
+    transition: all 250ms ease-in-out;
+    &:focus,
+    &:hover {
+      outline: none;
+      text-decoration: none;
+      background-color: $brand;
+      color: #fff;
+      border-color: $brand;
+    }
+  }
+
+}
+
+.product-content {
+  margin: 2rem 0;
+  p {
+    margin-bottom: 1rem;
   }
 }

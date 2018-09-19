@@ -54,7 +54,19 @@ if ( post_password_required() ) {
 			 * @hooked woocommerce_template_single_sharing - 50
 			 * @hooked WC_Structured_Data::generate_product_data() - 60
 			 */
-			do_action( 'woocommerce_single_product_summary' );
+			// do_action( 'woocommerce_single_product_summary' );
+			// echo '<div class="single-product--content">';
+				do_action( 'woocommerce_template_single_title' );
+				do_action( 'woocommerce_template_single_rating' );
+				do_action( 'woocommerce_template_single_price' );
+				do_action( 'woocommerce_template_single_add_to_cart' );
+				echo '<div class="product-content">', get_the_content(), '</div>';
+				// do_action( 'woocommerce_template_single_excerpt' );
+				// do_action( 'woocommerce_template_single_meta' );
+				do_action( 'woocommerce_template_single_sharing' );
+			// echo '</div>';
+			// echo '<div class="single-product--actions">';
+			// echo '</div>';
 		?>
 	</div>
 

@@ -37,13 +37,14 @@ gulp.task('js', function () {
     'src/js/lib/atomic.min.js',
     'src/js/modules/site-header.js',
     'src/js/modules/single-post.js',
+    'src/js/modules/single-product.js',
     'src/js/modules/single-comments.js',
     'src/js/modules/post-listing.js',
     'src/js/modules/accordian.js',
     'src/js/modules/tooltip.js',
     'src/js/modules/modal.js',
     'src/js/modules/sign-up-form.js',
-    'src/js/modules/sticky-navigation.js'
+    'src/js/modules/sticky-navigation.js',
   ])
     .pipe(sourcemaps.init())
     .pipe(concat('global.js'))

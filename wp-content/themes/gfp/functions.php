@@ -306,3 +306,12 @@ function wcc_change_breadcrumb_delimiter( $defaults ) {
   $defaults['delimiter'] = '<span class="breadcrumb-delimiter">&gt;</span>';
   return $defaults;
 }
+
+
+add_action( 'woocommerce_template_single_title', 'woocommerce_template_single_title', 5 );
+add_action( 'woocommerce_template_single_rating', 'woocommerce_template_single_rating', 10 );
+add_action( 'woocommerce_template_single_price', 'woocommerce_template_single_price', 10 );
+add_action( 'woocommerce_template_single_excerpt', 'woocommerce_template_single_excerpt', 20 );
+add_action( 'woocommerce_template_single_meta', 'woocommerce_template_single_meta', 40 );
+add_action( 'woocommerce_template_single_sharing', 'woocommerce_template_single_sharing', 50 );
+add_action( 'woocommerce_template_single_add_to_cart', 'woocommerce_template_single_add_to_cart', 30 );
