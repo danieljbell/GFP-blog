@@ -61,9 +61,10 @@ if ( post_password_required() ) {
 				do_action( 'woocommerce_template_single_price' );
 				do_action( 'woocommerce_template_single_add_to_cart' );
 				echo '<div class="product-content">', get_the_content(), '</div>';
-				// do_action( 'woocommerce_template_single_excerpt' );
+				do_action( 'woocommerce_template_single_excerpt' );
+				do_action( 'woocommerce_output_product_data_tabs' );
 				// do_action( 'woocommerce_template_single_meta' );
-				do_action( 'woocommerce_template_single_sharing' );
+				// do_action( 'woocommerce_template_single_sharing' );
 			// echo '</div>';
 			// echo '<div class="single-product--actions">';
 			// echo '</div>';

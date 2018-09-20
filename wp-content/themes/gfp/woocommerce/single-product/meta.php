@@ -25,22 +25,14 @@ global $product;
 <div class="product_meta">
 
   <?php do_action( 'woocommerce_product_meta_start' ); ?>
-
-  <?php if ( wc_product_sku_enabled() && ( $product->get_sku() || $product->is_type( 'variable' ) ) ) : ?>
-
-    <p class="sku_wrapper"><?php esc_html_e( 'SKU:', 'woocommerce' ); ?> <span class="sku"><?php echo ( $sku = $product->get_sku() ) ? strtoupper($sku) : esc_html__( 'N/A', 'woocommerce' ); ?></span></p>
-
-  <?php endif; ?>
-
-  <?php echo wc_get_product_category_list( $product->get_id(), ', ', '<p class="posted_in">' . _n( 'Category:', 'Categories:', count( $product->get_category_ids() ), 'woocommerce' ) . ' ', '</p>' ); ?>
   
   <?php
     if (get_the_terms($product->get_id(), 'product_tag')) {
-      echo '<h3>', strtoupper(get_the_title()), ' fits these models:</h3>';
+      echo '<input type="text" id="fitment-text-filter" placeholder="Start typing your model to filter the list" style="width: 100%; margin-bottom: 1rem; font-size: 0.8em; border-radius: 4px;">';
       echo '<ul class="single--part-fitment-list">';
-      $allProductTags = get_the_terms($product->get_id(), 'product_tag');
+      $allProductTags = wp_get_post_terms($product->get_id(), 'product_tag');
       foreach ($allProductTags as $productTag) {
-        echo '<li class="single--part-fitment-item"><a href="/product-tag/', $productTag->slug, '">', $productTag->name ,'</a></li>';
+        echo '<li class="single--part-fitment-item part-fitment-item--', $productTag->name, '"><a href="/product-tag/', $productTag->slug, '">', $productTag->name ,'</a></li>';
       }
       echo '</ul>';
     }

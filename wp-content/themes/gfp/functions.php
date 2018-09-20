@@ -6,7 +6,7 @@ ADD GLOBAL CSS TO PAGE
 ==============================
 */
 function enqueue_global_css() {
-    wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '1.0.16');
+  wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '1.0.16');
 }
 add_action('wp_enqueue_scripts', 'enqueue_global_css');
 
@@ -315,3 +315,31 @@ add_action( 'woocommerce_template_single_excerpt', 'woocommerce_template_single_
 add_action( 'woocommerce_template_single_meta', 'woocommerce_template_single_meta', 40 );
 add_action( 'woocommerce_template_single_sharing', 'woocommerce_template_single_sharing', 50 );
 add_action( 'woocommerce_template_single_add_to_cart', 'woocommerce_template_single_add_to_cart', 30 );
+add_action( 'woocommerce_output_product_data_tabs', 'woocommerce_output_product_data_tabs', 10 );
+add_action( 'woocommerce_template_loop_add_to_cart', 'woocommerce_template_loop_add_to_cart', 10 );
+
+
+
+/*
+=========================
+removing something
+=========================
+*/
+add_action( 'init', function() {
+    remove_post_type_support( 'product', 'editor' );
+}, 99);
+
+// function remove_metaboxes() {
+//      remove_meta_box( 'postcustom' , 'product' , 'normal' );
+//      remove_meta_box( 'postexcerpt' , 'product' , 'normal' );
+//      remove_meta_box( 'commentsdiv' , 'product' , 'normal' );
+//      remove_meta_box( 'tagsdiv-product_tag' , 'product' , 'normal' );
+// }
+// add_action( 'add_meta_boxes' , 'remove_metaboxes', 50 );
+
+// add_action( 'add_meta_boxes' , 'remove_metaboxes', 11 );
+// Move Yoast to bottom
+function yoasttobottom() {
+  return 'low';
+}
+add_filter( 'wpseo_metabox_prio', 'yoasttobottom');

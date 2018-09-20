@@ -1,5 +1,7 @@
 <?php get_header(); ?>
 
-<?php the_content(); ?>
+<div class="site-width">
+  <?php the_content(); ?>
+</div>
 
 <?php get_footer(); ?>

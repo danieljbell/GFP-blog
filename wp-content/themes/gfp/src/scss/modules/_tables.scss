@@ -1,119 +1,99 @@
-table {
-  width: 100%;
-  border: 1px solid #ccc;
-}
+.single-product {
 
-th,
-td {
-  padding: 0.5rem 1rem;
-  background-color: #fff;
-  text-align: left;
-  font-size: 0.9em;
+  table {
+    margin: 0 auto;
+  }
+
+  th, td {
+    border-bottom: 1px solid red;
+    padding: 0.25rem 0;
+  }
+
+  tr:last-child th,
+  tr:last-child td {
+    border-bottom: 0;
+  }
   
-  &:last-child {
-    text-align: center;
+  th {
+    text-align: right;
+    padding-right: 1rem;
+    &:after {
+      content: ':';
+    }
+  }
+
+  .woocommerce-Tabs-panel--additional_information h2 {
+    display: none;
   }
 
 }
 
-tr {
-  display: flex;
-  flex-direction: column;
-  @include tablet {
-    display: table-row;
+.category-maintenance-reminder {
+  table {
+    width: 100%;
+    border: 1px solid #ccc;
   }
-  @include desktop {
-    display: table-row;
-  }
-}
 
-th {
-  background-color: $brand;
-  color: #fff;
-  text-transform: uppercase;
-  display: none;
-  @include tablet {
-    display: table-cell;
-  }
-  @include desktop {
-    display: table-cell;
-  }
-}
-
-td {
-  font-size: 0.85em;
-  flex: 1;
-  display: flex;
-  justify-content: space-between;
-  padding: 0.1rem 1rem;
-  text-align: right;
-  position: relative;
-  @include tablet {
-    text-align: left;
-    display: table-cell;
+  th,
+  td {
     padding: 0.5rem 1rem;
-  }
-  @include desktop {
+    background-color: #fff;
     text-align: left;
-    display: table-cell;
-    padding: 0.5rem 1rem;
-  }
-
-  &:before {
-    content: attr(data-header);
-    font-weight: bold;
-    text-align: left;
-    @include tablet {
-      display: none;
-    }
-    @include desktop {
-      display: none;
-    }
-  }
-
-  &:first-child {
-    padding-top: 1rem;
-    @include tablet {
-      padding-top: 0.5rem;
-    }
-    @include desktop {
-      padding-top: 0.5rem;
-    }
-  }
-
-  &:last-child {
-    padding-bottom: 1rem;
-    justify-content: center;
-    @include tablet {
-      padding-bottom: 0.5rem;
-    }
-    @include desktop {
-      padding-bottom: 0.5rem;
-      padding-left: 0;
-      padding-right: 0;
-    }
-  }
-
-  button {
     font-size: 0.9em;
-    padding: 0.25em 0.75em;
-    background-color: $brand-two;
-    border: 0;
+    
+    &:last-child {
+      text-align: center;
+    }
+
+  }
+
+  tr {
+    display: flex;
+    flex-direction: column;
+    @include tablet {
+      display: table-row;
+    }
+    @include desktop {
+      display: table-row;
+    }
+  }
+
+  th {
+    background-color: $brand;
     color: #fff;
-    transition: all 250ms ease-in-out;
+    text-transform: uppercase;
+    display: none;
+    @include tablet {
+      display: table-cell;
+    }
+    @include desktop {
+      display: table-cell;
+    }
+  }
 
-    &:hover {
-      background-color: darken($brand-two, 15%);
+  td {
+    font-size: 0.85em;
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.1rem 1rem;
+    text-align: right;
+    position: relative;
+    @include tablet {
+      text-align: left;
+      display: table-cell;
+      padding: 0.5rem 1rem;
+    }
+    @include desktop {
+      text-align: left;
+      display: table-cell;
+      padding: 0.5rem 1rem;
     }
 
-    &.disabled {
-      background-color: $medium-gray;
-      &:hover {
-        background-color: darken($medium-gray, 15%);   
-      }
-    }
-
-    span {
+    &:before {
+      content: attr(data-header);
+      font-weight: bold;
+      text-align: left;
       @include tablet {
         display: none;
       }
@@ -122,12 +102,64 @@ td {
       }
     }
 
+    &:first-child {
+      padding-top: 1rem;
+      @include tablet {
+        padding-top: 0.5rem;
+      }
+      @include desktop {
+        padding-top: 0.5rem;
+      }
+    }
+
+    &:last-child {
+      padding-bottom: 1rem;
+      justify-content: center;
+      @include tablet {
+        padding-bottom: 0.5rem;
+      }
+      @include desktop {
+        padding-bottom: 0.5rem;
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+
+    button {
+      font-size: 0.9em;
+      padding: 0.25em 0.75em;
+      background-color: $brand-two;
+      border: 0;
+      color: #fff;
+      transition: all 250ms ease-in-out;
+
+      &:hover {
+        background-color: darken($brand-two, 15%);
+      }
+
+      &.disabled {
+        background-color: $medium-gray;
+        &:hover {
+          background-color: darken($medium-gray, 15%);   
+        }
+      }
+
+      span {
+        @include tablet {
+          display: none;
+        }
+        @include desktop {
+          display: none;
+        }
+      }
+
+    }
+
   }
 
-}
-
-tr:nth-child(2n+1) td {
-  background-color: #f0f0f0;
-  // border-top: 1px solid $medium-gray;
-  // border-bottom: 1px solid $medium-gray;
+  tr:nth-child(2n+1) td {
+    background-color: #f0f0f0;
+    // border-top: 1px solid $medium-gray;
+    // border-bottom: 1px solid $medium-gray;
+  }
 }
