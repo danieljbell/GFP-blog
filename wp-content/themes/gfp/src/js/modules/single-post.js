@@ -1,17 +1,17 @@
 (function() {
 
-  if (document.body.classList.contains('single-post')) {
+  // if (document.body.classList.contains('single-post')) {
 
-    if (document.querySelector('.alert--cart-item')) {
-      var alertCartItemTemplate = document.querySelector('.alert--cart-item').innerHTML;
-    }
-    var addedProducts = [];
+  //   if (document.querySelector('.alert--cart-item')) {
+  //     var alertCartItemTemplate = document.querySelector('.alert--cart-item').innerHTML;
+  //   }
+  //   var addedProducts = [];
 
-    if (document.querySelector('.alert--cart-list')) {
-      document.querySelector('.alert--cart-list').innerHTML = '';
-    }
+  //   if (document.querySelector('.alert--cart-list')) {
+  //     document.querySelector('.alert--cart-list').innerHTML = '';
+  //   }
 
-  }
+  // }
 
   /*
   =============================================
@@ -93,59 +93,59 @@
   ADDING PRODUCT TO CART
   =========================
   */
-  document.addEventListener('click', function(e) {
-    var self = e.target;
+  // document.addEventListener('click', function(e) {
+  //   var self = e.target;
     
-    if (self.classList.contains('add-to-cart')) {
+  //   if (self.classList.contains('add-to-cart')) {
 
-      var alert = document.querySelector('.alert--add-to-cart');
-      var partType = e.target.parentElement.parentElement.querySelector('td:first-child').innerText;
-      var partNumber = e.target.parentElement.parentElement.querySelector('td:nth-child(2)').innerText;
+  //     var alert = document.querySelector('.alert--add-to-cart');
+  //     var partType = e.target.parentElement.parentElement.querySelector('td:first-child').innerText;
+  //     var partNumber = e.target.parentElement.parentElement.querySelector('td:nth-child(2)').innerText;
 
-      if (addedProducts.includes(partNumber)) {
-        return;
-      }
+  //     if (addedProducts.includes(partNumber)) {
+  //       return;
+  //     }
 
-      addedProducts.push(partNumber);
+  //     addedProducts.push(partNumber);
 
-      var addItem = document.createElement( 'li' );
-      addItem.classList.add('alert--cart-item');
-      addItem.dataset.productcode = partNumber;
-      addItem.innerHTML = alertCartItemTemplate;
+  //     var addItem = document.createElement( 'li' );
+  //     addItem.classList.add('alert--cart-item');
+  //     addItem.dataset.productcode = partNumber;
+  //     addItem.innerHTML = alertCartItemTemplate;
 
-      addItem.querySelector('.alert--cart-part-number').innerText = partNumber;
-      addItem.querySelector('.alert--cart-part-type').innerText = partType;
+  //     addItem.querySelector('.alert--cart-part-number').innerText = partNumber;
+  //     addItem.querySelector('.alert--cart-part-type').innerText = partType;
 
-      document.querySelector('.alert--cart-list').appendChild(addItem);
+  //     document.querySelector('.alert--cart-list').appendChild(addItem);
       
 
-      alert.classList.add('alert--is-active');
+  //     alert.classList.add('alert--is-active');
 
-      if (alert.classList.contains('alert--is-minimized')) {
-        alert.classList.remove('alert--is-minimized')
-      }
-    }
-  });
+  //     if (alert.classList.contains('alert--is-minimized')) {
+  //       alert.classList.remove('alert--is-minimized')
+  //     }
+  //   }
+  // });
 
   /*
   =========================
   TOGGLE CART ALERT
   =========================
   */
-  if (document.querySelector('#closeAlert')) {
-    document.querySelector('#closeAlert').addEventListener('click', function(e) {
-      var self = e.target;
-      var container = self.parentElement.parentElement;
-      var classes = container.classList.toString();
+  // if (document.querySelector('#closeAlert')) {
+  //   document.querySelector('#closeAlert').addEventListener('click', function(e) {
+  //     var self = e.target;
+  //     var container = self.parentElement.parentElement;
+  //     var classes = container.classList.toString();
 
-      if (classes.includes('alert--is-minimized') && classes.includes('alert--is-active')) {
-        container.classList.remove('alert--is-minimized');
-      } else {
-        container.classList.add('alert--is-minimized');
-        container.classList.add('alert--is-active');
-      }
-    });
-  }
+  //     if (classes.includes('alert--is-minimized') && classes.includes('alert--is-active')) {
+  //       container.classList.remove('alert--is-minimized');
+  //     } else {
+  //       container.classList.add('alert--is-minimized');
+  //       container.classList.add('alert--is-active');
+  //     }
+  //   });
+  // }
 
 
   /*
@@ -153,68 +153,68 @@
   REMOVE ITEM FROM CART
   =========================
   */
-  document.addEventListener('click', function(e) {
-    var self = e.target;
-    if (self.classList.contains('alert--remove-item')) {
-      var productCode = self.parentElement.parentElement.dataset.productcode;
-      var index = addedProducts.indexOf(productCode);
-      addedProducts.splice(index, 1);
-      self.parentElement.parentElement.remove(); 
-    }
-  });
+  // document.addEventListener('click', function(e) {
+  //   var self = e.target;
+  //   if (self.classList.contains('alert--remove-item')) {
+  //     var productCode = self.parentElement.parentElement.dataset.productcode;
+  //     var index = addedProducts.indexOf(productCode);
+  //     addedProducts.splice(index, 1);
+  //     self.parentElement.parentElement.remove(); 
+  //   }
+  // });
 
 
 
-  function buildCartString() {
-    var initURL = 'https://www.greenfarmparts.com/shoppingcart.asp?';
-    var allAddedProducts = [];
-    var allAddedItems = document.querySelectorAll('.alert--cart-item');
+  // function buildCartString() {
+  //   var initURL = 'https://www.greenfarmparts.com/shoppingcart.asp?';
+  //   var allAddedProducts = [];
+  //   var allAddedItems = document.querySelectorAll('.alert--cart-item');
 
-    for (var i = 0; i < allAddedItems.length; i++) {
-      var productCode = allAddedItems[i].dataset.productcode;
-      var productQty = allAddedItems[i].querySelector('input[name="product_quantity"]').value;
-      allAddedProducts.push({
-        productCode: productCode,
-        productQty: productQty
-      });
-    }
+  //   for (var i = 0; i < allAddedItems.length; i++) {
+  //     var productCode = allAddedItems[i].dataset.productcode;
+  //     var productQty = allAddedItems[i].querySelector('input[name="product_quantity"]').value;
+  //     allAddedProducts.push({
+  //       productCode: productCode,
+  //       productQty: productQty
+  //     });
+  //   }
 
-    for (var i = 0; i < allAddedProducts.length; i++) {
-      if (i < 1) {
-        initURL = initURL + 'productcode=' + allAddedProducts[i].productCode + '&QTY.' + allAddedProducts[i].productCode + '=' + allAddedProducts[i].productQty;
-      } else {
-        initURL = initURL + '&productcode=' + allAddedProducts[i].productCode + '&QTY.' + allAddedProducts[i].productCode + '=' + allAddedProducts[i].productQty;
-      }
-    }
+  //   for (var i = 0; i < allAddedProducts.length; i++) {
+  //     if (i < 1) {
+  //       initURL = initURL + 'productcode=' + allAddedProducts[i].productCode + '&QTY.' + allAddedProducts[i].productCode + '=' + allAddedProducts[i].productQty;
+  //     } else {
+  //       initURL = initURL + '&productcode=' + allAddedProducts[i].productCode + '&QTY.' + allAddedProducts[i].productCode + '=' + allAddedProducts[i].productQty;
+  //     }
+  //   }
 
-    return initURL;
-  }
+  //   return initURL;
+  // }
 
   /*
   ====================================
   CHECKOUT - Send products to Volusion
   ====================================
   */
-  if (document.querySelector('#submitCheckout') && document.body.classList.contains('single-post')) {
-    document.querySelector('#submitCheckout').addEventListener('click', function(e) {
-      // cart url template: https://www.greenfarmparts.com/shoppingcart.asp?productcode=jdzg900&QTY.jdzg900=5
-      e.preventDefault();
-      window.location.href = buildCartString();
-    });
-  }
+  // if (document.querySelector('#submitCheckout') && document.body.classList.contains('single-post')) {
+  //   document.querySelector('#submitCheckout').addEventListener('click', function(e) {
+  //     // cart url template: https://www.greenfarmparts.com/shoppingcart.asp?productcode=jdzg900&QTY.jdzg900=5
+  //     e.preventDefault();
+  //     window.location.href = buildCartString();
+  //   });
+  // }
 
   /*
   =====================================================
   SAVE FOR LATER - Send products to Volusion and cookie
   =====================================================
   */
-  if (document.querySelector('#saveForLater')) {
-    document.querySelector('#saveForLater').addEventListener('click', function(e) {
-      e.preventDefault();
-      document.cookie = 'cartURL=' + buildCartString();
-      document.querySelector('.alert--add-to-cart').classList.add('alert--is-minimized');
-    });
-  }
+  // if (document.querySelector('#saveForLater')) {
+  //   document.querySelector('#saveForLater').addEventListener('click', function(e) {
+  //     e.preventDefault();
+  //     document.cookie = 'cartURL=' + buildCartString();
+  //     document.querySelector('.alert--add-to-cart').classList.add('alert--is-minimized');
+  //   });
+  // }
 
 
   /*

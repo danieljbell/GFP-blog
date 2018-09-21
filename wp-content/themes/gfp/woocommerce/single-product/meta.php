@@ -28,9 +28,10 @@ global $product;
   
   <?php
     if (get_the_terms($product->get_id(), 'product_tag')) {
+      $allProductTags = wp_get_post_terms($product->get_id(), 'product_tag');
+      echo '<p>', count($allProductTags), ' models use ', $product->name;
       echo '<input type="text" id="fitment-text-filter" placeholder="Start typing your model to filter the list" style="width: 100%; margin-bottom: 1rem; font-size: 0.8em; border-radius: 4px;">';
       echo '<ul class="single--part-fitment-list">';
-      $allProductTags = wp_get_post_terms($product->get_id(), 'product_tag');
       foreach ($allProductTags as $productTag) {
         echo '<li class="single--part-fitment-item part-fitment-item--', $productTag->name, '"><a href="/product-tag/', $productTag->slug, '">', $productTag->name ,'</a></li>';
       }
