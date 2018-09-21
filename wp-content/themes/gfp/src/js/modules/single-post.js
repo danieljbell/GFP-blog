@@ -1,12 +1,16 @@
 (function() {
 
-  if (document.querySelector('.alert--cart-item')) {
-    var alertCartItemTemplate = document.querySelector('.alert--cart-item').innerHTML;
-  }
-  var addedProducts = [];
+  if (document.body.classList.contains('single-post')) {
 
-  if (document.querySelector('.alert--cart-list')) {
-    document.querySelector('.alert--cart-list').innerHTML = '';
+    if (document.querySelector('.alert--cart-item')) {
+      var alertCartItemTemplate = document.querySelector('.alert--cart-item').innerHTML;
+    }
+    var addedProducts = [];
+
+    if (document.querySelector('.alert--cart-list')) {
+      document.querySelector('.alert--cart-list').innerHTML = '';
+    }
+
   }
 
   /*
@@ -191,7 +195,7 @@
   CHECKOUT - Send products to Volusion
   ====================================
   */
-  if (document.querySelector('#submitCheckout')) {
+  if (document.querySelector('#submitCheckout') && document.body.classList.contains('single-post')) {
     document.querySelector('#submitCheckout').addEventListener('click', function(e) {
       // cart url template: https://www.greenfarmparts.com/shoppingcart.asp?productcode=jdzg900&QTY.jdzg900=5
       e.preventDefault();

@@ -40,6 +40,7 @@ gulp.task('js', function () {
     'src/js/modules/single-product.js',
     'src/js/modules/single-comments.js',
     'src/js/modules/post-listing.js',
+    'src/js/modules/ajax-add-to-cart.js',
     'src/js/modules/accordian.js',
     'src/js/modules/tooltip.js',
     'src/js/modules/modal.js',
