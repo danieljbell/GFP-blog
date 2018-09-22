@@ -115,6 +115,15 @@
   font-style: italic;
   color: lighten($black, 10%);
   font-size: 0.9em;
+
+  del {
+    opacity: 0.5;
+  }
+
+  .sale-price {
+    color: red;
+  }
+
 }
 
 .alert--content .btn-solid--brand {
