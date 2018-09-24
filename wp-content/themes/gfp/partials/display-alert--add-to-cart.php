@@ -16,6 +16,7 @@
         $i = 0;
         foreach ($cart_line_items as $line_item) :
           $line_item_details = $line_item[data];
+          $permalink = $line_item_details->get_permalink();
           $id = $line_item_details->get_id();
           $sku = strtoupper($line_item_details->get_sku());
           $name = $line_item_details->get_name();
@@ -26,7 +27,7 @@
       ?>
       <li class="alert--cart-item" data-index="<?php echo $i; ?>" data-productID="<?php echo $id; ?>">
         <span class="alert--cart-part">
-          <span class="alert--cart-part-type"><?php echo $name; ?></span>
+          <span class="alert--cart-part-type"><a href="<?php echo $permalink; ?>"><?php echo $name; ?></a></span>
           <?php if ($sale_price) : ?>
             <span class="alert--cart-part-number"><?php echo $sku; ?> - <del>$<?php echo $price; ?></del> <span class="sale-price">$<?php echo $sale_price; ?></span></span>
           <?php else : ?>

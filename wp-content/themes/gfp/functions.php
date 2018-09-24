@@ -376,16 +376,23 @@ function remove_item_from_cart() {
 function add_item_to_cart() {
   $cart = WC()->instance()->cart;
   $id = $_POST['product_id'];
-  $qty = $_POST['qty'];
   $cart_id = $cart->generate_cart_id($id);
   $cart_item_id = $cart->find_product_in_cart($cart_id);
-  if ($cart_item_id) {
-   // $cart->set_quantity($cart_item_id, $qty);
-   echo $cart_id;
-  } else {
-    $cart->add_to_cart($id, $qty);
-    echo 'product added';
-  }
+  $cart->add_to_cart($id, 1);
+  $response = $cart->get_cart();
+  echo json_encode($response, true);
+}
+
+function increment_item_in_cart() {
+  $cart = WC()->instance()->cart;
+  $id = $_POST['product_id'];
+  $qty = $_POST['qty'];
+  
+  $cart_id = $cart->generate_cart_id($id);
+  $cart_item_id = $cart->find_product_in_cart($cart_id);
+  $cart->set_quantity($cart_item_id, $qty);
+
+  echo $cart->get_cart();
 }
 
 
@@ -395,3 +402,5 @@ add_action('wp_ajax_remove_item_from_cart', 'remove_item_from_cart');
 add_action('wp_ajax_nopriv_remove_item_from_cart', 'remove_item_from_cart');
 add_action('wp_ajax_add_item_to_cart', 'add_item_to_cart');
 add_action('wp_ajax_nopriv_add_item_to_cart', 'add_item_to_cart');
+add_action('wp_ajax_increment_item_in_cart', 'increment_item_in_cart');
+add_action('wp_ajax_nopriv_increment_item_in_cart', 'increment_item_in_cart');
