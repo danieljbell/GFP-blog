@@ -343,3 +343,87 @@ function yoasttobottom() {
   return 'low';
 }
 add_filter( 'wpseo_metabox_prio', 'yoasttobottom');
+
+
+function get_cart() {
+  $cart = WC()->instance()->cart;
+  $response = $cart->get_cart();
+  echo json_encode($response, true);
+}
+
+
+function remove_item_from_cart() {
+  $cart = WC()->instance()->cart;
+  $id = $_POST['product_id'];
+  $cart_id = $cart->generate_cart_id($id);
+  $cart_item_id = $cart->find_product_in_cart($cart_id);
+  if ($cart_item_id) {
+   $cart->set_quantity($cart_item_id, 0);
+   echo 'product removed';
+  } 
+}
+
+function add_item_to_cart() {
+  $cart = WC()->instance()->cart;
+  $id = $_POST['product_id'];
+  $cart_id = $cart->generate_cart_id($id);
+  $cart_item_id = $cart->find_product_in_cart($cart_id);
+  $cart->add_to_cart($id, 1);
+  $response = $cart->get_cart();
+  echo json_encode($response, true);
+}
+
+function increment_item_in_cart() {
+  $cart = WC()->instance()->cart;
+  $id = $_POST['product_id'];
+  $qty = $_POST['qty'];
+  
+  $cart_id = $cart->generate_cart_id($id);
+  $cart_item_id = $cart->find_product_in_cart($cart_id);
+  $cart->set_quantity($cart_item_id, $qty);
+
+  echo json_encode($cart->get_cart());
+}
+
+function get_product_details() {
+  $cart = WC()->instance()->cart;
+  $cart_line_items = $cart->get_cart();
+  $product_id = $_POST['product_id'];
+  $product_details = array();
+  foreach ($cart_line_items as $line_item) :
+    $line_item_details = $line_item[data];
+    $permalink = $line_item_details->get_permalink();
+    $id = $line_item_details->get_id();
+    $sku = strtoupper($line_item_details->get_sku());
+    $name = $line_item_details->get_name();
+    $name = str_replace('John Deere ', '', $name);
+    $name = str_replace($sku, '', $name);
+    $price = $line_item_details->get_regular_price();
+    $sale_price = $line_item_details->get_sale_price();
+    
+    $single_product_details = array(
+      'id'          => $id,
+      'permalink'   => $permalink,
+      'name'        => trim($name),
+      'sku'         => $sku,
+      'price'       => $price,
+      'salePrice'   => $sale_price,
+      'quantity'    => $line_item[quantity]
+    );
+
+    array_push($product_details, $single_product_details);
+  endforeach;
+  echo json_encode($product_details);
+}
+
+
+add_action('wp_ajax_get_cart', 'get_cart');
+add_action('wp_ajax_nopriv_get_cart', 'get_cart');
+add_action('wp_ajax_remove_item_from_cart', 'remove_item_from_cart');
+add_action('wp_ajax_nopriv_remove_item_from_cart', 'remove_item_from_cart');
+add_action('wp_ajax_add_item_to_cart', 'add_item_to_cart');
+add_action('wp_ajax_nopriv_add_item_to_cart', 'add_item_to_cart');
+add_action('wp_ajax_increment_item_in_cart', 'increment_item_in_cart');
+add_action('wp_ajax_nopriv_increment_item_in_cart', 'increment_item_in_cart');
+add_action('wp_ajax_get_product_details', 'get_product_details');
+add_action('wp_ajax_nopriv_get_product_details', 'get_product_details');

@@ -85,28 +85,4 @@ if ( post_password_required() ) {
 
 <?php do_action( 'woocommerce_after_single_product' ); ?>
 
-<div class="alert--add-to-cart">
-  <div class="alert--header">
-    <h4>Products in Cart</h4>
-    <button class="alert--close" id="closeAlert">&times;</button>
-  </div>
-  <div class="alert--content">
-    <ul class="alert--cart-list">
-      <li class="alert--cart-item">
-        <span class="alert--cart-part">
-          <span class="alert--cart-part-type">productType</span>
-          <span class="alert--cart-part-number">productCode</span>
-        </span>
-        <span>
-          <label for="product_quantity">Qty: </label>
-          <input type="number" name="product_quantity" min="1" max="50" value="1">
-          <button class="alert--remove-item">&times;</button>
-        </span>
-      </li>
-    </ul>
-    <div class="has-text-center mar-t--more">
-      <!-- <button id="saveForLater" class="btn-outline--brand-two">Save for Later</button> -->
-      <a id="submitCheckout" href="/cart/" class="btn-solid--brand">Checkout</a>
-    </div>
-  </div>
-</div>
+<?php get_template_part('partials/display', 'alert--add-to-cart'); ?>

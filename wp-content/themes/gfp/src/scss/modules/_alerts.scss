@@ -38,6 +38,7 @@
   background-color: $brand-two;
   border-radius: 5px 5px 0 0;
   position: relative;
+  cursor: pointer;
 }
 
 .alert--close {
@@ -114,6 +115,15 @@
   font-style: italic;
   color: lighten($black, 10%);
   font-size: 0.9em;
+
+  del {
+    opacity: 0.5;
+  }
+
+  .sale-price {
+    color: red;
+  }
+
 }
 
 .alert--content .btn-solid--brand {
