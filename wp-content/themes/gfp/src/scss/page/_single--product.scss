@@ -1,5 +1,22 @@
+.single-product .onsale {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background: red;
+  width: 75px;
+  height: 75px;
+  line-height: 75px;
+  text-align: center;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
 .single-product .type-product {
-  padding-top: 3rem;
+  margin-top: 3rem;
+  position: relative;
 
   display: flex;
   flex-wrap: wrap;
