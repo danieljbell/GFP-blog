@@ -9,6 +9,7 @@
   var cartOpen = false;
   var cartList = document.querySelector('.alert--cart-list');
   var cartHeader = document.querySelector('.alert--header');
+  var cartLineItems = [];
   
   cartList.addEventListener('click', function(e) {
     if (e.target.matches('a')) {
@@ -30,7 +31,7 @@
   });
 
   if (cartList.querySelectorAll('li').length > 0) {
-    displayCart(true);
+    displayMinimizedCart();
   }
 
   var addToCartButtons = document.querySelectorAll('.add-to-cart');
@@ -40,7 +41,6 @@
         e.preventDefault();
         updateCartHeaderCount('up');
         addToCart(e.target);
-        displayCart();
       })
     });
   }
@@ -50,7 +50,6 @@
       // get id some other way
     }
     var productID = elem.value;
-    console.log(productID);
     atomic(window.location.origin + '/wp-admin/admin-ajax.php', {
       method: 'POST',
       data: {
@@ -59,18 +58,49 @@
         qty: 1
       }
     }).then(function(response) {
-      console.log(response);
+      if (response.xhr.status === 200) {
+        console.log('successfully added ' + productID + ' to cart');
+        populateCart();
+      }
+      
     })
   }
 
-  function populateCart(lineItems) {
-    cartList.innerHTML = lineItems.map(function(item, index) {
-      return '<li class="alert--cart-item" data-productID="' + item.id + '" data-index="' + index + '"><span class="alert--cart-part"><span class="alert--cart-part-type">' + item.name + '</span><span class="alert--cart-part-number">' + item.sku + '</span></span><span><label for="product_quantity">Qty: </label><input type="number" name="product_quantity" min="1" max="50" value="1"><button class="alert--remove-item" data-index="' + index + '">&times;</button></span></li>';
-    }).join('');
+  function populateCart() {
+    var lineItems = getProductDetails();
+
+    lineItems.then(function(itemArray) {
+      console.table(itemArray);
+      cartList.innerHTML = itemArray.map(function(item, index) {
+        if (item.salePrice) {
+          return '<li class="alert--cart-item" data-productID="' + item.id + '" data-index="' + index + '"><span class="alert--cart-part"><span class="alert--cart-part-type"><a href="' + item.permalink + '">' + item.name + '</a></span><span class="alert--cart-part-number">' + item.sku + ' - <del>$' + item.price + '</del> <span class="sale-price">$' + item.salePrice + '</span></span></span><span><label for="product_quantity">Qty: </label><input type="number" name="product_quantity" min="1" max="50" value="1"><button class="alert--remove-item" data-index="' + index + '">&times;</button></span></li>';
+        } else {
+          return '<li class="alert--cart-item" data-productID="' + item.id + '" data-index="' + index + '"><span class="alert--cart-part"><span class="alert--cart-part-type"><a href="' + item.permalink + '">' + item.name + '</a></span><span class="alert--cart-part-number">' + item.sku + ' - $' + item.price + '</span></span><span><label for="product_quantity">Qty: </label><input type="number" name="product_quantity" min="1" max="50" value="1"><button class="alert--remove-item" data-index="' + index + '">&times;</button></span></li>';
+        }
+      }).join('');
+    });
+    setTimeout(function() {
+      displayCart();
+    }, 200)
+  }
+
+  function getProductDetails(id) {
+    return atomic(window.location.origin + '/wp-admin/admin-ajax.php', {
+      method: 'POST',
+      data: {
+        action: 'get_product_details',
+        product_id: id
+      }
+    }).then(function(response) {
+      return JSON.parse(response.data.slice(0,-1));
+      // console.log(response.data);
+    })
   }
 
   function removefromCart(e) {
     e.preventDefault();
+
+    updateCartHeaderCount('down');
     
     if (e.target.matches('button')) {
       var index = e.target.dataset.index;
@@ -82,9 +112,11 @@
           action: 'remove_item_from_cart',
           product_id: parent.dataset.productid
         }
-      }).then(function(response) {
-        updateCartHeaderCount('down');
       })
+    }
+
+    if (cartList.children.length < 1) {
+      cartList.innerHTML = '<li>Your shopping cart is empty.</li>';
     }
 
   }
@@ -101,7 +133,12 @@
     } else {
       --currentCount;
     }
-    cartHeader.querySelector('.product-count').innerText = currentCount;
+
+    if (currentCount > 1 || currentCount === 0) {
+      cartHeader.querySelector('h4').innerHTML = '<span class="product-count">' + currentCount + '</span> Products in Cart';
+    } else {
+      cartHeader.querySelector('h4').innerHTML = '<span class="product-count">' + currentCount + '</span> Product in Cart';
+    }
   }
 
   function displayCart(isMinimized) {
@@ -117,35 +154,16 @@
       cartDrawer.classList.remove('alert--is-minimized');
       return;
     }
+    
+  }
 
-    if (!cartDrawer.classList.contains('alert--is-minimized')) {
-      cartDrawer.classList.add('alert--is-minimized');
+  function displayMinimizedCart() {
+    if (!cartDrawer) { 
+      console.error('Cart Markup is not on the page');
       return;
     }
-
-    
-
-    
-
-    // cartDrawer.classList.add('alert--is-active');
-
-    // if (cartDrawer.classList.contains('alert--is-minimized')) {
-    //   cartDrawer.classList.remove('alert--is-minimized');
-    //   isMinimized = !isMinimized;
-    // }
-
-    // if (!cartDrawer.classList.contains('alert--is-minimized')) {
-    //   cartDrawer.classList.add('alert--is-minimized');
-    //   isMinimized = !isMinimized;
-    // }
-
-    // if (isMinimized) {
-    //   cartDrawer.classList.add('alert--is-minimized');
-    //   isMinimized = !isMinimized;
-    // }
-
-    // console.log(isMinimized);
-    
+    cartDrawer.classList.add('alert--is-active');
+    cartDrawer.classList.add('alert--is-minimized');
   }
 
   function incrementItem(e) {
@@ -160,10 +178,10 @@
         qty: qty
       }
     }).then(function(response) {
-      // console.log(response.data);
-      var responseObj = JSON.parse(response.data.slice(0,-1));
-      console.log(responseObj);
-      // updateCartHeaderCount('up');
+      if (response.xhr.status === 200) {
+        // var responseObj = JSON.parse(response.data.slice(0,-1));
+        console.log('quantity for ' + productID + ' is set to ' + qty);
+      }
     })
   }
 
