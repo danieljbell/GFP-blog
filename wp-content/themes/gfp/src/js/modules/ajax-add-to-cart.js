@@ -48,6 +48,17 @@
   function addToCart(elem) {
     if (!elem.value) {
       // get id some other way
+      console.log('i dont have a value');
+      atomic(window.location.origin + '/wp-admin/admin-ajax.php', {
+        method: 'POST',
+        data: {
+          action: 'find_product_by_sku',
+          sku: elem.dataset.sku
+        }
+      }).then(function(response) {
+        console.log(response);
+      })
+      return;
     }
     var productID = elem.value;
     atomic(window.location.origin + '/wp-admin/admin-ajax.php', {

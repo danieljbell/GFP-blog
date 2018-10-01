@@ -318,13 +318,15 @@ add_action( 'woocommerce_template_single_add_to_cart', 'woocommerce_template_sin
 add_action( 'woocommerce_output_product_data_tabs', 'woocommerce_output_product_data_tabs', 10 );
 add_action( 'woocommerce_template_loop_add_to_cart', 'woocommerce_template_loop_add_to_cart', 10 );
 add_action( 'woocommerce_template_loop_product_link_close', 'woocommerce_template_loop_product_link_close', 5 );
+add_action( 'woocommerce_template_loop_product_thumbnail', 'woocommerce_template_loop_product_thumbnail', 5 );
+add_action( 'woocommerce_cart_totals', 'woocommerce_cart_totals', 10 );
 
 
 
 /*
-=========================
-removing something
-=========================
+==================================================
+Removing the content editor for product pages
+==================================================
 */
 add_action( 'init', function() {
     remove_post_type_support( 'product', 'editor' );
@@ -417,6 +419,12 @@ function get_product_details() {
   echo json_encode($product_details);
 }
 
+function find_product_by_sku() {
+  $sku = $_POST['sku'];
+  $resp = wc_get_product_id_by_sku($sku);
+  echo $resp;
+}
+
 
 add_action('wp_ajax_get_cart', 'get_cart');
 add_action('wp_ajax_nopriv_get_cart', 'get_cart');
@@ -428,3 +436,5 @@ add_action('wp_ajax_increment_item_in_cart', 'increment_item_in_cart');
 add_action('wp_ajax_nopriv_increment_item_in_cart', 'increment_item_in_cart');
 add_action('wp_ajax_get_product_details', 'get_product_details');
 add_action('wp_ajax_nopriv_get_product_details', 'get_product_details');
+add_action('wp_ajax_find_product_by_sku', 'find_product_by_sku');
+add_action('wp_ajax_nopriv_find_product_by_sku', 'find_product_by_sku');

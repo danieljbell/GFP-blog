@@ -246,7 +246,7 @@ foreach (get_the_tags() as $tag) {
             <?php
               // check for sold online or not
               if (!get_sub_field('not_sold')) {
-                $available_online = '<button class="add-to-cart" value="' . get_sub_field('hourly_part_number') . '">Add to Cart</button>';
+                $available_online = '<button class="add-to-cart" data-sku="' . get_sub_field('hourly_part_number') . '">Add to Cart</button>';
                 $product_link = '<a href="https://www.greenfarmparts.com/-p/' . get_sub_field('hourly_part_number') . '.htm">' . strtoupper(get_sub_field('hourly_part_number')) . '</a>';
               } else {
                 $available_online = '<button class="disabled">Not Sold Online</button>';
