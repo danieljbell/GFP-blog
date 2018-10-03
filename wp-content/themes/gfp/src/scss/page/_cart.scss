@@ -387,3 +387,7 @@ th.product-name {
 
   }
 }
+
+.woocommerce-js button[name="update_cart"] {
+  display: none;
+}

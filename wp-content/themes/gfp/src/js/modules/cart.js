@@ -4,11 +4,18 @@
     return;
   }
 
+
   var cartList = document.querySelector('.gfp-cart--list');
   var updateCartButton = document.querySelector('button[name="update_cart"]');
   var cartSubtotal = document.querySelector('.cart-subtotal td');
   var cartTotal = document.querySelector('.order-total td strong');
   var coupons = document.querySelectorAll('.cart-discount');
+
+
+  // REMOVE UPDATE CART BUTTON IF JS ENABLED
+  if (updateCartButton) {
+    updateCartButton.remove();
+  }
 
   
   /*
@@ -20,7 +27,6 @@
     if (e.target.tagName !== 'INPUT') {
       return;
     }
-    updateCartButton.disabled = false;
     updateLineItemPrice(e.target);
     // updateCartTotals();
   });

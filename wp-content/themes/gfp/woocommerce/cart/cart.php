@@ -17,7 +17,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-wc_print_notices(); ?>
+?>
 
 <div class="pad-y--most">
   <form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
@@ -138,6 +138,7 @@ wc_print_notices(); ?>
 
   <div class="gfp-cart--totals">
     <div class="gfp-cart--totals-inner">
+      <?php wc_print_notices(); ?>
       <?php if ( wc_coupons_enabled() ) { ?>
         <div class="coupon">
           <label for="coupon_code" class="visually-hidden"><?php esc_html_e( 'Coupon:', 'woocommerce' ); ?></label>

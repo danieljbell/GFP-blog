@@ -45,7 +45,7 @@
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
 
-<?php if( current_user_can('edit_pages') ) :
+<?php if( current_user_can('edit_pages') || current_user_can('edit_products') ) :
   echo '<ul style="position: fixed; left: 1rem; bottom: 1rem; z-index: 999;" class="no-print"><li style="display: inline-block;"><a href="' . site_url() . '/wp-admin" class="btn-solid--brand" style="text-decoration: none; font-weight: bold;">Admin</a></li>';
   echo '<li style="display: inline-block; margin-left: 1rem;"><a href="' . site_url() . '/wp-admin/post.php?post=' . $post->ID . '&action=edit" class="btn-solid--brand-two" style="text-decoration: none; font-weight: bold;">Edit</a></li>';
   echo '</ul>';
