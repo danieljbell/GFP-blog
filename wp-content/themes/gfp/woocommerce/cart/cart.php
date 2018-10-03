@@ -60,7 +60,7 @@ wc_print_notices(); ?>
                 }
               ?>
             </div>
-            <div class="gfp-cart--item-details">
+            <div class="gfp-cart--item-details" data-productid="<?php echo $product_id; ?>">
               <div class="gfp-cart--item-name">
                 <?php
                   if ( ! $product_permalink ) {
@@ -84,13 +84,13 @@ wc_print_notices(); ?>
                   $qty = $cart_item['quantity'];
                   $is_sale = $line->get_sale_price();
                   if ($is_sale) {
-                    echo '<del>$', $line->get_regular_price() * $qty, '</del>';
-                    echo '<span class="sale-price">$', $line->get_sale_price() * $qty, '</span>';
+                    echo '<del>$<span class="regular-price" data-price="', $line->get_regular_price(), '">', $line->get_regular_price() * $qty, '</span></del>';
+                    echo '<span class="sale-price" data-sale-price="', $line->get_sale_price(), '">$', $line->get_sale_price() * $qty, '</span>';
                     if ($qty > 1) {
                       echo '&nbsp;<span class="each-price"> &ndash;&nbsp; $', $line->get_sale_price(), ' each</span>';
                     }
                   } else {
-                    echo '$', $line->get_regular_price() * $qty;
+                    echo '$<span class="regular-price" data-price="', $line->get_regular_price(), '">', $line->get_regular_price() * $qty, '</span>';
                     if ($qty > 1) {
                       echo '&nbsp;<span class="each-price"> &ndash;&nbsp; $', $line->get_regular_price(), ' each</span>';
                     }
@@ -106,7 +106,7 @@ wc_print_notices(); ?>
                       'input_name'   => "cart[{$cart_item_key}][qty]",
                       'input_value'  => $cart_item['quantity'],
                       'max_value'    => $_product->get_max_purchase_quantity(),
-                      'min_value'    => '0',
+                      'min_value'    => '1',
                       'product_name' => $_product->get_name(),
                     ), $_product, false );
                   }

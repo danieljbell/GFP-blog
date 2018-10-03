@@ -33,8 +33,8 @@ if ( ! defined( 'ABSPATH' ) ) {
     </tr>
 
     <?php foreach ( WC()->cart->get_coupons() as $code => $coupon ) : ?>
-      <tr class="cart-discount coupon-<?php echo esc_attr( sanitize_title( $code ) ); ?>">
-        <th><?php wc_cart_totals_coupon_label( $coupon ); ?></th>
+      <tr class="cart-discount coupon-<?php echo esc_attr( sanitize_title( $code ) ); ?>" data-discount-type="coupon-<?php echo $coupon->get_discount_type(); ?>" data-discount-amount="<?php echo $coupon->get_amount(); ?>">
+        <th><span class="coupon-code"><?php echo $coupon->code; ?></span></th>
         <td data-title="<?php echo esc_attr( wc_cart_totals_coupon_label( $coupon, false ) ); ?>">
           <?php
             $amount = WC()->cart->get_coupon_discount_amount( $coupon->get_code(), WC()->cart->display_cart_ex_tax );
