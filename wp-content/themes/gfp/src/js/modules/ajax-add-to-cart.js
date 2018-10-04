@@ -10,6 +10,11 @@
   var cartList = document.querySelector('.alert--cart-list');
   var cartHeader = document.querySelector('.alert--header');
   var cartLineItems = [];
+
+  if (!cartList) {
+    console.error('Ajax Cart Markup doesn\'t exist on the page. Add it!');
+    return;
+  }
   
   cartList.addEventListener('click', function(e) {
     if (e.target.matches('a')) {
