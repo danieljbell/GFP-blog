@@ -30,7 +30,7 @@
   var scrollY = window.scrollY;
 
   // fun on page load
-  watchForSticky();
+  setTimeout(watchForSticky, 200);
   
 
   window.addEventListener('scroll', function(e) {
