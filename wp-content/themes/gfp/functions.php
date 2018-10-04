@@ -323,6 +323,7 @@ add_action( 'woocommerce_cart_totals', 'woocommerce_cart_totals', 10 );
 
 
 
+
 /*
 ==================================================
 Removing the content editor for product pages

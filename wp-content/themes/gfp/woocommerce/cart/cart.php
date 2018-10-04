@@ -136,8 +136,8 @@ defined( 'ABSPATH' ) || exit;
   </div>
 
 
-  <div class="gfp-cart--totals">
-    <div class="gfp-cart--totals-inner">
+  <div class="gfp-cart--totals sticky--container">
+    <div class="gfp-cart--totals-inner sticky--element">
       <?php wc_print_notices(); ?>
       <?php if ( wc_coupons_enabled() ) { ?>
         <div class="coupon">

@@ -1,12 +1,15 @@
 .woocommerce-cart-form {
-  display: grid;
-  @include tablet {
-    grid-template-columns: 1fr 350px;
-    grid-gap: 3rem;
-  }
-  @include desktop {
-    grid-template-columns: 1fr 350px;
-    grid-gap: 3rem;
+  display: flex;
+  @supports (display: ggggrid) {
+    display: grid;
+    @include tablet {
+      grid-template-columns: 1fr 350px;
+      grid-gap: 3rem;
+    }
+    @include desktop {
+      grid-template-columns: 1fr 350px;
+      grid-gap: 3rem;
+    }
   }
 }
 
@@ -16,7 +19,11 @@
 GFP CART CONTENTS
 =========================
 */
-.gfp-cart--contents {}
+.gfp-cart--contents {
+  @include desktop {
+    padding-right: 2rem;
+  }
+}
 
 .gfp-cart--list {
   list-style-type: none;
@@ -32,6 +39,10 @@ GFP CART CONTENTS
   display: flex;
   align-items: center;
   position: relative;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
   
   .remove {
     position: absolute;
@@ -102,12 +113,23 @@ GFP CART CONTENTS
 GFP CART TOTALS
 =========================
 */
+.gfp-cart--totals {
+  position: relative;
+  @include desktop {
+    padding-left: 2rem;
+  }
+}
+
 .gfp-cart--totals-inner {
   background-color: $light-gray;
   box-shadow: 0 0 25px 5px rgba(black, 0.05);
   padding: 2rem;
   border-radius: 5px;
   border: 1px solid $medium-gray;
+
+  // delete this
+  min-height: 600px;
+
 }
 
 .gfp-cart--totals .coupon {
@@ -390,4 +412,9 @@ th.product-name {
 
 .woocommerce-js button[name="update_cart"] {
   display: none;
+}
+
+
+#shipping_method {
+  list-style-type: none;
 }
