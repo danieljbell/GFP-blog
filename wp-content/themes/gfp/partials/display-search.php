@@ -7,5 +7,8 @@
         <input type="submit" id="searchsubmit" value="Search">
       </div>
     </form>
+    <ul class="search-results visually-hidden">
+      <li class="default">Type <span class="search-characters">3</span> more characters to start a search</li>
+    </ul>
   </div>
 </div>
