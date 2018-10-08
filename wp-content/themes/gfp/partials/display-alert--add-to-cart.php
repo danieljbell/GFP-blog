@@ -22,6 +22,9 @@
           $qty = $line_item[quantity];
           $name = $line_item_details->get_name();
           $name = str_replace('John Deere ', '', $name);
+          $name = str_replace('Green Farm Parts ', '', $name);
+          $name = str_replace('Frontier ', '', $name);
+          $name = str_replace('A&I ', '', $name);
           $name = str_replace($sku, '', $name);
           $price = $line_item_details->get_regular_price();
           $sale_price = $line_item_details->get_sale_price();

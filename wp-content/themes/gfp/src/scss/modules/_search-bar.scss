@@ -1,0 +1,33 @@
+.global-search-bar {
+  background-color: $brand-two;
+  box-shadow: 0 15px 15px -5px rgba(0,0,0,0.1);
+
+  form {
+    display: block;
+    position: relative;
+  }
+
+  input {
+    border: 0;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    font-size: 0.9em;
+    color: lighten($black, 10%);
+  }
+
+  input[type="submit"] {
+    background-color: $brand;
+    background-image: url(../img/search.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 23px;
+    color: transparent;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+  }
+
+}

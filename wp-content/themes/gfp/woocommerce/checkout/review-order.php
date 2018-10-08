@@ -31,42 +31,6 @@ if ( ! defined( 'ABSPATH' ) ) {
   <tbody>
     <?php
       do_action( 'woocommerce_review_order_before_cart_contents' );
-
-      foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
-        $_product     = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
-
-        if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_checkout_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
-          ?>
-          <tr class="<?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?>">
-            <td class="product-name">
-              <?php
-                $qty = $cart_item['quantity'];
-                $sku = strtoupper($_product->get_sku());
-                $name = $_product->get_name();
-                $name = str_replace('John Deere ', '', $name);
-                $name = str_replace($sku, '', $name);
-                $price = $_product->get_regular_price();
-                $sale_price = $_product->get_sale_price();
-              ?>
-              <span class="gfp-cart--item-name"><?php echo $name; ?></span>
-              <?php if ($sale_price) : ?>
-                <span class="product-sku"><?php echo $sku; ?> - $<?php echo $sale_price; ?> each</span>
-              <?php else : ?>
-                <span class="product-sku"><?php echo $sku; ?> - $<?php echo $price; ?> each</span>
-              <?php endif; ?>
-              
-              <?php //echo apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key ) . '&nbsp;'; ?>
-              <?php //echo apply_filters( 'woocommerce_checkout_cart_item_quantity', ' <strong class="product-quantity">' . sprintf( '&times; %s', $cart_item['quantity'] ) . '</strong>', $cart_item, $cart_item_key ); ?>
-              <?php //echo wc_get_formatted_cart_item_data( $cart_item ); ?>
-            </td>
-            <td class="product-total">
-              <?php echo apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key ); ?>
-            </td>
-          </tr>
-          <?php
-        }
-      }
-
       do_action( 'woocommerce_review_order_after_cart_contents' );
     ?>
   </tbody>

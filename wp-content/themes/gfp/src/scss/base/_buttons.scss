@@ -14,14 +14,16 @@
     @include button();
     background-color: $bgc;
     color: $c;
-    border: 0;
+    border: 2px solid $bgc;
     &:hover {
         text-decoration: none;
         @if $hover == lighten {
             background-color: lighten($bgc, 15%);
+            border-color: lighten($bgc, 15%);
         } @else {
             color: lighten($c, 75%);
             background-color: darken($bgc, 15%);
+            border-color: darken($bgc, 15%);
         }
     }
     &.disabled {
@@ -31,7 +33,7 @@
 
 @mixin outlineButton($c: #fff, $hover-color: #fff) {
     @include button();
-    border: 4px solid $c;
+    border: 2px solid $c;
     color: $c;
     &:hover {
         text-decoration: none;

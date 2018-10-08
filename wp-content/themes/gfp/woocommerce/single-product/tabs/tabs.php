@@ -20,6 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) {
   exit;
 }
 
+global $product;
+
 /**
  * Filter tabs and allow third parties to add their own.
  *
@@ -28,15 +30,16 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 $tabs = apply_filters( 'woocommerce_product_tabs', array() );
 
-//if ( ! empty( $tabs ) ) : ?>
+$allProductTags = wp_get_post_terms($product->get_id(), 'product_tag');
+
+if ( (!empty( $tabs )) || $allProductTags) : 
+?>
   
   <div class="woocommerce-tabs wc-tabs-wrapper">
     <ul class="tabs wc-tabs" role="tablist">
-
-      <li class="part_fitment_tab" id="tab-title-part_fitment" role="tab" aria-controls="tab-part_fitment"><a href="#tab-part_fitment">Part Fitment</a></li>
-
-
-
+      <?php if ($allProductTags) {
+        echo '<li class="part_fitment_tab" id="tab-title-part_fitment" role="tab" aria-controls="tab-part_fitment"><a href="#tab-part_fitment">Part Fitment</a></li>';
+      } ?>
       <?php foreach ( $tabs as $key => $tab ) : ?>
         <li class="<?php echo esc_attr( $key ); ?>_tab" id="tab-title-<?php echo esc_attr( $key ); ?>" role="tab" aria-controls="tab-<?php echo esc_attr( $key ); ?>">
           <a href="#tab-<?php echo esc_attr( $key ); ?>"><?php echo apply_filters( 'woocommerce_product_' . $key . '_tab_title', esc_html( ucwords($tab['title']) ), $key ); ?></a>
@@ -53,4 +56,4 @@ $tabs = apply_filters( 'woocommerce_product_tabs', array() );
     <?php endforeach; ?>
   </div>
 
-<?php // endif; ?>
+<?php endif; ?>

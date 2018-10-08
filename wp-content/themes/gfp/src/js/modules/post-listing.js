@@ -92,4 +92,32 @@
       });
   }
 
+
+  var productListFilters = document.querySelector('.product-list-filters-list');
+  var submitFilters = document.querySelector('#filter-products');
+  if (!productListFilters) {
+    return;
+  }
+
+  productListFilters.addEventListener('change', function(e) {
+    var selectedBrands = [];
+    productListFilters.querySelectorAll('li').forEach(function(brand) {
+      if (!brand.querySelector('input').checked) {
+        return;
+      }
+      selectedBrands.push(brand.querySelector('input').value);
+    });
+    filterProducts(selectedBrands);
+  });
+
+  function filterProducts(brands) {
+    var productList = document.querySelectorAll('.product-list-with-filters .products--item');
+    productList.forEach(function(product) {
+      product.classList.remove('visually-hidden');
+      if (!product.dataset.brand.includes(brands)) {
+        product.classList.add('visually-hidden');
+      }
+    });
+  }
+
 })();

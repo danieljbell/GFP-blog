@@ -1,8 +1,8 @@
 <?php
 /**
- * Single Product Up-Sells
+ * Related Products
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/single-product/up-sells.php.
+ * This template can be overridden by copying it to yourtheme/woocommerce/single-product/related.php.
  *
  * HOWEVER, on occasion WooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
@@ -20,24 +20,24 @@ if ( ! defined( 'ABSPATH' ) ) {
   exit;
 }
 
-if ( $upsells ) : ?>
+if ( $related_products ) : ?>
 
-  <section class="up-sells upsells products">
+  <section class="related products">
 
-    <h2><?php esc_html_e( 'You may also like&hellip;', 'woocommerce' ) ?></h2>
+    <h2><?php esc_html_e( 'Related products', 'woocommerce' ); ?></h2>
 
     <?php woocommerce_product_loop_start(); ?>
 
-      <?php foreach ( $upsells as $upsell ) : ?>
+      <?php foreach ( $related_products as $related_product ) : ?>
 
         <?php
-          $post_object = get_post( $upsell->get_id() );
+          $post_object = get_post( $related_product->get_id() );
 
           setup_postdata( $GLOBALS['post'] =& $post_object );
 
-          // wc_get_template_part( 'content', 'product' );
           get_template_part('partials/display', 'product-card');
 
+          // wc_get_template_part( 'content', 'product' );
         ?>
 
       <?php endforeach; ?>

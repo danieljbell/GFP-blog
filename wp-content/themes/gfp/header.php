@@ -55,4 +55,6 @@
 
 <?php get_template_part('partials/display', 'site-header'); ?>
 
+<?php get_template_part('partials/display', 'search'); ?>
+
 <main id="main_content">

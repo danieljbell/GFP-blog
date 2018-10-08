@@ -320,7 +320,10 @@ add_action( 'woocommerce_template_loop_add_to_cart', 'woocommerce_template_loop_
 add_action( 'woocommerce_template_loop_product_link_close', 'woocommerce_template_loop_product_link_close', 5 );
 add_action( 'woocommerce_template_loop_product_thumbnail', 'woocommerce_template_loop_product_thumbnail', 5 );
 add_action( 'woocommerce_cart_totals', 'woocommerce_cart_totals', 10 );
+add_action( 'woocommerce_checkout_login_form', 'woocommerce_checkout_login_form', 10 );
+add_action( 'woocommerce_checkout_coupon_form', 'woocommerce_checkout_coupon_form', 10 );
 
+add_action( 'woocommerce_catalog_ordering', 'woocommerce_catalog_ordering', 30 );
 
 
 
@@ -401,6 +404,9 @@ function get_product_details() {
     $sku = strtoupper($line_item_details->get_sku());
     $name = $line_item_details->get_name();
     $name = str_replace('John Deere ', '', $name);
+    $name = str_replace('Green Farm Parts ', '', $name);
+    $name = str_replace('Frontier ', '', $name);
+    $name = str_replace('A&I ', '', $name);
     $name = str_replace($sku, '', $name);
     $price = $line_item_details->get_regular_price();
     $sale_price = $line_item_details->get_sale_price();
@@ -439,3 +445,65 @@ add_action('wp_ajax_get_product_details', 'get_product_details');
 add_action('wp_ajax_nopriv_get_product_details', 'get_product_details');
 add_action('wp_ajax_find_product_by_sku', 'find_product_by_sku');
 add_action('wp_ajax_nopriv_find_product_by_sku', 'find_product_by_sku');
+
+
+
+/*
+========================================
+ALLOW THEME TO INTERACT WITH WOOCOMMERCE
+========================================
+*/
+function mytheme_add_woocommerce_support() {
+    add_theme_support( 'woocommerce' );
+}
+add_action( 'after_setup_theme', 'mytheme_add_woocommerce_support' );
+
+
+
+
+
+/*
+==============================
+CREATE CUSTOM FIELD FOR VENDOR
+==============================
+*/
+function vendor_create_custom_field() {
+  $select_field = array(
+    'id' => 'vendor_selection',
+    'label' => __( 'Select Vendor', 'textdomain' ),
+    'desc_tip' => true,
+    'description' => __( 'Enter the vendor for the product. Default: John Deere', 'ctwc' ),
+    'options' => array(
+      'john_deere' => __( 'John Deere', 'textdomain' ),
+      'stens' => __( 'Stens', 'textdomain' ),
+      'ai' => __( 'A&I', 'textdomain' ),
+      'sunbelt' => __( 'Sunbelt', 'textdomain' ),
+      'honda' => __( 'Honda', 'textdomain' ),
+      'zglide_suspension' => __( 'ZGlide Suspension', 'textdomain' ),
+      'green_farm_parts' => __( 'Green Farm Parts', 'textdomain' ),
+      'frontier' => __( 'Frontier', 'textdomain' ),
+    )
+  );
+ woocommerce_wp_select( $select_field );
+}
+add_action( 'woocommerce_product_options_general_product_data', 'vendor_create_custom_field' );
+
+
+/*
+============================
+SAVE CUSTOM FIELD FOR VENDOR
+============================
+*/
+function vendor_save_custom_field( $post_id ) {
+ $product = wc_get_product( $post_id );
+ $title = isset( $_POST['vendor_selection'] ) ? $_POST['vendor_selection'] : '';
+ $product->update_meta_data( 'vendor_selection', sanitize_text_field( $title ) );
+ $product->save();
+}
+add_action( 'woocommerce_process_product_meta', 'vendor_save_custom_field' );
+
+
+
+
+
+

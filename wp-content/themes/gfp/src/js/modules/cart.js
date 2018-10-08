@@ -93,8 +93,8 @@
         }
       });
 
-      cartSubtotal.textContent = '$' + cartSubtotalAmount.toFixed(2);
-      cartTotal.textContent = '$' + cartTotalAmount.toFixed(2);
+      cartSubtotal.textContent = '$' + cartSubtotalAmount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+      cartTotal.textContent = '$' + cartTotalAmount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
     });
   }
 

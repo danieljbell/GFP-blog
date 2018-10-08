@@ -49,6 +49,7 @@ gulp.task('js', function () {
     'src/js/modules/sticky.js',
     'src/js/modules/cart.js',
     'src/js/modules/checkout.js',
+    'src/js/modules/search-bar.js',
   ])
     .pipe(sourcemaps.init())
     .pipe(concat('global.js'))

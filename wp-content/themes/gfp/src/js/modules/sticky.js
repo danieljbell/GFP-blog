@@ -23,8 +23,9 @@
   // get sizes of elements
   var stickyContainerHeight = stickyContainer.offsetHeight;
   var stickyContainerTop = stickyContainer.offsetTop;
-  var stickyContainerWidth = stickyContainer.offsetWidth;
+  var stickyElementWidth = stickyElement.offsetWidth;
   var stickyElementHeight = stickyElement.offsetHeight;
+
   
 
   var scrollY = window.scrollY;
@@ -41,14 +42,16 @@
   function watchForSticky() {
     if (scrollY > (stickyContainerTop - (baseFontSize * 3))) {
       stickyElement.classList.add('sticky--element--is-fixed');
-      stickyElement.style.maxWidth = stickyContainerWidth + 'px';
+      stickyElement.style.maxWidth = stickyElementWidth + 'px';
       stickyElement.style.transform = 'translateY(' + (baseFontSize * 3) + 'px)';
       stickySibling.style.maxWidth = stickySiblingWidth + 'px';
 
-      if (scrollY > (stickyContainerHeight - stickyContainerTop - (baseFontSize * 3))) {
-        var scrollTransformAmount = scrollY - stickyContainerHeight + stickyContainerTop + (baseFontSize * 3);
-        stickyElement.style.transform = 'translateY(-' + scrollTransformAmount + 'px)';
-      }
+      // if (scrollY > (stickyContainerHeight - stickyContainerTop)) {
+      //   console.log('scroll');
+        // var scrollTransformAmount = scrollY - stickyContainerHeight + stickyContainerTop + (baseFontSize * 3);
+        // console.log(scrollTransformAmount);
+        // stickyElement.style.transform = 'translateY(-' + scrollTransformAmount + 'px)';
+      // }
 
     }
 
