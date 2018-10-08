@@ -26,7 +26,7 @@
         $page_title = 'Content Tagged As "' . $queried_object->name . '"';
         $count = get_the_tags();
 
-        print_r($count);
+        // print_r($count);
         // $count = $count[0]->count;
       }
       if (is_author()) {
