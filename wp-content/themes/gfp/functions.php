@@ -426,12 +426,6 @@ function get_product_details() {
   echo json_encode($product_details);
 }
 
-function find_product_by_sku() {
-  $sku = $_POST['sku'];
-  $resp = wc_get_product_id_by_sku($sku);
-  echo $resp;
-}
-
 
 add_action('wp_ajax_get_cart', 'get_cart');
 add_action('wp_ajax_nopriv_get_cart', 'get_cart');
@@ -443,8 +437,6 @@ add_action('wp_ajax_increment_item_in_cart', 'increment_item_in_cart');
 add_action('wp_ajax_nopriv_increment_item_in_cart', 'increment_item_in_cart');
 add_action('wp_ajax_get_product_details', 'get_product_details');
 add_action('wp_ajax_nopriv_get_product_details', 'get_product_details');
-add_action('wp_ajax_find_product_by_sku', 'find_product_by_sku');
-add_action('wp_ajax_nopriv_find_product_by_sku', 'find_product_by_sku');
 
 
 

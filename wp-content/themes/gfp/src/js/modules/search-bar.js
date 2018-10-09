@@ -29,7 +29,7 @@ var dompurify = window.DOMPurify;
         searchResultsHTML(response.data, searchInputValue);
       })
       .catch(function(err) {
-        searchResults.innerHTML = dompurify.sanitize('<li>No results found for ' + searchInputValue + '</li>');
+        searchResults.innerHTML = dompurify.sanitize('<p class="search-result-item--empty">No results found for ' + searchInputValue + '</p>');
       })
   }
 

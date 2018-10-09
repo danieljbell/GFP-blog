@@ -34,6 +34,4 @@
 
 </section>
 
-<?php get_template_part('partials/display', 'alert--add-to-cart'); ?>
-
 <?php get_footer(); ?>

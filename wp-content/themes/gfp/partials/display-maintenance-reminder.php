@@ -245,9 +245,9 @@ foreach (get_the_tags() as $tag) {
         <?php while (have_rows('hourly_parts')) : the_row(); ?>
             <?php
               // check for sold online or not
-              if (!get_sub_field('not_sold')) {
-                $available_online = '<button class="add-to-cart" data-sku="' . get_sub_field('hourly_part_number') . '">Add to Cart</button>';
-                $product_link = '<a href="https://www.greenfarmparts.com/-p/' . get_sub_field('hourly_part_number') . '.htm">' . strtoupper(get_sub_field('hourly_part_number')) . '</a>';
+              if (!get_sub_field('not_sold') && wc_get_product_id_by_sku(get_sub_field('hourly_part_number'))) {
+                $available_online = '<button class="add-to-cart" value="' . wc_get_product_id_by_sku(get_sub_field('hourly_part_number')) . '">Add to Cart</button>';
+                $product_link = '<a href="/product/' . strtolower(get_sub_field('hourly_part_number')) . '">' . strtoupper(get_sub_field('hourly_part_number')) . '</a>';
               } else {
                 $available_online = '<button class="disabled">Not Sold Online</button>';
                 $product_link = get_sub_field('hourly_part_number');
@@ -283,8 +283,8 @@ foreach (get_the_tags() as $tag) {
         <?php while (have_rows('common_parts')) : the_row(); ?>
             <?php
               // check for sold online or not
-              if (!get_sub_field('not_sold')) {
-                $available_online = '<button class="add-to-cart">Add to Cart</button>';
+              if (!get_sub_field('not_sold') && wc_get_product_id_by_sku(get_sub_field('common_part_number'))) {
+                $available_online = '<button class="add-to-cart" value="' . wc_get_product_id_by_sku(get_sub_field('hourly_part_number')) . '">Add to Cart</button>';
                 $product_link = '<a href="https://www.greenfarmparts.com/-p/' . get_sub_field('common_part_number') . '.htm">' . strtoupper(get_sub_field('common_part_number')) . '</a>';
                 $sold_online = 'true';
               } else {
@@ -329,8 +329,8 @@ foreach (get_the_tags() as $tag) {
         <?php while (have_rows('as_needed_parts')) : the_row(); ?>
             <?php
               // check for sold online or not
-              if (!get_sub_field('not_sold')) {
-                $available_online = '<button class="add-to-cart">Add to Cart</button>';
+              if (!get_sub_field('not_sold') && wc_get_product_id_by_sku(get_sub_field('as_needed_part_number'))) {
+                $available_online = '<button class="add-to-cart" value="' . wc_get_product_id_by_sku(get_sub_field('as_needed_part_number')) . '">Add to Cart</button>';
                 $product_link = '<a href="https://www.greenfarmparts.com/-p/' . get_sub_field('as_needed_part_number') . '.htm">' . strtoupper(get_sub_field('as_needed_part_number')) . '</a>';
               } else {
                 $available_online = '<button class="disabled">Not Sold Online</button>';
@@ -364,11 +364,22 @@ foreach (get_the_tags() as $tag) {
                 array("Black Spray Paint", "TY25609")
               );
             ?>
-            <?php foreach ($add_on_parts as $part) :  ?>
+            <?php
+              foreach ($add_on_parts as $part) :
+                $product_id = wc_get_product_id_by_sku($part[1]);
+            ?>
               <tr>
                 <td data-header="Part Type" data-product-image="https://greenfarmparts.com/v/vspfiles/photos/<?php echo $part[1]; ?>-2T.jpg"><?php echo $part[0]; ?></td>
                 <td data-header="Part Number"><a href="https://www.greenfarmparts.com/-p/<?php echo $part[1]; ?>.htm"><?php echo $part[1]; ?></a></td>
-                <td><button class="add-to-cart">Add to Cart</button></td>
+                <td>
+                  <?php
+                    if ($product_id > 0) :
+                      echo '<button class="add-to-cart" value="' . $product_id . '">Add to Cart</button>';
+                    else :
+                      echo '<button class="disabled">Not Sold Online</button>';
+                    endif;
+                  ?>
+                </td>
               </tr>
             <?php endforeach; ?>
           </table>

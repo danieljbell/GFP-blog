@@ -44,27 +44,13 @@
     addToCartButtons.forEach(function(button) {
       button.addEventListener('click', function(e) {
         e.preventDefault();
-        updateCartHeaderCount('up');
+        // updateCartHeaderCount('up');
         addToCart(e.target);
       })
     });
   }
 
   function addToCart(elem) {
-    if (!elem.value) {
-      // get id some other way
-      console.log('i dont have a value');
-      atomic(window.location.origin + '/wp-admin/admin-ajax.php', {
-        method: 'POST',
-        data: {
-          action: 'find_product_by_sku',
-          sku: elem.dataset.sku
-        }
-      }).then(function(response) {
-        console.log(response);
-      })
-      return;
-    }
     var productID = elem.value;
     atomic(window.location.origin + '/wp-admin/admin-ajax.php', {
       method: 'POST',
@@ -86,7 +72,7 @@
     var lineItems = getProductDetails();
 
     lineItems.then(function(itemArray) {
-      console.table(itemArray);
+      updateCartHeaderCount(itemArray.length);
       cartList.innerHTML = itemArray.map(function(item, index) {
         if (item.salePrice) {
           return '<li class="alert--cart-item" data-productID="' + item.id + '" data-index="' + index + '"><span class="alert--cart-part"><span class="alert--cart-part-type"><a href="' + item.permalink + '">' + item.name + '</a></span><span class="alert--cart-part-number">' + item.sku + ' - <del>$' + item.price + '</del> <span class="sale-price">$' + item.salePrice + '</span></span></span><span><label for="product_quantity">Qty: </label><input type="number" name="product_quantity" min="1" max="50" value="1"><button class="alert--remove-item" data-index="' + index + '">&times;</button></span></li>';
@@ -116,7 +102,7 @@
   function removefromCart(e) {
     e.preventDefault();
 
-    updateCartHeaderCount('down');
+    populateCart();
     
     if (e.target.matches('button')) {
       var index = e.target.dataset.index;
@@ -137,24 +123,13 @@
 
   }
 
-  function updateCartHeaderCount(direction) {
-    var currentCount = parseInt(cartHeader.querySelector('.product-count').innerText);
-    if (!direction) {
-      cartHeader.querySelector('.product-count').innerText = currentCount;
-      return;
-    }
-
-    if (direction === 'up') {
-      ++currentCount;
-    } else {
-      --currentCount;
-    }
-
-    if (currentCount > 1 || currentCount === 0) {
-      cartHeader.querySelector('h4').innerHTML = '<span class="product-count">' + currentCount + '</span> Products in Cart';
-    } else {
-      cartHeader.querySelector('h4').innerHTML = '<span class="product-count">' + currentCount + '</span> Product in Cart';
-    }
+  function updateCartHeaderCount(count) {
+    
+    // if (currentCount > 1 || currentCount === 0) {
+      cartHeader.querySelector('h4').innerHTML = '<span class="product-count">' + count + '</span> Products in Cart';
+    // } else {
+    //   cartHeader.querySelector('h4').innerHTML = '<span class="product-count">' + currentCount + '</span> Product in Cart';
+    // }
   }
 
   function displayCart(isMinimized) {

@@ -80,6 +80,13 @@
   </div>
 </footer>
 
+
+<?php 
+  if (!is_cart() || !is_checkout()) {
+    get_template_part('partials/display', 'alert--add-to-cart');
+  }
+?>
+
 <?php wp_footer(); ?>
 
 </body>

@@ -47,44 +47,44 @@
   @note = Only runs on screen larger than 1080px
   ==============================================
   */
-  if (document.body.classList.contains('single-post')) {
-    var allRows = document.querySelectorAll('table tr');
+  // if (document.body.classList.contains('single-post')) {
+  //   var allRows = document.querySelectorAll('table tr');
 
-    for (var i = 0; i < allRows.length; i++) {
-      allRows[i].addEventListener('mouseenter', function(e) {
-        if ((window.innerWidth < 1080) || (e.target.querySelector('td:first-child').dataset.productSold === 'false')) {
-          return;
-        }
+  //   for (var i = 0; i < allRows.length; i++) {
+  //     allRows[i].addEventListener('mouseenter', function(e) {
+  //       if ((window.innerWidth < 1080) || (e.target.querySelector('td:first-child').dataset.productSold === 'false')) {
+  //         return;
+  //       }
 
-        var imgExists = e.target.querySelector('td:first-child .product-image-container');
-        if (imgExists) {
-          imgExists.classList.remove('product-image--is-hidden');
-          return;
-        }
+  //       var imgExists = e.target.querySelector('td:first-child .product-image-container');
+  //       if (imgExists) {
+  //         imgExists.classList.remove('product-image--is-hidden');
+  //         return;
+  //       }
 
-        var imgPath = e.target.querySelector('td:first-child').dataset.productImage;
-        var prodImg = document.createElement('img');
-        prodImg.classList.add('product-image');
+  //       var imgPath = e.target.querySelector('td:first-child').dataset.productImage;
+  //       var prodImg = document.createElement('img');
+  //       prodImg.classList.add('product-image');
         
-        if (typeof imgPath === 'undefined') { 
-          prodImg.src = 'https://cdn3.volusion.com/yxhfe.dfqew/v/vspfiles/templates/gfp-test/images/nophoto.gif';
-        } else {
-          prodImg.src = imgPath;
-        }
+  //       if (typeof imgPath === 'undefined') { 
+  //         prodImg.src = 'https://cdn3.volusion.com/yxhfe.dfqew/v/vspfiles/templates/gfp-test/images/nophoto.gif';
+  //       } else {
+  //         prodImg.src = imgPath;
+  //       }
 
-        var prodImgContainer = document.createElement('div');
-        prodImgContainer.classList.add('product-image-container');
-        prodImgContainer.appendChild(prodImg);
+  //       var prodImgContainer = document.createElement('div');
+  //       prodImgContainer.classList.add('product-image-container');
+  //       prodImgContainer.appendChild(prodImg);
         
-        var tableCell = e.target.querySelector('td:first-child').appendChild(prodImgContainer);
+  //       var tableCell = e.target.querySelector('td:first-child').appendChild(prodImgContainer);
         
-      });
+  //     });
 
-      allRows[i].addEventListener('mouseleave', function(e) {
-        e.target.querySelector('td:first-child .product-image-container').classList.add('product-image--is-hidden');
-      });
-    }
-  }
+  //     allRows[i].addEventListener('mouseleave', function(e) {
+  //       e.target.querySelector('td:first-child .product-image-container').classList.add('product-image--is-hidden');
+  //     });
+  //   }
+  // }
 
 
 
