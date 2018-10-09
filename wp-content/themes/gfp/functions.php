@@ -507,3 +507,92 @@ add_action( 'woocommerce_process_product_meta', 'vendor_save_custom_field' );
 
 
 
+/*
+===========================================================================
+SEARCH JSON FOR WP-API
+@Link - https://benrobertson.io/wordpress/wordpress-custom-search-endpoint
+===========================================================================
+*/
+
+/**
+ * Register our custom route.
+ */
+function gfp_register_search_route() {
+    register_rest_route('gfp/v1', '/search', [
+        'methods' => WP_REST_Server::READABLE,
+        'callback' => 'gfp_ajax_search',
+        'args' => gfp_get_search_args()
+    ]);
+}
+add_action( 'rest_api_init', 'gfp_register_search_route');
+
+/**
+ * Define the arguments our endpoint receives.
+ */
+function gfp_get_search_args() {
+    $args = [];
+    $args['s'] = [
+       'description' => esc_html__( 'The search term.', 'gfp' ),
+       'type'        => 'string',
+   ];
+
+   return $args;
+}
+
+/**
+ * Use the request data to find the posts we
+ * are looking for and prepare them for use
+ * on the front end.
+ */
+function gfp_ajax_search( $request ) {
+    $posts = [];
+    $results = [];
+    // check for a search term
+    if( isset($request['s'])) :
+
+      $post_count = 10;
+      
+      // get posts
+      $posts = get_posts([
+        'posts_per_page' => $post_count,
+        'post_type' => 'any',
+        's' => $request['s'],
+      ]);
+
+      $tax_posts = get_posts([
+        'posts_per_page' => $post_count,
+        'post_type' => 'product',
+        'tax_query' => array(
+          array(
+            'taxonomy' => 'product_tag',
+            'field' => 'slug',
+            'terms' => $request['s'],
+          ),
+        )
+      ]);
+      
+      // set up the data I want to return
+      foreach($posts as $post):
+        $results[] = [
+            'title' => $post->post_title,
+            'link' => get_permalink( $post->ID ),
+            'type' => $post->post_type
+        ];
+      endforeach;
+
+      foreach($tax_posts as $post):
+        $results[] = [
+            'title' => $post->post_title,
+            'link' => get_permalink( $post->ID ),
+            'type' => $post->post_type
+        ];
+      endforeach;
+
+    endif;
+
+    if( empty($results) ) :
+        return new WP_Error( 'front_end_ajax_search', 'No results');
+    endif;
+
+    return rest_ensure_response( $results );
+}

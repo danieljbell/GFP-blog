@@ -35,6 +35,7 @@ gulp.task('css', function () {
 gulp.task('js', function () {
   gulp.src([
     'src/js/lib/atomic.min.js',
+    'src/js/lib/dompurify.min.js',
     'src/js/modules/site-header.js',
     'src/js/modules/single-post.js',
     'src/js/modules/single-product.js',
