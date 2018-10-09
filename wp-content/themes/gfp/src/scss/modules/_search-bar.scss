@@ -4,6 +4,7 @@
 
   .site-width {
     position: relative;
+    width: 100%;
   }
 
   form {
@@ -41,8 +42,26 @@
     z-index: 100;
     background-color: $light-gray;
     border: 1px solid $medium-gray;
-    padding: 1rem;
+    // padding: 1rem;
     list-style-type: none;
+  }
+
+  .search-result-item {
+    display: block;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid $medium-gray;
+  }
+
+  .search-result-view-all {
+    display: block;
+    padding: 0.75rem 1rem;
+    background-color: darken($medium-gray, 10%);
+    color: #fff;
+  }
+
+  .search__result--active {
+    background-color: $brand;
+    color: #fff;
   }
 
 }

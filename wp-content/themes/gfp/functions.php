@@ -549,26 +549,45 @@ function gfp_ajax_search( $request ) {
     $results = [];
     // check for a search term
     if( isset($request['s'])) :
-    // get posts
-        $posts = get_posts([
-            'posts_per_page' => 5,
-            'post_type' => 'products',
-            's' => $request['s'],
-            'tax_query' => array(
-                array(
-                  'taxonomy' => 'product_tag',
-                  'field' => 'slug',
-                  'terms' => 's240'
-                )
-              )
-        ]);
-    // set up the data I want to return
-        foreach($posts as $post):
-            $results[] = [
-                'title' => $post->post_title,
-                'link' => get_permalink( $post->ID )
-            ];
-        endforeach;
+
+      $post_count = 10;
+      
+      // get posts
+      $posts = get_posts([
+        'posts_per_page' => $post_count,
+        'post_type' => 'any',
+        's' => $request['s'],
+      ]);
+
+      $tax_posts = get_posts([
+        'posts_per_page' => $post_count,
+        'post_type' => 'product',
+        'tax_query' => array(
+          array(
+            'taxonomy' => 'product_tag',
+            'field' => 'slug',
+            'terms' => $request['s'],
+          ),
+        )
+      ]);
+      
+      // set up the data I want to return
+      foreach($posts as $post):
+        $results[] = [
+            'title' => $post->post_title,
+            'link' => get_permalink( $post->ID ),
+            'type' => $post->post_type
+        ];
+      endforeach;
+
+      foreach($tax_posts as $post):
+        $results[] = [
+            'title' => $post->post_title,
+            'link' => get_permalink( $post->ID ),
+            'type' => $post->post_type
+        ];
+      endforeach;
+
     endif;
 
     if( empty($results) ) :
