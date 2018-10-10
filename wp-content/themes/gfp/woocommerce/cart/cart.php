@@ -20,13 +20,13 @@ defined( 'ABSPATH' ) || exit;
 ?>
 
 <div class="pad-y--most">
-  <form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
+  <form class="woocommerce-cart-form gfp-order" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
   
-  <div class="gfp-cart--contents">
+  <div class="gfp-order-details--contents">
     
     <?php do_action( 'woocommerce_before_cart_table' ); ?>
 
-    <ul class="gfp-cart--list">
+    <ul class="gfp-order-details--list">
       
 
     <?php 
@@ -39,7 +39,7 @@ defined( 'ABSPATH' ) || exit;
           $thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key );
         ?>
 
-          <li class="gfp-cart--item">
+          <li class="gfp-order-details--item">
             <?php
               // @codingStandardsIgnoreLine
               echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf(
@@ -51,7 +51,7 @@ defined( 'ABSPATH' ) || exit;
               ), $cart_item_key );
             ?>
 
-            <div class="gfp-cart--item-image">
+            <div class="gfp-order-details--item-image">
               <?php
                 if ( ! $product_permalink ) {
                   echo wp_kses_post( $thumbnail );
@@ -60,8 +60,8 @@ defined( 'ABSPATH' ) || exit;
                 }
               ?>
             </div>
-            <div class="gfp-cart--item-details" data-productid="<?php echo $product_id; ?>">
-              <div class="gfp-cart--item-name">
+            <div class="gfp-order-details--item-details" data-productid="<?php echo $product_id; ?>">
+              <div class="gfp-order-details--item-name">
                 <?php
                   if ( ! $product_permalink ) {
                     echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key ) . '&nbsp;' );
@@ -78,7 +78,7 @@ defined( 'ABSPATH' ) || exit;
                   }
                 ?>
               </div>
-              <div class="gfp-cart--item-price">
+              <div class="gfp-order-details--item-price">
                 <?php
                   $line = $cart_item[data];
                   $qty = $cart_item['quantity'];
@@ -97,7 +97,7 @@ defined( 'ABSPATH' ) || exit;
                   }
                 ?>
               </div>
-              <div class="gfp-cart--item-quantity">
+              <div class="gfp-order-details--item-quantity">
                 <?php
                   if ( $_product->is_sold_individually() ) {
                     $product_quantity = sprintf( '1 <input type="hidden" name="cart[%s][qty]" value="1" />', $cart_item_key );
@@ -136,8 +136,8 @@ defined( 'ABSPATH' ) || exit;
   </div>
 
 
-  <div class="gfp-cart--totals sticky--container">
-    <div class="gfp-cart--totals-inner sticky--element">
+  <div class="gfp-order-details--totals sticky--container">
+    <div class="gfp-order-details--totals-inner sticky--element">
       <?php wc_print_notices(); ?>
       <?php if ( wc_coupons_enabled() ) { ?>
         <div class="coupon">

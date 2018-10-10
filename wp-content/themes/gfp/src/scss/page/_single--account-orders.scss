@@ -101,3 +101,125 @@
 
 
 }
+
+
+// .woocommerce-view-order .gfp-order-details--contents,
+.woocommerce-view-order .gfp-order-details--totals {
+  @include desktop {
+    padding: 0;
+  }
+}
+
+.woocommerce-view-order section.woocommerce-order-details {
+  .gfp-order-details--list,
+  address {
+    padding: 1rem;
+    background-color: $light-gray;
+    border: 1px solid $medium-gray;
+    margin-bottom: 2rem;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+}
+
+.woocommerce-view-order #printOrder {
+  position: absolute;
+  top: calc(100% + 1.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+
+/*
+=========================
+PRINT STYLES FOR INVOICE
+=========================
+*/
+@page {
+  margin: 0;
+}
+.woocommerce-view-order {
+  @media print {
+    background-image: url(../img/gfp-letterhead.jpg);
+    background-size: 8.5in 11in;
+    padding: 1.5in 0.5in 0.5in;
+
+    .site-width {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    main > .site-width > .pad-y--most {
+      padding: 0;
+    }
+
+    .site-header,
+    .site-footer,
+    .global-search-bar,
+    .alert--add-to-cart,
+    .woocommerce-MyAccount-navigation,
+    .order-status,
+    #printOrder {
+      display: none;
+    }
+
+    .woocommerce {
+      display: block;
+
+    }
+
+    .gfp-order {
+      display: block;
+    }
+
+    h2 {
+      padding: 0.125in 0.25in;
+    }
+
+    section.woocommerce-customer-details {
+      display: table;
+      width: 7.5in;
+      .woocommerce-column {
+        display: table-cell;
+        width: 3.5in;
+        float: left;
+        &:last-child {
+          float: right;
+        }
+      }
+    }
+
+    section.woocommerce-order-details .gfp-order-details--list,
+    section.woocommerce-order-details address {
+      padding: 0 0.25in;
+      margin-bottom: 0.5in;
+    }
+
+    section.woocommerce-order-details address {
+      padding: 0.125in 0.25in;
+    }
+
+
+    .gfp-order-details--item { 
+      padding: 0.125in 0;
+      background-color: transparent;
+      box-shadow: none;
+      border: 0;
+      border-bottom: 1px solid $medium-gray;
+      margin-bottom: 0;
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+
+    .gfp-order-details--item-details {
+      padding-left: 0;
+    }
+
+    .gfp-order-details--totals-inner {
+      page-break-inside: avoid;
+    }
+
+  }
+}
