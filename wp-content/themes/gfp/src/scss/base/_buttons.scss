@@ -78,3 +78,25 @@ OUTLINE BUTTONS
     @include outlineButton(#fff, $black);
 }
 
+/*
+===========================
+WOOCOMMERCE ACCOUNT BUTTONS
+===========================
+*/
+.woocommerce-button.pay {
+    @include solidButton($brand);
+    font-size: 0.8em;
+    padding: 0.25em 0.75em;
+}
+
+.woocommerce-button.view {
+    @include solidButton($brand-two);
+    font-size: 0.8em;
+    padding: 0.25em 0.75em;
+}
+
+.woocommerce-button.cancel {
+    @include solidButton(red, #fff, 'darken');
+    font-size: 0.8em;
+    padding: 0.25em 0.75em;
+}

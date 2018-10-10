@@ -11,13 +11,13 @@ RESPONSIVE MIXINS
 =====================
 */
 @mixin tablet {
-    @media screen and (min-width: 600px) and (max-width: 1079px) {
+    @media screen and (min-width: 600px) and (max-width: 768px) {
         @content;
     }
 }
 
 @mixin desktop {
-    @media screen and (min-width: 1080px) {
+    @media screen and (min-width: 769px) {
         @content;
     }
 }

@@ -33,7 +33,8 @@
   'modules/product-card',
   'modules/product-listing',
   'modules/search-bar',
-  'modules/pagination';
+  'modules/pagination',
+  'modules/myAccount-navigation';
 
 @import 
   'page/single',
@@ -42,6 +43,7 @@
   'page/single--product',
   'page/_cart',
   'page/_checkout',
+  'page/_single--account-orders',
   'page/404';
 
 @import 'utilities';

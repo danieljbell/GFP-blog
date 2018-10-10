@@ -1,0 +1,103 @@
+.woocommerce-orders .woocommerce-orders-table {
+  width: 100%;
+
+  tr {
+    display: flex;   
+    flex-direction: column;
+    border-bottom: 1px solid $medium-gray;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    @include desktop {
+      flex-direction: row;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+    }
+  }
+
+  th, td {
+    flex: 1;
+  }
+
+  thead {
+    display: none;
+    @include desktop {
+      display: initial;
+    }
+    
+    tr {
+      @include desktop {
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+    }
+
+  }
+
+  th {
+    text-align: left;
+    @include desktop {
+      background-color: $brand-two;
+      color: #fff;
+      padding: 0.5rem;
+    }
+
+    &[data-title="Actions"] {
+      text-align: center;
+      flex-grow: 2;
+    }
+
+    &[data-title="Status"],
+    &[data-title="Date"] {
+      flex-grow: 2;
+    }
+
+  }
+
+  tbody tr:first-child td {
+    padding-top: 1rem;
+  }
+
+  td {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.2rem 0;
+    @include desktop {
+      padding: 0.2rem 0.5rem;
+    }
+    
+    &:before {
+      content: "" attr(data-title) ": ";
+      font-weight: bold;
+      @include desktop {
+        display: none;
+      }
+    }
+
+    &[data-title="Status"],
+    &[data-title="Date"] {
+      flex-grow: 2;
+    }
+
+    &[data-title="Actions"] {
+      justify-content: center;
+      padding-top: 0.75rem;
+      flex-grow: 2;
+      
+      &:before {
+        display: none;
+      }
+
+      a {
+        margin-right: 1em;
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+
+    }
+
+  }
+
+
+}
