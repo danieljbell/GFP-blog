@@ -33,11 +33,13 @@ if ( $show_downloads ) {
   wc_get_template( 'order/order-downloads.php', array( 'downloads' => $downloads, 'show_title' => true ) );
 }
 ?>
-<section class="woocommerce-order-details">
+<hr class="no-print">
+<section class="woocommerce-order-details pad-t--most">
 
   <div class="gfp-order">
 
     <div class="gfp-order-details--contents">
+
       <h2 class="woocommerce-order-details__title"><?php _e( 'Order details', 'woocommerce' ); ?></h2>
       <ul class="gfp-order-details--list">
         <?php
@@ -53,6 +55,7 @@ if ( $show_downloads ) {
             include( locate_template('partials/display-order-detail--item.php', false, false) );
           endforeach; ?>
       </ul>
+
       <?php
         if ( $show_customer_details ) {
           wc_get_template( 'order/order-details-customer.php', array( 'order' => $order ) );

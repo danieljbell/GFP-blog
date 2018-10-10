@@ -36,7 +36,7 @@ $page_path = $_SERVER['REQUEST_URI'];
             echo '<li class="' . wc_get_account_menu_item_classes( $endpoint ) . '">';
           }
         ?>
-          <a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>"><?php echo esc_html( $label ); ?></a>
+          <a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>"><?php echo esc_html( ucwords($label) ); ?></a>
         </li>
       <?php endif; ?>
     <?php endforeach; ?>
