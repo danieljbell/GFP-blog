@@ -1,0 +1,45 @@
+.woocommerce-EditAccountForm {
+
+  .form-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    em {
+      display: inline-block;
+      margin-top: 0.5rem;
+      font-size: 0.9em;
+      line-height: 1.3;
+      color: lighten($black, 10%);
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .edit-account-grid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    @include hd {
+      flex-direction: row;
+    }
+    > * {
+      width: 100%;
+      max-width: 300px;
+      @include phone {
+        max-width: unset;
+      }
+      &:first-child {
+        margin-bottom: 2rem;
+        @include hd {
+          margin-bottom: 0;
+          margin-right: 3rem;
+        }
+      }
+      &:last-child {
+        @include hd {
+          margin-left: 3rem;
+        }
+      }
+    }
+  }
+
+}

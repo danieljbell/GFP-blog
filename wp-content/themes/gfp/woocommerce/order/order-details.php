@@ -63,8 +63,8 @@ if ( $show_downloads ) {
       ?>
     </div>
 
-    <div class="gfp-order-details--totals sticky--container">
-      <div class="gfp-order-details--totals-inner sticky--element">
+    <div class="gfp-order-details--totals">
+      <div class="gfp-order-details--totals-inner">
 
         <table cellspacing="0" class="shop_table shop_table_responsive woocommerce-cart-form__totals">
           <tbody>

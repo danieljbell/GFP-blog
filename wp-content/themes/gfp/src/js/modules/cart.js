@@ -5,7 +5,7 @@
   }
 
 
-  var cartList = document.querySelector('.gfp-cart--list');
+  var cartList = document.querySelector('.gfp-order-details--list');
   var updateCartButton = document.querySelector('button[name="update_cart"]');
   var cartSubtotal = document.querySelector('.cart-subtotal td');
   var cartTotal = document.querySelector('.order-total td strong');

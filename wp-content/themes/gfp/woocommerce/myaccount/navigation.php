@@ -25,22 +25,28 @@ do_action( 'woocommerce_before_account_navigation' );
 $page_path = $_SERVER['REQUEST_URI'];
 ?>
 
-<nav class="woocommerce-MyAccount-navigation">
-  <ul>
-    <?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) : ?>
-      <?php if ($label != 'Downloads') : ?>
-        <?php 
-          if (strpos($page_path, 'view-order') && ($label === 'Orders')) {
-            echo '<li class="' . wc_get_account_menu_item_classes( $endpoint ) . ' is-active">';
-          } else {
-            echo '<li class="' . wc_get_account_menu_item_classes( $endpoint ) . '">';
-          }
-        ?>
-          <a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>"><?php echo esc_html( ucwords($label) ); ?></a>
-        </li>
-      <?php endif; ?>
-    <?php endforeach; ?>
-  </ul>
+<nav class="woocommerce-MyAccount-navigation sticky--container">
+  <button id="toggleAccountNavigation" class="hamburger hamburger--spin menu-toggle" type="button">
+    <strong>Account Navigation</strong>
+    <span class="hamburger-box">
+      <span class="hamburger-inner"></span>
+    </span>
+  </button>
+  <ul class="sticky--element">
+  <?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) : ?>
+    <?php if ($label != 'Downloads') : ?>
+      <?php 
+        if (strpos($page_path, 'view-order') && ($label === 'Orders')) {
+          echo '<li class="' . wc_get_account_menu_item_classes( $endpoint ) . ' is-active">';
+        } else {
+          echo '<li class="' . wc_get_account_menu_item_classes( $endpoint ) . '">';
+        }
+      ?>
+        <a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>"><?php echo esc_html( ucwords($label) ); ?></a>
+      </li>
+    <?php endif; ?>
+  <?php endforeach; ?>
+</ul>
 </nav>
 
 <?php do_action( 'woocommerce_after_account_navigation' ); ?>

@@ -47,11 +47,16 @@ form.woocommerce-checkout {
   margin-bottom: 3rem;
 }
 
-.woocommerce-checkout .form-row {
+.woocommerce-checkout .form-row,
+.woocommerce-address-fields__field-wrapper .form-row {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 1rem;
+  @include phone {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
   label,
   span {
@@ -65,8 +70,10 @@ form.woocommerce-checkout {
 
   .woocommerce-input-wrapper {
     flex-grow: 2;
+    width: 100%;
   }
 
+  .select2-container,
   input {
     width: 100%;
     max-width: 422px;
