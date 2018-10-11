@@ -37,9 +37,13 @@ $oldcol = 1;
 $col    = 1;
 ?>
 
-<p class="mar-b--more">
-  <?php echo apply_filters( 'woocommerce_my_account_my_address_description', __( 'The following addresses will be used on the checkout page by default.', 'woocommerce' ) ); ?>
-</p>
+<div class="has-text-center">
+  <h1>Your Saved Addresses</h1>
+
+  <p class="mar-b--more">
+    <?php echo apply_filters( 'woocommerce_my_account_my_address_description', __( 'The following addresses will be used on the checkout page by default.', 'woocommerce' ) ); ?>
+  </p>  
+</div>
 
 <?php if ( ! wc_ship_to_billing_address_only() && wc_shipping_enabled() ) : ?>
   <div class="u-columns woocommerce-Addresses col2-set addresses">

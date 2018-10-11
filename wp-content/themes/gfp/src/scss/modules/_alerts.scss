@@ -158,3 +158,15 @@
   padding: 0.5em 1em;
   margin-bottom: 1.5rem;
 }
+
+.woocommerce-message {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  z-index: 100;
+  background-color: #fff;
+  padding: 1.5rem;
+  box-shadow: 0 0 15px 5px rgba($brand-two, 0.5);
+  border-radius: 5px;
+  border: 1px solid $medium-gray;
+}

@@ -1,3 +1,45 @@
+#customer_login {
+  display: flex;
+  justify-content: center;
+  @include phone {
+    flex-direction: column;
+    align-items: center;
+  }
+  @include tablet {
+    flex-direction: column;
+    align-items: center;
+  }
+  > * {
+    width: 100%;
+    max-width: 350px;
+    &:first-child {
+      margin-bottom: 2rem;
+      @include desktop {
+        margin-right: 1.5rem;
+        margin-bottom: 0;
+      }
+    }
+    &:last-child {
+      @include desktop {
+        margin-left: 1.5rem;
+      }
+    }
+  }
+
+  p {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+
+    button {
+      max-width: 100px;
+      margin: 0 auto 1rem;
+    }
+    
+  }
+
+}
+
 .woocommerce-MyAccount-navigation {
   margin-bottom: 2rem;
   @include tablet {
@@ -15,7 +57,9 @@
   list-style-type: none;
   padding-left: 0;
   min-width: 140px;
-  transition: all 500ms ease-in-out;
+  @include phone {
+    transition: all 500ms ease-in-out;
+  }
   @include tablet {
     max-height: initial;
     visibility: visible;

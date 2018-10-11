@@ -1,5 +1,8 @@
 .gfp-order {
   display: flex;
+  @include phone {
+    flex-direction: column;
+  }
   @supports (display: gggggrid) {
     display: grid;
     @include tablet {
@@ -34,6 +37,10 @@
 .gfp-order-details--totals {
   flex: 1;
   position: relative;
+  @include phone {
+    order: -1;
+    margin-bottom: 7rem;
+  }
   @include desktop {
     padding-left: 2rem;
   }
@@ -45,6 +52,7 @@
   padding: 1.5rem;
   border-radius: 5px;
   border: 1px solid $medium-gray;
+  position: relative;
 }
 
 .gfp-order-details--totals .coupon {

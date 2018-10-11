@@ -25,7 +25,7 @@ do_action( 'woocommerce_before_edit_account_address_form' ); ?>
   <?php wc_get_template( 'myaccount/my-address.php' ); ?>
 <?php else : ?>
 
-  <form method="post" class="box--with-header">
+  <form method="post" class="box--with-header" style="max-width: 500px; margin: 0 auto;">
     <header>
     <h3><?php echo apply_filters( 'woocommerce_my_account_edit_address_title', $page_title, $load_address ); ?></h3><?php // @codingStandardsIgnoreLine ?>  
     </header>

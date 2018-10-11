@@ -1,13 +1,16 @@
 .woocommerce-Addresses {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   @include desktop {
     flex-direction: row;
   }
 }
 
 .woocommerce-Address {
-  flex: 1;
+  // flex: 1;
+  width: 100%;
+  max-width: 300px;
   &:first-child {
     margin-bottom: 2rem;
     @include desktop {

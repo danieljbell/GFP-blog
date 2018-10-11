@@ -57,4 +57,6 @@
 
 <?php get_template_part('partials/display', 'search'); ?>
 
+<?php wc_print_notices(); ?>
+
 <main id="main_content">

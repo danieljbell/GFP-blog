@@ -3,12 +3,13 @@
   function navigationLinks() {
     
     var accountNavigation = document.querySelector('.woocommerce-MyAccount-navigation');
-    var accountNavigationList = accountNavigation.querySelector('ul');
-    var toggleAccountNavigation = accountNavigation.querySelector('button');
-    
     if (!accountNavigation) {
       return;
     }
+    
+    var accountNavigationList = accountNavigation.querySelector('ul');
+    var toggleAccountNavigation = accountNavigation.querySelector('button');
+    
 
     function toggleMenu(e) {
       e.preventDefault();
