@@ -29,7 +29,7 @@ RESPONSIVE MIXINS
 }
 
 @mixin hd {
-    @media screen and (min-width: 1281px) {
+    @media screen and (min-width: 960px) {
         @content;
     }
 }
