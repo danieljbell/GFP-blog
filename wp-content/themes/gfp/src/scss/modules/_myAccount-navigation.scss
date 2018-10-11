@@ -38,9 +38,16 @@
 .woocommerce-MyAccount-navigation li {
   background-color: $light-gray;
   border-bottom: 1px solid $medium-gray;
+  @include phone {
+    border-left: 1px solid $medium-gray;
+    border-right: 1px solid $medium-gray;
+  }
 
   &:last-child {
     border-bottom: 0;
+    @include phone {
+      border-bottom: 1px solid $medium-gray;
+    }
   }
   
   &.is-active {
@@ -82,9 +89,11 @@
     display: block;
     padding: 0.5rem 1rem;
     font-size: 0.9em;
+    
     &:hover {
       text-decoration: none;
     }
+
   }
 
 }
