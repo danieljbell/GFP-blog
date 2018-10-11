@@ -1,4 +1,13 @@
 (function() {
+
+  var reviewLink = document.querySelectorAll('.woocommerce-review-link');
+  if (reviewLink) {
+    reviewLink.forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+      });
+    });
+  }
   
   /*
   =========================

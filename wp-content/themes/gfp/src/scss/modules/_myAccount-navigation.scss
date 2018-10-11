@@ -58,8 +58,12 @@
   
   @supports (display: grid) {
     display: grid;
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: 150px 1fr;
     grid-gap: 3rem;
+  }
+
+  .woocommerce-MyAccount-content {
+    overflow-x: hidden;
   }
 
   // > * {

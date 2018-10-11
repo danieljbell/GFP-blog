@@ -101,3 +101,179 @@
 
 
 }
+
+
+// .woocommerce-view-order .gfp-order-details--contents,
+.woocommerce-view-order .gfp-order-details--totals {
+  @include desktop {
+    padding: 0;
+  }
+}
+
+.woocommerce-view-order section.woocommerce-order-details {
+  .gfp-order-details--list,
+  address {
+    padding: 1rem;
+    background-color: $light-gray;
+    border: 1px solid $medium-gray;
+    margin-bottom: 3rem;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+}
+
+.woocommerce-view-order #printOrder {
+  position: absolute;
+  top: calc(100% + 1.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.woocommerce-view-order .order-status {
+  margin-bottom: 1rem;
+  display: flex;
+}
+
+.woocommerce-columns--addresses {
+  display: flex;
+  flex-wrap: wrap;
+  .woocommerce-column {
+    flex: 1;
+    &:first-child {
+      padding-right: 1rem;
+    }
+    &:last-child {
+      padding-left: 1rem;
+    }
+  }
+}
+
+.woocommerce-OrderUpdates {
+  display: flex;
+  overflow-x: scroll;
+  
+  .woocommerce-OrderUpdate {
+    flex: 1;
+    max-width: 300px;
+    min-width: 250px;
+    border: 1px solid $medium-gray;
+    margin-right: 2rem;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  img {
+    border-radius: 50%;
+  }
+
+}
+
+.woocommerce-OrderUpdate-meta {
+  margin-top: 1rem;
+}
+
+
+
+/*
+=========================
+PRINT STYLES FOR INVOICE
+=========================
+*/
+@page {
+  margin: 0;
+}
+.woocommerce-view-order {
+  @media print {
+    font-size: 10pt;
+
+    .order-letterhead {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .site-width {
+      width: 100%;
+      max-width: 100%;
+      padding: 1.75in 0.5in 0.5in;
+    }
+
+    main > .site-width > .pad-y--most {
+      padding: 0;
+    }
+
+    .site-header,
+    .site-footer,
+    .global-search-bar,
+    .alert--add-to-cart,
+    .woocommerce-MyAccount-navigation,
+    #printOrder {
+      display: none;
+    }
+
+    .woocommerce {
+      display: block;
+
+    }
+
+    .gfp-order {
+      display: block;
+    }
+
+    h2 {
+      font-size: 1rem;
+      padding: 0.25rem 0.75rem;
+    }
+
+    section.woocommerce-customer-details {
+      display: table;
+      width: 7.5in;
+      .woocommerce-column {
+        display: table-cell;
+        width: 3.5in;
+        float: left;
+        &:last-child {
+          float: right;
+        }
+      }
+    }
+
+    .woocommerce-order-details.pad-t--most {
+      padding-top: 0;
+    }
+
+    section.woocommerce-order-details .gfp-order-details--list,
+    section.woocommerce-order-details address {
+      padding: 0 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    section.woocommerce-order-details address {
+      padding: 0.75rem;
+    }
+
+
+    .gfp-order-details--item { 
+      padding: 0.75rem 0;
+      background-color: transparent;
+      box-shadow: none;
+      border: 0;
+      border-bottom: 1px solid $medium-gray;
+      margin-bottom: 0;
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+
+    .gfp-order-details--item-details {
+      padding-left: 0;
+    }
+
+    .gfp-order-details--totals-inner {
+      page-break-inside: avoid;
+    }
+
+  }
+}
