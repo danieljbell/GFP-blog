@@ -51,6 +51,7 @@ gulp.task('js', function () {
     'src/js/modules/cart.js',
     'src/js/modules/checkout.js',
     'src/js/modules/search-bar.js',
+    'src/js/modules/account.js',
   ])
     .pipe(sourcemaps.init())
     .pipe(concat('global.js'))

@@ -26,6 +26,12 @@ $page_path = $_SERVER['REQUEST_URI'];
 ?>
 
 <nav class="woocommerce-MyAccount-navigation">
+  <button id="toggleAccountNavigation" class="hamburger hamburger--spin menu-toggle" type="button">
+    <strong>Account Navigation</strong>
+    <span class="hamburger-box">
+      <span class="hamburger-inner"></span>
+    </span>
+  </button>
   <ul>
     <?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) : ?>
       <?php if ($label != 'Downloads') : ?>

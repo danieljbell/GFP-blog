@@ -10,6 +10,12 @@ $light-gray: #f0f0f0;
 RESPONSIVE MIXINS
 =====================
 */
+@mixin phone {
+    @media screen and (max-width: 600px) {
+        @content;
+    }
+}
+
 @mixin tablet {
     @media screen and (min-width: 600px) and (max-width: 768px) {
         @content;

@@ -30,7 +30,11 @@ do_action( 'woocommerce_before_account_orders', $has_orders ); ?>
     <thead>
       <tr>
         <?php foreach ( wc_get_account_orders_columns() as $column_id => $column_name ) : ?>
-          <th class="woocommerce-orders-table__header woocommerce-orders-table__header-<?php echo esc_attr( $column_id ); ?>" data-title="<?php echo esc_attr( $column_name ); ?>"><span class="nobr"><?php echo esc_html( $column_name ); ?></span></th>
+          <?php if ($column_name !== 'Actions') : ?>
+            <th class="woocommerce-orders-table__header woocommerce-orders-table__header-<?php echo esc_attr( $column_id ); ?>" data-title="<?php echo esc_attr( $column_name ); ?>"><span class="nobr"><?php echo esc_html( $column_name ); ?></span></th>
+          <?php else : ?>
+            <th class="woocommerce-orders-table__header woocommerce-orders-table__header-<?php echo esc_attr( $column_id ); ?>" data-title="<?php echo esc_attr( $column_name ); ?>"><span class="nobr"></span></th>
+          <?php endif; ?>
         <?php endforeach; ?>
       </tr>
     </thead>

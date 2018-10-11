@@ -47,7 +47,8 @@ form.woocommerce-checkout {
   margin-bottom: 3rem;
 }
 
-.woocommerce-checkout .form-row {
+.woocommerce-checkout .form-row,
+.woocommerce-address-fields__field-wrapper .form-row {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,6 +68,7 @@ form.woocommerce-checkout {
     flex-grow: 2;
   }
 
+  .select2-container,
   input {
     width: 100%;
     max-width: 422px;
