@@ -14,7 +14,7 @@ var dompurify = window.DOMPurify;
   var productSearchResults = searchResults.querySelector('.search-results--products ul');
   var viewAllSearchResults = searchResults.querySelector('.search-results--view-all');
 
-  searchInput.addEventListener('input', handleChange);
+  searchInput.addEventListener('keyup', handleChange);
 
   function handleChange(e) {
 
@@ -62,7 +62,7 @@ var dompurify = window.DOMPurify;
       productSearchResults.innerHTML = '<li class="search-result-item--empty">No result for ' + value + '</li>';
     } else {
       productSearchResults.innerHTML = products.map(function(product) {
-        return '<li><a href="' + product.link + '">' + product.title + '</a></li>';
+        return '<li><a href="' + product.link + '"><div class="search-results--product-image">' + product.image + '</div>' + product.title + '</a></li>';
       }).join('');
     }
 

@@ -51,7 +51,7 @@
   .search-results--posts,
   .search-results--products {
     display: flex;
-    padding: 1rem;
+    padding: 1.5rem 0 1.5rem 1.5rem;
 
     h4 {
       min-width: 100px;
@@ -60,10 +60,42 @@
   }
 
   .search-results--posts {
-    border-bottom: 1px solid red;
+    border-bottom: 1px solid $medium-gray;
   }
 
   .search-results--products {
+    overflow: hidden;
+    
+    ul {
+      display: flex;
+      overflow-x: scroll;
+      padding-bottom: 1rem;
+    }
+    
+    li:not(.search-result-item--empty) {
+      margin-right: 1rem;
+      flex: 1;
+      min-width: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+      border: 1px solid $medium-gray;
+      border-radius: 5px;
+      box-shadow: 0 0 15px rgba(black, 0.1);
+      text-align: center;
+      font-size: 0.8em;
+    }
+
+    a {
+      display: block;
+      padding: 0.5rem;
+    }
+
+    img {
+      max-width: 65px;
+      max-height: 65px;
+    }
 
   }
 
