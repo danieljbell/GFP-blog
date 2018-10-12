@@ -42,7 +42,7 @@ function register_promotions_post_type() {
     'show_ui'     => true,
     'has_archive' => false,
     'with_front' => false,
-    'menu_icon'   => 'dashicons-admin-appearance',
+    'menu_icon'   => 'dashicons-megaphone',
     'supports'    => array( 'title' ),
     // 'rewrite'            => array( 'slug' => 'resources/library' ),
     // 'capability_type' => 'library',
