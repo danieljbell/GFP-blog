@@ -2,7 +2,7 @@
 <header class="site-header">
   <div class="site-width">
     <div class="menu-item--logo-container">
-      <a href="https://www.greenfarmparts.com">
+      <a href="<?php echo site_url(); ?>">
         <img src="<?php echo get_template_directory_uri(); ?>/dist/img/gfp-logo.svg" alt="Green Farm Parts">
       </a>
     </div>

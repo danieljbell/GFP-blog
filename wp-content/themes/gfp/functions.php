@@ -562,21 +562,41 @@ function gfp_ajax_search( $request ) {
           ),
         )
       ]);
+
+      
       
       // set up the data I want to return
       foreach($posts as $post):
-        $results[] = [
+        if ($post->post_type === 'product') {
+          $product = new WC_product($post->ID);
+          $attachmentIds = $product->get_gallery_attachment_ids();
+          $imgURL = wp_get_attachment_url( $attachmentId[0] );
+          $results[] = [
             'title' => $post->post_title,
             'link' => get_permalink( $post->ID ),
-            'type' => $post->post_type
-        ];
+            'type' => $post->post_type,
+            'image' => $product->get_image('thumbnail')
+          ];
+        } else {
+          $results[] = [
+            'title' => $post->post_title,
+            'link' => get_permalink( $post->ID ),
+            'type' => $post->post_type,
+          ];
+        }
       endforeach;
 
       foreach($tax_posts as $post):
+        if ($post->post_type === 'product') {
+          $product = new WC_product($post->ID);
+          $attachmentIds = $product->get_gallery_attachment_ids();
+          $imgURL = wp_get_attachment_url( $attachmentId[0] );
+        }
         $results[] = [
             'title' => $post->post_title,
             'link' => get_permalink( $post->ID ),
-            'type' => $post->post_type
+            'type' => $post->post_type,
+            'image' => $product->get_image('thumbnail')
         ];
       endforeach;
 

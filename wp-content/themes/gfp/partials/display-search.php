@@ -7,6 +7,16 @@
         <input type="submit" id="searchsubmit" value="Search">
       </div>
     </form>
-    <div class="search-results" style="display: none;"></div>
+    <div class="search-results" style="display: none;">
+      <div class="search-results--posts">
+        <h4>Articles</h4>
+        <ul></ul>
+      </div>
+      <div class="search-results--products">
+        <h4>Products</h4>
+        <ul></ul>
+      </div>
+      <a href="/?s=" class="search-results--view-all">View everything tagged <span class="search-term"></span></a>
+    </div>
   </div>
 </div>

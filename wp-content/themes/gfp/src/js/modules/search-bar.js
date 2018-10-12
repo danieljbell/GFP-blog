@@ -10,8 +10,11 @@ var dompurify = window.DOMPurify;
   var searchInput = searchBar.querySelector('input[type="text"]');
   var defaultText = document.querySelector('.global-search-bar .default');
   var searchResults = document.querySelector('.global-search-bar .search-results');
+  var postSearchResults = searchResults.querySelector('.search-results--posts ul');
+  var productSearchResults = searchResults.querySelector('.search-results--products ul');
+  var viewAllSearchResults = searchResults.querySelector('.search-results--view-all');
 
-  searchInput.addEventListener('input', handleChange);
+  searchInput.addEventListener('keyup', handleChange);
 
   function handleChange(e) {
 
@@ -23,6 +26,8 @@ var dompurify = window.DOMPurify;
     var searchInputValue = this.value;
 
     searchResults.style.display = 'block';
+    viewAllSearchResults.querySelector('.search-term').textContent = searchInputValue;
+    viewAllSearchResults.href = '/?s=' + searchInputValue;
 
     atomic('/wp-json/gfp/v1/search?s=' + this.value)
       .then(function(response) {
@@ -34,48 +39,53 @@ var dompurify = window.DOMPurify;
   }
 
   function searchResultsHTML(results, value) {
-    return searchResults.innerHTML = results.map(function(result, i) {
-      if ( results.length === i+1) {
-        return '<a class="search-result-view-all" href="/?s=' + value + '">View Full Search for ' + value + '</a>';
-      } else {
-        return '<a class="search-result-item" href="' + result.link + '">' + result.title + '</a>';
-      }
-    }).join('');
+    var posts = [];
+    var products = [];
+    results.forEach(function(result, i) {
+        if (result.type === 'post') {
+          posts.push(result);
+        }
+        if (result.type === 'product') {
+          products.push(result);
+        }
+    })
+
+    if (posts.length < 1) {
+      postSearchResults.innerHTML = '<li class="search-result-item--empty">No result for ' + value + '</li>';
+    } else {
+      postSearchResults.innerHTML = posts.map(function(post) {
+        return '<li><a href="' + post.link + '">' + post.title + '</a></li>';
+      }).join('');
+    }
+
+    if (products.length < 1) {
+      productSearchResults.innerHTML = '<li class="search-result-item--empty">No result for ' + value + '</li>';
+    } else {
+      productSearchResults.innerHTML = products.map(function(product) {
+        return '<li><a href="' + product.link + '"><div class="search-results--product-image">' + product.image + '</div>' + product.title + '</a></li>';
+      }).join('');
+    }
+
+    
+
+    // return searchResults.innerHTML = results.map(function(result, i) {
+    //   if ( results.length === i+1 ) {
+    //     return '<a class="search-result-view-all" href="/?s=' + value + '">View Full Search for ' + value + '</a>';
+    //   } else {
+    //     if (result.type === "post") {
+    //       return '<ul class="search-results--posts"><li><a href="' + result.link + '">' + result.title + '</a></li></ul>';
+    //     }
+    //     if (result.type === "product") {
+    //       return '<ul class="search-results--products"><li><a href="' + result.link + '">' + result.title + '</a></li></ul>';
+    //     }
+    //     /*
+    //     <ul class="search-results--posts"></ul>
+    //     <ul class="search-results--products"></ul>
+    //   */
+    //     // return '<a class="search-result-item" href="' + result.link + '">' + result.title + '</a>';
+    //   }
+    // }).join('');
   }
 
-  searchInput.addEventListener('keyup', function(e) {
-    // e.preventDefault();
-    
-    // Bail if not up arrow, down arrow or enter key
-    if (![38, 40, 13].includes(e.keyCode)) {
-      return;
-    }
-
-    var activeClass = 'search__result--active';
-    var current = searchResults.querySelector('.search__result--active');
-    var items = searchResults.querySelectorAll('a');
-    var next;
-
-    if (e.keyCode === 40 && current) {
-      next = current.nextElementSibling || items[0];
-    } else if (e.keyCode === 40) {
-      next = items[0];
-    } else if (e.keyCode === 38 && current) {
-      next = current.previousElementSibling || items[items.length - 1]
-    } else if (e.keyCode === 38) {
-      next = items[items.length - 1];
-    } else if (e.keyCode === 13 && current.href) {
-      window.location = current.href;
-      return;
-    }
-    
-    if (current) {
-      current.classList.remove(activeClass);
-    }
-    next.classList.add(activeClass);
-
-
-
-  });
 
 })();
