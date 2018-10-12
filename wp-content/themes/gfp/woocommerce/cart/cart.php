@@ -27,6 +27,20 @@ defined( 'ABSPATH' ) || exit;
     <?php do_action( 'woocommerce_before_cart_table' ); ?>
 
     <ul class="gfp-order-details--list">
+
+      <li>
+        <ul class="current-promotions--list">
+          <?php
+            $args = array(
+              'post_type' => 'promotions'
+            );
+            $query = new WP_Query($args);
+            if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
+              echo '<li>' . get_the_title() . '</li>';
+            endwhile; endif; wp_reset_postdata();
+          ?>
+        </ul>
+      </li>
       
 
     <?php 
