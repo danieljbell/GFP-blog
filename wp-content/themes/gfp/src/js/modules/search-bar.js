@@ -12,6 +12,7 @@ var dompurify = window.DOMPurify;
   var searchResults = document.querySelector('.global-search-bar .search-results');
   var postSearchResults = searchResults.querySelector('.search-results--posts ul');
   var productSearchResults = searchResults.querySelector('.search-results--products ul');
+  var viewAllSearchResults = searchResults.querySelector('.search-results--view-all');
 
   searchInput.addEventListener('input', handleChange);
 
@@ -25,6 +26,8 @@ var dompurify = window.DOMPurify;
     var searchInputValue = this.value;
 
     searchResults.style.display = 'block';
+    viewAllSearchResults.querySelector('.search-term').textContent = searchInputValue;
+    viewAllSearchResults.href = '/?s=' + searchInputValue;
 
     atomic('/wp-json/gfp/v1/search?s=' + this.value)
       .then(function(response) {
@@ -48,7 +51,7 @@ var dompurify = window.DOMPurify;
     })
 
     if (posts.length < 1) {
-      postSearchResults.innerHTML = '<li>No result for ' + value + '</li>';
+      postSearchResults.innerHTML = '<li class="search-result-item--empty">No result for ' + value + '</li>';
     } else {
       postSearchResults.innerHTML = posts.map(function(post) {
         return '<li><a href="' + post.link + '">' + post.title + '</a></li>';
@@ -56,7 +59,7 @@ var dompurify = window.DOMPurify;
     }
 
     if (products.length < 1) {
-      productSearchResults.innerHTML = '<li>No result for ' + value + '</li>';
+      productSearchResults.innerHTML = '<li class="search-result-item--empty">No result for ' + value + '</li>';
     } else {
       productSearchResults.innerHTML = products.map(function(product) {
         return '<li><a href="' + product.link + '">' + product.title + '</a></li>';

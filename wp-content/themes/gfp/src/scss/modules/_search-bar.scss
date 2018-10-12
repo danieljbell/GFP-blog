@@ -67,5 +67,16 @@
 
   }
 
+  .search-results--view-all {
+    display: block;
+    padding: 1rem;
+    background-color: $brand;
+    color: #fff;
+  }
+
+  .search-result-item--empty {
+    color: lighten($black, 30%);
+  }
+
 
 }
