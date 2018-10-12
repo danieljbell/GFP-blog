@@ -41,7 +41,7 @@ global $product;
       }
       echo '<ul class="single--part-fitment-list">';
       foreach ($allProductTags as $productTag) {
-        echo '<li class="single--part-fitment-item part-fitment-item--', $productTag->name, '"><a href="/tag/', $productTag->slug, '">', $productTag->name ,'</a></li>';
+        echo '<li class="single--part-fitment-item part-fitment-item--', $productTag->slug, '"><a href="/tag/', $productTag->slug, '">', $productTag->name ,'</a></li>';
       }
       echo '</ul>';
     }
