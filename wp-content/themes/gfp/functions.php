@@ -60,18 +60,18 @@ add_theme_support( 'post-thumbnails' );
 OPTIONS PAGES
 =========================
 */
-if( function_exists('acf_add_options_page') ) {
+// if( function_exists('acf_add_options_page') ) {
   
-  acf_add_options_page(array(
-    'page_title'  => 'Global Blog Settings',
-    'menu_title'  => 'Blog Settings',
-    'menu_slug'   => 'global-blog-settings',
-    'capability'  => 'edit_posts',
-    'parent_slug' => 'edit.php',
-    'redirect'    => false
-  ));
+//   acf_add_options_page(array(
+//     'page_title'  => 'Global Blog Settings',
+//     'menu_title'  => 'Blog Settings',
+//     'menu_slug'   => 'global-blog-settings',
+//     'capability'  => 'edit_posts',
+//     'parent_slug' => 'edit.php',
+//     'redirect'    => false
+//   ));
   
-}
+// }
 
 
 /*

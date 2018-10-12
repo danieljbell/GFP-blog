@@ -39,7 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php if ( $notes = $order->get_customer_order_notes() ) : ?>
   <div class="no-print">
-    <h2>Order Updates</h2>
+    <h2><?php echo count($notes); ?> Order Updates</h2>
     <ol class="woocommerce-OrderUpdates commentlist notes">
       <?php foreach ( $notes as $note ) : ?>
       <li class="woocommerce-OrderUpdate comment note">

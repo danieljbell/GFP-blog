@@ -31,6 +31,16 @@
             ) );
           ?>
         </li>
+        
+          <li class="mobile-only">
+            <a href="/account">
+              <?php if (is_user_logged_in()) : ?>
+                My Account
+              <?php else : ?>
+                Login
+              <?php endif; ?>
+            </a>
+          </li>
         <li class="cart-container">
           <a href="https://www.greenfarmparts.com/shoppingcart.asp">
             <span class="mobile-only">Shopping Cart</span>
