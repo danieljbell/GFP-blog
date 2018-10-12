@@ -39,6 +39,7 @@ function register_promotions_post_type() {
   $args = array(
     'labels'      => $labels,
     'public'      => false,
+    'show_ui'     => true,
     'has_archive' => false,
     'with_front' => false,
     'menu_icon'   => 'dashicons-admin-appearance',
