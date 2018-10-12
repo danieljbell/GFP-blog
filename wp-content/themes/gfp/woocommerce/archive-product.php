@@ -103,7 +103,7 @@ do_action( 'woocommerce_before_main_content' );
       </section>
 
       <aside class="product-list--promos">
-        promo stuff
+        <?php get_template_part('partials/display', 'current-promo'); ?>
       </aside>
     </div>
     

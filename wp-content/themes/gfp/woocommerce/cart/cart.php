@@ -27,6 +27,10 @@ defined( 'ABSPATH' ) || exit;
     <?php do_action( 'woocommerce_before_cart_table' ); ?>
 
     <ul class="gfp-order-details--list">
+
+      <li>
+        <?php get_template_part('partials/display', 'current-promo'); ?>
+      </li>
       
 
     <?php 
