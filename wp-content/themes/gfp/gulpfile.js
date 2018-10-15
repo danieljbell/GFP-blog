@@ -36,6 +36,9 @@ gulp.task('js', function () {
   gulp.src([
     'src/js/lib/atomic.min.js',
     'src/js/lib/dompurify.min.js',
+    'src/js/lib/moment.min.js',
+    'src/js/lib/countdown.min.js',
+    'src/js/lib/moment-countdown.min.js',
     'src/js/modules/site-header.js',
     'src/js/modules/single-post.js',
     'src/js/modules/single-product.js',
@@ -51,6 +54,7 @@ gulp.task('js', function () {
     'src/js/modules/cart.js',
     'src/js/modules/checkout.js',
     'src/js/modules/search-bar.js',
+    'src/js/modules/current-promos.js',
     'src/js/modules/account.js',
   ])
     .pipe(sourcemaps.init())

@@ -1,18 +1,27 @@
 <?php
-  $args = array(
+  $current_promotions_args = array(
     'post_type' => 'promotions'
   );
-  $query = new WP_Query($args);
+  $current_promotions_query = new WP_Query($current_promotions_args);
+  $current_page = get_queried_object();
+  // print_r($current_page->slug);
 ?>
 
-  <ul class="current-promotions--list">
+<ul class="current-promotions--list">
 
-    <?php if ($query->have_posts()) : ?>
+    <?php if ($current_promotions_query->have_posts()) : ?>
 
-    <?php while ($query->have_posts()) : $query->the_post(); ?>
+    <?php while ($current_promotions_query->have_posts()) : $current_promotions_query->the_post(); ?>
 
       <?php
         $promotion_terms = get_field('categories_on_sale');
+        $promo_not_current_category = false;
+
+        foreach ($promotion_terms as $term) {
+          if ($current_page->slug !== $term->slug) {
+            $promo_not_current_category = true;
+          }
+        }
 
         $image = get_field('current_promo_image');
         
@@ -33,7 +42,12 @@
             $discount = '$' . $coupon->get_amount();
           }
         } else {
-
+          $promo_type = get_field('sale_type');
+          if ($promo_type === 'percentage') {
+            $discount = get_field('sale_amount') . '%';
+          } else {
+            $discount = '$' . get_field('sale_amount');
+          }
         }
 
         $promo_headline = get_field('promo_headline');
@@ -61,10 +75,17 @@
           $button_link = get_term_link($promotion_terms[0]);
         }
         
+        if (get_field('sale_end_date')) {
+          $expiry = get_field('sale_end_date');
+        }        
+        if ($promo_selected_type === 'coupon') {
+          $expiry = str_replace("-", "", $coupon->get_date_expires()->date_i18n()) . ' 12:00 am';
+        }
         
+        if ($promo_not_current_category) :
       ?>
 
-      <li class="current-promotions--item <?php if ($promo_selected_type === 'coupon') { echo 'current-promotions--item__has-body-copy'; } ?>" style="background-image: url(<?php echo $image; ?>);">
+      <li class="current-promotions--item <?php if ($promo_selected_type === 'coupon') { echo 'current-promotions--item__has-body-copy'; } ?>" style="background-image: url(<?php echo $image; ?>);" <?php if ($expiry) { echo 'data-offer-expiry="' . $expiry . '"'; } ?>>
         <a href="<?php echo $button_link; ?>">
           <span class="current-promotions--content">
             <span class="current-promotions--offer"><?php echo $discount; ?> Off</span>
@@ -76,7 +97,7 @@
         </a>
       </li>
   
-
+      <?php endif; ?>
     <?php endwhile; ?>
     <?php else : ?>
       

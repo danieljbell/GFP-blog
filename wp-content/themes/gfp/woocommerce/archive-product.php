@@ -19,6 +19,56 @@ defined( 'ABSPATH' ) || exit;
 
 get_header( 'shop' );
 
+$current_page = get_queried_object();
+
+$current_promotions_args = array(
+  'post_type' => 'promotions'
+);
+
+$current_promotions_query = new WP_Query($current_promotions_args);
+
+if ($current_promotions_query->have_posts()) : 
+  $promo_categories = array();
+  while ($current_promotions_query->have_posts()) : 
+    $current_promotions_query->the_post();
+      $promotion_terms = get_field('categories_on_sale');
+      foreach ($promotion_terms as $term) {
+        array_push($promo_categories, $term->slug);
+      }
+  endwhile;
+endif;
+wp_reset_postdata();
+
+?>
+
+
+<?php if (in_array($current_page->slug, $promo_categories, TRUE)) : ?>
+  
+  <section class="hero hero--is-sale">
+    <div class="site-width">
+      <h1><?php echo $current_page->name; ?></h1>
+      <h2><?php echo $current_page->count; ?></h2>
+    </div>
+  </section>
+
+<?php else : ?>
+  
+  <section class="hero">
+    <div class="site-width">
+      <h1><?php echo $current_page->name; ?></h1>
+      <h2><?php echo $current_page->count; ?></h2>
+    </div>
+  </section>
+
+<?php endif; ?>
+
+<style>
+  .hero--is-sale h1 {
+    color: red;
+  }
+</style>
+
+<?php
 /**
  * Hook: woocommerce_before_main_content.
  *
@@ -27,7 +77,6 @@ get_header( 'shop' );
  * @hooked WC_Structured_Data::generate_website_data() - 30
  */
 do_action( 'woocommerce_before_main_content' );
-
 ?>
 
 <div class="site-width">

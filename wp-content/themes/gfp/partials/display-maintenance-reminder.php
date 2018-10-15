@@ -384,13 +384,17 @@ foreach (get_the_tags() as $tag) {
             <?php endforeach; ?>
           </table>
         <?php endif; ?>
+
+        <div class="mar-y--most">
+          <ul>
+            <?php get_template_part('partials/display', 'current-promo'); ?>
+          </ul>
+        </div>
       </section>
 
     </article>
 
   </div>
-  
-  <?php get_template_part('partials/display', 'alert--add-to-cart'); ?>
 
   <div class="modal modal--is-hidden" data-modal="sign-up-form">
     <div class="modal-container">

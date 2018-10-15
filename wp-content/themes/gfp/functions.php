@@ -611,3 +611,12 @@ function gfp_ajax_search( $request ) {
 
     return rest_ensure_response( $results );
 }
+
+
+
+
+remove_action( 'woocommerce_shop_loop_item_title','woocommerce_template_loop_product_title', 10 );
+add_action('woocommerce_shop_loop_item_title', 'abChangeProductsTitle', 10 );
+function abChangeProductsTitle() {
+    echo '<h3 class="woocommerce-loop-product_title">' . get_the_title() . '</h3>';
+}

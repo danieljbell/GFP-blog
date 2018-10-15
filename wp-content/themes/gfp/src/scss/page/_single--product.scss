@@ -17,10 +17,12 @@
 .single-product .type-product {
   margin-top: 3rem;
   position: relative;
-
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  @include phone {
+    margin-top: 0; 
+  }
 
   > * {
     flex: 1;
@@ -44,7 +46,7 @@
 
 .single-product .woocommerce-product-gallery {
   max-width: 400px;
-  position: relative;
+  // position: relative;
   @include desktop {
     margin-right: 3rem;
     @supports (display: grid) {

@@ -30,7 +30,7 @@
       ?>
         <div class="products--actions">
           <button class="add-to-cart btn-solid--brand-two" value="<?php echo $post->ID; ?>">Add to Cart</button>
-          <a href="<?php echo get_the_permalink(); ?>" class="btn-outline--brand">View More</a>
+          <!-- <a href="<?php echo get_the_permalink(); ?>" class="btn-outline--brand">View More</a> -->
         </div>
     </div>
 </li>

@@ -15,7 +15,8 @@
   list-style-type: none;
 
   // cart page
-  .woocommerce-cart & {
+  .woocommerce-cart &,
+  .single & {
     display: flex;
     margin-bottom: 2rem;
   }
@@ -50,7 +51,8 @@
   }
   
   // cart page
-  .woocommerce-cart & {
+  .woocommerce-cart &,
+  .single & {
     flex: 1;
     margin-right: 2rem;
     margin-bottom: 0;
@@ -81,6 +83,8 @@
 
 .current-promotions--body-copy {
   position: absolute;
+  left: 1rem;
+  right: 1rem;
   bottom: 1rem;
   display: block;
   font-size: 0.8em;
