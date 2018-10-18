@@ -1,3 +1,28 @@
+.alert {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background-color: #fff;
+  z-index: 100;
+  padding: 1rem;
+  border-radius: 4px;
+  border: 1px solid $medium-gray;
+  box-shadow: 0 0 5px rgba(black, 0.1);
+  display: flex;
+}
+
+.alert--success {
+  animation-name: flyInRight;
+  animation-duration: 500ms;
+  // border-color: $light-gray;
+  background-color: $light-gray;
+  // color: #fff;
+  .alert--close {
+    background-color: $brand-two;
+    color: #fff;
+  }
+}
+
 .alert--add-to-cart {
   position: fixed;
   z-index: 100;
@@ -44,12 +69,27 @@
 .alert--close {
   background-color: transparent;
   border: 0;
-  position: absolute;
-  right: 0.5rem;
-  padding: 7px;
-  font-size: 1.5rem;
-  line-height: 7px;
+  padding: 0.5rem;
+  background-color: $brand;
+  color: #fff;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  line-height: 0;
+  margin-right: 0.5rem;
   transition: transform 250ms ease-in-out;
+  .alert--add-to-cart & {
+    margin-right: 0;
+    width: auto;
+    height: auto;
+    position: absolute;
+    right: 0.5rem;
+    padding: 7px;
+    line-height: 7px;
+    font-size: 1.5rem;
+    background-color: transparent;
+    color: $brand;
+  }
 
   &:active,
   &:focus {
@@ -63,7 +103,7 @@
 
 }
 
-.alert--content {
+.alert--add-to-cart .alert--content {
   background-color: #fff;
   padding: 1rem 0.75rem 0;
   border-left: 1px solid $medium-gray;

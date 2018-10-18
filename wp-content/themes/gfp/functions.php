@@ -614,9 +614,88 @@ function gfp_ajax_search( $request ) {
 
 
 
-
+/*
+=================================================
+CHANGE DEFAULT HEADING TO H3 FOR PRODUCT LISTINGS
+=================================================
+*/
 remove_action( 'woocommerce_shop_loop_item_title','woocommerce_template_loop_product_title', 10 );
 add_action('woocommerce_shop_loop_item_title', 'abChangeProductsTitle', 10 );
 function abChangeProductsTitle() {
     echo '<h3 class="woocommerce-loop-product_title">' . get_the_title() . '</h3>';
+}
+
+
+/*
+=========================
+CHECK ORDER STATUS
+=========================
+*/
+add_action( 'admin_post_nopriv_order_tracking', 'order_tracking' );
+add_action( 'admin_post_order_tracking', 'order_tracking' );
+function order_tracking() {
+  wp_redirect(add_query_arg(array(
+    'order_number' => $_POST['order_number'],
+    'zipcode' => $_POST['zipcode'],
+  ), '/order-tracking/'));
+}
+
+add_action( 'admin_post_nopriv_send_order_comment', 'send_order_comment' );
+add_action( 'admin_post_send_order_comment', 'send_order_comment' );
+function send_order_comment() {
+  // get all vars from the POST
+  $contact_preference = $_POST['contact_preference'];
+  $customer_name = $_POST['customer_name'];
+  $email_address = $_POST['email_address'];
+  $phone_number = $_POST['phone_number'];
+  $message = $_POST['message'];
+  $order_number = $_POST['order_number'];
+
+  $order = wc_get_order( $order_number );
+  $order->add_order_note( $message );
+
+  // FORMAT THE MESSAGE TO PASS TO FLOCK
+  if ($contact_preference === 'phone') {
+    $message = '<strong>' . $customer_name . ' asked:</strong><br/><em>' . $message . '</em><br/>' . 'Please contact ' . $customer_name . ' via ' . $contact_preference . ' at ' . $phone_number;
+  } else {
+    $message = '<strong>' . $customer_name . ' asked:</strong><br/><em>' . $message . '</em><br/>' . 'Please contact ' . $customer_name . ' via ' . $contact_preference . ' at ' . $email_address;
+  }
+
+  // PASS CUSTOMER NOTIFICATION TO FLOCK
+  $curl = curl_init();
+
+  curl_setopt_array($curl, array(
+    CURLOPT_URL => "https://api.flock.com/hooks/sendMessage/5188ba60-d5c2-40f2-9624-16ca3bdb17d5",
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => "",
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 30,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => "POST",
+    CURLOPT_POSTFIELDS => "{\n\t\"attachments\": [{\n        \"title\": \"attachment title\",\n    \"description\": \"attachment description\",\n    \"views\": {\n        \"flockml\": \"<flockml>" . $message . "</flockml>\"\n    }\n    }]\n}",
+    CURLOPT_HTTPHEADER => array(
+      "Cache-Control: no-cache",
+      "Content-Type: application/json",
+    ),
+  ));
+
+  $response = curl_exec($curl);
+  $err = curl_error($curl);
+
+  curl_close($curl); 
+
+  print_r(json_encode(array(
+      "attachments" => array(
+        "title"   => "Customer Message",
+        "views"   => array (
+          "flockml" => "<flockml>Hello <strong>foobar</strong>, Welcome to <a href=\"https://flock.co/\">Flock!</a></flockml>"
+        )
+      )
+    )));
+
+  // wp_redirect(add_query_arg(array(
+  //   'order_number' => $_POST['order_number'],
+  //   'zipcode' => $_POST['zipcode'],
+  //   'success' => true,
+  // ), '/order-tracking/'));
 }

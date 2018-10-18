@@ -11,6 +11,7 @@
   '../../node_modules/hamburgers/_sass/hamburgers/types/spin';  
 
 @import 
+  'modules/animations',
   'modules/site-header',
   'modules/eyebrow',
   'modules/hero',
@@ -49,6 +50,7 @@
   'page/_single--account-orders',
   'page/_single--account-addresses',
   'page/_single--edit-account',
+  'page/_page--order-tracking',
   'page/404';
 
 @import 'utilities';

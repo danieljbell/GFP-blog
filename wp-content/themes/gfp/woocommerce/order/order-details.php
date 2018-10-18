@@ -33,7 +33,11 @@ if ( $show_downloads ) {
   wc_get_template( 'order/order-downloads.php', array( 'downloads' => $downloads, 'show_title' => true ) );
 }
 ?>
-<hr class="no-print">
+
+<?php if (get_queried_object()->post_name !== 'order-tracking') : ?>
+  <hr class="no-print">
+<?php endif; ?>
+
 <section class="woocommerce-order-details pad-t--most">
 
   <div class="gfp-order">
@@ -86,8 +90,10 @@ if ( $show_downloads ) {
             <?php endif; ?>
           </tbody>
         </table>
-
-        <button id="printOrder" class="btn-solid--brand-two" onclick="window.print();">Print Invoice</button>
+        
+        <?php if (get_queried_object()->post_name !== 'order-tracking') : ?>
+          <button id="printOrder" class="btn-solid--brand-two" onclick="window.print();">Print Invoice</button>
+        <?php endif; ?>
 
       </div>
     </div>    
