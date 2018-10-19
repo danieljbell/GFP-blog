@@ -640,6 +640,12 @@ function order_tracking() {
   ), '/order-tracking/'));
 }
 
+
+/*
+=========================
+SEND COMMENT ON ORDER
+=========================
+*/
 add_action( 'admin_post_nopriv_send_order_comment', 'send_order_comment' );
 add_action( 'admin_post_send_order_comment', 'send_order_comment' );
 function send_order_comment() {
@@ -650,6 +656,7 @@ function send_order_comment() {
   $phone_number = $_POST['phone_number'];
   $message = $_POST['message'];
   $order_number = $_POST['order_number'];
+  $redirect_location = $_POST['redirect_location'];
 
   $order = wc_get_order( $order_number );
   $order->add_order_note( $message );
@@ -684,9 +691,16 @@ function send_order_comment() {
 
   curl_close($curl); 
 
-  wp_redirect(add_query_arg(array(
-    'order_number' => $_POST['order_number'],
-    'zipcode' => $_POST['zipcode'],
-    'success' => true,
-  ), '/order-tracking/'));
+  if ($redirect_location === '/order-tracking/') {
+    wp_redirect(add_query_arg(array(
+      'order_number' => $_POST['order_number'],
+      'zipcode' => $_POST['zipcode'],
+      'success' => true,
+    ), '/order-tracking/'));
+  } else {
+    wp_redirect(add_query_arg(array(
+      'success' => true,
+    ), $redirect_location));
+  }
+
 }

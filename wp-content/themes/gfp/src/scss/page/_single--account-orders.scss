@@ -140,8 +140,12 @@
 }
 
 .woocommerce-view-order .order-status {
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
   display: flex;
+  justify-content: space-between;
+  @include phone {
+    flex-direction: column;
+  }
 }
 
 .woocommerce-columns--addresses {

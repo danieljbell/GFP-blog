@@ -34,11 +34,7 @@ if ( $show_downloads ) {
 }
 ?>
 
-<?php if (get_queried_object()->post_name !== 'order-tracking') : ?>
-  <hr class="no-print">
-<?php endif; ?>
-
-<section class="woocommerce-order-details pad-t--most">
+<section class="woocommerce-order-details pad-t--most mar-t--most">
 
   <div class="gfp-order">
 
@@ -101,3 +97,5 @@ if ( $show_downloads ) {
   </div>
   
 </section>
+
+<?php get_template_part('partials/modals/display', 'order-comment'); ?>
