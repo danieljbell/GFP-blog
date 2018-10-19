@@ -656,9 +656,9 @@ function send_order_comment() {
 
   // FORMAT THE MESSAGE TO PASS TO FLOCK
   if ($contact_preference === 'phone') {
-    $message = '<strong>' . $customer_name . ' asked:</strong><br/><em>' . $message . '</em><br/>' . 'Please contact ' . $customer_name . ' via ' . $contact_preference . ' at ' . $phone_number;
+    $message = '<strong>' . $customer_name . ' asked:</strong><br/><em>' . $message . '</em><br/>' . 'Please contact ' . $customer_name . ' via ' . $contact_preference . ' at ' . $phone_number . '.';
   } else {
-    $message = '<strong>' . $customer_name . ' asked:</strong><br/><em>' . $message . '</em><br/>' . 'Please contact ' . $customer_name . ' via ' . $contact_preference . ' at ' . $email_address;
+    $message = '<strong>' . $customer_name . ' asked:</strong><br/><em>' . $message . '</em><br/>' . 'Please contact ' . $customer_name . ' via ' . $contact_preference . ' at <a href=\"mailto:' . $email_address . '\">' . $email_address . '</a>.';
   }
 
   // PASS CUSTOMER NOTIFICATION TO FLOCK
@@ -672,7 +672,7 @@ function send_order_comment() {
     CURLOPT_TIMEOUT => 30,
     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
     CURLOPT_CUSTOMREQUEST => "POST",
-    CURLOPT_POSTFIELDS => "{\n\t\"attachments\": [{\n        \"title\": \"attachment title\",\n    \"description\": \"attachment description\",\n    \"views\": {\n        \"flockml\": \"<flockml>" . $message . "</flockml>\"\n    }\n    }]\n}",
+    CURLOPT_POSTFIELDS => "{\n\t\"attachments\": [{\n        \"title\": \"attachment title\",\n    \t\"description\": \"attachment description\",\n    \t\"views\": {\n        \t\"flockml\": \"<flockml>" . $message . "</flockml>\"\n    \t},\n    \t\"buttons\": [{\n    \t\t\"name\": \"Open Order\",\n    \t\t\"icon\": \"https://www.greenfarmparts.com/v/vspfiles/templates/gfp-test/img/GFP-logo.svg\",\n    \t\t\"action\": {\n    \t\t\t\"type\": \"openBrowser\",\n    \t\t\t\"url\": \"" . site_url() . "/wp-admin/post.php?post=" . $order_number . "&action=edit\"\n    \t\t}\n    \t}]\n    }]\n}",
     CURLOPT_HTTPHEADER => array(
       "Cache-Control: no-cache",
       "Content-Type: application/json",
@@ -684,18 +684,9 @@ function send_order_comment() {
 
   curl_close($curl); 
 
-  print_r(json_encode(array(
-      "attachments" => array(
-        "title"   => "Customer Message",
-        "views"   => array (
-          "flockml" => "<flockml>Hello <strong>foobar</strong>, Welcome to <a href=\"https://flock.co/\">Flock!</a></flockml>"
-        )
-      )
-    )));
-
-  // wp_redirect(add_query_arg(array(
-  //   'order_number' => $_POST['order_number'],
-  //   'zipcode' => $_POST['zipcode'],
-  //   'success' => true,
-  // ), '/order-tracking/'));
+  wp_redirect(add_query_arg(array(
+    'order_number' => $_POST['order_number'],
+    'zipcode' => $_POST['zipcode'],
+    'success' => true,
+  ), '/order-tracking/'));
 }
