@@ -1,0 +1,28 @@
+.order-tracking-container {
+  display: flex;
+}
+
+.order-tracking-status-details {
+  flex-basis: 350px;
+}
+
+.order-tracking-details {
+  flex: 1;
+  padding-left: 3rem;
+  overflow: hidden;
+}
+
+.woocommerce-view-order form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  
+  input {
+    margin-right: 2rem;
+    &[type="submit"] {
+      margin-right: 0;
+    }
+  }
+
+}

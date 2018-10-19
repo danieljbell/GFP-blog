@@ -55,6 +55,8 @@ gulp.task('js', function () {
     'src/js/modules/checkout.js',
     'src/js/modules/search-bar.js',
     'src/js/modules/current-promos.js',
+    'src/js/modules/check-order-status.js',
+    'src/js/modules/alerts.js',
     'src/js/modules/account.js',
   ])
     .pipe(sourcemaps.init())

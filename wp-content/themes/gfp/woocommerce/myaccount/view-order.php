@@ -22,6 +22,8 @@ if ( ! defined( 'ABSPATH' ) ) {
   exit;
 }
 
+// print_r($order);
+
 ?>
 
 <img src="<?php echo get_stylesheet_directory_uri(); ?>/dist/img/gfp-letterhead.jpg" alt="letterhead background" class="order-letterhead print-only">
@@ -29,10 +31,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="order-status">
   
-  <div class="order-status-details">
+  <div class="order-status-details--content">
     <h1><?php _e( 'Order #' . $order->get_order_number(), 'woocommerce' ); ?></h1>
     <p class="order-date">Order Date: <?php echo wc_format_datetime( $order->get_date_created() ); ?></p>
     <p class="order-status">Order Status: <?php echo wc_get_order_status_name( $order->get_status() ); ?></p>
+  </div>
+  <div class="order-status-details--actions box--with-header has-text-center">
+    <h3 class="mar-b">Have A Question On Your Order?</h3>
+    <button class="btn-solid--brand-two launchModal" data-modal-launch="send-order-comment">Ask Us!</button>
   </div>
 
 </div>
@@ -49,7 +55,7 @@ if ( ! defined( 'ABSPATH' ) ) {
               <?php echo wpautop( wptexturize( $note->comment_content ) ); ?>
             </div>
             <?php echo get_avatar($note->comment_author_email, 50, null, $note->comment_author); ?>
-            <p class="woocommerce-OrderUpdate-meta meta"><?php echo $note->comment_author; ?><br><?php echo date_i18n( __( 'd/m h:ia', 'woocommerce' ), strtotime( $note->comment_date ) ); ?></p>
+            <p class="woocommerce-OrderUpdate-meta meta"><?php echo $note->comment_author; ?><br><?php echo date_i18n( __( 'M. dS h:ia', 'woocommerce' ), strtotime( $note->comment_date ) ); ?></p>
           </div>
         </div>
       </li>

@@ -71,3 +71,31 @@ input {
   padding-bottom: 1rem;
   font-size: 1.1rem;
 }
+
+.form-errors {
+  background-color: rgba(red, 0.05);
+  border: 1px solid lighten(red, 30%);
+  border-radius: 5px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  .form-errors--close {
+    border: 0;
+    background-color: red;
+    width: 1.5rem;
+    height: 1.5rem;
+    line-height: 0;
+    padding: 0.5rem;
+    border-radius: 50%;
+    color: #fff;
+    margin-right: 0.5rem;
+  }
+}
+
+label.input--error {
+  font-weight: bold;
+  color: red;
+}
+
+input.input--error {
+  border-color: red;
+}
