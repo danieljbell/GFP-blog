@@ -90,3 +90,12 @@ input {
     margin-right: 0.5rem;
   }
 }
+
+label.input--error {
+  font-weight: bold;
+  color: red;
+}
+
+input.input--error {
+  border-color: red;
+}
