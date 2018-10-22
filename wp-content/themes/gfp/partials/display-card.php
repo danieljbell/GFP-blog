@@ -4,6 +4,7 @@
     
     <?php
       $all_cats = get_the_category();
+      print_r($all_cats);
       echo '<p class="card-category"><a href="/category/' . $all_cats[0]->slug . '">' . $all_cats[0]->name . '</a></p>';
     ?>
 

@@ -15,7 +15,8 @@
     </div>
     <div class="products--content">
       <?php
-        echo '<p class="card-category"><a href="/category/', $product_term[0]->slug,'">', $product_term[0]->name, '</a></p>';
+        // print_r();
+        echo '<p class="card-category"><a href="/category/', $product_term[count($product_term) - 1]->slug,'">', $product_term[count($product_term) - 1]->name, '</a></p>';
         do_action( 'woocommerce_before_shop_loop_item' );
         do_action( 'woocommerce_shop_loop_item_title' );
         echo '</a>';
