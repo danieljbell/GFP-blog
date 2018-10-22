@@ -90,13 +90,19 @@ function in_array_r($needle, $haystack, $strict = false) {
 <?php if (in_array_r($current_page->slug, $promotions)) : ?>
 
 <?php
+// print_r($promotions);
   foreach ($promotions as $promotion) {
     foreach ($promotion['promo_categories'] as $promo) {
-      if (($promo === $current_page->slug) && (substr($promotion['expires'], 0, 8) > date('Ymd'))) {
+      if (in_array_r($current_page->slug, $promotion) && (substr($promotion['expires'], 0, 8) > date('Ymd'))) {
+        $promo_price = '$' . $promotion['discount_amount'];
+        if ($promotion['discount_type'] === 'percentage') {
+          $promo_price = $promotion['discount_amount'] . '%';
+        }
+        
 ?>
   <section class="hero hero--is-sale" data-offer-expiry="<?php echo $promotion['expires']; ?>">
     <div class="site-width">
-      <h1>Discount <?php echo $current_page->name; ?></h1>
+      <h1>Save <?php echo $promo_price; ?> off <?php echo $current_page->name; ?></h1>
       <h2></h2>
     </div>
   </section>
