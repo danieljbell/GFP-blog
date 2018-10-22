@@ -714,3 +714,11 @@ function send_order_comment() {
   }
 
 }
+
+
+
+function testing($html) {
+  $html = 'abc123';
+  return $html;
+}
+add_filter('layered_nav_list', 'testing', 1, 15);

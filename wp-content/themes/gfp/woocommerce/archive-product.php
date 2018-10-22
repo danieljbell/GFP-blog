@@ -139,45 +139,22 @@ do_action( 'woocommerce_before_main_content' );
   <div class="pad-y--most">
 
     <div class="product-list-with-filters">
+
+      <?php
+        $raw_brands = get_terms('pa_brand');
+        $brands = [];
+        foreach ($raw_brands as $brand) {
+          array_push($brands, array(
+            'name' => $brand->name,
+            'slug' => $brand->slug
+          ));
+        }
+
+      ?>
       
       <aside class="product-list--filters">
         <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar("Product Filters") ) : ?>
-<?php endif;?>
-
-        <!-- <ul class="product-list-filters-list">
-          <li class="product-list-filters-item">
-            <input type="radio" name="brand_filter" value="john_deere" id="john_deere">
-            <label for="john_deere">John Deere</label>
-          </li>
-          <li class="product-list-filters-item">
-            <input type="radio" name="brand_filter" value="stens" id="stens">
-            <label for="stens">Stens</label>
-          </li>
-          <li class="product-list-filters-item">
-            <input type="radio" name="brand_filter" value="ai" id="ai">
-            <label for="ai">A&I</label>
-          </li>
-          <li class="product-list-filters-item">
-            <input type="radio" name="brand_filter" value="sunbelt" id="sunbelt">
-            <label for="sunbelt">Sunbelt</label>
-          </li>
-          <li class="product-list-filters-item">
-            <input type="radio" name="brand_filter" value="honda" id="honda">
-            <label for="honda">Honda</label>
-          </li>
-          <li class="product-list-filters-item">
-            <input type="radio" name="brand_filter" value="zglide_suspension" id="zglide_suspension">
-            <label for="zglide_suspension">ZGlide Suspension</label>
-          </li>
-          <li class="product-list-filters-item">
-            <input type="radio" name="brand_filter" value="green_farm_parts" id="green_farm_parts">
-            <label for="green_farm_parts">Green Farm Parts</label>
-          </li>
-          <li class="product-list-filters-item">
-            <input type="radio" name="brand_filter" value="frontier" id="frontier">
-            <label for="frontier">Frontier</label>
-          </li>
-        </ul> -->
+        <?php endif; ?>
       </aside>
 
       <section>
