@@ -92,12 +92,12 @@ function in_array_r($needle, $haystack, $strict = false) {
 <?php
   foreach ($promotions as $promotion) {
     foreach ($promotion['promo_categories'] as $promo) {
-      if ($promo === $current_page->slug) {
+      if (($promo === $current_page->slug) && (substr($promotion['expires'], 0, 8) > date('Ymd'))) {
 ?>
-  <section class="hero hero--is-sale" data-offer-expires="<?php echo $promotion['expires']; ?>">
+  <section class="hero hero--is-sale" data-offer-expiry="<?php echo $promotion['expires']; ?>">
     <div class="site-width">
       <h1>Discount <?php echo $current_page->name; ?></h1>
-      <h2><?php print_r(); ?></h2>
+      <h2></h2>
     </div>
   </section>
 <?php

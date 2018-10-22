@@ -31,4 +31,19 @@
 
   });
 
+
+  /*
+  ===============================
+  HANDLE PROMOTION HERO COUNTDOWN
+  ===============================
+  */
+  var heroPromotion = document.querySelector('.hero--is-sale');
+  if (!heroPromotion) { return; }
+  var expiry = heroPromotion.dataset.offerExpiry;
+  var countDown = document.querySelector('.hero--is-sale h2');
+  setInterval(function(){
+    countDown.textContent = 'Offer ends in ' + moment(expiry, 'YYYYMMDD, HH:m a').countdown().toString();
+  }, 1000)
+  
+
 })();
