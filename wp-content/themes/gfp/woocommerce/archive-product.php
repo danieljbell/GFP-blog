@@ -102,7 +102,7 @@ function in_array_r($needle, $haystack, $strict = false) {
 ?>
   <section class="hero hero--is-sale" data-offer-expiry="<?php echo $promotion['expires']; ?>">
     <div class="site-width">
-      <h1>Save <?php echo $promo_price; ?> off <?php echo $current_page->name; ?></h1>
+      <h1>Save <?php echo $promo_price; ?> off <?php echo $current_page->name; ?>. Ends in </h1>
       <h2></h2>
     </div>
   </section>
@@ -141,7 +141,10 @@ do_action( 'woocommerce_before_main_content' );
     <div class="product-list-with-filters">
       
       <aside class="product-list--filters">
-        <ul class="product-list-filters-list">
+        <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar("Product Filters") ) : ?>
+<?php endif;?>
+
+        <!-- <ul class="product-list-filters-list">
           <li class="product-list-filters-item">
             <input type="radio" name="brand_filter" value="john_deere" id="john_deere">
             <label for="john_deere">John Deere</label>
@@ -174,7 +177,7 @@ do_action( 'woocommerce_before_main_content' );
             <input type="radio" name="brand_filter" value="frontier" id="frontier">
             <label for="frontier">Frontier</label>
           </li>
-        </ul>
+        </ul> -->
       </aside>
 
       <section>

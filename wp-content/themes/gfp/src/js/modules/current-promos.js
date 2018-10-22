@@ -42,7 +42,7 @@
   var expiry = heroPromotion.dataset.offerExpiry;
   var countDown = document.querySelector('.hero--is-sale h2');
   setInterval(function(){
-    countDown.textContent = 'Offer ends in ' + moment(expiry, 'YYYYMMDD, HH:m a').countdown().toString();
+    countDown.textContent = moment(expiry, 'YYYYMMDD, HH:m a').countdown().toString();
   }, 1000)
   
 
