@@ -1,45 +1,83 @@
 (function() {
 
-  // var closeModal = document.querySelectorAll('.modal--close');
-  var launchModal = document.querySelectorAll('button[data-modal-launch]');
+  document.addEventListener('click', checkModal);
+  document.addEventListener('click', closeModal);
 
-  if (!launchModal || launchModal.length < 1) {
-    return;
+  function checkModal(e) {
+    if (!e.target.dataset.modalLaunch) {
+      return;
+    }
+    launchModal(e.target.dataset.modalLaunch);
   }
-  launchModal.forEach(function(modalTrigger) {
-    modalTrigger.addEventListener('click', launchModal);
-    document.addEventListener('click', closeModal);
 
-    function launchModal() {
-      var modalToLaunch = this.dataset.modalLaunch;
-      document.body.classList.add('modal--is-open');
-      document.querySelector('.modal--' + modalToLaunch).classList.remove('modal--is-hidden');
+  function closeModal(e) {
+    if (!e.target.classList.contains('modal--close')) {
+      return;
+    }
+    document.querySelector('.modal--' + e.target.dataset.modalClose).classList.add('modal--is-hidden');
+    document.body.classList.remove('modal--is-open');
+  }
 
-      if (modalToLaunch === 'send-order-comment') {
-        var radioButtons = document.querySelectorAll('input[name="contact_preference"]');
-        radioButtons.forEach(function(button) {
-          button.addEventListener('change', function(e) {
-            var value = e.target.value;
-            var allContact = document.querySelectorAll('.contact-preference');
-            allContact.forEach(function(contactPreference) {
-              contactPreference.style.display = 'none';
-            });
-            document.querySelector('.contact-preference--' + value).style.display = 'flex';
+  function launchModal(modalTarget) {
+    document.body.classList.add('modal--is-open');
+    document.querySelector('.modal--' + modalTarget).classList.remove('modal--is-hidden');
+
+    if (modalTarget === 'send-order-comment') {
+      var radioButtons = document.querySelectorAll('input[name="contact_preference"]');
+      radioButtons.forEach(function(button) {
+        button.addEventListener('change', function(e) {
+          var value = e.target.value;
+          var allContact = document.querySelectorAll('.contact-preference');
+          allContact.forEach(function(contactPreference) {
+            contactPreference.style.display = 'none';
           });
+          document.querySelector('.contact-preference--' + value).style.display = 'flex';
         });
-      }
-
+      });
     }
 
-    function closeModal(e) {
-      if (!e.target.dataset.modalClose) {
-        return;
-      }
-      document.querySelector('.modal--' + e.target.dataset.modalClose).classList.add('modal--is-hidden');
-      document.body.classList.remove('modal--is-open');
-    }
+  }
 
-  });
+  // var closeModal = document.querySelectorAll('.modal--close');
+  // var launchModal = document.querySelectorAll('button[data-modal-launch]');
+
+  // if (!launchModal || launchModal.length < 1) {
+  //   return;
+  // }
+  // launchModal.forEach(function(modalTrigger) {
+  //   modalTrigger.addEventListener('click', launchModal);
+  //   document.addEventListener('click', closeModal);
+
+  //   function launchModal() {
+  //     var modalToLaunch = this.dataset.modalLaunch;
+  //     document.body.classList.add('modal--is-open');
+  //     document.querySelector('.modal--' + modalToLaunch).classList.remove('modal--is-hidden');
+
+  //     if (modalToLaunch === 'send-order-comment') {
+  //       var radioButtons = document.querySelectorAll('input[name="contact_preference"]');
+  //       radioButtons.forEach(function(button) {
+  //         button.addEventListener('change', function(e) {
+  //           var value = e.target.value;
+  //           var allContact = document.querySelectorAll('.contact-preference');
+  //           allContact.forEach(function(contactPreference) {
+  //             contactPreference.style.display = 'none';
+  //           });
+  //           document.querySelector('.contact-preference--' + value).style.display = 'flex';
+  //         });
+  //       });
+  //     }
+
+  //   }
+
+  //   function closeModal(e) {
+  //     if (!e.target.dataset.modalClose) {
+  //       return;
+  //     }
+  //     document.querySelector('.modal--' + e.target.dataset.modalClose).classList.add('modal--is-hidden');
+  //     document.body.classList.remove('modal--is-open');
+  //   }
+
+  // });
 
   // if (closeModal) {
 
