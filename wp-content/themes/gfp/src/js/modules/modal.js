@@ -1,7 +1,8 @@
 (function() {
 
   document.addEventListener('click', checkModal);
-  document.addEventListener('click', closeModal);
+  document.addEventListener('click', closeModalClick);
+  document.addEventListener('keyup', closeModalEsc);
 
   function checkModal(e) {
     if (!e.target.dataset.modalLaunch) {
@@ -10,17 +11,33 @@
     launchModal(e.target.dataset.modalLaunch);
   }
 
-  function closeModal(e) {
+  function closeModalClick(e) {
     if (!e.target.classList.contains('modal--close')) {
       return;
     }
-    document.querySelector('.modal--' + e.target.dataset.modalClose).classList.add('modal--is-hidden');
+    closeModal(e);
+  }
+
+  function closeModalEsc(e) {
+    if (e.keyCode !== 27) {
+      return;
+    }
+    closeModal(e);
+  }
+
+  function closeModal(e) {
+    if (!document.body.classList.contains('modal--is-open')) {
+      return;
+    }
+    document.querySelector('.modal--is-active').classList.add('modal--is-hidden');
+    document.querySelector('.modal--is-active').classList.remove('modal--is-active');
     document.body.classList.remove('modal--is-open');
   }
 
   function launchModal(modalTarget) {
     document.body.classList.add('modal--is-open');
     document.querySelector('.modal--' + modalTarget).classList.remove('modal--is-hidden');
+    document.querySelector('.modal--' + modalTarget).classList.add('modal--is-active');
 
     if (modalTarget === 'send-order-comment') {
       var radioButtons = document.querySelectorAll('input[name="contact_preference"]');
