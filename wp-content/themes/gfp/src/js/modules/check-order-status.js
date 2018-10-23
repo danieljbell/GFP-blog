@@ -13,6 +13,7 @@
 
   function formSubmission(e) {
     e.preventDefault();
+    orders = [];
     atomic(window.ajax_order_tracking.ajax_url, {
       method: 'POST',
       data: {
@@ -35,9 +36,39 @@
       return;
     }
     var orderID = e.target.dataset.orderId;
-    var orderDetails = orders.find(function(order) {
-      return order.ID = orderID
-    });
+    var index = e.target.dataset.index;
+    var order = orders[index];
+    var orderStatus = order.post_status.split('wc-')[1];
+    orderStatus = orderStatus.charAt(0).toUpperCase() + orderStatus.slice(1);
+
+    console.log(order);
+
+    var button = document.createElement('button');
+    button.id = 'showAllOrders';
+    button.innerHTML = '&larr; Show All Orders';
+    button.classList.add('btn-solid--brand');
+    resultsContainer.prepend(button);
+    results.innerHTML = '';
+
+    var orderMeta = document.createElement('div');
+    orderMeta.classList.add('order-results--meta');
+    orderMeta.innerHTML = '<h2>Order #: ' + order.ID + '</h2><time class="order-date">Order Date: ' + moment(order.post_date_gmt, "YYYY-MM-DD hh:mm:ss a").format('LL') + '</time><p class="order-status">Order Status: ' + orderStatus + '</p><h3>Have A Question?</h3><button class="btn-solid--brand-two" data-modal-launch="send-order-comment">Ask Us!</button>';
+    orderDetailsContainer.appendChild(orderMeta);
+
+    var orderContent = document.createElement('div');
+    orderContent.classList.add('order-results--content');
+    orderDetailsContainer.appendChild(orderContent);
+
+    var orderDetailsListContainer = document.createElement('div');
+    orderDetailsListContainer.classList.add('box--with-header');
+    orderDetailsListContainer.innerHTML = '<header><h3>Order Details</h3></header><div class="has-text-center"><img src="/wp-content/themes/gfp/dist/img/spinner.svg" class="spinner"></div>';
+    orderContent.appendChild(orderDetailsListContainer);
+
+    var orderNotesListContainer = document.createElement('div');
+    orderNotesListContainer.classList.add('box--with-header');
+    orderNotesListContainer.innerHTML = '<header><h3>Order Notes</h3></header><div class="has-text-center"><img src="/wp-content/themes/gfp/dist/img/spinner.svg" class="spinner"></div>';
+    orderContent.appendChild(orderNotesListContainer);
+
     atomic(window.ajax_order_tracking.ajax_url, {
       method: 'POST',
       data: {
@@ -46,18 +77,19 @@
         orderID: orderID
       }
     }).then(function(response) {
-      console.log(response.data);
-    });
-    var button = document.createElement('button');
-    button.id = 'showAllOrders';
-    button.innerHTML = '&larr;Show All Orders';
-    resultsContainer.prepend(button);
-    results.innerHTML = '';
+      var orderDetails = response.data;
+      
+      var orderDetailsList = document.createElement('ul');
+      orderDetailsList.classList.add('gfp-order-details--list');
+      orderDetailsList.innerHTML = orderDetails.map(function(item) {
+        return '<li class="gfp-order-details--item"><div class="gfp-order-details--item-image"><a href="' + item.link + '">' + item.image + '</a></div><div class="gfp-order-details--item-details"><p class="gfp-order-details--item-name"><a href="' + item.link + '">' + item.name + '</a></p><p class="gfp-order-details--item-price">Price: &nbsp;$<span class="regular-price">' + item.subtotal + ' <span class="each-price">&ndash; $' + item.unit_price + ' each</span></span></p><p class="gfp-order-details--item-quantity">Quantity: &nbsp;' + item.qty + '</p> </div></li>';
+      }).join('');
+      orderDetailsListContainer.appendChild(orderDetailsList);
 
-    var orderMeta = document.createElement('div');
-    orderMeta.classList.add('order-results--meta');
-    orderMeta.innerHTML = '<h2>Order #: ' + orderID + '</h2>';
-    orderDetailsContainer.appendChild(orderMeta);
+
+      orderDetailsContainer.querySelector('.has-text-center').remove();
+
+    });
   }
 
   function displayAllOrders(e) {
@@ -71,7 +103,7 @@
 
   function formatOrders() {
     results.innerHTML = orders.map(function(order, index) {
-      return '<li class="order-results--item"><p class="order-results--order-number">Order #: ' + order.ID + '</p><time class="order-results--order-time" datetime="' + order.post_date_gmt + '">' + moment(order.post_date_gmt, "YYYY-MM-DD hh:mm:ss a").format('LL') + '</time><button class="btn-solid--brand-two" data-order-id="' + order.ID + '">View Order</button></li>';
+      return '<li class="order-results--item"><p class="order-results--order-number">Order #: ' + order.ID + '</p><time class="order-results--order-time" datetime="' + order.post_date_gmt + '">' + moment(order.post_date_gmt, "YYYY-MM-DD hh:mm:ss a").format('LL') + '</time><button class="btn-solid--brand-two" data-index="' + index + '" data-order-id="' + order.ID + '">View Order</button></li>';
     }).join('');
   }
 

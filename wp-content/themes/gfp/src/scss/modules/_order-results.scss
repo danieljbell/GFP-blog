@@ -29,4 +29,18 @@
 
 .order-results--details {
   padding: 2rem 0;
+  display: flex;
+}
+
+.order-results--meta {
+  flex-basis: 300px;
+}
+
+.order-results--content {
+  flex: 1;
+  
+  .box--with-header {
+    margin-bottom: 2rem;
+  }
+
 }
