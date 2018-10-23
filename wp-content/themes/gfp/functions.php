@@ -17,8 +17,19 @@ ADD GLOBAL JS TO PAGE
 */
 function enqueue_global_js() {
   wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.18', true);
+
+  if (is_page_template( 'page-templates/check-order-status.php' )) {
+    $translation_array = array(
+      'ajax_url'   => admin_url( 'admin-ajax.php' ),
+      'nonce'  => wp_create_nonce( 'nonce_name' )
+    );
+    wp_localize_script( 'global', 'ajax_order_tracking', $translation_array );
+  }
+  
 }
 add_action('wp_enqueue_scripts', 'enqueue_global_js');
+
+
 
 /*
 ==========================================
@@ -427,6 +438,7 @@ function get_product_details() {
 }
 
 function get_orders() {
+  check_ajax_referer( 'nonce_name' );
   $email_address = $_POST['email_address'];
   $zipcode = $_POST['zipcode'];
   $supplied_user = get_user_by('email', $email_address);
@@ -455,6 +467,38 @@ function get_orders() {
   die();
 }
 
+function get_order_details() {
+  check_ajax_referer( 'nonce_name' );
+  $orderID = $_POST['orderID'];
+  $order = wc_get_order( $orderID );
+  $order_items = $order->get_items();
+  $order_details = [];
+  
+  foreach ( $order_items as $item_id => $item ) {
+    $product = $item->get_product();
+    $qty = $item->get_quantity();
+    $name = $item->get_name();
+    $image = $product->get_image(array(100,100));
+    $link = $product->get_permalink();
+    $subtotal = $item->get_subtotal();
+    $total = $item->get_total();
+    $unit_price = $subtotal / $qty;
+    array_push($order_details,array(
+      "product"     => $product,
+      "qty"         => $qty,
+      "name"        => $name,
+      "image"       => $image,
+      "link"        => $link,
+      "subtotal"    => $subtotal,
+      "total"       => $total,
+      "unit_price"  => $unit_price
+    ));
+  }
+
+  echo json_encode($order_details);
+  die();
+}
+
 
 add_action('wp_ajax_get_cart', 'get_cart');
 add_action('wp_ajax_nopriv_get_cart', 'get_cart');
@@ -468,6 +512,8 @@ add_action('wp_ajax_get_product_details', 'get_product_details');
 add_action('wp_ajax_nopriv_get_product_details', 'get_product_details');
 add_action('wp_ajax_get_orders', 'get_orders');
 add_action('wp_ajax_nopriv_get_orders', 'get_orders');
+add_action('wp_ajax_get_order_details', 'get_order_details');
+add_action('wp_ajax_nopriv_get_order_details', 'get_order_details');
 
 
 

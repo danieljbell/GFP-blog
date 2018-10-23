@@ -27,7 +27,21 @@ Template Name: Check Order Status
       <input type="hidden" name="action" value="order_tracking">
     </form>
 
-    <ul class="order-results"></ul>
+    <section class="order-results--container">
+      <ul class="order-results--list"></ul>
+      <div class="order-results--details"></div>
+    </section>
+    <?php
+      /*
+      =========================
+      <li class="order-results--order">
+        <p class="order-results--order-number">Order #: 1792</p>
+        <time class="order-results--order-time" datetime="order date">Order Date: 12312312</time>
+        <button class="btn-solid--brand-two">View Order</button>
+      </li>
+      =========================
+      */
+    ?>
 
     <?php
       /*
