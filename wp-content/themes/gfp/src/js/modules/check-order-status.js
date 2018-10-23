@@ -1,9 +1,27 @@
 (function() {
   
-  // if (getParameterByName('order_number') || getParameterByName('zipcode')) {
-  //   var initialPath = window.location.pathname;
-  //   window.history.replaceState( {} , 'bar', initialPath );
-  // }
+  var form = document.querySelector('#order_tracking_form');
+  var results = document.querySelector('.order-results');
+
+  form.addEventListener('submit', formSubmission);
+
+  function formSubmission(e) {
+    e.preventDefault();
+    atomic(window.location.origin + '/wp-admin/admin-ajax.php', {
+      method: 'POST',
+      data: {
+        action: 'get_orders',
+        email_address: document.querySelector('input[name="email_address"]').value,
+        zipcode: document.querySelector('input[name="zipcode"]').value
+      }
+    }).then(function(response) {
+      var orders = response.data.orders;
+      orders.forEach(function(order) {
+        // console.log(order);
+        results.innerHTML += results.innerHTML + '<li>Order: ' + order.ID + '</li>';
+      });
+    })
+  }
 
 })();
 

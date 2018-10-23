@@ -426,6 +426,35 @@ function get_product_details() {
   echo json_encode($product_details);
 }
 
+function get_orders() {
+  $email_address = $_POST['email_address'];
+  $zipcode = $_POST['zipcode'];
+  $supplied_user = get_user_by('email', $email_address);
+  $WC_user = new WC_Customer($supplied_user->data->ID);
+  $customer_orders = get_posts( array(
+      'numberposts' => -1,
+      'meta_key'    => '_customer_user',
+      'meta_value'  => $supplied_user->data->ID,
+      'post_type'   => wc_get_order_types(),
+      'post_status' => array_keys( wc_get_order_statuses() ),
+  ) );
+  
+  if ($WC_user && ($WC_user->shipping['postcode'] === $zipcode)) {
+    echo json_encode(array(
+      'email_address' => $email_address,
+      'zipcode'       => $zipcode,
+      'orders'        => $customer_orders
+    ));
+  } else {
+    echo json_encode(array(
+      'status'    => 'failed',
+      'message'   => 'asdf'
+    ));
+  }
+
+  die();
+}
+
 
 add_action('wp_ajax_get_cart', 'get_cart');
 add_action('wp_ajax_nopriv_get_cart', 'get_cart');
@@ -437,6 +466,8 @@ add_action('wp_ajax_increment_item_in_cart', 'increment_item_in_cart');
 add_action('wp_ajax_nopriv_increment_item_in_cart', 'increment_item_in_cart');
 add_action('wp_ajax_get_product_details', 'get_product_details');
 add_action('wp_ajax_nopriv_get_product_details', 'get_product_details');
+add_action('wp_ajax_get_orders', 'get_orders');
+add_action('wp_ajax_nopriv_get_orders', 'get_orders');
 
 
 
