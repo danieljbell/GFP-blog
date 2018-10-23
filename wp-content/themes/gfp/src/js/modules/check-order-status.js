@@ -41,8 +41,6 @@
     var orderStatus = order.post_status.split('wc-')[1];
     orderStatus = orderStatus.charAt(0).toUpperCase() + orderStatus.slice(1);
 
-    console.log(order);
-
     var button = document.createElement('button');
     button.id = 'showAllOrders';
     button.innerHTML = '&larr; Show All Orders';
@@ -85,11 +83,57 @@
         return '<li class="gfp-order-details--item"><div class="gfp-order-details--item-image"><a href="' + item.link + '">' + item.image + '</a></div><div class="gfp-order-details--item-details"><p class="gfp-order-details--item-name"><a href="' + item.link + '">' + item.name + '</a></p><p class="gfp-order-details--item-price">Price: &nbsp;$<span class="regular-price">' + item.subtotal + ' <span class="each-price">&ndash; $' + item.unit_price + ' each</span></span></p><p class="gfp-order-details--item-quantity">Quantity: &nbsp;' + item.qty + '</p> </div></li>';
       }).join('');
       orderDetailsListContainer.appendChild(orderDetailsList);
-
-
       orderDetailsContainer.querySelector('.has-text-center').remove();
+    });
+
+    atomic(window.ajax_order_tracking.ajax_url, {
+      method: 'POST',
+      data: {
+        action: 'get_order_notes',
+        _ajax_nonce: window.ajax_order_tracking.nonce,
+        orderID: orderID
+      }
+    }).then(function(response) {
+      var orderNotes = response.data;
+      console.log(orderNotes);
+
+      if (orderNotes.length > 0) {
+        var orderNotesList = document.createElement('ol');
+        orderNotesList.classList.add('woocommerce-OrderUpdates', 'commentlist', 'notes');
+        orderNotesList.innerHTML = orderNotes.map(function(note) {
+          return '<li class="woocommerce-OrderUpdate comment note"><div class="woocommerce-OrderUpdate-inner comment_container"><div class="woocommerce-OrderUpdate-text comment-text"><div class="woocommerce-OrderUpdate-description description">' + note.comment_content + '</div></div></div></li>';
+        }).join('');
+        orderNotesListContainer.appendChild(orderNotesList);
+        orderNotesListContainer.querySelector('.has-text-center').remove();
+      } else {
+        orderNotesListContainer.querySelector('.has-text-center').innerHTML = 'Sorry, there are no notes added to this order.';
+      }
+
+      
+
+/*
+=========================
+<ol class="woocommerce-OrderUpdates commentlist notes">
+  <?php foreach ( $notes as $note ) : ?>
+  <li class="woocommerce-OrderUpdate comment note">
+    <div class="woocommerce-OrderUpdate-inner comment_container">
+      <div class="woocommerce-OrderUpdate-text comment-text">
+        <div class="woocommerce-OrderUpdate-description description">
+          <?php echo wpautop( wptexturize( $note->comment_content ) ); ?>
+        </div>
+        <?php echo get_avatar($note->comment_author_email, 50, null, $note->comment_author); ?>
+        <p class="woocommerce-OrderUpdate-meta meta"><?php echo $note->comment_author; ?><br><?php echo date_i18n( __( 'M. dS h:ia', 'woocommerce' ), strtotime( $note->comment_date ) ); ?></p>
+      </div>
+    </div>
+  </li>
+  <?php endforeach; ?>
+</ol>
+=========================
+*/
+
 
     });
+
   }
 
   function displayAllOrders(e) {

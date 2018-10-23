@@ -484,7 +484,6 @@ function get_order_details() {
     $total = $item->get_total();
     $unit_price = $subtotal / $qty;
     array_push($order_details,array(
-      "product"     => $product,
       "qty"         => $qty,
       "name"        => $name,
       "image"       => $image,
@@ -496,6 +495,26 @@ function get_order_details() {
   }
 
   echo json_encode($order_details);
+  die();
+}
+
+function get_order_notes() {
+  check_ajax_referer( 'nonce_name' );
+  $order_id = $_POST['orderID'];
+  $order = wc_get_order( $order_id );
+  $order_notes = $order->get_customer_order_notes();
+  $scrubbed_note = [];
+
+  foreach ($order_notes as $note) {
+    array_push($scrubbed_note, array(
+      'commentAuthor'     => $note->comment_author,
+      'commentAuthorImg'  => get_avatar($note->comment_author_email, 50, null, $note->comment_author),
+      'commentDate'       => $note->comment_date_gmt,
+      'commentContent'    => $note->comment_content
+    ));
+  }
+
+  echo json_encode($scrubbed_note);
   die();
 }
 
@@ -514,6 +533,8 @@ add_action('wp_ajax_get_orders', 'get_orders');
 add_action('wp_ajax_nopriv_get_orders', 'get_orders');
 add_action('wp_ajax_get_order_details', 'get_order_details');
 add_action('wp_ajax_nopriv_get_order_details', 'get_order_details');
+add_action('wp_ajax_get_order_notes', 'get_order_notes');
+add_action('wp_ajax_nopriv_get_order_notes', 'get_order_notes');
 
 
 
