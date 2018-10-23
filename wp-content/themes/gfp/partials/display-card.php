@@ -4,8 +4,7 @@
     
     <?php
       $all_cats = get_the_category();
-      print_r($all_cats);
-      echo '<p class="card-category"><a href="/category/' . $all_cats[0]->slug . '">' . $all_cats[0]->name . '</a></p>';
+      echo '<p class="card-category"><a href="/category/' . $all_cats[count($all_cats) - 1]->slug . '">' . $all_cats[count($all_cats) - 1]->name . '</a></p>';
     ?>
 
     <h4 class="card-title"><a href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title() ?></a></h4>
