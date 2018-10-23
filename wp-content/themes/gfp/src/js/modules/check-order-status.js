@@ -101,7 +101,7 @@
         var orderNotesList = document.createElement('ol');
         orderNotesList.classList.add('woocommerce-OrderUpdates', 'commentlist', 'notes');
         orderNotesList.innerHTML = orderNotes.map(function(note) {
-          return '<li class="woocommerce-OrderUpdate comment note"><div class="woocommerce-OrderUpdate-inner comment_container"><div class="woocommerce-OrderUpdate-text comment-text"><div class="woocommerce-OrderUpdate-description description">' + note.comment_content + '</div></div></div></li>';
+          return '<li class="woocommerce-OrderUpdate comment note"><div class="woocommerce-OrderUpdate-inner comment_container"><div class="woocommerce-OrderUpdate-text comment-text"><div class="woocommerce-OrderUpdate-description description">' + note.commentContent + '</div>' + note.commentAuthorImg + '<p class="woocommerce-OrderUpdate-meta meta">' + note.commentAuthor + '<br>' + moment(note.commentDate,  "YYYY-MM-DD hh:mm:ss a").format('LL') + '</p></div></div></li>';
         }).join('');
         orderNotesListContainer.appendChild(orderNotesList);
         orderNotesListContainer.querySelector('.has-text-center').remove();
