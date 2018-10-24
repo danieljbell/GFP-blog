@@ -17,8 +17,19 @@ ADD GLOBAL JS TO PAGE
 */
 function enqueue_global_js() {
   wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.18', true);
+
+  if (is_page_template( 'page-templates/check-order-status.php' )) {
+    $translation_array = array(
+      'ajax_url'   => admin_url( 'admin-ajax.php' ),
+      'nonce'  => wp_create_nonce( 'nonce_name' )
+    );
+    wp_localize_script( 'global', 'ajax_order_tracking', $translation_array );
+  }
+  
 }
 add_action('wp_enqueue_scripts', 'enqueue_global_js');
+
+
 
 /*
 ==========================================
@@ -426,6 +437,144 @@ function get_product_details() {
   echo json_encode($product_details);
 }
 
+function get_orders() {
+  check_ajax_referer( 'nonce_name' );
+  $email_address = $_POST['email_address'];
+  $zipcode = $_POST['zipcode'];
+  
+  if (!$email_address && !$zipcode) {
+    echo json_encode(array(
+      'status'      => 'error',
+      'messages'    => array(
+        'email'     => 'Please provide an email address',
+        'zipcode'   => 'Please provide a shipping zipcode'
+      )
+    ));
+    die();
+  }
+
+  if (!$email_address) {
+    echo json_encode(array(
+      'status'      => 'error',
+      'messages'    => array(
+        'email'     => 'Please provide an email address',
+      )
+    ));
+    die();
+  }
+
+  if (!$zipcode) {
+    echo json_encode(array(
+      'status'      => 'error',
+      'messages'    => array(
+        'zipcode'   => 'Please provide a shipping zipcode',
+      )
+    ));
+    die();
+  }
+
+  $supplied_user = get_user_by('email', $email_address);
+  if ($supplied_user) {
+    $WC_user = new WC_Customer($supplied_user->data->ID);
+    if ($zipcode === $WC_user->get_shipping_postcode()) {
+      $customer_orders = get_posts( array(
+        'numberposts' => -1,
+        'meta_key'    => '_customer_user',
+        'meta_value'  => $supplied_user->data->ID,
+        'post_type'   => wc_get_order_types(),
+        'post_status' => array_keys( wc_get_order_statuses() ),
+      ) );
+      echo json_encode(array(
+        'status'        => 'success',
+        'email_address' => $email_address,
+        'zipcode'       => $zipcode,
+        'orders'        => $customer_orders
+      ));
+    } else {
+      echo json_encode(array(
+        'status'      => 'error',
+        'messages'    => array(
+          'zipcode'   => 'Sorry, the email & shipping zipcode provided don\'t match any orders',
+        )
+      ));
+    }
+    die();
+  } else {
+    echo json_encode(array(
+      'status'      => 'error',
+      'messages'    => array(
+        'zipcode'   => 'Sorry, the email & shipping zipcode provided don\'t match any orders',
+      )
+    ));
+    die();
+  }
+
+  
+  
+  // if ($WC_user && ($WC_user->shipping['postcode'] === $zipcode)) {
+  
+  // } else {
+  //   echo json_encode(array(
+  //     'status'    => 'failed',
+  //     'message'   => 'asdf'
+  //   ));
+  //   die();
+  // }
+
+  
+}
+
+function get_order_details() {
+  check_ajax_referer( 'nonce_name' );
+  $orderID = $_POST['orderID'];
+  $order = wc_get_order( $orderID );
+  $order_items = $order->get_items();
+  $order_details = [];
+  
+  foreach ( $order_items as $item_id => $item ) {
+    $product = $item->get_product();
+    $qty = $item->get_quantity();
+    $name = $item->get_name();
+    $image = $product->get_image(array(100,100));
+    $link = $product->get_permalink();
+    $subtotal = $item->get_subtotal();
+    $total = $item->get_total();
+    $unit_price = $subtotal / $qty;
+    array_push($order_details,array(
+      "qty"         => $qty,
+      "name"        => $name,
+      "image"       => $image,
+      "link"        => $link,
+      "subtotal"    => $subtotal,
+      "total"       => $total,
+      "unit_price"  => $unit_price
+    ));
+  }
+
+  echo json_encode($order_details);
+  die();
+}
+
+function get_order_notes() {
+  check_ajax_referer( 'nonce_name' );
+  $order_id = $_POST['orderID'];
+  $order = wc_get_order( $order_id );
+  $order_notes = $order->get_customer_order_notes();
+  $scrubbed_note = [];
+
+  foreach ($order_notes as $note) {
+    array_push($scrubbed_note, array(
+      'commentAuthor'     => $note->comment_author,
+      'commentAuthorImg'  => get_avatar($note->comment_author_email, 50, null, $note->comment_author),
+      'commentDate'       => $note->comment_date_gmt,
+      'commentContent'    => $note->comment_content
+    ));
+  }
+
+  echo json_encode($scrubbed_note);
+  die();
+}
+
 
 add_action('wp_ajax_get_cart', 'get_cart');
 add_action('wp_ajax_nopriv_get_cart', 'get_cart');
@@ -437,6 +586,12 @@ add_action('wp_ajax_increment_item_in_cart', 'increment_item_in_cart');
 add_action('wp_ajax_nopriv_increment_item_in_cart', 'increment_item_in_cart');
 add_action('wp_ajax_get_product_details', 'get_product_details');
 add_action('wp_ajax_nopriv_get_product_details', 'get_product_details');
+add_action('wp_ajax_get_orders', 'get_orders');
+add_action('wp_ajax_nopriv_get_orders', 'get_orders');
+add_action('wp_ajax_get_order_details', 'get_order_details');
+add_action('wp_ajax_nopriv_get_order_details', 'get_order_details');
+add_action('wp_ajax_get_order_notes', 'get_order_notes');
+add_action('wp_ajax_nopriv_get_order_notes', 'get_order_notes');
 
 
 

@@ -6,3 +6,16 @@
     transform: translateX(0);
   }
 }
+
+.spinner {
+  animation: 1000ms linear 0s infinite spinner;
+}
+
+@keyframes spinner {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
