@@ -612,26 +612,26 @@ add_action( 'after_setup_theme', 'mytheme_add_woocommerce_support' );
 CREATE CUSTOM FIELD FOR VENDOR
 ==============================
 */
-function vendor_create_custom_field() {
-  $select_field = array(
-    'id' => 'vendor_selection',
-    'label' => __( 'Select Vendor', 'textdomain' ),
-    'desc_tip' => true,
-    'description' => __( 'Enter the vendor for the product. Default: John Deere', 'ctwc' ),
-    'options' => array(
-      'john_deere' => __( 'John Deere', 'textdomain' ),
-      'stens' => __( 'Stens', 'textdomain' ),
-      'ai' => __( 'A&I', 'textdomain' ),
-      'sunbelt' => __( 'Sunbelt', 'textdomain' ),
-      'honda' => __( 'Honda', 'textdomain' ),
-      'zglide_suspension' => __( 'ZGlide Suspension', 'textdomain' ),
-      'green_farm_parts' => __( 'Green Farm Parts', 'textdomain' ),
-      'frontier' => __( 'Frontier', 'textdomain' ),
-    )
-  );
- woocommerce_wp_select( $select_field );
-}
-add_action( 'woocommerce_product_options_general_product_data', 'vendor_create_custom_field' );
+// function vendor_create_custom_field() {
+//   $select_field = array(
+//     'id' => 'vendor_selection',
+//     'label' => __( 'Select Vendor', 'textdomain' ),
+//     'desc_tip' => true,
+//     'description' => __( 'Enter the vendor for the product. Default: John Deere', 'ctwc' ),
+//     'options' => array(
+//       'john_deere' => __( 'John Deere', 'textdomain' ),
+//       'stens' => __( 'Stens', 'textdomain' ),
+//       'ai' => __( 'A&I', 'textdomain' ),
+//       'sunbelt' => __( 'Sunbelt', 'textdomain' ),
+//       'honda' => __( 'Honda', 'textdomain' ),
+//       'zglide_suspension' => __( 'ZGlide Suspension', 'textdomain' ),
+//       'green_farm_parts' => __( 'Green Farm Parts', 'textdomain' ),
+//       'frontier' => __( 'Frontier', 'textdomain' ),
+//     )
+//   );
+//  woocommerce_wp_select( $select_field );
+// }
+// add_action( 'woocommerce_product_options_general_product_data', 'vendor_create_custom_field' );
 
 
 /*
@@ -639,13 +639,23 @@ add_action( 'woocommerce_product_options_general_product_data', 'vendor_create_c
 SAVE CUSTOM FIELD FOR VENDOR
 ============================
 */
-function vendor_save_custom_field( $post_id ) {
- $product = wc_get_product( $post_id );
- $title = isset( $_POST['vendor_selection'] ) ? $_POST['vendor_selection'] : '';
- $product->update_meta_data( 'vendor_selection', sanitize_text_field( $title ) );
- $product->save();
-}
-add_action( 'woocommerce_process_product_meta', 'vendor_save_custom_field' );
+// function vendor_save_custom_field( $post_id ) {
+//  $product = wc_get_product( $post_id );
+//  $title = isset( $_POST['vendor_selection'] ) ? $_POST['vendor_selection'] : '';
+//  $product->update_meta_data( 'vendor_selection', sanitize_text_field( $title ) );
+//  $product->save();
+// }
+// add_action( 'woocommerce_process_product_meta', 'vendor_save_custom_field' );
+if ( function_exists('register_sidebar') )
+  register_sidebar(array(
+    'name' => 'Product Filters',
+    'before_widget' => '<div class = "widgetizedArea">',
+    'after_widget' => '</div>',
+    'before_title' => '<h3>',
+    'after_title' => '</h3>',
+  )
+);
+
 
 
 
@@ -830,7 +840,7 @@ function send_order_comment() {
     CURLOPT_TIMEOUT => 30,
     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
     CURLOPT_CUSTOMREQUEST => "POST",
-    CURLOPT_POSTFIELDS => "{\n\t\"attachments\": [{\n        \"title\": \"attachment title\",\n    \t\"description\": \"attachment description\",\n    \t\"views\": {\n        \t\"flockml\": \"<flockml>" . $message . "</flockml>\"\n    \t},\n    \t\"buttons\": [{\n    \t\t\"name\": \"Open Order\",\n    \t\t\"icon\": \"https://www.greenfarmparts.com/v/vspfiles/templates/gfp-test/img/GFP-logo.svg\",\n    \t\t\"action\": {\n    \t\t\t\"type\": \"openBrowser\",\n    \t\t\t\"url\": \"" . site_url() . "/wp-admin/post.php?post=" . $order_number . "&action=edit\"\n    \t\t}\n    \t}]\n    }]\n}",
+    CURLOPT_POSTFIELDS => "{\n\t\"attachments\": [{\n        \t\"views\": {\n        \t\"flockml\": \"<flockml>" . $message . "</flockml>\"\n    \t},\n    \t\"buttons\": [{\n    \t\t\"name\": \"Open Order\",\n    \t\t\"icon\": \"https://www.greenfarmparts.com/v/vspfiles/templates/gfp-test/img/GFP-logo.svg\",\n    \t\t\"action\": {\n    \t\t\t\"type\": \"openBrowser\",\n    \t\t\t\"url\": \"" . site_url() . "/wp-admin/post.php?post=" . $order_number . "&action=edit\"\n    \t\t}\n    \t}]\n    }]\n}",
     CURLOPT_HTTPHEADER => array(
       "Cache-Control: no-cache",
       "Content-Type: application/json",
@@ -852,3 +862,11 @@ function send_order_comment() {
   die();
 
 }
+
+
+
+function testing($html) {
+  $html = 'abc123';
+  return $html;
+}
+add_filter('layered_nav_list', 'testing', 1, 15);
