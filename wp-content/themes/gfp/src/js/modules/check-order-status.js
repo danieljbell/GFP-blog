@@ -18,7 +18,10 @@
     if (document.querySelector('#showAllOrders')) {
       document.querySelector('#showAllOrders').remove();
     }
-    orderDetailsContainer.innerHTML = '<div class="has-text-center"><img src="/wp-content/themes/gfp/dist/img/spinner.svg" class="spinner"></div>';
+    var spinner = document.createElement('div');
+    spinner.classList.add('has-text-center', 'loading');
+    spinner.innerHTML = '<img src="/wp-content/themes/gfp/dist/img/spinner.svg" class="spinner">';
+    resultsContainer.appendChild(spinner);
     resultsContainer.classList.remove('visually-hidden');
 
     var allCurrentErrors = document.querySelectorAll('.form-errors');
@@ -46,6 +49,10 @@
         }).join('');
         resultsContainer.prepend(errorsList);
         orderDetailsContainer.innerHTML = '';
+        var loading = document.querySelector('.loading');
+        if (loading) {
+          loading.remove();
+        }
       } else {
         var responseOrders = response.data.orders;
         responseOrders.forEach(function(order) {
@@ -172,6 +179,10 @@
   }
 
   function formatOrders() {
+    var loading = document.querySelector('.loading');
+    if (loading) {
+      loading.remove();
+    }
     results.innerHTML = orders.map(function(order, index) {
       return '<li class="order-results--item"><p class="order-results--order-number">Order: ' + order.ID + '</p><time class="order-results--order-time" datetime="' + order.post_date_gmt + '">' + moment(order.post_date_gmt, "YYYY-MM-DD hh:mm:ss a").format('LL') + '</time><button class="btn-solid--brand-two" data-index="' + index + '" data-order-id="' + order.ID + '">View Order</button></li>';
     }).join('');
