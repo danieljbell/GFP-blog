@@ -65,13 +65,12 @@
           data: {
             action: 'send_order_comment',
             _ajax_nonce: window.ajax_order_tracking.nonce,
-            contact_preference: form.querySelector('input[name="contact_preference"]').value,
+            contact_preference: form.querySelector('input[name="contact_preference"]:checked').value,
             customer_name: form.querySelector('input[name="customer_name"]').value,
             email_address: form.querySelector('input[name="email_address"]').value,
             phone_number: form.querySelector('input[name="phone_number"]').value,
             message: form.querySelector('textarea[name="message"]').value,
             order_number: form.querySelector('input[name="order_number"]').value,
-            redirect_location: form.querySelector('input[name="redirect_location"]').value,
           }
         }).then(function(response) {
           if (response.data.status === 'success') {
@@ -85,8 +84,8 @@
             modalContent.innerHTML = '<h2>Thanks ' + response.data.name + '!</h2><p>' + message + '</p>';
           }
           // if (response.data.) {}
-        }).catch(function(response) {
-          console.log('error happen, update UI');
+        }).catch(function(err) {
+          console.log('failed call');
         });
       }
     }

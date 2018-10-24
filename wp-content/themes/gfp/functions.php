@@ -18,7 +18,7 @@ ADD GLOBAL JS TO PAGE
 function enqueue_global_js() {
   wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.18', true);
 
-  if (is_page_template( 'page-templates/check-order-status.php' )) {
+  if (is_page_template( 'page-templates/check-order-status.php' ) || is_account_page()) {
     $translation_array = array(
       'ajax_url'   => admin_url( 'admin-ajax.php' ),
       'nonce'  => wp_create_nonce( 'nonce_name' )
@@ -607,45 +607,6 @@ add_action( 'after_setup_theme', 'mytheme_add_woocommerce_support' );
 
 
 
-/*
-==============================
-CREATE CUSTOM FIELD FOR VENDOR
-==============================
-*/
-// function vendor_create_custom_field() {
-//   $select_field = array(
-//     'id' => 'vendor_selection',
-//     'label' => __( 'Select Vendor', 'textdomain' ),
-//     'desc_tip' => true,
-//     'description' => __( 'Enter the vendor for the product. Default: John Deere', 'ctwc' ),
-//     'options' => array(
-//       'john_deere' => __( 'John Deere', 'textdomain' ),
-//       'stens' => __( 'Stens', 'textdomain' ),
-//       'ai' => __( 'A&I', 'textdomain' ),
-//       'sunbelt' => __( 'Sunbelt', 'textdomain' ),
-//       'honda' => __( 'Honda', 'textdomain' ),
-//       'zglide_suspension' => __( 'ZGlide Suspension', 'textdomain' ),
-//       'green_farm_parts' => __( 'Green Farm Parts', 'textdomain' ),
-//       'frontier' => __( 'Frontier', 'textdomain' ),
-//     )
-//   );
-//  woocommerce_wp_select( $select_field );
-// }
-// add_action( 'woocommerce_product_options_general_product_data', 'vendor_create_custom_field' );
-
-
-/*
-============================
-SAVE CUSTOM FIELD FOR VENDOR
-============================
-*/
-// function vendor_save_custom_field( $post_id ) {
-//  $product = wc_get_product( $post_id );
-//  $title = isset( $_POST['vendor_selection'] ) ? $_POST['vendor_selection'] : '';
-//  $product->update_meta_data( 'vendor_selection', sanitize_text_field( $title ) );
-//  $product->save();
-// }
-// add_action( 'woocommerce_process_product_meta', 'vendor_save_custom_field' );
 if ( function_exists('register_sidebar') )
   register_sidebar(array(
     'name' => 'Product Filters',
@@ -788,26 +749,9 @@ function abChangeProductsTitle() {
 
 /*
 =========================
-CHECK ORDER STATUS
-=========================
-*/
-add_action( 'admin_post_nopriv_order_tracking', 'order_tracking' );
-add_action( 'admin_post_order_tracking', 'order_tracking' );
-function order_tracking() {
-  wp_redirect(add_query_arg(array(
-    'order_number' => $_POST['order_number'],
-    'zipcode' => $_POST['zipcode'],
-  ), '/order-tracking/'));
-}
-
-
-/*
-=========================
 SEND COMMENT ON ORDER
 =========================
 */
-add_action( 'admin_post_nopriv_send_order_comment', 'send_order_comment' );
-add_action( 'admin_post_send_order_comment', 'send_order_comment' );
 function send_order_comment() {
   check_ajax_referer( 'nonce_name' );
   // get all vars from the POST

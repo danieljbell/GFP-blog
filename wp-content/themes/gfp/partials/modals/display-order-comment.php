@@ -1,13 +1,3 @@
-<?php
-  if (get_query_var('view-order')) {
-    $order_number = get_query_var('view-order');
-    $zipcode = wc_get_order($order_number)->get_shipping_postcode();
-  } else {
-    $order_number = $_GET['order_number'];
-    $zipcode = $_GET['zipcode'];
-  }
-?>
-
 <div class="modal modal--send-order-comment modal--is-hidden">
   <div class="modal-container">
   <button class="modal--close" data-modal-close="send-order-comment">&times;</button>
@@ -50,8 +40,7 @@
         <input type="submit" class="btn-solid--brand-two" value="Send Message">
       </div>
       <input type="hidden" name="action" value="send_order_comment">
-      <input type="hidden" name="order_number" value="<?php echo $order_number; ?>">
-      <input type="hidden" name="redirect_location" value="<?php echo str_replace('?' . $_SERVER[QUERY_STRING], '', $_SERVER[REQUEST_URI]); ?>">
+      <input type="hidden" name="order_number">
     </form>
 
   </div>

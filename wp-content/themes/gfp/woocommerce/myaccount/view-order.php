@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
   </div>
   <div class="order-status-details--actions box--with-header has-text-center">
     <h3 class="mar-b">Have A Question On Your Order?</h3>
-    <button class="btn-solid--brand-two launchModal" data-modal-launch="send-order-comment">Ask Us!</button>
+    <button class="btn-solid--brand-two launchModal" data-modal-launch="send-order-comment" data-order-number="<?php echo $order->get_order_number(); ?>">Ask Us!</button>
   </div>
 
 </div>

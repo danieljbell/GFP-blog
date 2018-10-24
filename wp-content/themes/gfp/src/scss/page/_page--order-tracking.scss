@@ -12,7 +12,7 @@
   overflow: hidden;
 }
 
-.woocommerce-view-order form {
+.page-template-check-order-status .woocommerce-view-order form {
   display: flex;
   flex-direction: column;
   @include desktop {
