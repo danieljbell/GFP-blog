@@ -59,6 +59,7 @@
           orders.push(order);
         });
         orderDetailsContainer.innerHTML = '';
+        updateModalValues(response.data.user);
         formatOrders();
       }
     })
@@ -83,7 +84,7 @@
 
     var orderMeta = document.createElement('div');
     orderMeta.classList.add('order-results--meta');
-    orderMeta.innerHTML = '<h2>Order: ' + order.ID + '</h2><time class="order-date">Order Date: ' + moment(order.post_date_gmt, "YYYY-MM-DD hh:mm:ss a").format('LL') + '</time><p class="order-status">Order Status: ' + orderStatus + '</p><h3>Have A Question?</h3><button class="btn-solid--brand-two" data-modal-launch="send-order-comment">Ask Us!</button>';
+    orderMeta.innerHTML = '<h2>Order: ' + order.ID + '</h2><time class="order-date">Order Date: ' + moment(order.post_date_gmt, "YYYY-MM-DD hh:mm:ss a").format('LL') + '</time><p class="order-status">Order Status: ' + orderStatus + '</p><h3>Have A Question?</h3><button class="btn-solid--brand-two" data-modal-launch="send-order-comment" data-order-number="' + order.ID + '">Ask Us!</button>';
     orderDetailsContainer.appendChild(orderMeta);
 
     var orderContent = document.createElement('div');
@@ -117,6 +118,7 @@
       }).join('');
       orderDetailsListContainer.appendChild(orderDetailsList);
       orderDetailsContainer.querySelector('.has-text-center').remove();
+
     });
 
     atomic(window.ajax_order_tracking.ajax_url, {
@@ -142,30 +144,8 @@
         orderNotesListContainer.querySelector('.has-text-center').innerHTML = 'No notes have been added to this order';
       }
 
-      
-
-/*
-=========================
-<ol class="woocommerce-OrderUpdates commentlist notes">
-  <?php foreach ( $notes as $note ) : ?>
-  <li class="woocommerce-OrderUpdate comment note">
-    <div class="woocommerce-OrderUpdate-inner comment_container">
-      <div class="woocommerce-OrderUpdate-text comment-text">
-        <div class="woocommerce-OrderUpdate-description description">
-          <?php echo wpautop( wptexturize( $note->comment_content ) ); ?>
-        </div>
-        <?php echo get_avatar($note->comment_author_email, 50, null, $note->comment_author); ?>
-        <p class="woocommerce-OrderUpdate-meta meta"><?php echo $note->comment_author; ?><br><?php echo date_i18n( __( 'M. dS h:ia', 'woocommerce' ), strtotime( $note->comment_date ) ); ?></p>
-      </div>
-    </div>
-  </li>
-  <?php endforeach; ?>
-</ol>
-=========================
-*/
-
-
     });
+
 
   }
 
@@ -188,19 +168,21 @@
     }).join('');
   }
 
+  function updateModalValues(user) {
+    var displayName = user.display_name,
+        phoneNumber = user.phone_number
+        emailAddress = user.email_address;
+
+    var form = document.querySelector('#submitOrderComment');
+
+    form.querySelector('input[name="customer_name"]').value = displayName;
+    form.querySelector('input[name="phone_number"]').value = phoneNumber;
+    form.querySelector('input[name="email_address"]').value = emailAddress;
+  }
+
   form.addEventListener('submit', formSubmission);
   document.addEventListener('click', displayIndividualOrder);
   document.addEventListener('click', displayAllOrders)
 
 
 })();
-
-function getParameterByName(name, url) {
-  if (!url) url = window.location.href;
-  name = name.replace(/[\[\]]/g, "\\$&");
-  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
-  var results = regex.exec(url);
-  if (!results) return null;
-  if (!results[2]) return '';
-  return decodeURIComponent(results[2].replace(/\+/g, " "));
-};

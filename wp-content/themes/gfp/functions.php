@@ -488,7 +488,12 @@ function get_orders() {
         'status'        => 'success',
         'email_address' => $email_address,
         'zipcode'       => $zipcode,
-        'orders'        => $customer_orders
+        'orders'        => $customer_orders,
+        'user'          => array(
+          'display_name'    => $WC_user->get_display_name(),
+          'phone_number'    => $WC_user->get_billing_phone(),
+          'email_address'   => $WC_user->get_email()
+        )
       ));
     } else {
       echo json_encode(array(
@@ -508,18 +513,6 @@ function get_orders() {
     ));
     die();
   }
-
-  
-  
-  // if ($WC_user && ($WC_user->shipping['postcode'] === $zipcode)) {
-  
-  // } else {
-  //   echo json_encode(array(
-  //     'status'    => 'failed',
-  //     'message'   => 'asdf'
-  //   ));
-  //   die();
-  // }
 
   
 }
@@ -592,6 +585,8 @@ add_action('wp_ajax_get_order_details', 'get_order_details');
 add_action('wp_ajax_nopriv_get_order_details', 'get_order_details');
 add_action('wp_ajax_get_order_notes', 'get_order_notes');
 add_action('wp_ajax_nopriv_get_order_notes', 'get_order_notes');
+add_action('wp_ajax_send_order_comment', 'send_order_comment');
+add_action('wp_ajax_nopriv_send_order_comment', 'send_order_comment');
 
 
 
@@ -804,6 +799,7 @@ SEND COMMENT ON ORDER
 add_action( 'admin_post_nopriv_send_order_comment', 'send_order_comment' );
 add_action( 'admin_post_send_order_comment', 'send_order_comment' );
 function send_order_comment() {
+  check_ajax_referer( 'nonce_name' );
   // get all vars from the POST
   $contact_preference = $_POST['contact_preference'];
   $customer_name = $_POST['customer_name'];
@@ -846,16 +842,13 @@ function send_order_comment() {
 
   curl_close($curl); 
 
-  if ($redirect_location === '/order-tracking/') {
-    wp_redirect(add_query_arg(array(
-      'order_number' => $_POST['order_number'],
-      'zipcode' => $_POST['zipcode'],
-      'success' => true,
-    ), '/order-tracking/'));
-  } else {
-    wp_redirect(add_query_arg(array(
-      'success' => true,
-    ), $redirect_location));
-  }
+  echo json_encode(array(
+    'status'               => 'success',
+    'contact_preference'   => $contact_preference,
+    'name'                 => $customer_name,
+    'email_address'        => $email_address,
+    'phone_number'         => $phone_number
+  ));
+  die();
 
 }
