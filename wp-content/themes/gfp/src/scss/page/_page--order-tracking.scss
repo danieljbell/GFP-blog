@@ -14,12 +14,19 @@
 
 .woocommerce-view-order form {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  @include desktop {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
   
   input {
-    margin-right: 2rem;
+    margin-bottom: 1rem;
+    @include desktop {
+      margin-right: 2rem;
+      margin-bottom: 0;
+    }
     &[type="submit"] {
       margin-right: 0;
     }

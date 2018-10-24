@@ -39,6 +39,7 @@ gulp.task('js', function () {
     'src/js/lib/moment.min.js',
     'src/js/lib/countdown.min.js',
     'src/js/lib/moment-countdown.min.js',
+    'src/js/modules/helpers.js',
     'src/js/modules/site-header.js',
     'src/js/modules/single-post.js',
     'src/js/modules/single-product.js',

@@ -16,7 +16,7 @@
     <h2>Have A Question About Your Order?</h2>
     <p>Fill out the form below and we'll be in touch.</p>
     
-    <form method="post" action="/wp-admin/admin-post.php">
+    <form method="post" action="/wp-admin/admin-post.php" id="submitOrderComment">
       <div class="form-group input-radio">
         <p>How would you like for us to contact you?</p>
         <div class="radio-options">
@@ -51,7 +51,6 @@
       </div>
       <input type="hidden" name="action" value="send_order_comment">
       <input type="hidden" name="order_number" value="<?php echo $order_number; ?>">
-      <input type="hidden" name="zipcode" value="<?php echo $zipcode; ?>">
       <input type="hidden" name="redirect_location" value="<?php echo str_replace('?' . $_SERVER[QUERY_STRING], '', $_SERVER[REQUEST_URI]); ?>">
     </form>
 
