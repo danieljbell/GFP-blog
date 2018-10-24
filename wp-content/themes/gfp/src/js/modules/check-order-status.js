@@ -14,6 +14,18 @@
   function formSubmission(e) {
     e.preventDefault();
     orders = [];
+    results.innerHTML = '';
+    orderDetailsContainer.innerHTML = '';
+    if (document.querySelector('#showAllOrders')) {
+      document.querySelector('#showAllOrders').remove();
+    }
+
+    var allCurrentErrors = document.querySelectorAll('.form-errors');
+    if (allCurrentErrors) {
+      allCurrentErrors.forEach(function(error) {
+        error.remove();
+      });
+    }
     atomic(window.ajax_order_tracking.ajax_url, {
       method: 'POST',
       data: {
@@ -23,11 +35,23 @@
         zipcode: document.querySelector('input[name="zipcode"]').value
       }
     }).then(function(response) {
-      var responseOrders = response.data.orders;
-      responseOrders.forEach(function(order) {
-        orders.push(order);
-      });
-      formatOrders();
+      
+      if (response.data.status === 'error') {
+        var allErrors = response.data.messages;
+        var errorsList = document.createElement('ul');
+        errorsList.style.listStyleType = 'none';
+        errorsList.innerHTML = Object.values(allErrors).map(function(error) {
+          return '<li class="form-errors"><button class="form-errors--close" onclick="this.parentElement.remove();">&times</button>' + error + '</li>'
+        }).join('');
+        orderDetailsContainer.prepend(errorsList);
+        
+      } else {
+        var responseOrders = response.data.orders;
+        responseOrders.forEach(function(order) {
+          orders.push(order);
+        });
+        formatOrders();
+      }
     })
   }
 
@@ -50,7 +74,7 @@
 
     var orderMeta = document.createElement('div');
     orderMeta.classList.add('order-results--meta');
-    orderMeta.innerHTML = '<h2>Order #: ' + order.ID + '</h2><time class="order-date">Order Date: ' + moment(order.post_date_gmt, "YYYY-MM-DD hh:mm:ss a").format('LL') + '</time><p class="order-status">Order Status: ' + orderStatus + '</p><h3>Have A Question?</h3><button class="btn-solid--brand-two" data-modal-launch="send-order-comment">Ask Us!</button>';
+    orderMeta.innerHTML = '<h2>Order: ' + order.ID + '</h2><time class="order-date">Order Date: ' + moment(order.post_date_gmt, "YYYY-MM-DD hh:mm:ss a").format('LL') + '</time><p class="order-status">Order Status: ' + orderStatus + '</p><h3>Have A Question?</h3><button class="btn-solid--brand-two" data-modal-launch="send-order-comment">Ask Us!</button>';
     orderDetailsContainer.appendChild(orderMeta);
 
     var orderContent = document.createElement('div');
@@ -95,7 +119,7 @@
       }
     }).then(function(response) {
       var orderNotes = response.data;
-      console.log(orderNotes);
+      // console.log(orderNotes);
 
       if (orderNotes.length > 0) {
         var orderNotesList = document.createElement('ol');
@@ -106,7 +130,7 @@
         orderNotesListContainer.appendChild(orderNotesList);
         orderNotesListContainer.querySelector('.has-text-center').remove();
       } else {
-        orderNotesListContainer.querySelector('.has-text-center').innerHTML = 'Sorry, there are no notes added to this order.';
+        orderNotesListContainer.querySelector('.has-text-center').innerHTML = 'No notes have been added to this order';
       }
 
       
@@ -147,7 +171,7 @@
 
   function formatOrders() {
     results.innerHTML = orders.map(function(order, index) {
-      return '<li class="order-results--item"><p class="order-results--order-number">Order #: ' + order.ID + '</p><time class="order-results--order-time" datetime="' + order.post_date_gmt + '">' + moment(order.post_date_gmt, "YYYY-MM-DD hh:mm:ss a").format('LL') + '</time><button class="btn-solid--brand-two" data-index="' + index + '" data-order-id="' + order.ID + '">View Order</button></li>';
+      return '<li class="order-results--item"><p class="order-results--order-number">Order: ' + order.ID + '</p><time class="order-results--order-time" datetime="' + order.post_date_gmt + '">' + moment(order.post_date_gmt, "YYYY-MM-DD hh:mm:ss a").format('LL') + '</time><button class="btn-solid--brand-two" data-index="' + index + '" data-order-id="' + order.ID + '">View Order</button></li>';
     }).join('');
   }
 

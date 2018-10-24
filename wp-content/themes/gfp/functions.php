@@ -441,30 +441,78 @@ function get_orders() {
   check_ajax_referer( 'nonce_name' );
   $email_address = $_POST['email_address'];
   $zipcode = $_POST['zipcode'];
-  $supplied_user = get_user_by('email', $email_address);
-  $WC_user = new WC_Customer($supplied_user->data->ID);
-  $customer_orders = get_posts( array(
-      'numberposts' => -1,
-      'meta_key'    => '_customer_user',
-      'meta_value'  => $supplied_user->data->ID,
-      'post_type'   => wc_get_order_types(),
-      'post_status' => array_keys( wc_get_order_statuses() ),
-  ) );
   
-  if ($WC_user && ($WC_user->shipping['postcode'] === $zipcode)) {
+  if (!$email_address && !$zipcode) {
     echo json_encode(array(
+      'status'      => 'error',
+      'messages'    => array(
+        'email'     => 'Please provide an email address',
+        'zipcode'   => 'Please provide a shipping zipcode'
+      )
+    ));
+    die();
+  }
+
+  if (!$email_address) {
+    echo json_encode(array(
+      'status'      => 'error',
+      'messages'    => array(
+        'email'     => 'Please provide an email address',
+      )
+    ));
+    die();
+  }
+
+  if (!$zipcode) {
+    echo json_encode(array(
+      'status'      => 'error',
+      'messages'    => array(
+        'zipcode'   => 'Please provide a shipping zipcode',
+      )
+    ));
+    die();
+  }
+
+  $supplied_user = get_user_by('email', $email_address);
+  if ($supplied_user) {
+    $WC_user = new WC_Customer($supplied_user->data->ID);
+    $customer_orders = get_posts( array(
+        'numberposts' => -1,
+        'meta_key'    => '_customer_user',
+        'meta_value'  => $supplied_user->data->ID,
+        'post_type'   => wc_get_order_types(),
+        'post_status' => array_keys( wc_get_order_statuses() ),
+    ) );
+    echo json_encode(array(
+      'status'        => 'success',
       'email_address' => $email_address,
       'zipcode'       => $zipcode,
       'orders'        => $customer_orders
     ));
+    die();
   } else {
     echo json_encode(array(
-      'status'    => 'failed',
-      'message'   => 'asdf'
+      'status'      => 'error',
+      'messages'    => array(
+        'zipcode'   => 'Sorry, the email & shipping zipcode provided don\'t match any orders',
+      )
     ));
+    die();
   }
 
-  die();
+  
+  
+  // if ($WC_user && ($WC_user->shipping['postcode'] === $zipcode)) {
+  
+  // } else {
+  //   echo json_encode(array(
+  //     'status'    => 'failed',
+  //     'message'   => 'asdf'
+  //   ));
+  //   die();
+  // }
+
+  
 }
 
 function get_order_details() {
