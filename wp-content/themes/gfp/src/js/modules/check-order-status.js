@@ -15,10 +15,11 @@
     e.preventDefault();
     orders = [];
     results.innerHTML = '';
-    orderDetailsContainer.innerHTML = '';
     if (document.querySelector('#showAllOrders')) {
       document.querySelector('#showAllOrders').remove();
     }
+    orderDetailsContainer.innerHTML = '<div class="has-text-center"><img src="/wp-content/themes/gfp/dist/img/spinner.svg" class="spinner"></div>';
+    resultsContainer.classList.remove('visually-hidden');
 
     var allCurrentErrors = document.querySelectorAll('.form-errors');
     if (allCurrentErrors) {
@@ -43,13 +44,14 @@
         errorsList.innerHTML = Object.values(allErrors).map(function(error) {
           return '<li class="form-errors"><button class="form-errors--close" onclick="this.parentElement.remove();">&times</button>' + error + '</li>'
         }).join('');
-        orderDetailsContainer.prepend(errorsList);
-        
+        resultsContainer.prepend(errorsList);
+        orderDetailsContainer.innerHTML = '';
       } else {
         var responseOrders = response.data.orders;
         responseOrders.forEach(function(order) {
           orders.push(order);
         });
+        orderDetailsContainer.innerHTML = '';
         formatOrders();
       }
     })

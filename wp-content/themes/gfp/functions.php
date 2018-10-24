@@ -476,19 +476,28 @@ function get_orders() {
   $supplied_user = get_user_by('email', $email_address);
   if ($supplied_user) {
     $WC_user = new WC_Customer($supplied_user->data->ID);
-    $customer_orders = get_posts( array(
+    if ($zipcode === $WC_user->get_shipping_postcode()) {
+      $customer_orders = get_posts( array(
         'numberposts' => -1,
         'meta_key'    => '_customer_user',
         'meta_value'  => $supplied_user->data->ID,
         'post_type'   => wc_get_order_types(),
         'post_status' => array_keys( wc_get_order_statuses() ),
-    ) );
-    echo json_encode(array(
-      'status'        => 'success',
-      'email_address' => $email_address,
-      'zipcode'       => $zipcode,
-      'orders'        => $customer_orders
-    ));
+      ) );
+      echo json_encode(array(
+        'status'        => 'success',
+        'email_address' => $email_address,
+        'zipcode'       => $zipcode,
+        'orders'        => $customer_orders
+      ));
+    } else {
+      echo json_encode(array(
+        'status'      => 'error',
+        'messages'    => array(
+          'zipcode'   => 'Sorry, the email & shipping zipcode provided don\'t match any orders',
+        )
+      ));
+    }
     die();
   } else {
     echo json_encode(array(

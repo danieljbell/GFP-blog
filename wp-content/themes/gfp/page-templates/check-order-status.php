@@ -27,7 +27,7 @@ Template Name: Check Order Status
       <input type="hidden" name="action" value="order_tracking">
     </form>
 
-    <section class="order-results--container">
+    <section class="order-results--container visually-hidden">
       <ul class="order-results--list"></ul>
       <div class="order-results--details"></div>
     </section>    
