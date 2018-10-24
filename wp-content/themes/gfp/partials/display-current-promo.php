@@ -79,26 +79,39 @@
           $expiry = get_field('sale_end_date');
         }        
         if ($promo_selected_type === 'coupon') {
-          $expiry = str_replace("-", "", $coupon->get_date_expires()->date_i18n()) . ' 12:00 am';
+          $expiry = str_replace("-", "", $coupon->get_date_expires()->date_i18n()) . ', 12:00 am';
         }
+
+        // echo date("Ymd") . '<br>';
+        // echo substr($expiry, 0, 8);
         
-        if ($promo_not_current_category) :
+        if ($promo_not_current_category && (substr($expiry, 0, 8) > date("Ymd"))) :
       ?>
 
-      <li class="current-promotions--item <?php if ($promo_selected_type === 'coupon') { echo 'current-promotions--item__has-body-copy'; } ?>" style="background-image: url(<?php echo $image; ?>);" <?php if ($expiry) { echo 'data-offer-expiry="' . $expiry . '"'; } ?>>
-        <a href="<?php echo $button_link; ?>">
-          <span class="current-promotions--content">
-            <span class="current-promotions--offer"><?php echo $discount; ?> Off</span>
-            <span class="current-promotions--headline"><?php echo $promo_headline; ?></span>
-            <?php if ($promo_selected_type === 'coupon') {
-              echo '<span class="current-promotions--body-copy">', $promo_body_copy, '</span>';
-            } ?>
-          </span>
-        </a>
-      </li>
+        <li class="current-promotions--item <?php if ($promo_selected_type === 'coupon') { echo 'current-promotions--item__has-body-copy'; } ?>" style="background-image: url(<?php echo $image; ?>);" <?php if ($expiry) { echo 'data-offer-expiry="' . $expiry . '"'; } ?>>
+          <a href="<?php echo $button_link; ?>">
+            <span class="current-promotions--content">
+              <span class="current-promotions--offer"><?php echo $discount; ?> Off</span>
+              <span class="current-promotions--headline"><?php echo $promo_headline; ?></span>
+              <?php if ($promo_selected_type === 'coupon') {
+                echo '<span class="current-promotions--body-copy">', $promo_body_copy, '</span>';
+              } ?>
+            </span>
+          </a>
+        </li>
   
       <?php endif; ?>
+
     <?php endwhile; ?>
+  
+    <?php
+      /*
+      ================================
+      ADD ANY STATIC PROMOTIONS HERE
+      ================================
+      */
+    ?>
+
     <?php else : ?>
       
       <li class="current-promotions--item" style="background-image: url(https://unsplash.it/500/350);">
