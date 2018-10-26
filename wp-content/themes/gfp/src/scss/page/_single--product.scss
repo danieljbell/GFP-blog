@@ -209,3 +209,22 @@
   border-radius: 5px;
   border-top-left-radius: 0;
 }
+
+.part--replaced_by {
+  background-color: rgba(red, 0.05);
+  border: 1px solid red;
+  border-radius: 4px;
+  padding: 1rem;
+
+  p {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  ul {
+    list-style-type: none;
+    display: flex;
+    align-items: stretch;
+  }
+
+}

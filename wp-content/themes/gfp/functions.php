@@ -733,6 +733,91 @@ function gfp_ajax_search( $request ) {
     return rest_ensure_response( $results );
 }
 
+/*
+====================================
+CREATE CUSTOM FIELD FOR PRODUCT SUBS
+====================================
+*/
+function create_replaced_by() {
+  global $woocommerce, $post;
+?>
+<p class="form-field">
+    <label for="replaced_by"><?php _e( 'Replaced By', 'woocommerce' ); ?></label>
+    <select class="wc-product-search" multiple="multiple" style="width: 50%;" id="replaced_by" name="replaced_by[]" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce' ); ?>" data-action="woocommerce_json_search_products_and_variations" data-exclude="<?php echo intval( $post->ID ); ?>">
+        <?php
+            $product_ids = get_post_meta( $post->ID, 'replaced_by', true );
+
+            foreach ( $product_ids as $product_id ) {
+                $product = wc_get_product( $product_id );
+                if ( is_object( $product ) ) {
+                    echo '<option value="' . esc_attr( $product_id ) . '"' . selected( true, true, false ) . '>' . wp_kses_post( $product->get_formatted_name() ) . '</option>';
+                }
+            }
+        ?>
+    </select> <?php echo wc_help_tip( __( 'Select Products Here.', 'woocommerce' ) ); ?>
+</p>
+
+<?php
+}
+add_action( 'woocommerce_product_options_related', 'create_replaced_by' );
+
+/*
+==================================
+SAVE CUSTOM FIELD FOR PRODUCT SUBS
+==================================
+*/
+function save_replaced_by( $post_id ) {
+ $product_field_type =  $_POST['replaced_by'];
+    update_post_meta( $post_id, 'replaced_by', $product_field_type );
+}
+add_action( 'woocommerce_process_product_meta', 'save_replaced_by' );
+
+
+
+
+
+/*
+=========================
+// Display the custom fields in the "Linked Products" section
+add_action( 'woocommerce_product_options_related', 'woocom_linked_products_data_custom_field' );
+
+// Save to custom fields
+add_action( 'woocommerce_process_product_meta', 'woocom_linked_products_data_custom_field_save' );
+
+
+// Function to generate the custom fields
+function woocom_linked_products_data_custom_field() {
+    global $woocommerce, $post;
+?>
+<p class="form-field">
+    <label for="upsizing_products"><?php _e( 'Upsizing Product', 'woocommerce' ); ?></label>
+    <select class="wc-product-search" multiple="multiple" style="width: 50%;" id="upsizing_products" name="upsizing_products[]" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce' ); ?>" data-action="woocommerce_json_search_products_and_variations" data-exclude="<?php echo intval( $post->ID ); ?>">
+        <?php
+            $product_ids = get_post_meta( $post->ID, '_upsizing_products_ids', true );
+
+            foreach ( $product_ids as $product_id ) {
+                $product = wc_get_product( $product_id );
+                if ( is_object( $product ) ) {
+                    echo '<option value="' . esc_attr( $product_id ) . '"' . selected( true, true, false ) . '>' . wp_kses_post( $product->get_formatted_name() ) . '</option>';
+                }
+            }
+        ?>
+    </select> <?php echo wc_help_tip( __( 'Select Products Here.', 'woocommerce' ) ); ?>
+</p>
+
+<?php
+}
+
+// Function the save the custom fields
+function woocom_linked_products_data_custom_field_save( $post_id ){
+    $product_field_type =  $_POST['upsizing_products'];
+    update_post_meta( $post_id, '_upsizing_products_ids', $product_field_type );
+}
+=========================
+*/
+
+
+
 
 
 /*

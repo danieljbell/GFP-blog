@@ -58,8 +58,32 @@ if ( post_password_required() ) {
 			// echo '<div class="single-product--content">';
 				do_action( 'woocommerce_template_single_title' );
 				do_action( 'woocommerce_template_single_rating' );
-				do_action( 'woocommerce_template_single_price' );
-				do_action( 'woocommerce_template_single_add_to_cart' );
+				$part_replacements = get_post_meta($post->ID, 'replaced_by');
+				$replacement_count = count($part_replacements[0]);
+				$replacement_text = 'It\'s been replaced by:';
+				if ($replacement_count > 1) {
+					$replacement_text = 'It\'s been replaced by these ' .$replacement_count .' parts:';
+				}
+				if (!$part_replacements) {
+					do_action( 'woocommerce_template_single_price' );
+					do_action( 'woocommerce_template_single_add_to_cart' );
+				} else {
+					echo '<div class="part--replaced_by">';
+						echo '<p>This part is no longer available. ' . $replacement_text . '</p>';
+						echo '<ul>';
+							foreach ($part_replacements[0] as $part) {
+								$replacement_part = wc_get_product($part);
+								echo '<li class="product-card--slim">';
+									echo '<a href="' . $replacement_part->get_slug() . '">';
+										// echo '<img src="' .  . '">';
+										echo $replacement_part->get_image(array(75,75));
+										print_r($replacement_part->get_name());
+									echo '</a>';
+								echo '</li>';
+							}
+						echo '</ul>';
+					echo '</div>';
+				}
 				echo '<div class="product-content">', get_the_content(), '</div>';
 				do_action( 'woocommerce_template_single_excerpt' );
 				do_action( 'woocommerce_after_single_product_summary' );
