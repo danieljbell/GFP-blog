@@ -80,6 +80,7 @@
 
   a {
     display: block;
+    color: $black;
     &:hover {
       text-decoration: none;
     }
@@ -142,6 +143,9 @@
   .promo-card--content {
     position: relative;
     padding-top: 1rem;
+    span {
+      color: $brand;
+    }
   }
 
   .btn-solid--brand-two {

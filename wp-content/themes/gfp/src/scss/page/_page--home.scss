@@ -24,3 +24,49 @@
   display: flex;
   padding-top: 1rem;
 }
+
+.home--promoted-categories-list {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.home--promoted-categories-item {
+  text-align: center;
+  flex-basis: calc(100%/3 - 3rem);
+  border: 1px solid $medium-gray;
+  margin: 1.5rem;
+  padding: 1rem;
+  border-radius: 4px;
+  box-shadow: 2px 2px 5px rgba(black, 0.1);
+  transition: all 250ms ease-in-out;
+  
+  a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    left: -1rem;
+    top: -1rem;
+    width: calc(100% + 2rem);
+    height: calc(100% + 2rem);
+    font-weight: bold;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  &:hover {
+    transform: scale(1.03) translate(-4px, -4px);
+    box-shadow: 5px 5px 5px rgba(black, 0.2);
+  }
+
+}
+
+.home--promoted-categories-image {
+
+}
+
+.home--promoted-categories-title {
+
+}

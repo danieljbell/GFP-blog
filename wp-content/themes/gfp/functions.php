@@ -731,7 +731,8 @@ function gfp_ajax_search( $request ) {
         return new WP_Error( 'front_end_ajax_search', 'No results');
     endif;
 
-    return rest_ensure_response( $results );
+    echo json_encode($results);
+    die();
 }
 
 /*

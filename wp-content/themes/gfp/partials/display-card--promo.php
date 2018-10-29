@@ -60,9 +60,9 @@
   $promo_body_copy = get_field('promo_body_copy');
   if ($promo_selected_type === 'coupon') {
     $coupon_code = $coupon->get_code();
-    $promo_body_copy = 'Use promo code <span class="current-promotions--promo-code">' . $coupon_code . '</span> when checking out to save! Offer ends ' . date("M. jS, Y", strtotime($expiry));
+    $promo_body_copy = 'Use promo code <span class="current-promotions--promo-code">' . $coupon_code . '</span> when checking out to save! Offer ends ' . date("F jS, Y", strtotime($expiry));
   } else {
-    $promo_body_copy = 'Noah and Henry. Offer ends ' . date("M. jS, Y", strtotime($expiry));
+    $promo_body_copy = 'Noah and Henry. Offer ends ' . date("F jS, Y", strtotime($expiry));
   }
 
   if ($promotion_terms_length === 1) {

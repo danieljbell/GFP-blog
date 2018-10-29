@@ -40,12 +40,25 @@
 <section class="pad-y--most">
   <div class="site-width">
     <h2 class="has-text-center">Shop Popular Categories</h2>
-    <?php
-      echo wp_nav_menu( array(
-        'menu' => 'homepage-promoted-categories',
-      ) );
-    ?>
-
+    <ul class="home--promoted-categories-list">
+      <?php
+        $promoted_categories = wp_get_nav_menu_items( 'homepage-promoted-categories' );
+        foreach ($promoted_categories as $promoted_category) {
+          // print_r(get_post_meta($promoted_category->id, 'product_cat_thumbnail_id'));
+          // print_r(expression)
+          echo '<li class="home--promoted-categories-item">';
+            echo '<a href="' . $promoted_category->url . '">';
+              echo '<div class="home--promoted-categories-image">';
+                echo '<img src="//fillmurray.com/100/100" alt="Category Image">';
+              echo '</div>';
+              echo '<div class="home--promoted-categories-title">';
+                echo $promoted_category->title;
+              echo '</div>';
+            echo '</a>';
+          echo '</li>';
+        }
+      ?>
+    </ul>
   </div>
 </section>
 
