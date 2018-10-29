@@ -71,3 +71,90 @@
 .card .single-tags--item a {
   font-size: 0.6rem;
 }
+
+.card--promo-card {
+  flex: 1;
+  border: 1px solid $medium-gray;
+    background-color: #fff;
+    padding: 1rem;
+
+  a {
+    display: block;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  header {
+    position: relative;
+    left: -1rem;
+    top: -1rem;
+    width: calc(100% + 2rem);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 175px;
+    border-bottom: 5px solid $brand-two;
+    transition: all 250ms ease-in-out;
+  }
+
+  &:hover header {
+    border-color: darken($brand-two, 15%); 
+  }
+
+  .promo-card--meta {
+    position: absolute;
+    top: 1rem;
+    left: -1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .promo-card--tag,
+  .promo-card--title {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #fff;
+    padding: 0.2em 0.4em;
+    font-size: 1.25rem;
+  }
+
+  .promo-card--tag {
+    background-color: $brand;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    box-shadow: -4px 5px 6px rgba(black, 0.1);
+  }
+
+  .promo-card--title {
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: #fff;
+    color: $brand;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    box-shadow: -4px 5px 6px rgba(black, 0.1);
+    font-size: 1.8em;
+  }
+
+  .promo-card--content {
+    position: relative;
+    padding-top: 1rem;
+  }
+
+  .btn-solid--brand-two {
+    font-weight: bold;
+    position: absolute;
+    top: -2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &:hover .btn-solid--brand-two {
+    background-color: darken($brand-two, 15%);
+    border-color: darken($brand-two, 15%);
+  }
+
+}

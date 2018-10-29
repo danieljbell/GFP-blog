@@ -1,0 +1,26 @@
+.home .hero {
+  padding-top: 7rem;
+  padding-bottom: 10rem;
+}
+
+.home--current-special-offers {
+  position: relative;
+  z-index: 10;
+  background-color: $light-gray;
+  top: -3rem;
+  border: 1px solid $medium-gray;
+  border-radius: 5px;
+  box-shadow: 4px 4px 8px rgba(black, 0.15);
+  padding: 3rem;
+  
+  h2 {
+    text-align: center;
+  }
+
+}
+
+.promo-card-list {
+  list-style-type: none;
+  display: flex;
+  padding-top: 1rem;
+}
