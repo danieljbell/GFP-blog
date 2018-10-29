@@ -1,6 +1,10 @@
 .home .hero {
   padding-top: 7rem;
   padding-bottom: 10rem;
+  @include phone {
+    padding-top: 3rem;
+    padding-bottom: 5rem;
+  }
 }
 
 .home--current-special-offers {
@@ -12,12 +16,20 @@
   border-radius: 5px;
   box-shadow: 4px 4px 8px rgba(black, 0.15);
   padding: 3rem;
+  overflow: hidden;
+  @include phone {
+    padding: 2rem;
+  }
   
   h2 {
     text-align: center;
   }
 
 }
+
+// .tns-ovh {
+//   overflow: hidden;
+// }
 
 .promo-card-list {
   list-style-type: none;

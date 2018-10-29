@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<section class="hero">
+<section class="hero" style="background-image: linear-gradient(rgba(0,0,0, 0.5), rgba(0,0,0, 0.5)), url('//fillmurray.com/1280/400');">
   <div class="site-width">
     <h1>Let Us Help You Find What You Are Looking For</h1>
     <form role="search" method="get" action="/">

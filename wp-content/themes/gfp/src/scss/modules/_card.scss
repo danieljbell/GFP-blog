@@ -73,10 +73,12 @@
 }
 
 .card--promo-card {
+  margin-right: 2rem;
+  margin-left: 2rem;
   flex: 1;
   border: 1px solid $medium-gray;
-    background-color: #fff;
-    padding: 1rem;
+  background-color: #fff;
+  padding: 1rem;
 
   a {
     display: block;
@@ -154,6 +156,7 @@
     top: -2.5rem;
     left: 50%;
     transform: translateX(-50%);
+    white-space: nowrap;
   }
 
   &:hover .btn-solid--brand-two {

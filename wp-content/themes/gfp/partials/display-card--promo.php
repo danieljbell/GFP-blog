@@ -62,7 +62,7 @@
     $coupon_code = $coupon->get_code();
     $promo_body_copy = 'Use promo code <span class="current-promotions--promo-code">' . $coupon_code . '</span> when checking out to save! Offer ends ' . date("F jS, Y", strtotime($expiry));
   } else {
-    $promo_body_copy = 'Noah and Henry. Offer ends ' . date("F jS, Y", strtotime($expiry));
+    $promo_body_copy = 'Save now on all ' . $promo_headline . '. No code needed, savings automatically applied. Offer ends ' . date("F jS, Y", strtotime($expiry));
   }
 
   if ($promotion_terms_length === 1) {
@@ -74,14 +74,14 @@
 
 <li class="card--promo-card">
   <a href="<?php echo $button_link; ?>">
-    <header style="background-image: url(https://fillmurray.com/400/200);">
+    <header style="background-image: url(<?php echo $image; ?>);">
       <div class="promo-card--meta">
         <div class="promo-card--tag"><?php echo $discount; ?> Off</div>
         <div class="promo-card--title"><?php echo $promo_headline; ?></div>
       </div>
     </header>
     <div class="promo-card--content">
-      <div class="btn-solid--brand-two">Shop all <?php echo $promo_headline; ?></div>
+      <div class="btn-solid--brand-two">Save <?php echo $discount . ' On ' . $promo_headline . ' Now'; ?></div>
       <p><?php echo $promo_body_copy; ?></p>
     </div>
   </a>
