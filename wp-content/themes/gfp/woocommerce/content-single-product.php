@@ -30,6 +30,127 @@ if ( post_password_required() ) {
 }
 ?>
 <div id="product-<?php the_ID(); ?>" <?php wc_product_class(); ?>>
+
+	<?php
+		// print_r();
+		$wooproduct = wc_get_product( $post->ID );
+		// print_r($wooproduct->get_review_count());
+		/*
+		=========================
+		"aggregateRating": {
+	    "@type": "AggregateRating",
+	    "ratingValue": "3.5",
+	    "reviewCount": "11"
+	  },
+		"review": [
+	    {
+	      "@type": "Review",
+	      "author": "Ellie",
+	      "datePublished": "2011-04-01",
+	      "description": "The lamp burned out and now I have to replace it.",
+	      "name": "Not a happy camper",
+	      "reviewRating": {
+	        "@type": "Rating",
+	        "bestRating": "5",
+	        "ratingValue": "1",
+	        "worstRating": "1"
+	      }
+	    },
+	    {
+	      "@type": "Review",
+	      "author": "Lucas",
+	      "datePublished": "2011-03-25",
+	      "description": "Great microwave for the price. It is small and fits in my apartment.",
+	      "name": "Value purchase",
+	      "reviewRating": {
+	        "@type": "Rating",
+	        "bestRating": "5",
+	        "ratingValue": "4",
+	        "worstRating": "1"
+	      }
+	    }
+	  ]
+		=========================
+		*/
+		if (wp_get_attachment_url( $wooproduct->get_image_id() )) {
+			$image = wp_get_attachment_url( $wooproduct->get_image_id() );
+		} else {
+			$image = get_stylesheet_directory_URI() . '/dist/img/partPicComingSoon.jpg';
+		}
+		
+		if ( $wooproduct->get_review_count() && 'yes' === get_option( 'woocommerce_enable_review_rating' ) ) {
+			$aggregate_rating = array(
+				'aggregateRating' => array(
+					'@type' => 'AggregateRating',
+					'ratingValue' => $wooproduct->get_average_rating(),
+					'reviewCount' => $wooproduct->get_rating_counts()
+				)
+			);
+		}
+		// print_r($wooproduct->get_category_ids());
+	?>
+
+	<script type="application/ld+json">
+		{
+		  "@context": "http://schema.org",
+		  "@graph": [
+		  	{
+		  		"@context": "http://schema.org",
+		  		"@type": "Product",
+				  "name": <?php echo '"' . get_the_title() . '"'; ?>,
+				  "image": "<?php echo $image; ?>",
+				  "description": <?php echo '"' . strip_tags($post->post_excerpt) . '"'; ?>,
+				  "url": "<?php echo $wooproduct->get_permalink(); ?>",
+				  "offers": {
+				    "@type": "Offer",
+				    "availability": "http://schema.org/InStock",
+				    "price": "<?php echo $wooproduct->get_price(); ?>",
+				    "priceCurrency": "USD"
+				  },
+				  "manufacturer": "<?php echo $wooproduct->get_attributes()['pa_brand']->get_terms()[0]->name; ?>",
+				  "sku": "<?php echo $wooproduct->get_sku(); ?>"
+		  	},
+		  	{
+		      "@context": "https://schema.org/",
+		      "@type": "BreadcrumbList",
+		      "itemListElement": [
+		        {
+		          "@type": "ListItem",
+		          "position": "1",
+		          "item": {
+		            "name": "Home",
+		            "@id": "<?php echo site_url(); ?>"
+		          }
+		        },
+		        <?php
+		        	$i = 1;
+		        	foreach ($wooproduct->get_category_ids() as $key => $category_id) :
+		        		$count = count($wooproduct->get_category_ids());
+		        		$i++;
+		        		$term_obj = get_term_by('id', $category_id, 'product_cat');
+		        ?>
+		        {
+		        	"@type": "ListItem",
+		        	"position": "<?php echo $i; ?>",
+		        	"item": {
+			        	"name": "<?php echo $term_obj->name; ?>",
+			        	"@id": "<?php echo site_url() . '/category/' . ($term_obj->slug); ?>"
+			        }
+		        },
+		        <?php endforeach; ?>
+		        {
+		        	"@type": "ListItem",
+		        	"position": "<?php echo $i + 1; ?>",
+		        	"item": {
+			        	"name": "<?php echo $wooproduct->get_name(); ?>",
+			        	"@id": "<?php echo $wooproduct->get_permalink(); ?>"
+			        }
+		        }
+		      ]
+		    }
+		  ]
+		}
+	</script>
 	<?php
 		/**
 		 * Hook: woocommerce_before_single_product_summary.

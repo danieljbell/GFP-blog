@@ -302,7 +302,7 @@ function custom_woocommerce_placeholder_img_src( $src ) {
     // $upload_dir = wp_upload_dir();
     // $uploads = untrailingslashit( $upload_dir['baseurl'] );
     // replace with path to your image
-    $src = '//fillmurray.com/300/300';
+    $src = get_stylesheet_directory_URI() . '/dist/img/partPicComingSoon.jpg';
      
     return $src;
 }
@@ -896,8 +896,10 @@ function send_order_comment() {
 
 
 
-function testing($html) {
-  $html = 'abc123';
-  return $html;
-}
-add_filter('layered_nav_list', 'testing', 1, 15);
+  
+// function remove_output_structured_data() 
+// { 
+// remove_action( 'wp_footer', array( WC()->structured_data, 'output_structured_data' ), 10 ); // Frontend pages 
+// remove_action( 'woocommerce_email_order_details', array( WC()->structured_data, 'output_email_structured_data' ), 30 ); // Emails 
+// } 
+// add_action( 'init', 'remove_output_structured_data' );
