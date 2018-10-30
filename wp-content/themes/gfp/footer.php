@@ -97,11 +97,13 @@
       items: 1,
       slideBy: 'page',
       autoplay: true,
-      controls: true,
-      nav: true,
+      controls: false,
+      autoplay: false,
+      navPosition: 'bottom',
       responsive: {
           960: {
               items: 2,
+              nav: true
           } 
       }
     });
