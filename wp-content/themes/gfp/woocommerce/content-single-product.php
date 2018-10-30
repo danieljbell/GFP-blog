@@ -107,7 +107,6 @@ if ( post_password_required() ) {
 				    "price": "<?php echo $wooproduct->get_price(); ?>",
 				    "priceCurrency": "USD"
 				  },
-				  "manufacturer": "<?php echo $wooproduct->get_attributes()['pa_brand']->get_terms()[0]->name; ?>",
 				  "sku": "<?php echo $wooproduct->get_sku(); ?>"
 		  	},
 		  	{
