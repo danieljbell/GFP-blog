@@ -39,7 +39,8 @@ CREATING ADMIN NAV MENUS
 register_nav_menus( array(
   'eyebrow' => __( 'Eyebrow' ),
   'shop-by-part' => __( 'Shop By Part' ),
-  'shop-by-equipment' => __( 'Shop By Equipment' )
+  'shop-by-equipment' => __( 'Shop By Equipment' ),
+  'homepage-promoted-categories' => __( 'Homepage Promoted Categories' )
 ) );
 
 
@@ -730,7 +731,8 @@ function gfp_ajax_search( $request ) {
         return new WP_Error( 'front_end_ajax_search', 'No results');
     endif;
 
-    return rest_ensure_response( $results );
+    echo json_encode($results);
+    die();
 }
 
 /*

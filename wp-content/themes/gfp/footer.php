@@ -89,5 +89,27 @@
 
 <?php wp_footer(); ?>
 
+<?php if (is_front_page()) : ?>
+
+  <script>
+    var slider = tns({
+      container: '.promo-card-list',
+      items: 1,
+      slideBy: 'page',
+      autoplay: true,
+      controls: false,
+      autoplay: false,
+      navPosition: 'bottom',
+      responsive: {
+          960: {
+              items: 2,
+              nav: true
+          } 
+      }
+    });
+  </script>
+
+<?php endif; ?>
+
 </body>
 </html>

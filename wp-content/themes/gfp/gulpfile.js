@@ -36,8 +36,9 @@ gulp.task('js', function () {
   gulp.src([
     'src/js/lib/atomic.min.js',
     'src/js/lib/dompurify.min.js',
-    'src/js/lib/moment.min.js',
-    'src/js/lib/countdown.min.js',
+    'node_modules/moment/min/moment.min.js',
+    'node_modules/countdown/countdown.js',
+    'node_modules/tiny-slider/dist/tiny-slider.js',
     'src/js/lib/moment-countdown.min.js',
     'src/js/modules/helpers.js',
     'src/js/modules/site-header.js',

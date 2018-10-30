@@ -8,7 +8,8 @@
 @import 
   'modules/hamburgers',
   '../../node_modules/hamburgers/_sass/hamburgers/base',
-  '../../node_modules/hamburgers/_sass/hamburgers/types/spin';  
+  '../../node_modules/hamburgers/_sass/hamburgers/types/spin',
+  '../../node_modules/tiny-slider/dist/tiny-slider';  
 
 @import 
   'modules/animations',
@@ -52,6 +53,7 @@
   'page/_single--account-addresses',
   'page/_single--edit-account',
   'page/_page--order-tracking',
-  'page/404';
+  'page/404',
+  'page/page--home';
 
 @import 'utilities';
