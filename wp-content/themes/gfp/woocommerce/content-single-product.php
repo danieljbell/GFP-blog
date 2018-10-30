@@ -101,7 +101,24 @@ if ( post_password_required() ) {
 		  		"@context": "http://schema.org",
 		  		"@type": "Product",
 				  "name": <?php echo '"' . get_the_title() . '"'; ?>,
-				  "image": "<?php echo $image; ?>",
+				  "image": [
+						<?php
+							if ($wooproduct->get_gallery_image_ids()) {
+								echo '"' . wp_get_attachment_url($wooproduct->get_image_id()) . '",';
+								$i = 1;
+								foreach ($wooproduct->get_gallery_image_ids() as $image) {
+									if ($i < count($wooproduct->get_gallery_image_ids())) {
+										echo '"' . wp_get_attachment_url($image) . '",';
+									} else {
+										echo '"' . wp_get_attachment_url($image) . '"';
+									}
+									$i++;
+								}
+							} else {
+								echo '"' . wp_get_attachment_url($wooproduct->get_image_id()) . '"';
+							}
+						?>
+				  ],
 				  "description": <?php echo '"' . strip_tags($post->post_excerpt) . '"'; ?>,
 				  "url": "<?php echo $wooproduct->get_permalink(); ?>",
 				  "offers": {
@@ -193,9 +210,10 @@ if ( post_password_required() ) {
 	?>
 
 	<?php 
-		foreach ($wooproduct->get_gallery_image_ids() as $image) {
-			print_r(wp_get_attachment_url($image));
+		if($wooproduct->get_gallery_image_ids()) {
+			echo 'asdfasdf';
 		}
+		
 	?>
 	<br>
 	<?php print_r(wp_get_attachment_url($wooproduct->get_image_id())); ?>
