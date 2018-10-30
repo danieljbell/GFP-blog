@@ -77,17 +77,18 @@ if ( post_password_required() ) {
 		} else {
 			$image = get_stylesheet_directory_URI() . '/dist/img/partPicComingSoon.jpg';
 		}
+
+		if ($wooproduct->get_attributes()['pa_brand']) {
+			$brand = $wooproduct->get_attributes()['pa_brand']->get_terms()[0]->name;
+		}
 		
 		if ( $wooproduct->get_review_count() && 'yes' === get_option( 'woocommerce_enable_review_rating' ) ) {
-			$aggregate_rating = array(
-				'aggregateRating' => array(
-					'@type' => 'AggregateRating',
-					'ratingValue' => $wooproduct->get_average_rating(),
-					'reviewCount' => $wooproduct->get_rating_counts()
-				)
-			);
+			$aggregate_rating = true;
 		}
-		// print_r($wooproduct->get_category_ids());
+		
+		$review_comments = get_comments( array(
+			'post_id' => $post->ID
+		) );
 	?>
 
 	<script type="application/ld+json">
@@ -103,10 +104,39 @@ if ( post_password_required() ) {
 				  "url": "<?php echo $wooproduct->get_permalink(); ?>",
 				  "offers": {
 				    "@type": "Offer",
-				    "availability": "http://schema.org/InStock",
+				    "availability": "InStock",
+				    "itemCondition": "NewCondition",
 				    "price": "<?php echo $wooproduct->get_price(); ?>",
 				    "priceCurrency": "USD"
 				  },
+				  <?php if ($aggregate_rating) : ?>
+				  	"aggregateRating": {
+					    "@type": "AggregateRating",
+					    "ratingValue": "<?php echo $wooproduct->get_average_rating(); ?>",
+					    "reviewCount": "<?php echo count($wooproduct->get_rating_counts()); ?>"
+					  },
+			  	<?php endif; ?>
+				  <?php if ($wooproduct->get_attributes()['pa_brand']) {
+				  	echo '"brand": "' . $brand . '",';
+				  } ?>
+				  <?php if ($review_comments) : ?>
+				  	"review": [
+							<?php 
+								$i = 0;
+								foreach ($review_comments as $review_comment) :
+							?>
+								{
+									"@type": "Review",
+									"author": "<?php echo $review_comment->comment_author; ?>",
+									"datePublished": "<?php echo $review_comment->comment_date_gmt; ?>",
+									"description": "<?php echo $review_comment->comment_content; ?>"
+								}<?php if ($i < (count($review_comments) - 1)) { echo ','; }  ?>
+							<?php 
+									$i++;
+								endforeach;
+							?>
+				  	],
+			  	<?php endif; ?>
 				  "sku": "<?php echo $wooproduct->get_sku(); ?>"
 		  	},
 		  	{
@@ -184,7 +214,7 @@ if ( post_password_required() ) {
 				if ($replacement_count > 1) {
 					$replacement_text = 'It\'s been replaced by these ' .$replacement_count .' parts:';
 				}
-				if (!$part_replacements) {
+				if ($replacement_count === 0) {
 					do_action( 'woocommerce_template_single_price' );
 					do_action( 'woocommerce_template_single_add_to_cart' );
 				} else {
