@@ -91,6 +91,8 @@ if ( post_password_required() ) {
 		) );
 	?>
 
+
+
 	<script type="application/ld+json">
 		{
 		  "@context": "http://schema.org",
@@ -189,6 +191,14 @@ if ( post_password_required() ) {
 		 */
 		do_action( 'woocommerce_before_single_product_summary' );
 	?>
+
+	<?php 
+		foreach ($wooproduct->get_gallery_image_ids() as $image) {
+			print_r(wp_get_attachment_url($image));
+		}
+	?>
+	<br>
+	<?php print_r(wp_get_attachment_url($wooproduct->get_image_id())); ?>
 
 	<div class="summary entry-summary">
 		<?php
