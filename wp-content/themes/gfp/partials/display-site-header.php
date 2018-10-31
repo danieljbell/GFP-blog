@@ -13,16 +13,78 @@
             <input placeholder="Search..." type="search" name="Search" class="mobile-search ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
           </form>
         </li>
-        <li>
+        <li class="mega-menu">
           <button class="navigation--button">Shop By Part</button>
           <?php
-            wp_nav_menu( array(
-              'menu' => 'shop-by-part',
-              'menu_class' => 'navigation--level-one'
-            ) );
+
+            $taxonomy = 'product_cat';
+
+            $args = array(
+              'taxonomy'     => $taxonomy,
+              'hierarchical' => $hierarchical,
+              'title_li'     => $title,
+              'hide_empty'   => false
+            );
+
+            $all_categories = get_categories( $args );
+
+            echo '<ul class="mega-menu--shop-by-part">';
+              
+              $i = 0;
+              foreach ($all_categories as $cat) {
+                
+                if ($cat->category_parent == 0) {
+                  $category_id = $cat->term_id;       
+                  if ($i === 0) {
+                    echo '<li class="mega-menu--parent"><a href="'. get_term_link($cat->slug, 'product_cat') .'">'. $cat->name .'</a>';
+                  } else {
+                    echo '<li class="mega-menu--parent mega-menu--parent--is-hidden"><a href="'. get_term_link($cat->slug, 'product_cat') .'">'. $cat->name .'</a>';
+                  }
+
+                    $args2 = array(
+                      'taxonomy'     => $taxonomy,
+                      'child_of'     => 0,
+                      'parent'       => $category_id,
+                      'orderby'      => $orderby,
+                      'show_count'   => $show_count,
+                      'pad_counts'   => $pad_counts,
+                      'hierarchical' => $hierarchical,
+                      'title_li'     => $title,
+                      'hide_empty'   => $empty
+                    );
+                    
+                    $sub_cats = get_categories( $args2 );
+                    echo '<ul class="mega-menu--child-list">';
+                      if ($sub_cats) {
+                        foreach($sub_cats as $sub_category) {
+                            $thumbnail_id = get_woocommerce_term_meta( $sub_category->term_id, 'thumbnail_id', true );
+                            $image = wp_get_attachment_url( $thumbnail_id );
+                          echo  '<li class="mega-menu--child-item"><a href="'. get_term_link($sub_category->slug, 'product_cat') .'">';
+                            echo '<img src="' . $image . '" class="mega-menu--item-image">';
+                            echo $sub_category->name;
+                          echo '</a></li>';
+                        }   
+                        // echo '<li><a href="' . get_term_link($cat->slug, 'product_cat') . '">Shop All ' . number_format($cat->category_count, null, '', ',') . ' ' . $cat->name . '</a></li>';
+                      } else {
+                        // echo '<li><a href="' . get_term_link($cat->slug, 'product_cat') . '">Shop All ' . number_format($cat->category_count, null, '', ',') . ' ' . $cat->name . '</a></li>';
+                      }
+                    echo '</ul>';
+
+                  echo '</li>';
+                  $i++;
+                }
+
+
+              }
+
+            echo '</ul>';
+
           ?>
         </li>
-        <li>
+        <?php
+          /*
+          =========================
+          <li>
           <button class="navigation--button">Shop By Equipment</button>
           <?php
             wp_nav_menu( array(
@@ -31,7 +93,12 @@
             ) );
           ?>
         </li>
-        
+          =========================
+          */
+        ?>
+        <li>
+          <a href="#0">Parts Diagram</a>
+        </li>
           <li class="mobile-only">
             <a href="/account">
               <?php if (is_user_logged_in()) : ?>

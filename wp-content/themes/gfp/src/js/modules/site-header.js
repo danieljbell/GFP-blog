@@ -56,3 +56,42 @@ function toggleMenu() {
     var menuButton = document.querySelector('#hamburger');
     menuButton.classList.toggle('is-active');
 }
+
+
+
+
+(function() {
+  var megaMenus = document.querySelectorAll('.mega-menu');
+  
+  if (!megaMenus) {
+    return;
+  }
+  
+  megaMenus.forEach(function(menu) {
+    menu.addEventListener('mouseenter', function() {
+      document.querySelector('.screen').classList.remove('screen--is-hidden');
+    }, false);
+    
+    menu.addEventListener('mouseleave', function() {
+      document.querySelector('.screen').classList.add('screen--is-hidden');
+    }, false);
+  });
+
+  var megaMenuParents = document.querySelectorAll('.mega-menu--parent');
+  if (!megaMenuParents) {
+    return;
+  }
+
+  megaMenuParents.forEach(function(item) {
+    item.addEventListener('mouseenter', function(e) {
+      megaMenuParents.forEach(function(item) {
+        item.classList.add('mega-menu--parent--is-hidden');
+      });
+      if (e.target.classList.contains('mega-menu--parent--is-hidden')) {
+          e.target.classList.remove('mega-menu--parent--is-hidden');
+      }
+      // console.log(e.target.textContent);
+    });
+  });
+
+})();

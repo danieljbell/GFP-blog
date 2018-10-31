@@ -117,6 +117,6 @@
   </script>
 
 <?php endif; ?>
-
+  <div class="screen screen--is-hidden"></div>
 </body>
 </html>

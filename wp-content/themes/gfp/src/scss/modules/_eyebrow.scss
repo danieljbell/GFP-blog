@@ -1,4 +1,6 @@
 .eyebrow {
+  position: relative;
+  z-index: 100;
   background-color: $brand;
   display: none;
   @include desktop {
