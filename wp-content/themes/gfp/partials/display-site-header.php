@@ -18,10 +18,13 @@
           <?php
 
             $taxonomy = 'product_cat';
+            $orderby = 'name';
 
             $args = array(
               'taxonomy'     => $taxonomy,
               'hierarchical' => $hierarchical,
+              'orderby'      => $orderby,
+              'order'        => 'DESC',
               'title_li'     => $title,
               'hide_empty'   => false
             );
