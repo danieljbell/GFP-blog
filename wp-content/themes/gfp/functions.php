@@ -476,7 +476,9 @@ function get_orders() {
 
   $supplied_user = get_user_by('email', $email_address);
   if ($supplied_user) {
-    $WC_user = new WC_Customer($supplied_user->data->ID);
+    $WC_user = new WC_Customer($supplied_user->ID);
+    // echo $WC_user;
+    // die();
     if ($zipcode === $WC_user->get_shipping_postcode()) {
       $customer_orders = get_posts( array(
         'numberposts' => -1,
@@ -778,49 +780,6 @@ add_action( 'woocommerce_process_product_meta', 'save_replaced_by' );
 
 
 
-/*
-=========================
-// Display the custom fields in the "Linked Products" section
-add_action( 'woocommerce_product_options_related', 'woocom_linked_products_data_custom_field' );
-
-// Save to custom fields
-add_action( 'woocommerce_process_product_meta', 'woocom_linked_products_data_custom_field_save' );
-
-
-// Function to generate the custom fields
-function woocom_linked_products_data_custom_field() {
-    global $woocommerce, $post;
-?>
-<p class="form-field">
-    <label for="upsizing_products"><?php _e( 'Upsizing Product', 'woocommerce' ); ?></label>
-    <select class="wc-product-search" multiple="multiple" style="width: 50%;" id="upsizing_products" name="upsizing_products[]" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce' ); ?>" data-action="woocommerce_json_search_products_and_variations" data-exclude="<?php echo intval( $post->ID ); ?>">
-        <?php
-            $product_ids = get_post_meta( $post->ID, '_upsizing_products_ids', true );
-
-            foreach ( $product_ids as $product_id ) {
-                $product = wc_get_product( $product_id );
-                if ( is_object( $product ) ) {
-                    echo '<option value="' . esc_attr( $product_id ) . '"' . selected( true, true, false ) . '>' . wp_kses_post( $product->get_formatted_name() ) . '</option>';
-                }
-            }
-        ?>
-    </select> <?php echo wc_help_tip( __( 'Select Products Here.', 'woocommerce' ) ); ?>
-</p>
-
-<?php
-}
-
-// Function the save the custom fields
-function woocom_linked_products_data_custom_field_save( $post_id ){
-    $product_field_type =  $_POST['upsizing_products'];
-    update_post_meta( $post_id, '_upsizing_products_ids', $product_field_type );
-}
-=========================
-*/
-
-
-
-
 
 /*
 =================================================
@@ -850,7 +809,9 @@ function send_order_comment() {
   $order_number = $_POST['order_number'];
   $redirect_location = $_POST['redirect_location'];
 
-  $order = wc_get_order( $order_number );
+  $order_id = wc_seq_order_number_pro()->find_order_by_order_number( $order_number );
+
+  $order = wc_get_order( $order_id );
   $order->add_order_note( $message );
 
   // FORMAT THE MESSAGE TO PASS TO FLOCK
@@ -871,7 +832,7 @@ function send_order_comment() {
     CURLOPT_TIMEOUT => 30,
     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
     CURLOPT_CUSTOMREQUEST => "POST",
-    CURLOPT_POSTFIELDS => "{\n\t\"attachments\": [{\n        \t\"views\": {\n        \t\"flockml\": \"<flockml>" . $message . "</flockml>\"\n    \t},\n    \t\"buttons\": [{\n    \t\t\"name\": \"Open Order\",\n    \t\t\"icon\": \"https://www.greenfarmparts.com/v/vspfiles/templates/gfp-test/img/GFP-logo.svg\",\n    \t\t\"action\": {\n    \t\t\t\"type\": \"openBrowser\",\n    \t\t\t\"url\": \"" . site_url() . "/wp-admin/post.php?post=" . $order_number . "&action=edit\"\n    \t\t}\n    \t}]\n    }]\n}",
+    CURLOPT_POSTFIELDS => "{\n\t\"attachments\": [{\n        \t\"views\": {\n        \t\"flockml\": \"<flockml>" . $message . "</flockml>\"\n    \t},\n    \t\"buttons\": [{\n    \t\t\"name\": \"Open Order\",\n    \t\t\"icon\": \"https://www.greenfarmparts.com/v/vspfiles/templates/gfp-test/img/GFP-logo.svg\",\n    \t\t\"action\": {\n    \t\t\t\"type\": \"openBrowser\",\n    \t\t\t\"url\": \"" . site_url() . "/wp-admin/post.php?post=" . $order_id . "&action=edit\"\n    \t\t}\n    \t}]\n    }]\n}",
     CURLOPT_HTTPHEADER => array(
       "Cache-Control: no-cache",
       "Content-Type: application/json",

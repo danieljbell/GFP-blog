@@ -55,6 +55,7 @@
         }
       } else {
         var responseOrders = response.data.orders;
+        console.log(responseOrders);
         responseOrders.forEach(function(order) {
           orders.push(order);
         });

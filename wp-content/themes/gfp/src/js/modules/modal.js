@@ -86,6 +86,7 @@
           // if (response.data.) {}
         }).catch(function(err) {
           console.log('failed call');
+          console.log(err);
         });
       }
     }
