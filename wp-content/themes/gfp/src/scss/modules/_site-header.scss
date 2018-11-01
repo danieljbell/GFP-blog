@@ -39,7 +39,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: 100vh;
+  height: calc(100vh - 100px);
   
   @include desktop {
     position: static;
@@ -234,7 +234,9 @@
 
 // }
 
-.menu-item--menu-toggle {
+.menu-open .menu-item--menu-toggle {
+  position: fixed;
+  right: 1rem;
   @include desktop {
     display: none;
   }
@@ -258,8 +260,10 @@ MEGA MENU
 
 .navigation--button {
   .mega-menu:hover & {
-    background-color: $brand-two;
-    color: #fff;
+    @include desktop {
+      background-color: $brand-two;
+      color: #fff;
+    }
   }
 }
 
@@ -282,6 +286,7 @@ MEGA MENU
   min-width: 600px;
   transition: all 500ms ease-in-out;
   @include phone {
+    display: block;
     min-width: unset;
     width: 100%;
     position: static;
@@ -293,7 +298,9 @@ MEGA MENU
   }
 
   .mega-menu:hover & {
-    display: block;
+    @include desktop {
+      display: block;
+    }
     // visibility: visible;
     // opacity: 1;
     // max-height: 800px;
@@ -302,7 +309,7 @@ MEGA MENU
   &.mobile-open {
     visibility: visible;
     opacity: 1;
-    max-height: 500px; 
+    max-height: 1500px; 
   }
 
 }
@@ -319,6 +326,12 @@ MEGA MENU
     &:hover {
       text-decoration: none;
     }
+    
+    @include phone {
+      max-width: unset;
+      padding: 1rem;
+    }
+
   }
 
   &:last-child > a {
@@ -341,6 +354,9 @@ MEGA MENU
       top: 0;
       bottom: 0;
       z-index: 1;
+      @include phone {
+        display: none;
+      }
     }
   }
 
@@ -356,11 +372,25 @@ MEGA MENU
   padding-top: 1rem;
   overflow: scroll;
   @include phone {
+    transition: all 300ms ease-in-out;
     position: static;
+    width: auto;
+    padding: 1rem;
+    border-bottom: 1px solid $medium-gray;
+    visibility: visible;
+    opacity: 1;
+    max-height: 800px;
   }
   
   .mega-menu--parent--is-hidden & {
     display: none;
+    @include phone {
+      display: block;
+      visibility: hidden;
+      opacity: 0;
+      max-height: 0px;
+      padding: 0;
+    }
   }
 
 }
@@ -377,8 +407,16 @@ MEGA MENU
   box-shadow: 3px 3px 6px rgba(black, 0.1);
   transition: all 250ms ease-in-out;
   &:hover {
-    box-shadow: 4px 4px 10px rgba(black, 0.1);
-    transform: translate(-5px, -5px) scale(1.03);
+    @include desktop {
+      box-shadow: 4px 4px 10px rgba(black, 0.1);
+      transform: translate(-5px, -5px) scale(1.03);
+    }
+  }
+  @include phone {
+    max-width: calc(50% - 0.5rem);
+    &:nth-child(2n) {
+      margin-right: 0;
+    }
   }
 
   a {
@@ -388,6 +426,7 @@ MEGA MENU
     padding: 1rem;
     text-align: center;
     font-weight: bold;
+    font-size: 0.8em;
     &:hover {
       text-decoration: none;
     }
