@@ -1,3 +1,8 @@
+.menu-open {
+  position: fixed;
+  overflow: hidden;
+}
+
 .site-header {
   box-shadow: 0 5px 15px rgba(0,0,0,0.05);
   position: relative;
@@ -28,36 +33,28 @@
 
 .navigation--level-zero {
   display: none;
-  position: absolute;
+  position: fixed;
   background-color: #ffffff;
   top: 0;
   left: 0;
   right: 0;
+  bottom: 0;
+  height: 100vh;
   
   @include desktop {
     position: static;
     background-color: transparent;
     display: flex;
     list-style-type: none;
+    height: auto;
   }
 
   .menu-open & {
     display: flex;
     flex-direction: column;
+    overflow: scroll;
   }
 
-}
-
-.mobile-search {
-  width: 100%;
-  background-color: $light-gray;
-  border: 1px solid $medium-gray;
-  font-size: inherit;
-  font-family: inherit;
-  padding: 0.5rem 1rem;
-  @include desktop {
-    display: none;
-  }
 }
 
 // .navigation--level-one {
@@ -283,9 +280,29 @@ MEGA MENU
   padding: 1rem;
   min-height: 400px;
   min-width: 600px;
+  transition: all 500ms ease-in-out;
+  @include phone {
+    min-width: unset;
+    width: 100%;
+    position: static;
+    padding: 0;
+    min-height: unset;
+    visibility: hidden;
+    opacity: 0;
+    max-height: 0px;
+  }
 
   .mega-menu:hover & {
     display: block;
+    // visibility: visible;
+    // opacity: 1;
+    // max-height: 800px;
+  }
+
+  &.mobile-open {
+    visibility: visible;
+    opacity: 1;
+    max-height: 500px; 
   }
 
 }
@@ -338,9 +355,14 @@ MEGA MENU
   padding-left: 2rem;
   padding-top: 1rem;
   overflow: scroll;
+  @include phone {
+    position: static;
+  }
+  
   .mega-menu--parent--is-hidden & {
     display: none;
   }
+
 }
 
 .mega-menu--child-item {
@@ -390,7 +412,7 @@ MEGA MENU
 
   &.screen--is-hidden {
     opacity: 0;
-    z-index: -1;
+    // z-index: -1;
   }
 
 }

@@ -8,11 +8,6 @@
     </div>
     <nav>
       <ul class="navigation--level-zero">
-        <li class="mobile-search-container">
-          <form action="https://www.greenfarmparts.com/searchresults.asp" method="get" name="SearchBoxForm" id="mobileSearchBar">
-            <input placeholder="Search..." type="search" name="Search" class="mobile-search ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
-          </form>
-        </li>
         <li class="mega-menu">
           <button class="navigation--button">Shop By Part</button>
           <?php
