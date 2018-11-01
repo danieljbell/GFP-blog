@@ -40,6 +40,12 @@
   right: 0;
   bottom: 0;
   height: calc(100vh - 100px);
+
+  > li {
+    @include desktop {
+      display: flex;
+    }
+  }
   
   @include desktop {
     position: static;
@@ -234,9 +240,11 @@
 
 // }
 
-.menu-open .menu-item--menu-toggle {
-  position: fixed;
-  right: 1rem;
+.menu-item--menu-toggle {
+  .menu-open & {
+    position: fixed;
+    right: 1rem;
+  }
   @include desktop {
     display: none;
   }
@@ -309,7 +317,7 @@ MEGA MENU
   &.mobile-open {
     visibility: visible;
     opacity: 1;
-    max-height: 1500px; 
+    max-height: 3000px; 
   }
 
 }
@@ -448,9 +456,11 @@ MEGA MENU
   background-color: rgba(black, 0.6);
   opacity: 1;
   transition: opacity 250ms ease-in-out;
+  visibility: visible;
 
   &.screen--is-hidden {
     opacity: 0;
+    visibility: hidden;
     // z-index: -1;
   }
 

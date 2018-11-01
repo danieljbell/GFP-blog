@@ -95,7 +95,7 @@
           */
         ?>
         <li>
-          <a href="#0">Parts Diagram</a>
+          <a href="#0" class="navigation--button">Parts Diagram</a>
         </li>
           <li class="mobile-only">
             <a href="/account">
@@ -107,9 +107,14 @@
             </a>
           </li>
         <li class="cart-container">
-          <a href="https://www.greenfarmparts.com/shoppingcart.asp">
+          <a href=/cart">
+            <?php
+              $cart = WC()->instance()->cart;
+              $cart_line_items = $cart->get_cart();
+              $items_in_cart = count($cart_line_items);
+            ?>
             <span class="mobile-only">Shopping Cart</span>
-            <strong>0</strong>
+            <strong class="cart--count"><?php echo $items_in_cart; ?></strong>
             <img src="https://www.greenfarmparts.com/v/vspfiles/templates/gfp-test/img/cart-icon.jpg" style="display: inline-block; vertical-align: middle; border-radius: 50%; max-width: 40px;">
           </a>
         </li>
