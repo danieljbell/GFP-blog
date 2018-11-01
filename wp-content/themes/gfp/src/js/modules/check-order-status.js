@@ -54,8 +54,8 @@
           loading.remove();
         }
       } else {
+        console.log(response.data);
         var responseOrders = response.data.orders;
-        console.log(responseOrders);
         responseOrders.forEach(function(order) {
           orders.push(order);
         });
@@ -85,7 +85,7 @@
 
     var orderMeta = document.createElement('div');
     orderMeta.classList.add('order-results--meta');
-    orderMeta.innerHTML = '<h2>Order: ' + order.ID + '</h2><time class="order-date">Order Date: ' + moment(order.post_date_gmt, "YYYY-MM-DD hh:mm:ss a").format('LL') + '</time><p class="order-status">Order Status: ' + orderStatus + '</p><h3>Have A Question?</h3><button class="btn-solid--brand-two" data-modal-launch="send-order-comment" data-order-number="' + order.ID + '">Ask Us!</button>';
+    orderMeta.innerHTML = '<h2>Order: ' + order.fancy + '</h2><time class="order-date">Order Date: ' + moment(order.post_date_gmt, "YYYY-MM-DD hh:mm:ss a").format('LL') + '</time><p class="order-status">Order Status: ' + orderStatus + '</p><h3>Have A Question?</h3><button class="btn-solid--brand-two" data-modal-launch="send-order-comment" data-order-number="' + order.ID + '">Ask Us!</button>';
     orderDetailsContainer.appendChild(orderMeta);
 
     var orderContent = document.createElement('div');
@@ -165,7 +165,7 @@
       loading.remove();
     }
     results.innerHTML = orders.map(function(order, index) {
-      return '<li class="order-results--item"><p class="order-results--order-number">Order: ' + order.ID + '</p><time class="order-results--order-time" datetime="' + order.post_date_gmt + '">' + moment(order.post_date_gmt, "YYYY-MM-DD hh:mm:ss a").format('LL') + '</time><button class="btn-solid--brand-two" data-index="' + index + '" data-order-id="' + order.ID + '">View Order</button></li>';
+      return '<li class="order-results--item"><p class="order-results--order-number">Order: ' + order.fancy + '</p><time class="order-results--order-time" datetime="' + order.post_date_gmt + '">' + moment(order.post_date_gmt, "YYYY-MM-DD hh:mm:ss a").format('LL') + '</time><button class="btn-solid--brand-two" data-index="' + index + '" data-order-id="' + order.ID + '">View Order</button></li>';
     }).join('');
   }
 

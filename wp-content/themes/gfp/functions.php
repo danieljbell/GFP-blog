@@ -477,8 +477,6 @@ function get_orders() {
   $supplied_user = get_user_by('email', $email_address);
   if ($supplied_user) {
     $WC_user = new WC_Customer($supplied_user->ID);
-    // echo $WC_user;
-    // die();
     if ($zipcode === $WC_user->get_shipping_postcode()) {
       $customer_orders = get_posts( array(
         'numberposts' => -1,
@@ -487,6 +485,11 @@ function get_orders() {
         'post_type'   => wc_get_order_types(),
         'post_status' => array_keys( wc_get_order_statuses() ),
       ) );
+      foreach ($customer_orders as $k => $customer_order) {
+        $sequential_order = get_post_meta($customer_order->ID, '_order_number_formatted');
+        $customer_orders[$k]->fancy = $sequential_order[0];
+        // $customer_orders['asdfasdf'] = $customer_orders[$k]->post_status;
+      }
       echo json_encode(array(
         'status'        => 'success',
         'email_address' => $email_address,
