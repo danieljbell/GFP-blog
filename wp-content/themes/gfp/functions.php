@@ -867,3 +867,12 @@ remove_action( 'wp_footer', array( WC()->structured_data, 'output_structured_dat
 remove_action( 'woocommerce_email_order_details', array( WC()->structured_data, 'output_email_structured_data' ), 30 ); // Emails 
 } 
 add_action( 'init', 'remove_output_structured_data' );
+
+
+
+
+
+add_action( 'woocommerce_email_header', 'email_header_before', 1, 2 );
+function email_header_before( $email_heading, $email ){
+    $GLOBALS['email'] = $email;
+}
