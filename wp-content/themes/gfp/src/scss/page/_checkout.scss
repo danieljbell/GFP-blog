@@ -296,6 +296,10 @@ PAYMENT STYLES
     margin-top: 1rem;
     p:last-of-type {
       flex-direction: row;
+      align-items: center;
+      input {
+        margin-right: 0.5rem;
+      }
     }
   }
 
