@@ -225,3 +225,28 @@ PAYMENT STYLES
 .payment_method_paypal img[alt="PayPal acceptance mark"] {
   display: none;
 }
+
+.payment_method_authorize_net_cim_credit_card {
+  
+  fieldset {
+    border: 0;
+  }
+
+  input.js-sv-wc-payment-gateway-credit-card-form-input {
+    font-size: 1rem !important;
+  }
+
+  label {
+    display: block;
+  }
+
+  .form-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  input.js-sv-wc-payment-gateway-credit-card-form-account-number {
+    background-size: 35px 29px !important;
+  }
+
+}

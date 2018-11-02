@@ -36,7 +36,7 @@ $page_path = $_SERVER['REQUEST_URI'];
   <?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) : ?>
     <?php if ($label != 'Downloads') : ?>
       <?php 
-        if (strpos($page_path, 'view-order') && ($label === 'Orders')) {
+        if ((strpos($page_path, 'view-order') && ($label === 'Orders')) || (strpos($page_path, 'payment-method') && ($label === 'Payment methods'))) {
           echo '<li class="' . wc_get_account_menu_item_classes( $endpoint ) . ' is-active">';
         } else {
           echo '<li class="' . wc_get_account_menu_item_classes( $endpoint ) . '">';
