@@ -222,14 +222,63 @@ form.woocommerce-checkout {
 PAYMENT STYLES
 =========================
 */
+.wc_payment_methods {
+  list-style-type: none;
+}
+
+.wc_payment_method {
+  border: 1px solid $medium-gray;
+  background-color: #fff;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  position: relative;
+  > input {
+    position: relative;
+    z-index: 1;
+  }
+  > input:checked + label {
+    background-color: $brand;
+    color: #fff;
+  }
+  > label {
+    width: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 1rem 1rem 1rem 2.5rem;
+  }
+  > div {
+    padding-top: 2rem;
+  }
+}
+
 .payment_method_paypal img[alt="PayPal acceptance mark"] {
   display: none;
 }
 
 .payment_method_authorize_net_cim_credit_card {
+  > p:first-child {
+    display: none;
+  }
+
+  input[type="radio"] {
+    margin-right: 0.5rem;
+  }
+
+  img {
+    display: none;
+  }
   
   fieldset {
     border: 0;
+  }
+
+  .wc-authorize-net-cim-credit-card-new-payment-method-form {
+    margin-top: 1rem;
+    p:last-of-type {
+      flex-direction: row;
+    }
   }
 
   input.js-sv-wc-payment-gateway-credit-card-form-input {
@@ -237,7 +286,7 @@ PAYMENT STYLES
   }
 
   label {
-    display: block;
+    // display: block;
   }
 
   .form-row {
