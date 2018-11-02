@@ -235,6 +235,7 @@ PAYMENT STYLES
   > input {
     position: relative;
     z-index: 1;
+    visibility: hidden;
   }
   > input:checked + label {
     background-color: $brand;
@@ -246,15 +247,23 @@ PAYMENT STYLES
     position: absolute;
     top: 0;
     left: 0;
-    padding: 1rem 1rem 1rem 2.5rem;
+    padding: 1rem 1rem 1rem 1rem;
+    cursor: pointer;
   }
   > div {
     padding-top: 2rem;
   }
+  img {
+    float: right;
+    max-width: 35px;
+  }
 }
 
-.payment_method_paypal img[alt="PayPal acceptance mark"] {
-  display: none;
+.payment_method_paypal {
+  .about_paypal,
+  img[alt="PayPal acceptance mark"] {
+    display: none;
+  }
 }
 
 .payment_method_authorize_net_cim_credit_card {
@@ -262,13 +271,7 @@ PAYMENT STYLES
     display: none;
   }
 
-  input[type="radio"] {
-    margin-right: 0.5rem;
-  }
 
-  img {
-    display: none;
-  }
   
   fieldset {
     border: 0;
