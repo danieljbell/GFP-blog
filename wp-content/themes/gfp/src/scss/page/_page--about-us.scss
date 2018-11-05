@@ -1,0 +1,43 @@
+.about-us--team-members {
+  list-style-type: none;
+}
+
+.about-us--team-member {
+  position: relative;
+  overflow: hidden;
+  max-width: 250px;
+  display: inline-block;
+}
+
+.team-member--headshot {
+  display: block;
+  width: 100%;
+}
+
+.team-member--details {
+  position: absolute;
+  color: #fff;
+  top: 100%;
+  // bottom: 0;
+  padding: 3rem 1rem 1rem;
+  width: 100%;
+  transition: all 300ms ease-in-out;
+  background-image: linear-gradient(rgba(black, 0), rgba(black, 1));
+  .about-us--team-member:hover & {
+    transform: translateY(-100%);
+  }
+}
+
+.team-member--name {
+  text-transform: uppercase;
+  font-weight: bold;
+  color: $brand-two;
+  font-size: 1.7rem;
+  line-height: 1;
+  text-shadow: 3px 3px 3px rgba(black, 0.4);
+  margin-bottom: 0.25rem;
+}
+
+.team-member--title {
+
+}

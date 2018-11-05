@@ -185,6 +185,14 @@ TYPOGRAPHY
     text-align: center;
 }
 
+.has-brand-text {
+    color: $brand !important;
+}
+
+.has-brand-two-text {
+    color: $brand-two !important;
+}
+
 .no-print {
     @media print {
         display: none;
