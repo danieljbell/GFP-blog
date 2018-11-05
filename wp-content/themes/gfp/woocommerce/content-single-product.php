@@ -302,8 +302,8 @@ if ( post_password_required() ) {
 					echo '</div>';
 				}
 
-				do_action( 'woocommerce_after_single_product_summary' );
-				// do_action( 'woocommerce_output_product_data_tabs' );
+				// do_action( 'woocommerce_after_single_product_summary' );
+				do_action( 'woocommerce_output_product_data_tabs' );
 				// do_action( 'woocommerce_template_single_meta' );
 				// do_action( 'woocommerce_template_single_sharing' );
 			// echo '</div>';

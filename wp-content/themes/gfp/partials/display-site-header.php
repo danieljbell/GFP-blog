@@ -21,7 +21,8 @@
               'orderby'      => $orderby,
               'order'        => 'DESC',
               'title_li'     => $title,
-              'hide_empty'   => false
+              'hide_empty'   => false,
+              'exclude'      => array(715, 820)
             );
 
             $all_categories = get_categories( $args );
