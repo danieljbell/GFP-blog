@@ -781,6 +781,88 @@ add_action( 'woocommerce_process_product_meta', 'save_replaced_by' );
 
 
 
+/*
+========================================
+CREATE CUSTOM FIELD FOR PRODUCT REPLACES
+========================================
+*/
+function create_replaces() {
+  global $woocommerce, $post;
+?>
+<p class="form-field">
+    <label for="replaces"><?php _e( 'Replaces', 'woocommerce' ); ?></label>
+    <select class="wc-product-search" multiple="multiple" style="width: 50%;" id="replaces" name="replaces[]" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce' ); ?>" data-action="woocommerce_json_search_products_and_variations" data-exclude="<?php echo intval( $post->ID ); ?>">
+        <?php
+            $product_ids = get_post_meta( $post->ID, 'replaces', true );
+
+            foreach ( $product_ids as $product_id ) {
+                $product = wc_get_product( $product_id );
+                if ( is_object( $product ) ) {
+                    echo '<option value="' . esc_attr( $product_id ) . '"' . selected( true, true, false ) . '>' . wp_kses_post( $product->get_formatted_name() ) . '</option>';
+                }
+            }
+        ?>
+    </select> <?php echo wc_help_tip( __( 'Select Products Here.', 'woocommerce' ) ); ?>
+</p>
+
+<?php
+}
+add_action( 'woocommerce_product_options_related', 'create_replaces' );
+
+/*
+======================================
+SAVE CUSTOM FIELD FOR PRODUCT REPLACES
+======================================
+*/
+function save_replaces( $post_id ) {
+ $product_field_type =  $_POST['replaces'];
+    update_post_meta( $post_id, 'replaces', $product_field_type );
+}
+add_action( 'woocommerce_process_product_meta', 'save_replaces' );
+
+
+
+/*
+============================================
+CREATE CUSTOM FIELD FOR PRODUCT ALTERNATIVES
+============================================
+*/
+function create_product_alternatives() {
+  global $woocommerce, $post;
+?>
+<p class="form-field">
+    <label for="product_alternatives"><?php _e( 'Product Alternatives', 'woocommerce' ); ?></label>
+    <select class="wc-product-search" multiple="multiple" style="width: 50%;" id="product_alternatives" name="product_alternatives[]" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce' ); ?>" data-action="woocommerce_json_search_products_and_variations" data-exclude="<?php echo intval( $post->ID ); ?>">
+        <?php
+            $product_ids = get_post_meta( $post->ID, 'product_alternatives', true );
+
+            foreach ( $product_ids as $product_id ) {
+                $product = wc_get_product( $product_id );
+                if ( is_object( $product ) ) {
+                    echo '<option value="' . esc_attr( $product_id ) . '"' . selected( true, true, false ) . '>' . wp_kses_post( $product->get_formatted_name() ) . '</option>';
+                }
+            }
+        ?>
+    </select> <?php echo wc_help_tip( __( 'Select Products Here.', 'woocommerce' ) ); ?>
+</p>
+
+<?php
+}
+add_action( 'woocommerce_product_options_related', 'create_product_alternatives' );
+
+/*
+==========================================
+SAVE CUSTOM FIELD FOR PRODUCT ALTERNATIVES
+==========================================
+*/
+function save_product_alternatives( $post_id ) {
+ $product_field_type =  $_POST['product_alternatives'];
+    update_post_meta( $post_id, 'product_alternatives', $product_field_type );
+}
+add_action( 'woocommerce_process_product_meta', 'save_product_alternatives' );
+
+
+
 
 
 
@@ -861,10 +943,9 @@ function send_order_comment() {
 
 
   
-function remove_output_structured_data() 
-{ 
-remove_action( 'wp_footer', array( WC()->structured_data, 'output_structured_data' ), 10 ); // Frontend pages 
-remove_action( 'woocommerce_email_order_details', array( WC()->structured_data, 'output_email_structured_data' ), 30 ); // Emails 
+function remove_output_structured_data() { 
+  remove_action( 'wp_footer', array( WC()->structured_data, 'output_structured_data' ), 10 ); // Frontend pages 
+  remove_action( 'woocommerce_email_order_details', array( WC()->structured_data, 'output_email_structured_data' ), 30 ); // Emails 
 } 
 add_action( 'init', 'remove_output_structured_data' );
 

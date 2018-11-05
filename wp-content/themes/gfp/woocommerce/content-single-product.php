@@ -29,49 +29,27 @@ if ( post_password_required() ) {
 	return;
 }
 ?>
+
+<?php
+	$args = array(
+		'post_type' 		=> 'product',
+		'meta_key'			=> 'product_alternatives',
+		'meta_value' 		=> $post->ID,
+		'meta_compare'	=> 'LIKE'
+	);
+	$query = new WP_Query( $args );
+	if ($query->have_posts()) :
+		while($query->have_posts()) : $query->the_post();
+		$deere_part = $post->ID;
+		$deere_alternatives = get_post_meta($post->ID, 'product_alternatives');
+		endwhile;
+	endif; wp_reset_postdata();
+?>
+
 <div id="product-<?php the_ID(); ?>" <?php wc_product_class(); ?>>
 
 	<?php
-		// print_r();
 		$wooproduct = wc_get_product( $post->ID );
-		// print_r($wooproduct->get_review_count());
-		/*
-		=========================
-		"aggregateRating": {
-	    "@type": "AggregateRating",
-	    "ratingValue": "3.5",
-	    "reviewCount": "11"
-	  },
-		"review": [
-	    {
-	      "@type": "Review",
-	      "author": "Ellie",
-	      "datePublished": "2011-04-01",
-	      "description": "The lamp burned out and now I have to replace it.",
-	      "name": "Not a happy camper",
-	      "reviewRating": {
-	        "@type": "Rating",
-	        "bestRating": "5",
-	        "ratingValue": "1",
-	        "worstRating": "1"
-	      }
-	    },
-	    {
-	      "@type": "Review",
-	      "author": "Lucas",
-	      "datePublished": "2011-03-25",
-	      "description": "Great microwave for the price. It is small and fits in my apartment.",
-	      "name": "Value purchase",
-	      "reviewRating": {
-	        "@type": "Rating",
-	        "bestRating": "5",
-	        "ratingValue": "4",
-	        "worstRating": "1"
-	      }
-	    }
-	  ]
-		=========================
-		*/
 		if (wp_get_attachment_url( $wooproduct->get_image_id() )) {
 			$image = wp_get_attachment_url( $wooproduct->get_image_id() );
 		} else {
@@ -243,7 +221,7 @@ if ( post_password_required() ) {
 							foreach ($part_replacements[0] as $part) {
 								$replacement_part = wc_get_product($part);
 								echo '<li class="product-card--slim">';
-									echo '<a href="' . $replacement_part->get_slug() . '">';
+									echo '<a href="' . $replacement_part->get_permalink() . '">';
 										// echo '<img src="' .  . '">';
 										echo $replacement_part->get_image(array(75,75));
 										print_r($replacement_part->get_name());
@@ -255,6 +233,75 @@ if ( post_password_required() ) {
 				}
 				echo '<div class="product-content">', get_the_content(), '</div>';
 				do_action( 'woocommerce_template_single_excerpt' );
+
+				$product_alternative = get_post_meta($post->ID, 'product_alternatives');
+				if ((count($product_alternative[0]) > 0) || (count($deere_alternatives[0]) > 0)) {
+					$product = wc_get_product($post->ID);
+					echo '<div class="mar-y--most box--with-header">';
+						echo '<header>Product Alternatives to ' . $product->get_name() . '</header>';
+						echo '<ul class="product-alternatives--list">';
+							foreach ($product_alternative[0] as $key => $alternative) :
+								$alternative_part = wc_get_product($alternative);
+								echo '<li class="product-alternatives--item">';
+									echo '<a href="' . $alternative_part->get_permalink() . '">';
+										echo '<div class="product-alternatives--image">';
+											echo  $alternative_part->get_image('thumbnail');
+										echo '</div>';
+										echo '<div class="product-alternatives--meta">';
+											echo '<p class="product-alternatives--name">' . $alternative_part->get_name() . '</p>';
+											if ($alternative_part->get_price() < $wooproduct->get_price()) {
+												echo '<p class="product-alternatives--price">Price: $' . $alternative_part->get_price() . ' &mdash; <span style="color: red; font-weight: bold;">Save $' . ($wooproduct->get_price() - $alternative_part->get_price()) . '</span></p>';
+											} else {
+												echo '<p class="product-alternatives--price">Price: $' . $alternative_part->get_price() . '</p>';
+											}
+										echo '</div>';
+									echo '</a>';
+								echo '</li>';
+							endforeach;
+
+							if ((count($deere_alternatives[0]) > 0)) {
+								$deere_product = wc_get_product($deere_part);
+								echo '<li class="product-alternatives--item">';
+									echo '<a href="' . $deere_product->get_permalink() . '">';
+										echo '<div class="product-alternatives--image">';
+											echo  $deere_product->get_image('thumbnail');
+										echo '</div>';
+										echo '<div class="product-alternatives--meta">';
+											echo '<p class="product-alternatives--name">' . $deere_product->get_name() . '</p>';
+											if ($deere_product->get_price() < $wooproduct->get_price()) {
+												echo '<p class="product-alternatives--price">Price: $' . $deere_product->get_price() . ' &mdash; <span style="color: red; font-weight: bold;">Save $' . ($wooproduct->get_price() - $deere_product->get_price()) . '</span></p>';
+											} else {
+												echo '<p class="product-alternatives--price">Price: $' . money_format('%+n', $deere_product->get_price()) . '</p>';
+											}
+										echo '</div>';
+									echo '</a>';
+								echo '</li>';
+							}
+
+							foreach ($deere_alternatives[0] as $key => $alternative) :
+								$alternative_part = wc_get_product($alternative);
+								if ($post->ID != $alternative) {
+									echo '<li class="product-alternatives--item">';
+										echo '<a href="' . $alternative_part->get_permalink() . '">';
+											echo '<div class="product-alternatives--image">';
+												echo  $alternative_part->get_image('thumbnail');
+											echo '</div>';
+											echo '<div class="product-alternatives--meta">';
+												echo '<p class="product-alternatives--name">' . $alternative_part->get_name() . '</p>';
+												if ($alternative_part->get_price() < $wooproduct->get_price()) {
+													echo '<p class="product-alternatives--price">Price: $' . $alternative_part->get_price() . ' &mdash; <span style="color: red; font-weight: bold;">Save $' . ($wooproduct->get_price() - $alternative_part->get_price()) . '</span></p>';
+												} else {
+													echo '<p class="product-alternatives--price">Price: $' . money_format('%+n', $alternative_part->get_price()) . '</p>';
+												}
+											echo '</div>';
+										echo '</a>';
+									echo '</li>';
+								}
+							endforeach;
+						echo '</ul>';
+					echo '</div>';
+				}
+
 				do_action( 'woocommerce_after_single_product_summary' );
 				// do_action( 'woocommerce_output_product_data_tabs' );
 				// do_action( 'woocommerce_template_single_meta' );
