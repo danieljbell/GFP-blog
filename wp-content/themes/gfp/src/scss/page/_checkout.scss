@@ -342,6 +342,7 @@ PAYMENT STYLES
     list-style-type: none;
     padding: 1rem;
     &.woocommerce-error {
+      position: static;
       border: 1px solid red;
       background-color: rgba(255,0,0,0.05);
     }
