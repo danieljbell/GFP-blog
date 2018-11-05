@@ -330,3 +330,34 @@ PAYMENT STYLES
 
 
 }
+
+.woocommerce-NoticeGroup-checkout {
+  position: absolute;
+  top: 3rem;
+  right: 3rem;
+  z-index: 100;
+  font-size: 0.9rem;
+
+  ul {
+    list-style-type: none;
+    padding: 1rem;
+    &.woocommerce-error {
+      border: 1px solid red;
+      background-color: rgba(255,0,0,0.05);
+    }
+  }
+
+}
+
+.woocommerce-error {
+  list-style-type: none;
+  padding: 1rem;
+  position: absolute;
+  z-index: 100;
+  top: 3rem;
+  right: 3rem;
+  border: 1px solid red;
+  border-radius: 5px;
+  box-shadow: 4px 4px 8px rgba(red, 0.4);
+  background-color: #fff;
+}
