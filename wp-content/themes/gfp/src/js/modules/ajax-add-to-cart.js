@@ -32,7 +32,7 @@
   });
 
   cartHeader.addEventListener('click', function(e) {
-    displayCart();
+    displayCart(e);
   });
 
   if (cartList.querySelectorAll('li').length > 0) {
@@ -132,19 +132,31 @@
     // }
   }
 
-  function displayCart(isMinimized) {
+  function displayCart(e) {
     if (!cartDrawer) { 
       console.error('Cart Markup is not on the page');
       return;
     }
 
-    cartOpen = !cartOpen;
-    cartDrawer.classList.add('alert--is-active');
-
-    if (cartDrawer.classList.contains('alert--is-minimized')) {
+    if (!e) {
+      cartDrawer.classList.add('alert--is-active');
       cartDrawer.classList.remove('alert--is-minimized');
       return;
     }
+
+    // cartOpen = !cartOpen;
+    if (e.target.classList.contains('alert--header') || e.target.parentElement.classList.contains('alert--header')) {
+      cartDrawer.classList.toggle('alert--is-minimized');
+      return;
+    }
+
+    if (cartDrawer.classList.contains('alert--is-minimized')) {
+      cartDrawer.classList.add('alert--is-active');
+      cartDrawer.classList.remove('alert--is-minimized');
+      return;
+    }
+
+
     
   }
 

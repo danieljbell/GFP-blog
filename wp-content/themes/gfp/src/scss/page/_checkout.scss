@@ -332,7 +332,7 @@ PAYMENT STYLES
 }
 
 .woocommerce-NoticeGroup-checkout {
-  position: absolute;
+  position: fixed;
   top: 3rem;
   right: 3rem;
   z-index: 100;
@@ -344,7 +344,6 @@ PAYMENT STYLES
     &.woocommerce-error {
       position: static;
       border: 1px solid red;
-      background-color: rgba(255,0,0,0.05);
     }
   }
 
@@ -353,7 +352,7 @@ PAYMENT STYLES
 .woocommerce-error {
   list-style-type: none;
   padding: 1rem;
-  position: absolute;
+  position: fixed;
   z-index: 100;
   top: 3rem;
   right: 3rem;
