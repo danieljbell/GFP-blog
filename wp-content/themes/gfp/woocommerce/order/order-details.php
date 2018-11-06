@@ -88,7 +88,8 @@ if ( $show_downloads ) {
         </table>
         
         <?php if (get_queried_object()->post_name !== 'order-tracking') : ?>
-          <button id="printOrder" class="btn-solid--brand-two" onclick="window.print();">Print Invoice</button>
+          <!-- <a href="<?php echo site_url(); ?>/wp-admin/?wc_pip_action=print&wc_pip_document=invoice&order_id=1373&_wpnonce=<?php echo wp_create_nonce( 'nonce_name' ); ?>#" class="btn-solid--brand-two">Print Invoice</a> -->
+          <!-- <button id="printOrder" class="btn-solid--brand-two" onclick="window.print();">Print Invoice</button> -->
         <?php endif; ?>
 
       </div>

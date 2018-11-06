@@ -334,8 +334,9 @@ add_action( 'woocommerce_template_loop_product_thumbnail', 'woocommerce_template
 add_action( 'woocommerce_cart_totals', 'woocommerce_cart_totals', 10 );
 add_action( 'woocommerce_checkout_login_form', 'woocommerce_checkout_login_form', 10 );
 add_action( 'woocommerce_checkout_coupon_form', 'woocommerce_checkout_coupon_form', 10 );
-
 add_action( 'woocommerce_catalog_ordering', 'woocommerce_catalog_ordering', 30 );
+add_action( 'woocommerce_order_review', 'woocommerce_order_review', 10 );
+add_action( 'woocommerce_checkout_payment', 'woocommerce_checkout_payment', 20 );
 
 
 

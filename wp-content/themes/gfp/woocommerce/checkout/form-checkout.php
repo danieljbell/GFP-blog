@@ -49,8 +49,8 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
     <?php endif; ?>
 
 
-    <div class="gfp-checkout--totals sticky--container">
-      <div class="gfp-checkout--totals-inner sticky--element">
+    <div class="gfp-checkout--totals">
+      <div class="gfp-checkout--totals-inner">
 
         <?php wc_print_notices(); ?>
         
