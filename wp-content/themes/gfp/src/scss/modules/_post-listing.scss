@@ -15,6 +15,9 @@
     > * {
       display: table-cell;
       vertical-align: top;
+      &:first-child {
+        width: 60%;
+      }
     }
   }
 }

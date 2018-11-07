@@ -28,6 +28,8 @@
     }
     &.disabled {
         background-color: #ccc;
+        border-color: #ccc;
+        cursor: auto;
     }
 }
 
