@@ -45,7 +45,6 @@ gulp.task('js', function () {
     'src/js/modules/single-post.js',
     'src/js/modules/single-product.js',
     'src/js/modules/single-comments.js',
-    'src/js/modules/post-listing.js',
     'src/js/modules/ajax-add-to-cart.js',
     'src/js/modules/accordian.js',
     'src/js/modules/tooltip.js',
@@ -60,6 +59,7 @@ gulp.task('js', function () {
     'src/js/modules/check-order-status.js',
     'src/js/modules/alerts.js',
     'src/js/modules/account.js',
+    'src/js/modules/category.js',
   ])
     .pipe(sourcemaps.init())
     .pipe(concat('global.js'))

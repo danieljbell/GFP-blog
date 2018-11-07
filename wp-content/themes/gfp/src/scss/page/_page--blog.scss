@@ -1,0 +1,45 @@
+.blog-posts .site-width {
+  display: flex;
+  flex-wrap: wrap;
+  > * {
+    flex-basis: 100%;
+    margin-right: 0;
+    @include desktop {
+      flex-basis: calc(50% - 2rem);
+      margin-right: 4rem;
+    }
+    &:nth-child(2n) {
+      margin-right: 0;
+    }
+  }
+}
+
+.blog-posts .box--with-header {
+  margin-bottom: 4rem;
+
+  .poster-image {
+    position: relative;
+    left: -1rem;
+    top: -1rem;
+    display: block;
+    width: calc(100% + 2rem);
+    max-width: calc(100% + 2rem);
+  }
+
+}
+
+.blog-posts .box--with-header ul {
+  padding: 1rem;
+
+  li {
+    margin-bottom: 0.5rem;
+  }
+
+}
+
+.blog-posts .box--with-header li.view-more {
+  list-style-type: none;
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
