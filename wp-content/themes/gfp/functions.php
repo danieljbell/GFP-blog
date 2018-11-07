@@ -621,10 +621,10 @@ add_action( 'after_setup_theme', 'mytheme_add_woocommerce_support' );
 if ( function_exists('register_sidebar') )
   register_sidebar(array(
     'name' => 'Product Filters',
-    'before_widget' => '<div class = "widgetizedArea">',
-    'after_widget' => '</div>',
-    'before_title' => '<h3>',
-    'after_title' => '</h3>',
+    // 'before_widget' => '<div class = "widgetizedArea">',
+    // 'after_widget' => '</div>',
+    // 'before_title' => '<h3>',
+    // 'after_title' => '</h3>',
   )
 );
 
