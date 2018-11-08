@@ -154,8 +154,11 @@ do_action( 'woocommerce_before_main_content' );
       
       <aside class="product-list--filters">
         <ul class="filters--list">
-          <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar("Product Filters") ) : ?>
-          <?php endif; ?>
+          <?php
+            if ( function_exists('dynamic_sidebar') ) :
+              dynamic_sidebar( 'product_filters' );
+            endif;
+          ?>
         </ul>
       </aside>
 
