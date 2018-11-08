@@ -329,7 +329,9 @@ MEGA MENU
 
 .mega-menu--shop-by-brand {
   .mega-menu:hover & {
-    display: flex !important;
+    @include desktop {
+      display: flex !important;
+    }
   }
   .mega-menu & {
     flex-wrap: wrap;
@@ -349,6 +351,15 @@ MEGA MENU
     box-shadow: 2px 2px 5px rgba(black, 0.1);
     border-radius: 5px;
     width: 100%;
+  }
+  img {
+    display: block;
+    margin: 0 auto 0.5rem;
+    max-width: 100px;
+    max-height: 100px;
+    &[src*="deere"] {
+      max-width: 80px;
+    }
   }
 }
 
