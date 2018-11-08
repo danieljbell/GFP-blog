@@ -280,7 +280,7 @@ MEGA MENU
   list-style-type: none;
 }
 
-.mega-menu--shop-by-part {
+.mega-menu--list {
   display: none;
   position: absolute;
   top: 100%;
@@ -289,6 +289,7 @@ MEGA MENU
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   box-shadow: 0px 10px 25px rgba(black, 0.3);
+  list-style-type: none;
   padding: 1rem;
   min-height: 400px;
   min-width: 600px;
@@ -319,7 +320,36 @@ MEGA MENU
     opacity: 1;
     max-height: 3000px; 
   }
+}
 
+.mega-menu--shop-by-part {
+  
+
+}
+
+.mega-menu--shop-by-brand {
+  .mega-menu:hover & {
+    display: flex !important;
+  }
+  .mega-menu & {
+    flex-wrap: wrap;
+    min-height: unset;
+    > * {
+      // flex: 1;
+      flex-basis: 33%;
+      text-align: center;
+      padding: 1rem;
+    }
+  }
+  a {
+    background-color: #fff;
+    display: inline-block;
+    padding: 1rem;
+    border: 1px solid $medium-gray;
+    box-shadow: 2px 2px 5px rgba(black, 0.1);
+    border-radius: 5px;
+    width: 100%;
+  }
 }
 
 .mega-menu--parent {
