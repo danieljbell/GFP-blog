@@ -38,7 +38,7 @@
             <span class="alert--cart-part-number"><?php echo $sku; ?> - $<?php echo $price; ?></span>
           <?php endif; ?>
         </span>
-        <span>
+        <span class="alert--cart-actions">
           <label for="product_quantity">Qty: </label>
           <input type="number" name="product_quantity" min="1" max="50" value="<?php echo $qty; ?>">
           <button class="alert--remove-item" data-index="<?php echo $i; ?>">&times;</button>

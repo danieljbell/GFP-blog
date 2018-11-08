@@ -139,6 +139,10 @@
   font-size: 0.9em;
 }
 
+.alert--cart-actions {
+  flex-shrink: 0;
+}
+
 .alert--remove-item {
   border: 0;
   padding: 0;

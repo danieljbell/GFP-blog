@@ -76,22 +76,55 @@
   }
 }
 
-.widget_layered_nav_filters .chosen a {
-    font-size: 0.9rem;
-    background-color: $medium-gray;
-    display: inline-block;
-    padding: 0.25rem 0.5rem 0.25rem 0.5rem;
-    position: relative;
-    &:before {
-      content: '\00d7';
-      margin-right: 0.5rem;
-    }
-    
-    &:hover {
-      text-decoration: none;
-    }
-
+.widget_layered_nav_filters .chosen {
+  position: relative;
+  margin-bottom: 0.5rem;
+  &:last-child {
+    margin-bottom: 0;
   }
+}
+
+.woocommerce-widget-layered-nav-list {
+  font-size: 0.9rem;
+}
+
+.widget_layered_nav_filters .chosen:before {
+  transform: rotate(90deg);
+  transform-origin: bottom left;
+  content: url('../img/tag-notch.svg');
+  position: absolute;
+  bottom: 100%;
+  right: calc(100% - 4px);
+  z-index: 1;
+  width: 10px;
+}
+
+.widget_layered_nav_filters .chosen:after {
+  content: url('../img/tag-notch.svg');
+  position: absolute;
+  top: calc(100% - 17px);
+  left: 0;
+  z-index: 1;
+  width: 10px;
+}
+
+.widget_layered_nav_filters .chosen a {
+  font-size: 0.9rem;
+  background-color: $medium-gray;
+  display: inline-block;
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+  position: relative;
+  font-weight: bold;
+  &:before {
+    content: '\00d7';
+    margin-right: 0.5rem;
+  }
+  
+  &:hover {
+    text-decoration: none;
+  }
+
+}
 
 .filters--list ul {
   padding: 0.5rem 0;

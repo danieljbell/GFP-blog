@@ -284,8 +284,8 @@ foreach (get_the_tags() as $tag) {
             <?php
               // check for sold online or not
               if (!get_sub_field('not_sold') && wc_get_product_id_by_sku(get_sub_field('common_part_number'))) {
-                $available_online = '<button class="add-to-cart" value="' . wc_get_product_id_by_sku(get_sub_field('hourly_part_number')) . '">Add to Cart</button>';
-                $product_link = '<a href="https://www.greenfarmparts.com/-p/' . get_sub_field('common_part_number') . '.htm">' . strtoupper(get_sub_field('common_part_number')) . '</a>';
+                $available_online = '<button class="add-to-cart" value="' . wc_get_product_id_by_sku(get_sub_field('common_part_number')) . '">Add to Cart</button>';
+                $product_link = '<a href="' . site_url() . '/?sku=' . get_sub_field('common_part_number') . '">' . strtoupper(get_sub_field('common_part_number')) . '</a>';
                 $sold_online = 'true';
               } else {
                 $available_online = '<button class="disabled">Not Sold Online</button>';

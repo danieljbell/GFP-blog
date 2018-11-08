@@ -139,18 +139,6 @@ do_action( 'woocommerce_before_main_content' );
   <div class="pad-y--most">
 
     <div class="product-list-with-filters">
-
-      <?php
-        $raw_brands = get_terms('pa_brand');
-        $brands = [];
-        foreach ($raw_brands as $brand) {
-          array_push($brands, array(
-            'name' => $brand->name,
-            'slug' => $brand->slug
-          ));
-        }
-
-      ?>
       
       <aside class="product-list--filters">
         <ul class="filters--list">
