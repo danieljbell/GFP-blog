@@ -91,7 +91,7 @@
       });
       equipmentResults.innerHTML = '';
     } else {
-      atomic(window.location.origin + '/wp-json/wp/v2/tags?include=' + equipmentIDs)
+      atomic(window.location.origin + '/wp-json/wp/v2/tags?per_page=100&include=' + equipmentIDs)
       .then(function(response) {
         var equipments = response.data;
         
