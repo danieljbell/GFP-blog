@@ -81,6 +81,245 @@
           ?>
         </li>
         <li class="mega-menu">
+          <button class="navigation--button">Shop By Equipment</button>
+          <ul class="mega-menu--list mega-menu--shop-by-equipment">
+            <?php
+              $lawn_tractors = get_terms(array(
+                'taxonomy' => 'post_tag',
+                'meta_query' => array(
+                  array(
+                    'key'     => 'equipment_type',
+                    'value'   => array( 'lawn_tractor' ),
+                    'compare' => 'IN',
+                  ),
+                ),
+              ));
+              $compact_tractors = get_terms(array(
+                'taxonomy' => 'post_tag',
+                'meta_query' => array(
+                  array(
+                    'key'     => 'equipment_type',
+                    'value'   => array( 'compact_tractor' ),
+                    'compare' => 'IN',
+                  ),
+                ),
+              ));
+              $zero_turn_radiuses = get_terms(array(
+                'taxonomy' => 'post_tag',
+                'meta_query' => array(
+                  array(
+                    'key'     => 'equipment_type',
+                    'value'   => array( 'zero_turn_mowers' ),
+                    'compare' => 'IN',
+                  ),
+                ),
+              ));
+              $gators = get_terms(array(
+                'taxonomy' => 'post_tag',
+                'meta_query' => array(
+                  array(
+                    'key'     => 'equipment_type',
+                    'value'   => array( 'gators' ),
+                    'compare' => 'IN',
+                  ),
+                ),
+              ));
+              $walk_behind_mowers = get_terms(array(
+                'taxonomy' => 'post_tag',
+                'meta_query' => array(
+                  array(
+                    'key'     => 'equipment_type',
+                    'value'   => array( 'walk_behind_mowers' ),
+                    'compare' => 'IN',
+                  ),
+                ),
+              ));
+              $snow_blowers = get_terms(array(
+                'taxonomy' => 'post_tag',
+                'meta_query' => array(
+                  array(
+                    'key'     => 'equipment_type',
+                    'value'   => array( 'snow_blowers' ),
+                    'compare' => 'IN',
+                  ),
+                ),
+              ));
+              $sprayers = get_terms(array(
+                'taxonomy' => 'post_tag',
+                'meta_query' => array(
+                  array(
+                    'key'     => 'equipment_type',
+                    'value'   => array( 'sprayers' ),
+                    'compare' => 'IN',
+                  ),
+                ),
+              ));
+            ?>
+            <li class="mega-menu--parent">
+              <a href="#0">Lawn & Garden</a>
+              <ul class="mega-menu--child-list">
+                <li class="visually-hidden loading">
+                  <img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/spinner.svg" alt="spinner" class="spinner">
+                </li>
+                <li class="visually-hidden equipment-results">
+                  <h4></h4>
+                  <button class="btn-outline--brand equipmentResultsBack">&lt; Back</button>
+                  <ul class="equipment-results--list"></ul>
+                </li>
+                <?php if ($lawn_tractors) : ?>
+                  <li class="mega-menu--child-item">
+                    <button class="mega-menu--equipment-parent" data-equipment-ids="<?php
+                      foreach ($lawn_tractors as $key => $lawn_tractor) { 
+                        if ($key !== (count($lawn_tractors) - 1)) {
+                          echo $lawn_tractor->term_id . ','; 
+                        } else {
+                          echo $lawn_tractor->term_id; 
+                        }
+                      } 
+                    ?>">
+                      <img src="//via.placeholder.com/65x65" alt="">
+                      Lawn Tractors
+                    </button>
+                  </li>
+                <?php endif; ?>
+                <?php if ($compact_tractors) : ?>
+                  <li class="mega-menu--child-item">
+                    <button class="mega-menu--equipment-parent" data-equipment-ids="<?php
+                      foreach ($compact_tractors as $key => $compact_tractor) { 
+                        if ($key !== (count($compact_tractors) - 1)) {
+                          echo $compact_tractor->term_id . ','; 
+                        } else {
+                          echo $compact_tractor->term_id; 
+                        }
+                      } 
+                    ?>">
+                      <img src="//via.placeholder.com/65x65" alt="">
+                      Compact Tractors
+                    </button>
+                  </li>
+                <?php endif; ?>
+                <?php if ($zero_turn_radiuses) : ?>
+                  <li class="mega-menu--child-item">
+                    <button class="mega-menu--equipment-parent" data-equipment-ids="<?php
+                      foreach ($zero_turn_radiuses as $key => $zero_turn_radius) { 
+                        if ($key !== (count($zero_turn_radiuses) - 1)) {
+                          echo $zero_turn_radius->term_id . ','; 
+                        } else {
+                          echo $zero_turn_radius->term_id; 
+                        }
+                      } 
+                    ?>">
+                      <img src="//via.placeholder.com/65x65" alt="">
+                      Zero Turn Mowers
+                    </button>
+                  </li>
+                <?php endif; ?>
+                <?php if ($gators) : ?>
+                  <li class="mega-menu--child-item">
+                    <button class="mega-menu--equipment-parent" data-equipment-ids="<?php
+                      foreach ($gators as $key => $gator) { 
+                        if ($key !== (count($gators) - 1)) {
+                          echo $gator->term_id . ','; 
+                        } else {
+                          echo $gator->term_id; 
+                        }
+                      } 
+                    ?>">
+                      <img src="//via.placeholder.com/65x65" alt="">
+                      Gators
+                    </button>
+                  </li>
+                <?php endif; ?>
+                <?php if ($walk_behind_mowers) : ?>
+                  <li class="mega-menu--child-item">
+                    <button class="mega-menu--equipment-parent" data-equipment-ids="<?php
+                      foreach ($walk_behind_mowers as $key => $walk_behind_mower) { 
+                        if ($key !== (count($walk_behind_mowers) - 1)) {
+                          echo $walk_behind_mower->term_id . ','; 
+                        } else {
+                          echo $walk_behind_mower->term_id; 
+                        }
+                      } 
+                    ?>">
+                      <img src="//via.placeholder.com/65x65" alt="">
+                      Walk-Behind Mowers
+                    </button>
+                  </li>
+                <?php endif; ?>
+                <?php if ($snow_blowers) : ?>
+                  <li class="mega-menu--child-item">
+                    <button class="mega-menu--equipment-parent" data-equipment-ids="<?php
+                      foreach ($snow_blowers as $key => $snow_blower) { 
+                        if ($key !== (count($snow_blowers) - 1)) {
+                          echo $snow_blower->term_id . ','; 
+                        } else {
+                          echo $snow_blower->term_id; 
+                        }
+                      } 
+                    ?>">
+                      <img src="//via.placeholder.com/65x65" alt="">
+                      Snow Blowers
+                    </button>
+                  </li>
+                <?php endif; ?>
+              </ul>
+            </li>
+            <li class="mega-menu--parent mega-menu--parent--is-hidden">
+              <a href="#0">Agriculture</a>
+              <ul class="mega-menu--child-list">
+                <li class="visually-hidden loading">
+                  <img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/spinner.svg" alt="spinner" class="spinner">
+                </li>
+                <li class="visually-hidden equipment-results">
+                  <h4></h4>
+                  <button class="btn-outline--brand equipmentResultsBack">&lt; Back</button>
+                  <ul class="equipment-results--list"></ul>
+                </li>
+                <?php if ($sprayers) : ?>
+                  <li class="mega-menu--child-item">
+                    <button class="mega-menu--equipment-parent" data-equipment-ids="<?php
+                      foreach ($sprayers as $key => $sprayer) { 
+                        if ($key !== (count($sprayers) - 1)) {
+                          echo $sprayer->term_id . ','; 
+                        } else {
+                          echo $sprayer->term_id; 
+                        }
+                      } 
+                    ?>">
+                      <img src="//via.placeholder.com/65x65" alt="">
+                      Sprayers
+                    </button>
+                  </li>
+                <?php endif; ?>
+              </ul>
+            </li>
+            <li class="mega-menu--parent mega-menu--parent--is-hidden">
+              <a href="#0">Landscapers</a>
+              <ul class="mega-menu--child-list">
+                <li class="mega-menu--child-item">
+                  <button class="mega-menu--equipment-parent">asdf</button>
+                </li>
+              </ul>
+            </li>
+            <li class="mega-menu--parent mega-menu--parent--is-hidden">
+              <a href="#0">Golf</a>
+              <ul class="mega-menu--child-list">
+                <li class="mega-menu--child-item">
+                  <button class="mega-menu--equipment-parent">asdf</button>
+                </li>
+              </ul>
+            </li>
+            <li class="mega-menu--parent mega-menu--parent--is-hidden">
+              <a href="#0">Construction</a>
+              <ul class="mega-menu--child-list">
+                <li class="mega-menu--child-item">
+                  <button class="mega-menu--equipment-parent">asdf</button>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="mega-menu">
           <button class="navigation--button">Shop By Brand</button>
           <ul class="mega-menu--list mega-menu--shop-by-brand">
             <?php
@@ -141,3 +380,13 @@
     </div>
   </div>
 </header>
+
+<?php
+// $field = get_field_object('field_5be5aac55de18');
+// $choices = $field['choices'];
+
+// print_r($choices);
+  
+
+  // print_r($terms);
+?>

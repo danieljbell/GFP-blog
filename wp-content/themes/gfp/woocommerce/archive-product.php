@@ -114,12 +114,12 @@ function in_array_r($needle, $haystack, $strict = false) {
 
 <?php else : ?>
   
-  <section class="hero">
+  <!-- <section class="hero">
     <div class="site-width">
       <h1><?php echo $current_page->name; ?></h1>
       <h2><?php echo $current_page->count; ?></h2>
     </div>
-  </section>
+  </section> -->
 
 <?php endif; ?>
 
@@ -145,6 +145,9 @@ do_action( 'woocommerce_before_main_content' );
           <?php
             if ( function_exists('dynamic_sidebar') ) :
               dynamic_sidebar( 'product_filters' );
+              if ($_GET['filter_brand']) {
+                // do custom stuff here if on a brand filter
+              }
             endif;
           ?>
         </ul>
