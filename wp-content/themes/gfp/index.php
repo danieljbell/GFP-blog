@@ -47,18 +47,12 @@
 
     <?php if (have_posts()) : ?>
     
-    <div class="post-listing--filters">
-      <?php get_search_form(); ?>
-    </div>
-    
     <div class="post-listing--results">  
       <?php
-         while (have_posts()) : the_post();
+        while (have_posts()) : the_post();
           get_template_part('partials/display', 'card');
         endwhile; 
       ?>
-      <div class="nav-previous alignleft"><?php previous_posts_link( 'Older posts' ); ?></div>
-      <div class="nav-next alignright"><?php next_posts_link( 'Newer posts' ); ?></div>
     </div>
 
     <div class="post-listing--promo">
@@ -73,6 +67,33 @@
 
   </div>
 
+</section>
+
+<section>
+  <div class="site-width">
+    <?php
+      $args = array(
+        'post_type' => 'product',
+        'posts_per_page' => -1,
+        'tax_query' => array(
+          array(
+            'taxonomy' => 'product_tag',
+            'field'    => 'slug',
+            'terms'    => get_query_var('tag'),
+          ),
+        ),
+      );
+      $query = new WP_Query($args);
+      if ($query->have_posts()) : 
+        echo '<ul class="products--list">';
+          while ($query->have_posts()) : $query->the_post();
+            $product = wc_get_product(get_the_ID());
+            get_template_part('partials/display', 'product-card--slim');
+          endwhile;
+        echo '</ul>';
+    endif; wp_reset_query();
+    ?>
+  </div>
 </section>
 
 <?php get_template_part('partials/display', 'alert--add-to-cart'); ?>
