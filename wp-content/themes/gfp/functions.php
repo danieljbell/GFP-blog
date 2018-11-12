@@ -72,18 +72,27 @@ add_theme_support( 'post-thumbnails' );
 OPTIONS PAGES
 =========================
 */
-// if( function_exists('acf_add_options_page') ) {
+if( function_exists('acf_add_options_page') ) {
   
-//   acf_add_options_page(array(
-//     'page_title'  => 'Global Blog Settings',
-//     'menu_title'  => 'Blog Settings',
-//     'menu_slug'   => 'global-blog-settings',
-//     'capability'  => 'edit_posts',
-//     'parent_slug' => 'edit.php',
-//     'redirect'    => false
-//   ));
+  // acf_add_options_page(array(
+  //   'page_title'  => 'Global Blog Settings',
+  //   'menu_title'  => 'Blog Settings',
+  //   'menu_slug'   => 'global-blog-settings',
+  //   'capability'  => 'edit_posts',
+  //   'parent_slug' => 'edit.php',
+  //   'redirect'    => false
+  // ));
+
+  acf_add_options_page(array(
+    'page_title'  => 'Global Shop Settings',
+    'menu_title'  => 'Shop Settings',
+    'menu_slug'   => 'global-shop-settings',
+    'capability'  => 'edit_posts',
+    'parent_slug' => 'edit.php?post_type=shop_order',
+    'redirect'    => false
+  ));
   
-// }
+}
 
 
 /*
@@ -1008,3 +1017,78 @@ function fix_svg() {
         </style>';
 }
 add_action( 'admin_head', 'fix_svg' );
+
+
+
+
+
+
+add_filter( 'woocommerce_get_sections_products' , 'shop_language_tab' );
+function shop_language_tab( $settings_tab ){
+     $settings_tab['shop_language'] = __( 'Shop Language' );
+     return $settings_tab;
+}
+
+add_filter( 'woocommerce_get_settings_products' , 'shop_language_get_settings' , 10, 2 );
+function shop_language_get_settings( $settings, $current_section ) {
+         $custom_settings = array();
+         if( 'shop_language' == $current_section ) {
+              $custom_settings =  array(
+                array(
+                  'name' => __( 'Order Complete' ),
+                  'type' => 'title',
+                  'desc' => __( 'Text displayed to customers when order completed.' ),
+                  'id'   => 'order_complete' 
+                 ),
+                array(
+                  'name' => __( 'Order Review' ),
+                  'type' => 'textarea',
+                  'desc' => __( 'Message to display in the order review box'),
+                  'desc_tip' => true,
+                  'id'  => 'order_review'
+                ),
+                array(
+                  'name' => __( 'Tracking Information' ),
+                  'type' => 'textarea',
+                  'desc' => __( 'Message to display in the tracking information box'),
+                  'desc_tip' => true,
+                  'id'  => 'tracking_information'
+                ),
+                array(
+                  'type' => 'sectionend',
+                  'id' => 'order_complete'
+                ),
+            );
+         return $custom_settings;
+       } else {
+          return $settings;
+       }
+}
+
+function wcpp_custom_style() {?>
+  <style>
+    textarea[name="order_review"],
+    textarea[name="tracking_information"] {
+      width: 100% !important;
+      min-height: 100px;
+    }
+  </style>
+<?php
+}
+add_action('admin_head', 'wcpp_custom_style');
+
+
+/**
+ * Set WooCommerce image dimensions upon theme activation
+ */
+// Remove each style one by one
+add_filter( 'woocommerce_enqueue_styles', 'jk_dequeue_styles' );
+function jk_dequeue_styles( $enqueue_styles ) {
+  unset( $enqueue_styles['woocommerce-general'] );  // Remove the gloss
+  unset( $enqueue_styles['woocommerce-layout'] );   // Remove the layout
+  unset( $enqueue_styles['woocommerce-smallscreen'] );  // Remove the smallscreen optimisation
+  return $enqueue_styles;
+}
+
+// Or just remove them all in one line
+add_filter( 'woocommerce_enqueue_styles', '__return_false' );

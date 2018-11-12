@@ -73,12 +73,11 @@ $show_shipping = ! wc_ship_to_billing_address_only() && $order->needs_shipping_a
     <hr>
     <div class="box--with-header mar-y--most">
       <header>Order Review:</header>
-      <p>You may review your order at any time by clicking on the My Account link. The status of anonymous orders may not be tracked under "My Account". We are unable to modify an existing order for security reasons.</p>
+      <p><?php echo get_option('order_review'); ?></p>
     </div>
     <div class="box--with-header">
       <header>Tracking Information:</header>
-      <p class="mar-b">As soon as your order ships, we will notify you via email. The shipping notification email may also contain a tracking number from the shipper if applicable. You may check the transit and delivery status of your package through the tracking information provided in the shipment confirmation email. Tracking numbers become active once the package has been picked up from our store by the courier. If you created an account with a valid email and password, you can also track your packages (if shipping method is applicable), review your orders, print invoices, and more, from your My Account page at any time.</p>
-      <p><em>Please be advised that invoices through John Deere Financial and credit card statements will list your purchase as <strong style="font-weight: bold;">"Reynolds Farm Equipment Inc"</strong> which is our dealership parent company. Paypal purchases may be listed as <strong>"Paypal ReynoldsFarm"</strong>.</em></p>
+      <p><?php echo get_option('tracking_information'); ?></p>
     </div>
   <?php endif; ?>
 
