@@ -34,27 +34,37 @@ if ( $show_downloads ) {
 }
 ?>
 
-<section class="woocommerce-order-details pad-t--most mar-t--most">
+<?php
+  $path = $_SERVER['REQUEST_URI'];
+  $path_array = explode('/', $path);
+  if (($path_array[1] === 'checkout') && ($path_array[2] === 'order-received')) :
+    echo '<section class="woocommerce-order-details">';
+  else :
+    echo '<section class="woocommerce-order-details pad-t--most mar-t--most">';
+  endif;
+?>
 
   <div class="gfp-order">
 
     <div class="gfp-order-details--contents">
 
-      <h2 class="woocommerce-order-details__title"><?php _e( 'Order details', 'woocommerce' ); ?></h2>
-      <ul class="gfp-order-details--list">
-        <?php
-          foreach ( $order_items as $item_id => $item ) :
-            $product = $item->get_product();
-            $qty = $item->get_quantity();
-            $name = $item->get_name();
-            $image = $product->get_image(array(100,100));
-            $link = $product->get_permalink();
-            $subtotal = $item->get_subtotal();
-            $total = $item->get_total();
-            $unit_price = $subtotal / $qty;
-            include( locate_template('partials/display-order-detail--item.php', false, false) );
-          endforeach; ?>
-      </ul>
+      <div class="box--with-header">
+        <header><?php _e( 'Order details', 'woocommerce' ); ?></header>
+        <ul class="gfp-order-details--list">
+          <?php
+            foreach ( $order_items as $item_id => $item ) :
+              $product = $item->get_product();
+              $qty = $item->get_quantity();
+              $name = $item->get_name();
+              $image = $product->get_image(array(100,100));
+              $link = $product->get_permalink();
+              $subtotal = $item->get_subtotal();
+              $total = $item->get_total();
+              $unit_price = $subtotal / $qty;
+              include( locate_template('partials/display-order-detail--item.php', false, false) );
+            endforeach; ?>
+        </ul>
+      </div>
 
       <?php
         if ( $show_customer_details ) {
