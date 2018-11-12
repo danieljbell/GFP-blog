@@ -77,7 +77,7 @@ $show_shipping = ! wc_ship_to_billing_address_only() && $order->needs_shipping_a
     </div>
     <div class="box--with-header">
       <header>Tracking Information:</header>
-      <p><?php echo get_option('tracking_information'); ?></p>
+      <?php echo get_option('tracking_information'); ?>
     </div>
   <?php endif; ?>
 

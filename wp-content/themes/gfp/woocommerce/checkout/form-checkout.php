@@ -52,7 +52,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
     <div class="gfp-checkout--totals">
       <div class="gfp-checkout--totals-inner">
 
-        <?php wc_print_notices(); ?>
+        <?php //wc_print_notices(); ?>
         
         <?php do_action( 'woocommerce_checkout_before_order_review' ); ?>
 
