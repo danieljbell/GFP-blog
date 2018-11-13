@@ -6,7 +6,7 @@ ADD GLOBAL CSS TO PAGE
 ==============================
 */
 function enqueue_global_css() {
-  wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '1.0.22');
+  wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '1.0.23');
 }
 add_action('wp_enqueue_scripts', 'enqueue_global_css');
 
@@ -16,7 +16,7 @@ ADD GLOBAL JS TO PAGE
 ==============================
 */
 function enqueue_global_js() {
-  wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.22', true);
+  wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.23', true);
 
   if (is_page_template( 'page-templates/check-order-status.php' ) || is_account_page()) {
     $translation_array = array(
@@ -1076,19 +1076,3 @@ function wcpp_custom_style() {?>
 <?php
 }
 add_action('admin_head', 'wcpp_custom_style');
-
-
-/**
- * Set WooCommerce image dimensions upon theme activation
- */
-// Remove each style one by one
-add_filter( 'woocommerce_enqueue_styles', 'jk_dequeue_styles' );
-function jk_dequeue_styles( $enqueue_styles ) {
-  unset( $enqueue_styles['woocommerce-general'] );  // Remove the gloss
-  unset( $enqueue_styles['woocommerce-layout'] );   // Remove the layout
-  unset( $enqueue_styles['woocommerce-smallscreen'] );  // Remove the smallscreen optimisation
-  return $enqueue_styles;
-}
-
-// Or just remove them all in one line
-add_filter( 'woocommerce_enqueue_styles', '__return_false' );
