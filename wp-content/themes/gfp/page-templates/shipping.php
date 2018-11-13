@@ -6,6 +6,11 @@ Template Name: Shipping Policy Page
 */
 ?>
 
+<?php 
+  $page_path = $_SERVER['REQUEST_URI'];
+  $page_path_array = explode('/', $page_path);
+?>
+
 <?php get_header(); ?>
 
 <section class="pad-y--most">
@@ -15,11 +20,12 @@ Template Name: Shipping Policy Page
       <ul class="shipping-navigation--list">
         <?php if (have_rows('shipping_sections')) : while (have_rows('shipping_sections')) : the_row('shipping_sections'); ?>
           <li class="shipping-navigation--item">
-
             <?php
-              // print_r(strtolower(get_sub_field('section_title')));
+              $string = strtolower(get_sub_field('section_title'));
+              $array = explode(' ', $string);
+              $new_string = implode('_', $array);
             ?>
-            <a href="#free_shipping_guidelines">
+            <a href="<?php echo site_url() . '/' . $page_path_array[1] . '/#' . $new_string; ?>">
               <img src="//fillmurray.com/100/100" alt="">
               <?php echo get_sub_field('section_title'); ?>
             </a>
@@ -75,75 +81,22 @@ Template Name: Shipping Policy Page
 <section class="pad-y--most">
   <div class="site-width">
     <?php if (have_rows('shipping_sections')) : while (have_rows('shipping_sections')) : the_row('shipping_sections'); ?>
-      <div class="box--with-header">
-        <header><?php echo get_sub_field('section_title'); ?></header>
-        <?php echo get_sub_field('section_content'); ?>
+      <?php
+        $string = strtolower(get_sub_field('section_title'));
+        $array = explode(' ', $string);
+        $new_string = implode('_', $array);
+      ?>
+      <div class="shipping-section" id="<?php echo $new_string; ?>">
+        <div>
+          <img src="<?php echo get_sub_field('section_image')['url']; ?>" alt="<?php echo get_sub_field('section_image')['name']; ?>">
+          <?php print_r(); ?>
+        </div>
+        <div class="box--with-header">
+          <header><?php echo get_sub_field('section_title'); ?></header>
+          <?php echo get_sub_field('section_content'); ?>
+        </div>
       </div>
     <?php endwhile; endif; ?>
-    <!-- <div class="box--with-header">
-      <header>Free Shipping Guidelines</header>
-      <ul>
-        <li>thing</li>
-        <li>thing</li>
-        <li>thing</li>
-      </ul>
-    </div>
-    <div class="box--with-header">
-      <header>Estimated Delivery Times</header>
-      <ul>
-        <li>thing</li>
-        <li>thing</li>
-        <li>thing</li>
-      </ul>
-    </div>
-    <div class="box--with-header">
-      <header>Alternative Shipping</header>
-      <ul>
-        <li>thing</li>
-        <li>thing</li>
-        <li>thing</li>
-      </ul>
-    </div>
-    <div class="box--with-header">
-      <header>Sales Tax</header>
-      <ul>
-        <li>thing</li>
-        <li>thing</li>
-        <li>thing</li>
-      </ul>
-    </div>
-    <div class="box--with-header">
-      <header>Refused or Non-deliverable Packages</header>
-      <ul>
-        <li>thing</li>
-        <li>thing</li>
-        <li>thing</li>
-      </ul>
-    </div>
-    <div class="box--with-header">
-      <header>Orders outside of the USA</header>
-      <ul>
-        <li>thing</li>
-        <li>thing</li>
-        <li>thing</li>
-      </ul>
-    </div>
-    <div class="box--with-header">
-      <header>International Orders</header>
-      <ul>
-        <li>thing</li>
-        <li>thing</li>
-        <li>thing</li>
-      </ul>
-    </div>
-    <div class="box--with-header">
-      <header>Payment</header>
-      <ul>
-        <li>thing</li>
-        <li>thing</li>
-        <li>thing</li>
-      </ul>
-    </div> -->
   </div>  
 </section>
 
