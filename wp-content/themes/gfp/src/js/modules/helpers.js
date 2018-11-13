@@ -7,3 +7,9 @@ function getParameterByName(name, url) {
   if (!results[2]) return '';
   return decodeURIComponent(results[2].replace(/\+/g, " "));
 };
+
+var updateFullYear = document.querySelectorAll('.utility--updateDate');
+updateFullYear.forEach(function(text) {
+  var newDate = new Date();
+  text.textContent = newDate.getFullYear();
+});
