@@ -288,7 +288,7 @@
                           }
                         } 
                       ?>">
-                        <img src="//via.placeholder.com/65x65" alt="">
+                        <img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/lawn-tractor.jpg" alt="Lawn Tractors">
                         Lawn Tractors
                       </button>
                     </li>
@@ -304,7 +304,7 @@
                           }
                         } 
                       ?>">
-                        <img src="//via.placeholder.com/65x65" alt="">
+                        <img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/compact-tractors.jpg" alt="Compact Tractors">
                         Compact Tractors
                       </button>
                     </li>
@@ -320,7 +320,7 @@
                           }
                         } 
                       ?>">
-                        <img src="//via.placeholder.com/65x65" alt="">
+                        <img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/zero-turn.jpg" alt="Zero Turn Mowers">
                         Zero Turn Mowers
                       </button>
                     </li>
@@ -336,7 +336,7 @@
                           }
                         } 
                       ?>">
-                        <img src="//via.placeholder.com/65x65" alt="">
+                        <img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/gator.jpg" alt="Gators">
                         Gators
                       </button>
                     </li>
@@ -352,7 +352,7 @@
                           }
                         } 
                       ?>">
-                        <img src="//via.placeholder.com/65x65" alt="">
+                        <img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/walk-behind.jpg" alt="Walk-Behind Mowers">
                         Walk-Behind Mowers
                       </button>
                     </li>
@@ -368,7 +368,7 @@
                           }
                         } 
                       ?>">
-                        <img src="//via.placeholder.com/65x65" alt="">
+                        <img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/snowblower.jpg" alt="Snow Blower">
                         Snow Blowers
                       </button>
                     </li>
@@ -399,7 +399,7 @@
                           }
                         } 
                       ?>">
-                        <img src="//via.placeholder.com/65x65" alt="">
+                        <img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/sprayer.jpg" alt="Sprayer">
                         Sprayers
                       </button>
                     </li>
@@ -415,7 +415,7 @@
                           }
                         } 
                       ?>">
-                        <img src="//via.placeholder.com/65x65" alt="">
+                        <img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/tractor.jpg" alt="Tractor">
                         Tractors
                       </button>
                     </li>
@@ -431,7 +431,7 @@
                           }
                         } 
                       ?>">
-                        <img src="//via.placeholder.com/65x65" alt="">
+                        <img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/combine.jpg" alt="Combine">
                         Combines
                       </button>
                     </li>
@@ -447,7 +447,7 @@
                           }
                         } 
                       ?>">
-                        <img src="//via.placeholder.com/65x65" alt="">
+                        <img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/planter.jpg" alt="Planter">
                         Planters
                       </button>
                     </li>
@@ -463,7 +463,7 @@
                           }
                         } 
                       ?>">
-                        <img src="//via.placeholder.com/65x65" alt="">
+                        <img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/baler.jpg" alt="Baler">
                         Balers
                       </button>
                     </li>
@@ -479,7 +479,7 @@
                           }
                         } 
                       ?>">
-                        <img src="//via.placeholder.com/65x65" alt="">
+                        <img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/rotary-cutter.jpg" alt="Rotary Cutter">
                         Rotary Cutters
                       </button>
                     </li>
@@ -510,7 +510,7 @@
                           }
                         } 
                       ?>">
-                        <img src="//via.placeholder.com/65x65" alt="">
+                        <img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/commercial.jpg" alt="Commercial Mowers">
                         Commercial Mowers
                       </button>
                     </li>
@@ -526,7 +526,7 @@
                           }
                         } 
                       ?>">
-                        <img src="//via.placeholder.com/65x65" alt="">
+                        <img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/skid-steer.jpg" alt="Skid Steer">
                         Skid Steers
                       </button>
                     </li>
@@ -557,7 +557,7 @@
                           }
                         } 
                       ?>">
-                        <img src="//via.placeholder.com/65x65" alt="">
+                        <img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/aerators.jpg" alt="Aerator">
                         Aerators
                       </button>
                     </li>
@@ -573,7 +573,7 @@
                           }
                         } 
                       ?>">
-                        <img src="//via.placeholder.com/65x65" alt="">
+                        <img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/greens-mower.jpg" alt="Greens Mower">
                         Greens Mowers
                       </button>
                     </li>
@@ -589,7 +589,7 @@
                           }
                         } 
                       ?>">
-                        <img src="//via.placeholder.com/65x65" alt="">
+                        <img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/fairway-mower.jpg" alt="Fairway Mower">
                         Fairway Mowers
                       </button>
                     </li>
@@ -620,7 +620,7 @@
                           }
                         } 
                       ?>">
-                        <img src="//via.placeholder.com/65x65" alt="">
+                        <img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/undercarriage.jpg" alt="Undercarriage">
                         Undercarriage
                       </button>
                     </li>
