@@ -1,0 +1,19 @@
+@mixin centerColumn() {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.grid--three-fourth-only {
+  max-width: calc((100% / 4) * 3);
+  @include centerColumn;
+}
+
+.grid--two-third-only {
+  max-width: calc((100% / 3) * 2);
+  @include centerColumn;
+}
+
+.grid--half-only {
+  max-width: 50%;
+  @include centerColumn;
+}
