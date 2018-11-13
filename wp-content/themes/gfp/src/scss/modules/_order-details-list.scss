@@ -36,6 +36,10 @@
 }
 
 .gfp-order-details--item-image {
+  img {
+    max-width: 100px;
+    height: auto;
+  }
   @media print {
     display: none;
   }

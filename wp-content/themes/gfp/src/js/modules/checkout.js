@@ -13,4 +13,9 @@
     });
   }
 
+  mailchimpOptIn = document.querySelector('#mailchimp_woocommerce_newsletter');
+  if (mailchimpOptIn) {
+    mailchimpOptIn.checked = true;
+  }
+
 })();

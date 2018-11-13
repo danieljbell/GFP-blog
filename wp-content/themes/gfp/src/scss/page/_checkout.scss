@@ -47,6 +47,10 @@ form.woocommerce-checkout {
   margin-bottom: 3rem;
 }
 
+.woocommerce-additional-fields__field-wrapper {
+  margin-bottom: 3rem;
+}
+
 .woocommerce-checkout .form-row,
 .woocommerce-address-fields__field-wrapper .form-row {
   display: flex;
@@ -76,7 +80,6 @@ form.woocommerce-checkout {
   .select2-container,
   input {
     width: 100%;
-    max-width: 422px;
   }
 
   .select2-selection--single {
@@ -88,6 +91,16 @@ form.woocommerce-checkout {
     text-align: right;
   }
 
+}
+
+.form-row.form-row-wide.mailchimp-newsletter {
+  label {
+    font-size: 1rem;
+    margin-left: 0.25rem;
+  }
+  input {
+    width: auto;
+  }
 }
 
 .woocommerce-shipping-fields > label {
