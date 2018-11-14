@@ -71,6 +71,7 @@
 
 <section>
   <div class="site-width">
+
     <?php
       $args = array(
         'post_type' => 'product',
@@ -79,7 +80,7 @@
           array(
             'taxonomy' => 'product_tag',
             'field'    => 'slug',
-            'terms'    => get_query_var('tag'),
+            'terms'    => get_field('parts_catalog_number', get_queried_object()),
           ),
         ),
       );
