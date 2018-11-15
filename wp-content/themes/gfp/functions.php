@@ -1076,3 +1076,13 @@ function wcpp_custom_style() {?>
 <?php
 }
 add_action('admin_head', 'wcpp_custom_style');
+
+
+
+
+/*
+=========================
+ADD EXCERPTS FOR PAGES
+=========================
+*/
+add_post_type_support( 'page', 'excerpt' );
