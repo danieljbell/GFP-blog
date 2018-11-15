@@ -691,7 +691,11 @@ function gfp_ajax_search( $request ) {
     // check for a search term
     if( isset($request['s'])) :
 
-      $post_count = 10;
+      if (!$_GET['per_page']) {
+        $post_count = 10;
+      } else {
+        $post_count = $_GET['per_page'];
+      }
       
       // get posts
       $posts = get_posts([
@@ -703,51 +707,52 @@ function gfp_ajax_search( $request ) {
       $tax_posts = get_posts([
         'posts_per_page' => $post_count,
         'post_type' => 'product',
-        'tax_query' => array(
-          array(
-            'taxonomy' => 'product_tag',
-            'field' => 'slug',
-            'terms' => $request['s'],
-          ),
-        )
+        'name'  => $request['s']
       ]);
 
+      $categories = get_categories(array(
+        'taxonomy'      => 'product_cat',
+        'name'          => $request['s'],
+        'hide_empty'    => false
+      ));
+
+      echo wp_send_json($categories);
       
       
       // set up the data I want to return
-      foreach($posts as $post):
-        if ($post->post_type === 'product') {
-          $product = new WC_product($post->ID);
-          $attachmentIds = $product->get_gallery_attachment_ids();
-          $imgURL = wp_get_attachment_url( $attachmentId[0] );
-          $results[] = [
-            'title' => $post->post_title,
-            'link' => get_permalink( $post->ID ),
-            'type' => $post->post_type,
-            'image' => $product->get_image('thumbnail')
-          ];
-        } else {
-          $results[] = [
-            'title' => $post->post_title,
-            'link' => get_permalink( $post->ID ),
-            'type' => $post->post_type,
-          ];
-        }
-      endforeach;
+      // foreach($posts as $post):
+      //   if ($post->post_type === 'product') {
+      //     $product = new WC_product($post->ID);
+      //     $attachmentIds = $product->get_gallery_attachment_ids();
+      //     $imgURL = wp_get_attachment_url( $attachmentId[0] );
+      //     $results[] = [
+      //       'title' => $post->post_title,
+      //       'link' => get_permalink( $post->ID ),
+      //       'type' => $post->post_type,
+      //       'image' => $product->get_image('thumbnail')
+      //     ];
+      //   } else {
+      //     $results[] = [
+      //       'title' => $post->post_title,
+      //       'link' => get_permalink( $post->ID ),
+      //       'type' => $post->post_type,
+      //     ];
+      //   }
+      // endforeach;
 
-      foreach($tax_posts as $post):
-        if ($post->post_type === 'product') {
-          $product = new WC_product($post->ID);
-          $attachmentIds = $product->get_gallery_attachment_ids();
-          $imgURL = wp_get_attachment_url( $attachmentId[0] );
-        }
-        $results[] = [
-            'title' => $post->post_title,
-            'link' => get_permalink( $post->ID ),
-            'type' => $post->post_type,
-            'image' => $product->get_image('thumbnail')
-        ];
-      endforeach;
+      // foreach($tax_posts as $post):
+      //   if ($post->post_type === 'product') {
+      //     $product = new WC_product($post->ID);
+      //     $attachmentIds = $product->get_gallery_attachment_ids();
+      //     $imgURL = wp_get_attachment_url( $attachmentId[0] );
+      //   }
+      //   $results[] = [
+      //       'title' => $post->post_title,
+      //       'link' => get_permalink( $post->ID ),
+      //       'type' => $post->post_type,
+      //       'image' => $product->get_image('thumbnail')
+      //   ];
+      // endforeach;
 
     endif;
 
