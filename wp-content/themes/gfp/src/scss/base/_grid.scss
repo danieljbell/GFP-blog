@@ -4,16 +4,16 @@
 }
 
 .grid--three-fourth-only {
-  max-width: calc((100% / 4) * 3);
+  max-width: calc((1080px / 4) * 3);
   @include centerColumn;
 }
 
 .grid--two-third-only {
-  max-width: calc((100% / 3) * 2);
+  max-width: calc((1080px / 3) * 2);
   @include centerColumn;
 }
 
 .grid--half-only {
-  max-width: 50%;
+  max-width: calc(1080px / 2);
   @include centerColumn;
 }
