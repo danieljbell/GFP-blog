@@ -18,7 +18,7 @@ Template Name: Page Sections
   <?php if (have_rows('flexible_section')) : while(have_rows('flexible_section')) : the_row(); ?>
 
     <?php if (get_row_layout() === 'one_up_text_header_with_body_copy') : ?>
-      <section class="pad-y--most <?php echo get_row_layout(); ?>" id="<?php the_sub_field('page_section_headline'); ?>">
+      <section class="pad-y--most <?php echo get_row_layout(); ?>" id="<?php echo str_replace(' ', '_', strtolower(get_sub_field('page_section_headline'))); ?>">
         <div class="site-width">
           <div class="grid--<?php echo the_sub_field('section_size'); ?>-only">
             <h2><?php the_sub_field('page_section_headline'); ?></h2>
