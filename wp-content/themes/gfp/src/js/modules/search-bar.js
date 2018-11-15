@@ -12,6 +12,7 @@ var dompurify = window.DOMPurify;
   var searchResults = document.querySelector('.global-search-bar .search-results');
   var postSearchResults = searchResults.querySelector('.search-results--posts ul');
   var productSearchResults = searchResults.querySelector('.search-results--products ul');
+  var categoriesSearchResults = searchResults.querySelector('.search-results--categories ul');
   var viewAllSearchResults = searchResults.querySelector('.search-results--view-all');
 
   searchInput.addEventListener('keyup', handleChange);
@@ -31,6 +32,7 @@ var dompurify = window.DOMPurify;
 
     atomic('/wp-json/gfp/v1/search?s=' + this.value)
       .then(function(response) {
+        console.log(response);
         searchResultsHTML(response.data, searchInputValue);
       })
       .catch(function(err) {
@@ -41,12 +43,16 @@ var dompurify = window.DOMPurify;
   function searchResultsHTML(results, value) {
     var posts = [];
     var products = [];
+    var categories = [];
     results.forEach(function(result, i) {
         if (result.type === 'post') {
           posts.push(result);
         }
         if (result.type === 'product') {
           products.push(result);
+        }
+        if (result.type === 'category') {
+          categories.push(result);
         }
     })
 
@@ -63,6 +69,14 @@ var dompurify = window.DOMPurify;
     } else {
       productSearchResults.innerHTML = products.map(function(product) {
         return '<li><a href="' + product.link + '"><div class="search-results--product-image">' + product.image + '</div>' + product.title + '</a></li>';
+      }).join('');
+    }
+
+    if (categories.length < 1) {
+      categoriesSearchResults.innerHTML = '<li class="search-result-item--empty">No result for ' + value + '</li>';
+    } else {
+      categoriesSearchResults.innerHTML = categories.map(function(category) {
+        return '<li><a href="' + category.link + '"><div class="search-results--product-image"><img src="' + category.image + '" /></div>' + category.title + '</a></li>';
       }).join('');
     }
 

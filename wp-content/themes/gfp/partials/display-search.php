@@ -16,6 +16,10 @@
         <h4>Products</h4>
         <ul></ul>
       </div>
+      <div class="search-results--categories">
+        <h4>Categories</h4>
+        <ul></ul>
+      </div>
       <a href="/?s=" class="search-results--view-all">View everything tagged <span class="search-term"></span></a>
     </div>
   </div>
