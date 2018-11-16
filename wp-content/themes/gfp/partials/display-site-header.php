@@ -639,23 +639,7 @@
               }
             ?>
           </ul>
-          <?php //print_r(get_terms('pa_brand')); ?>
         </li>
-        <?php
-          /*
-          =========================
-          <li>
-          <button class="navigation--button">Shop By Equipment</button>
-          <?php
-            wp_nav_menu( array(
-              'menu' => 'shop-by-equipment',
-              'menu_class' => 'navigation--level-one'
-            ) );
-          ?>
-        </li>
-          =========================
-          */
-        ?>
         <li>
           <a href="#0" class="navigation--button">Parts Diagram</a>
         </li>

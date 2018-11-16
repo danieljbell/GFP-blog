@@ -87,6 +87,7 @@
   }
 ?>
 
+
 <?php wp_footer(); ?>
 
 <?php if (is_front_page()) : ?>

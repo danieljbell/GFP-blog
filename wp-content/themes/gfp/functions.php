@@ -540,7 +540,9 @@ function gfp_ajax_search( $request ) {
 
       $tags = get_categories(array(
         'taxonomy'      => 'post_tag',
-        'name__like'          => $request['s'],
+        'name__like'    => $request['s'],
+        'meta_key'      => 'is_model',
+        'meta_value'    => true,
         'hide_empty'    => false
       ));
       
@@ -572,8 +574,10 @@ function gfp_ajax_search( $request ) {
         foreach($tax_posts as $post):
           if ($post->post_type === 'product') {
             $product = new WC_product($post->ID);
-            $attachmentIds = $product->get_gallery_attachment_ids();
-            $imgURL = wp_get_attachment_url( $attachmentId[0] );
+            if ($product) {
+              $attachmentIds = $product->get_gallery_attachment_ids();
+              $imgURL = wp_get_attachment_url( $attachmentId[0] );
+            }
           }
           $results[] = [
               'title' => $post->post_title,

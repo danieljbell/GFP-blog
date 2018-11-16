@@ -120,11 +120,6 @@ var dompurify = window.DOMPurify;
         document.location = link;
       }
     });
-    // ga('send', 'event', 'live-search', searchLinkCategory, searchLinkText, {
-    //   'hitCallback': function() {
-    //     document.location = link;
-    //   }
-    // });
   }
 
 
