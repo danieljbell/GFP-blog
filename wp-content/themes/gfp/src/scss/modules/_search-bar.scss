@@ -52,6 +52,7 @@
 
   .search-results--posts,
   .search-results--products,
+  .search-results--models,
   .search-results--categories {
     display: flex;
     padding: 1.5rem 0 1.5rem 1.5rem;
@@ -63,12 +64,14 @@
   }
 
   .search-results--posts,
-  .search-results--products {
+  .search-results--products,
+  .search-results--models {
     border-bottom: 1px solid $medium-gray;
   }
 
   .search-results--products,
-  .search-results--categories {
+  .search-results--categories,
+  .search-results--models {
     overflow: hidden;
     
     ul {

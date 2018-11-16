@@ -537,56 +537,80 @@ function gfp_ajax_search( $request ) {
         'name__like'          => $request['s'],
         'hide_empty'    => false
       ));
+
+      $tags = get_categories(array(
+        'taxonomy'      => 'post_tag',
+        'name__like'          => $request['s'],
+        'hide_empty'    => false
+      ));
       
       
       // set up the data I want to return
-      foreach($posts as $post):
-        if ($post->post_type === 'product') {
-          $product = new WC_product($post->ID);
-          $attachmentIds = $product->get_gallery_attachment_ids();
-          $imgURL = wp_get_attachment_url( $attachmentId[0] );
+      if ($posts) :
+        foreach($posts as $post):
+          if ($post->post_type === 'product') {
+            $product = new WC_product($post->ID);
+            $attachmentIds = $product->get_gallery_attachment_ids();
+            $imgURL = wp_get_attachment_url( $attachmentId[0] );
+            $results[] = [
+              'title' => $post->post_title,
+              'link' => get_permalink( $post->ID ),
+              'type' => $post->post_type,
+              'image' => $product->get_image('thumbnail')
+            ];
+          } else {
+            $results[] = [
+              'title' => $post->post_title,
+              'link' => get_permalink( $post->ID ),
+              'type' => $post->post_type,
+            ];
+          }
+        endforeach;
+      endif;
+      
+      if ($tax_posts) :
+        foreach($tax_posts as $post):
+          if ($post->post_type === 'product') {
+            $product = new WC_product($post->ID);
+            $attachmentIds = $product->get_gallery_attachment_ids();
+            $imgURL = wp_get_attachment_url( $attachmentId[0] );
+          }
           $results[] = [
-            'title' => $post->post_title,
-            'link' => get_permalink( $post->ID ),
-            'type' => $post->post_type,
-            'image' => $product->get_image('thumbnail')
+              'title' => $post->post_title,
+              'link' => get_permalink( $post->ID ),
+              'type' => $post->post_type,
+              'image' => $product->get_image('thumbnail')
           ];
-        } else {
+        endforeach;
+      endif;
+      
+      if ($categories) :
+        foreach($categories as $cat):
+          $name = $cat->category_nicename;
+          $name = explode('-', $name);
+          $name = implode(' ', $name);
+          $thumb_id = get_woocommerce_term_meta( $cat->term_id, 'thumbnail_id', true );
+          $image = wp_get_attachment_url( $thumb_id ); 
           $results[] = [
-            'title' => $post->post_title,
-            'link' => get_permalink( $post->ID ),
-            'type' => $post->post_type,
+            'title' => ucwords($name),
+            'link' => get_tag_link($cat->term_id),
+            'type' => 'category',
+            'image' => $image
           ];
-        }
-      endforeach;
+        endforeach;
+      endif;
 
-      foreach($tax_posts as $post):
-        if ($post->post_type === 'product') {
-          $product = new WC_product($post->ID);
-          $attachmentIds = $product->get_gallery_attachment_ids();
-          $imgURL = wp_get_attachment_url( $attachmentId[0] );
-        }
-        $results[] = [
-            'title' => $post->post_title,
-            'link' => get_permalink( $post->ID ),
-            'type' => $post->post_type,
-            'image' => $product->get_image('thumbnail')
-        ];
-      endforeach;
-
-      foreach($categories as $cat):
-        $name = $cat->category_nicename;
-        $name = explode('-', $name);
-        $name = implode(' ', $name);
-        $thumb_id = get_woocommerce_term_meta( $cat->term_id, 'thumbnail_id', true );
-        $image = wp_get_attachment_url( $thumb_id ); 
-        $results[] = [
-          'title' => ucwords($name),
-          'link' => get_tag_link($cat->term_id),
-          'type' => 'category',
-          'image' => $image
-        ];
-      endforeach;
+      if ($tags) :
+        foreach($tags as $tag):
+          $image = get_field('model_image', $tag);
+          $results[] = [
+            'title' => $tag->name,
+            'link' => get_tag_link($tag->term_id),
+            'type' => 'model',
+            'image' => $image['sizes']['thumbnail']
+          ];
+        endforeach;
+      endif;
 
       wp_send_json($results);
 

@@ -16,6 +16,10 @@
         <h4>Products</h4>
         <ul></ul>
       </div>
+      <div class="search-results--models">
+        <h4>Models</h4>
+        <ul></ul>
+      </div>
       <div class="search-results--categories">
         <h4>Categories</h4>
         <ul></ul>

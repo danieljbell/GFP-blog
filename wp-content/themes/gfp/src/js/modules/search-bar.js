@@ -13,6 +13,7 @@ var dompurify = window.DOMPurify;
   var postSearchResults = searchResults.querySelector('.search-results--posts ul');
   var productSearchResults = searchResults.querySelector('.search-results--products ul');
   var categoriesSearchResults = searchResults.querySelector('.search-results--categories ul');
+  var modelsSearchResults = searchResults.querySelector('.search-results--models ul');
   var viewAllSearchResults = searchResults.querySelector('.search-results--view-all');
 
   searchInput.addEventListener('keyup', handleChange);
@@ -44,6 +45,7 @@ var dompurify = window.DOMPurify;
     var posts = [];
     var products = [];
     var categories = [];
+    var models = [];
     results.forEach(function(result, i) {
         if (result.type === 'post') {
           posts.push(result);
@@ -53,6 +55,9 @@ var dompurify = window.DOMPurify;
         }
         if (result.type === 'category') {
           categories.push(result);
+        }
+        if (result.type === 'model') {
+          models.push(result);
         }
     })
 
@@ -77,6 +82,14 @@ var dompurify = window.DOMPurify;
     } else {
       categoriesSearchResults.innerHTML = categories.map(function(category) {
         return '<li><a href="' + category.link + '"><div class="search-results--product-image"><img src="' + category.image + '" /></div>' + category.title + '</a></li>';
+      }).join('');
+    }
+
+    if (models.length < 1) {
+      modelsSearchResults.innerHTML = '<li class="search-result-item--empty">No result for ' + value + '</li>';
+    } else {
+      modelsSearchResults.innerHTML = models.map(function(models) {
+        return '<li><a href="' + models.link + '"><div class="search-results--product-image"><img src="' + models.image + '" /></div>' + models.title + '</a></li>';
       }).join('');
     }
 
