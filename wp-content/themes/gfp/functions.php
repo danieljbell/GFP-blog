@@ -529,7 +529,7 @@ function gfp_ajax_search( $request ) {
       $tax_posts = get_posts([
         'posts_per_page' => $post_count,
         'post_type' => 'product',
-        'name__like'  => $request['s']
+        'name'  => $request['s']
       ]);
 
       $categories = get_categories(array(
