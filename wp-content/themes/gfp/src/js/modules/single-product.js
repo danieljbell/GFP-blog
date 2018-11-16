@@ -33,6 +33,22 @@
     });
   }
 
+
+  var productThumbs = document.querySelectorAll('.woocommerce-product-gallery__thumbs li');
+  if (productThumbs) {
+    productThumbs.forEach(function(thumb) {
+      thumb.addEventListener('click', swapFeaturedPhoto);
+    });
+  }
+
+  function swapFeaturedPhoto(e) {
+    e.preventDefault();
+    var newImage = e.target.dataset.fullImage;
+    var wrapper = document.querySelector('.woocommerce-product-gallery__wrapper > a');
+    wrapper.href = newImage;
+    wrapper.querySelector('img').src = newImage;
+  }
+
   /*
   =========================
   ADD PRODUCT TO CART

@@ -29,9 +29,11 @@ $attachment_ids = $product->get_gallery_image_ids();
 
 if ( $attachment_ids && has_post_thumbnail() ) {
   $i = 1;
-  foreach ( $attachment_ids as $attachment_id ) {
-    echo '<img src="https://res.cloudinary.com/greenfarmparts/image/upload/e_overlay,l_sample/v1542129610/' . $product->get_sku() . '-' . $i . '.jpg" />';
-    $i++;
-    // echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', wc_get_gallery_image_html( $attachment_id  ), $attachment_id );
-  }
+  echo '<ul class="woocommerce-product-gallery__thumbs">';
+    echo '<li>' . apply_filters( 'woocommerce_single_product_image_thumbnail_html', '<img src="https://res.cloudinary.com/greenfarmparts/image/upload/w_100,h_100,e_brightness:25,c_fill/v1542129610/' . $product->get_sku() . '-0.jpg" data-full-image="https://res.cloudinary.com/greenfarmparts/image/upload/e_brightness:30/fl_tiled,l_overlay,o_10/' . $product->get_sku() . '-0.jpg" />', $attachment_id ) . '</li>';
+    foreach ( $attachment_ids as $attachment_id ) {
+      echo '<li>' .apply_filters( 'woocommerce_single_product_image_thumbnail_html', '<img src="https://res.cloudinary.com/greenfarmparts/image/upload/w_100,h_100,e_brightness:25,c_fill/v1542129610/' . $product->get_sku() . '-' . $i . '.jpg" data-full-image="https://res.cloudinary.com/greenfarmparts/image/upload/e_brightness:30/fl_tiled,l_overlay,o_10/' . $product->get_sku() . '-' . $i . '.jpg" />', $attachment_id ) . '</li>';
+      $i++;
+    }
+  echo '</ul>';
 }

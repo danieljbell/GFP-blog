@@ -34,13 +34,17 @@ $wrapper_classes   = apply_filters( 'woocommerce_single_product_image_gallery_cl
   'images',
 ) );
 ?>
-<div class="sticky--container">
-  <div class="sticky--element">
+<div class="asdfsticky--container">
+  <div class="asdfsticky--element">
     <div class="<?php echo esc_attr( implode( ' ', array_map( 'sanitize_html_class', $wrapper_classes ) ) ); ?>" data-columns="<?php echo esc_attr( $columns ); ?>" style="opacity: 0; transition: opacity .25s ease-in-out;">
       <figure class="woocommerce-product-gallery__wrapper">
         <?php
         if ( has_post_thumbnail() ) {
-          $html  = wc_get_gallery_image_html( $post_thumbnail_id, true );
+          // $html  = wc_get_gallery_image_html( $post_thumbnail_id, true );
+          // print_r();
+          // echo '<img src="https://res.cloudinary.com/greenfarmparts/image/upload/e_overlay,l_sample/v1542129610/' . $product->get_sku() . '-' . $i . '.jpg" />';
+          // https://res.cloudinary.com/greenfarmparts/image/upload/e_brightness:20/fl_tiled,l_overlay,o_15/03h1505-0.jpg
+          echo '<a href="https://res.cloudinary.com/greenfarmparts/image/upload/e_brightness:30/fl_tiled,l_overlay,o_10/' . $product->get_sku() . '-0.jpg"><img src="https://res.cloudinary.com/greenfarmparts/image/upload/e_brightness:30/fl_tiled,l_overlay,o_10/' . $product->get_sku() . '-0.jpg" class="wp-post-image" alt="' . $product->get_sku() . '-0" title="' . $product->get_sku() . '-0.jpg"></a>';
         } else {
           $html  = '<div class="woocommerce-product-gallery__image--placeholder">';
           $html .= sprintf( '<img src="%s" alt="%s" class="wp-post-image" />', esc_url( wc_placeholder_img_src() ), esc_html__( 'Awaiting product image', 'woocommerce' ) );

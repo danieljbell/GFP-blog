@@ -4,13 +4,14 @@
   if (get_the_terms($post->ID, 'product_tag')) {
       $allProductTags = wp_get_post_terms($post->ID, 'product_tag');
   }
+  $product = wc_get_product($post->ID);
+  // print_r($product);
 ?>
-
 
 <li class="products--item" data-brand="<?php echo $product_vendor; ?>">
     <div class="products--image">
       <?php do_action( 'woocommerce_before_shop_loop_item' ); ?>
-        <?php do_action( 'woocommerce_before_shop_loop_item_title' ); ?>
+        <img src="https://res.cloudinary.com/greenfarmparts/image/upload/e_brightness:30,w_100,h_100,c_fill/<?php echo $product->get_sku(); ?>-0.jpg" alt="">
       </a>
     </div>
     <div class="products--content">
