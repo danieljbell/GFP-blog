@@ -65,7 +65,7 @@ var dompurify = window.DOMPurify;
       postSearchResults.innerHTML = '<li class="search-result-item--empty">No result for ' + value + '</li>';
     } else {
       postSearchResults.innerHTML = posts.map(function(post) {
-        return '<li><a href="' + post.link + '">' + post.title + '</a></li>';
+        return '<li class="search-result-item--post"><a href="' + post.link + '">' + post.title + '</a></li>';
       }).join('');
     }
 
@@ -73,7 +73,7 @@ var dompurify = window.DOMPurify;
       productSearchResults.innerHTML = '<li class="search-result-item--empty">No result for ' + value + '</li>';
     } else {
       productSearchResults.innerHTML = products.map(function(product) {
-        return '<li><a href="' + product.link + '"><div class="search-results--product-image">' + product.image + '</div>' + product.title + '</a></li>';
+        return '<li class="search-result-item--product"><a href="' + product.link + '"><div class="search-results--product-image">' + product.image + '</div>' + product.title + '</a></li>';
       }).join('');
     }
 
@@ -81,7 +81,7 @@ var dompurify = window.DOMPurify;
       categoriesSearchResults.innerHTML = '<li class="search-result-item--empty">No result for ' + value + '</li>';
     } else {
       categoriesSearchResults.innerHTML = categories.map(function(category) {
-        return '<li><a href="' + category.link + '"><div class="search-results--product-image"><img src="' + category.image + '" /></div>' + category.title + '</a></li>';
+        return '<li class="search-result-item--category"><a href="' + category.link + '"><div class="search-results--product-image"><img src="' + category.image + '" /></div>' + category.title + '</a></li>';
       }).join('');
     }
 
@@ -89,30 +89,45 @@ var dompurify = window.DOMPurify;
       modelsSearchResults.innerHTML = '<li class="search-result-item--empty">No result for ' + value + '</li>';
     } else {
       modelsSearchResults.innerHTML = models.map(function(models) {
-        return '<li><a href="' + models.link + '"><div class="search-results--product-image"><img src="' + models.image + '" /></div>' + models.title + '</a></li>';
+        return '<li class="search-result-item--model"><a href="' + models.link + '"><div class="search-results--product-image"><img src="' + models.image + '" /></div>' + models.title + '</a></li>';
       }).join('');
     }
 
-    
-
-    // return searchResults.innerHTML = results.map(function(result, i) {
-    //   if ( results.length === i+1 ) {
-    //     return '<a class="search-result-view-all" href="/?s=' + value + '">View Full Search for ' + value + '</a>';
-    //   } else {
-    //     if (result.type === "post") {
-    //       return '<ul class="search-results--posts"><li><a href="' + result.link + '">' + result.title + '</a></li></ul>';
-    //     }
-    //     if (result.type === "product") {
-    //       return '<ul class="search-results--products"><li><a href="' + result.link + '">' + result.title + '</a></li></ul>';
-    //     }
-    //     /*
-    //     <ul class="search-results--posts"></ul>
-    //     <ul class="search-results--products"></ul>
-    //   */
-    //     // return '<a class="search-result-item" href="' + result.link + '">' + result.title + '</a>';
-    //   }
-    // }).join('');
   }
+
+  searchResults.addEventListener('click', sendGAEvent, false);
+
+  function sendGAEvent(e) {
+    e.preventDefault();
+    var link;
+    if (e.target.tagName !== 'A') {
+      if (e.target.tagName === 'IMG') {
+        link = e.target.parentElement.parentElement;
+      }
+      if (e.target.tagName === 'DIV') {
+        link = e.target.parentElement;
+      }
+    } else {
+      link = e.target;
+    }
+    var searchLinkCategory = link.parentElement.classList[0].split('--')[1];
+    var searchLinkText = link.textContent;
+    ga('send', 'event', {
+      eventCategory: 'live-search',
+      eventAction: searchLinkCategory,
+      eventLabel: searchLinkText,
+      hitCallback: function() {
+        document.location = link;
+      }
+    });
+    // ga('send', 'event', 'live-search', searchLinkCategory, searchLinkText, {
+    //   'hitCallback': function() {
+    //     document.location = link;
+    //   }
+    // });
+  }
+
+
 
 
 })();
