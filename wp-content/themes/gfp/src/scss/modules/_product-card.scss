@@ -1,14 +1,16 @@
-.product-card--slim {
-  max-width: 200px;
+.products--item.product-card--slim {
+  // max-width: 200px;
   background-color: #fff;
   border: 1px solid $medium-gray;
   border-radius: 4px;
   box-shadow: 2px 2px 8px rgba(black, 0.1);
   display: flex;
-  // align-items: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   
   a {
-    padding: 1rem;
+    // padding: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,6 +18,11 @@
 
   img {
     display: block;
+    padding-top: 1rem;
+  }
+
+  .products--content {
+    padding: 0;
   }
 
 }

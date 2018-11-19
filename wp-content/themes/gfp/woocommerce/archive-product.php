@@ -176,7 +176,7 @@ do_action( 'woocommerce_before_main_content' );
             woocommerce_product_loop_end();
             echo '<div class="product-list--sorting-after">', do_action( 'woocommerce_after_shop_loop' ), '</div>';
           } else {
-            echo 'asfasd';
+            echo 'Sorry, nothing was found';
           }
         ?>
         

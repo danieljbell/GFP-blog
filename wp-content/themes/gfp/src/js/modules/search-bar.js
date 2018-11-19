@@ -25,6 +25,8 @@ var dompurify = window.DOMPurify;
       return;
     }
 
+    searchResults.classList.remove('visually-hidden');
+
     var searchInputValue = this.value;
 
     searchResults.style.display = 'block';
@@ -122,7 +124,26 @@ var dompurify = window.DOMPurify;
     });
   }
 
+  document.addEventListener('keyup', closeSearchBar);
+  document.addEventListener('click', closeSearchBarClick);
 
+  function closeSearchBar(e) {
+    if (e.keyCode !== 27 || !document.querySelector('#s:focus')) {
+      return;
+    }
+    searchResults.classList.add('visually-hidden');
+  }
+
+  function closeSearchBarClick(e) {
+    e.path.forEach(function(p) {
+      if (p.classList && p.classList.contains('search-results')) {
+        searchResults.classList.add('visually-hidden');
+      }
+      if (p.tagName !== 'DIV') {
+        return;
+      }
+    })
+  }
 
 
 })();

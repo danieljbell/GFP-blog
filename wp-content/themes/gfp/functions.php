@@ -6,7 +6,7 @@ ADD GLOBAL CSS TO PAGE
 ==============================
 */
 function enqueue_global_css() {
-  wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '1.0.26');
+  wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '1.0.27');
 }
 add_action('wp_enqueue_scripts', 'enqueue_global_css');
 
@@ -16,7 +16,7 @@ ADD GLOBAL JS TO PAGE
 ==============================
 */
 function enqueue_global_js() {
-  wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.26', true);
+  wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.27', true);
 
   if (is_page_template( 'page-templates/check-order-status.php' ) || is_account_page()) {
     $translation_array = array(
@@ -526,12 +526,6 @@ function gfp_ajax_search( $request ) {
         's' => $request['s'],
       ]);
 
-      $tax_posts = get_posts([
-        'posts_per_page' => $post_count,
-        'post_type' => 'product',
-        'name'  => $request['s']
-      ]);
-
       $categories = get_categories(array(
         'taxonomy'      => 'product_cat',
         'name__like'          => $request['s'],
@@ -567,24 +561,6 @@ function gfp_ajax_search( $request ) {
               'type' => $post->post_type,
             ];
           }
-        endforeach;
-      endif;
-      
-      if ($tax_posts) :
-        foreach($tax_posts as $post):
-          if ($post->post_type === 'product') {
-            $product = new WC_product($post->ID);
-            if ($product) {
-              $attachmentIds = $product->get_gallery_attachment_ids();
-              $imgURL = wp_get_attachment_url( $attachmentId[0] );
-            }
-          }
-          $results[] = [
-              'title' => $post->post_title,
-              'link' => get_permalink( $post->ID ),
-              'type' => $post->post_type,
-              'image' => $product->get_image('thumbnail')
-          ];
         endforeach;
       endif;
       
