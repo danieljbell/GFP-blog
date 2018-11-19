@@ -119,6 +119,10 @@ var dompurify = window.DOMPurify;
     }
     var searchLinkCategory = link.parentElement.classList[0].split('--')[1];
     var searchLinkText = link.textContent;
+    if (!window.ga) {
+      document.location = link;
+      return;
+    }
     ga('send', 'event', {
       eventCategory: 'live-search',
       eventAction: searchLinkCategory,

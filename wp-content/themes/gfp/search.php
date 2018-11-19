@@ -149,9 +149,23 @@
       </header>
       <?php
         if ($tags) {
-          foreach ($tags as $key => $tag) {
-            echo '<p>' . $tag->name . '</p>';
+          echo '<ul class="grid--third grid--phone-half">';
+          foreach ($tags as $key => $tag) { ?>
+<li class="products--item product-card--slim">
+  <?php
+    $name = $tag->name;
+    $term_link = get_term_link($tag->term_id);
+    $image = get_field('model_image', $tag);
+    $model_image = $image['sizes']['thumbnail'];
+    if (!$image) {
+      $model_image = '//fillmurray.com/100/100';
+    }
+  ?>
+  <a href="<?php echo $term_link; ?>"><img src="<?php echo $model_image; ?>" alt="<?php echo $name; ?>"><?php echo $name; ?></a>
+</li>
+      <?php
           }
+          echo '</ul>';
         } else {
           echo '<p>No models found matching <strong>' . $_GET['s'] . '</strong>.</p>';
         }
