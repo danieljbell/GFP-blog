@@ -29,6 +29,11 @@ var dompurify = window.DOMPurify;
 
     var searchInputValue = this.value;
 
+    document.querySelector('.screen').classList.remove('screen--is-hidden');
+
+    searchInput.style.position = 'relative';
+    searchInput.style.zIndex = 99;
+    // searchResults.style.zIndex = 101;
     searchResults.style.display = 'block';
     viewAllSearchResults.querySelector('.search-term').textContent = searchInputValue;
     viewAllSearchResults.href = '/?s=' + searchInputValue;
@@ -132,17 +137,15 @@ var dompurify = window.DOMPurify;
       return;
     }
     searchResults.classList.add('visually-hidden');
+    document.querySelector('.screen').classList.add('screen--is-hidden');
   }
 
   function closeSearchBarClick(e) {
-    e.path.forEach(function(p) {
-      if (p.classList && p.classList.contains('search-results')) {
-        searchResults.classList.add('visually-hidden');
-      }
-      if (p.tagName !== 'DIV') {
-        return;
-      }
-    })
+    if (!e.target.classList.contains('screen')) {
+      return;
+    }
+    searchResults.classList.add('visually-hidden');
+    document.querySelector('.screen').classList.add('screen--is-hidden');
   }
 
 

@@ -11,6 +11,9 @@
     }, false);
     
     menu.addEventListener('mouseleave', function() {
+      if (document.querySelector('#s:focus')) {
+        return;
+      }
       document.querySelector('.screen').classList.add('screen--is-hidden');
     }, false);
   });
