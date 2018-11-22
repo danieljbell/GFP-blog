@@ -1,4 +1,4 @@
-(function() {
+(function($) {
 
   var reviewLink = document.querySelectorAll('.woocommerce-review-link');
   if (reviewLink) {
@@ -49,6 +49,34 @@
     wrapper.querySelector('img').src = newImage;
   }
 
+
+  $('body').on('init', '#reviews', function() {
+    var stars = $('.stars a');
+    stars.html('<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 300 284.7" xml:space="preserve"><polygon points="150,0 195.8,100 300,108.3 219.4,183.3 243.1,284.7 147.2,231.9 56.9,284.7 79.2,177.8 0,108.3 108.3,95.8 "/></svg>');
+    stars.on('mouseenter', function() {
+      $(this).prevAll().find('polygon').css("fill", "#29652d");
+    });
+    stars.on('mouseleave', function() {
+      $(this).prevAll().find('polygon').css("fill", "");
+    });
+    stars.on('click', function() {
+      $(this).siblings().removeClass('highlight');
+      $(this).prevAll().addClass('highlight');
+    });
+  })
+  // commentFormRating.addEventListener('load', function() {
+  //   console.log('asdf');
+  //   console.log(document.querySelectorAll('.stars a'));
+  // })
+  // if (commentFormRating) {
+  //   setTimeout(function() {
+  //     var stars = commentFormRating.querySelectorAll('.stars a');
+  //     stars.forEach(function(star) {
+  //       star.innerHTML = '<img src="//fillmurray.com/10/10">';
+  //     });
+  //   }, 1000);
+  // }
+
   /*
   =========================
   ADD PRODUCT TO CART
@@ -96,4 +124,4 @@
   // }
 
 
-})();
+})(jQuery);

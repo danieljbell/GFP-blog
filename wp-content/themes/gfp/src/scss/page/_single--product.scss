@@ -201,3 +201,28 @@
   }
 
 }
+
+.comment-form-rating .stars {
+
+  polygon {
+    fill: $medium-gray;
+  }
+  
+  a {
+    padding-right: 2px;
+    &:hover {
+      polygon {
+        fill: $brand;
+      } 
+    }
+    &.active polygon,
+    &.highlight polygon{
+      fill: $brand !important;
+    }
+  }
+
+  svg {
+    max-width: 20px;
+  }
+
+}
