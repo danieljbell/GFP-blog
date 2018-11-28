@@ -19,18 +19,12 @@ defined( 'ABSPATH' ) || exit;
 
 global $product, $post;
 
+
 do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 
 <form class="cart grouped_form" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" method="post" enctype='multipart/form-data'>
 
-  <?php
-    $product_ids = [];
-    foreach ( $grouped_products as $grouped_product_child ) :
-      array_push($product_ids, $grouped_product_child->get_id());
-    endforeach;
-  ?>
-
-  <button id="single-product--add-to-cart" type="submit" name="add-to-cart" value="<?php echo implode(',', $product_ids); ?>" class="single_add_to_cart_button btn-solid--brand-two button alt add-to-cart"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
+  <button id="single-product--add-to-cart" type="submit" name="add-to-cart" value="asdf" class="single_add_to_cart_button btn-solid--brand-two button alt add-to-cart"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
 
 </form>
 

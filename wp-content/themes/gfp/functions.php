@@ -726,55 +726,6 @@ function save_product_alternatives( $post_id ) {
 add_action( 'woocommerce_process_product_meta', 'save_product_alternatives' );
 
 
-
-
-
-
-
-
-
-
-
-// Register New Product Data Tab
-add_filter( 'woocommerce_product_data_tabs', 'add_custom_grouped_products_tab' );
-function add_custom_grouped_products_tab( $tabs ) {
-  $tabs['gfp-grouped-products'] = array(
-    'label' => 'Grouped Products',
-    'target' => 'gfp_custom_product_data',
-    'class' => array('show_if_grouped'),
-    'priority' => 21
-  );
-  return $tabs;
-}
-
-// Create Product Data Tab Content
-add_action( 'woocommerce_product_data_panels', 'add_custom_product_data_fields' );
-function add_custom_product_data_fields() {
-  echo '<div id="gfp_custom_product_data" class="panel woocommerce_options_panel"></div>';
-}
-
-// Add JS & CSS to move and style ACF fields inside Product Data Tab
-function admin_style() {
-  wp_enqueue_script('admin-script', get_template_directory_uri() . '/editor/js/admin.js', array( 'jquery' ) );
-  wp_enqueue_style('admin-styles', get_template_directory_uri().'/editor/css/style-admin.css');
-}
-add_action('admin_enqueue_scripts', 'admin_style');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*
 =================================================
 CHANGE DEFAULT HEADING TO H3 FOR PRODUCT LISTINGS

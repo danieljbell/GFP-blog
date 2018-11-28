@@ -231,8 +231,8 @@ if ( post_password_required() ) {
 						echo '</ul>';
 					echo '</div>';
 				}
+				
 				echo '<div class="product-content">', get_the_content(), '</div>';
-				do_action( 'woocommerce_template_single_excerpt' );
 
 				$product_alternative = get_post_meta($post->ID, 'product_alternatives');
 				if ((count($product_alternative[0]) > 0) || (count($deere_alternatives[0]) > 0)) {

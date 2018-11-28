@@ -375,6 +375,32 @@ PAYMENT STYLES
   background-color: #fff;
 }
 
+.woocommerce-terms-and-conditions-wrapper {
+  .woocommerce-form__label.woocommerce-form__label-for-checkbox.checkbox {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+
+    input {
+      width: auto;
+      margin-right: 0.5rem;
+      order: -1;
+    }
+
+    span.woocommerce-terms-and-conditions-checkbox-text {
+      flex: 1;
+    }
+
+    span.required {
+      flex: 0;
+      order: -1;
+      color: red;
+      margin-right: 0.25rem;
+    }
+
+  }
+}
+
 
 // .woocommerce-order-received .hero {
 //   padding-top: 4rem;
