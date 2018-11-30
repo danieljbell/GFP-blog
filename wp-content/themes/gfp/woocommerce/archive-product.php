@@ -144,7 +144,7 @@ do_action( 'woocommerce_before_main_content' );
         <ul class="filters--list">
           <?php
             if ( function_exists('dynamic_sidebar') ) :
-              dynamic_sidebar( 'product_filters' );
+              dynamic_sidebar( 'Product Filters' );
               if ($_GET['filter_brand']) {
                 // do custom stuff here if on a brand filter
               }
