@@ -64,6 +64,17 @@
       $(this).prevAll().addClass('highlight');
     });
   })
+
+
+  $('.woocommerce-product-gallery__wrapper a').on('click', function(e) {
+    e.preventDefault();
+    $('.modal--display-product-image .modal-container').css('max-width', '800px');
+    $('.modal--display-product-image .modal-content').html('<img src="' + e.target.src + '">');
+    launchModal(e);
+  });
+
+
+
   // commentFormRating.addEventListener('load', function() {
   //   console.log('asdf');
   //   console.log(document.querySelectorAll('.stars a'));

@@ -58,6 +58,8 @@ get_header(); ?>
 		do_action( 'woocommerce_sidebar' );
 	?>
 
+	<?php get_template_part('partials/modals/display', 'product-image'); ?>
+
 <?php get_footer();
 
 /* Omit closing PHP tag at the end of PHP files to avoid "headers already sent" issues. */

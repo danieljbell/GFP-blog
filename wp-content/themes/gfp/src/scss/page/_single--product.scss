@@ -45,6 +45,7 @@
   justify-content: center;
   @include phone {
     margin-top: 0; 
+    flex-direction: column;
   }
 
   > * {

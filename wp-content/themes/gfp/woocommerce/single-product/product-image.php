@@ -44,7 +44,7 @@ $wrapper_classes   = apply_filters( 'woocommerce_single_product_image_gallery_cl
           // print_r();
           // echo '<img src="https://res.cloudinary.com/greenfarmparts/image/upload/e_overlay,l_sample/v1542129610/' . $product->get_sku() . '-' . $i . '.jpg" />';
           // https://res.cloudinary.com/greenfarmparts/image/upload/e_brightness:20/fl_tiled,l_overlay,o_15/03h1505-0.jpg
-          echo '<a href="https://res.cloudinary.com/greenfarmparts/image/upload/e_brightness:30/fl_tiled,l_overlay,o_10/' . $product->get_sku() . '-0.jpg"><img src="https://res.cloudinary.com/greenfarmparts/image/upload/e_brightness:30/fl_tiled,l_overlay,o_10/' . $product->get_sku() . '-0.jpg" class="wp-post-image" alt="' . $product->get_sku() . '-0" title="' . $product->get_sku() . '-0.jpg"></a>';
+          echo '<a href="https://res.cloudinary.com/greenfarmparts/image/upload/e_brightness:30/fl_tiled,l_overlay,o_10/' . $product->get_sku() . '-0.jpg" data-modal-launch="display-product-image"><img src="https://res.cloudinary.com/greenfarmparts/image/upload/e_brightness:30/fl_tiled,l_overlay,o_10/' . $product->get_sku() . '-0.jpg" class="wp-post-image" alt="' . $product->get_sku() . '-0" title="' . $product->get_sku() . '-0.jpg"></a>';
         } else {
           $html  = '<div class="woocommerce-product-gallery__image--placeholder">';
           $html .= sprintf( '<img src="%s" alt="%s" class="wp-post-image" />', esc_url( wc_placeholder_img_src() ), esc_html__( 'Awaiting product image', 'woocommerce' ) );
