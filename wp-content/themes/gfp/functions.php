@@ -927,3 +927,12 @@ ADD EXCERPTS FOR PAGES
 =========================
 */
 add_post_type_support( 'page', 'excerpt' );
+
+
+
+
+
+function wc_is_purchasable( $return ) {
+ return true;
+ }
+ add_filter( 'woocommerce_is_purchasable', 'wc_is_purchasable', 10, 1 );
