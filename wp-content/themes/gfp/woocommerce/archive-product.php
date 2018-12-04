@@ -146,7 +146,7 @@ do_action( 'woocommerce_before_main_content' );
             if ( function_exists('dynamic_sidebar') ) :
               dynamic_sidebar( 'Product Filters' );
               if ($_GET['filter_brand']) {
-                // do custom stuff here if on a brand filter
+                dynamic_sidebar( 'Product Categories' );
               }
             endif;
           ?>

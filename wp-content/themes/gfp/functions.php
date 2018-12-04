@@ -6,7 +6,7 @@ ADD GLOBAL CSS TO PAGE
 ==============================
 */
 function enqueue_global_css() {
-  wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '0.1.28');
+  wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '0.1.29');
 }
 add_action('wp_enqueue_scripts', 'enqueue_global_css');
 
@@ -16,7 +16,7 @@ ADD GLOBAL JS TO PAGE
 ==============================
 */
 function enqueue_global_js() {
-  wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '0.1.28', true);
+  wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '0.1.29', true);
 
   if (is_page_template( 'page-templates/check-order-status.php' ) || is_account_page()) {
     $translation_array = array(
@@ -927,3 +927,15 @@ ADD EXCERPTS FOR PAGES
 =========================
 */
 add_post_type_support( 'page', 'excerpt' );
+
+
+
+
+
+// add_action('pre_get_posts','shop_filter_cat');
+
+//  function shop_filter_cat($query) {
+//     if (is_post_type_archive( 'product' ) && $query->is_main_query()) {
+//       $query->query_vars[‘product_cat’] = $_GET['product_cat']; 
+//     }
+//  }

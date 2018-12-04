@@ -86,6 +86,8 @@
             <?php
               $lawn_tractors = get_terms(array(
                 'taxonomy' => 'post_tag',
+                'hide_empty' => false,
+                'number' => 100,
                 'meta_query' => array(
                   array(
                     'key'     => 'equipment_type',
@@ -96,6 +98,8 @@
               ));
               $compact_tractors = get_terms(array(
                 'taxonomy' => 'post_tag',
+                'hide_empty' => false,
+                'number' => 100,
                 'meta_query' => array(
                   array(
                     'key'     => 'equipment_type',
@@ -106,6 +110,8 @@
               ));
               $zero_turn_radiuses = get_terms(array(
                 'taxonomy' => 'post_tag',
+                'hide_empty' => false,
+                'number' => 100,
                 'meta_query' => array(
                   array(
                     'key'     => 'equipment_type',
@@ -116,6 +122,8 @@
               ));
               $gators = get_terms(array(
                 'taxonomy' => 'post_tag',
+                'hide_empty' => false,
+                'number' => 100,
                 'meta_query' => array(
                   array(
                     'key'     => 'equipment_type',
@@ -126,6 +134,8 @@
               ));
               $walk_behind_mowers = get_terms(array(
                 'taxonomy' => 'post_tag',
+                'hide_empty' => false,
+                'number' => 100,
                 'meta_query' => array(
                   array(
                     'key'     => 'equipment_type',
@@ -136,6 +146,8 @@
               ));
               $snow_blowers = get_terms(array(
                 'taxonomy' => 'post_tag',
+                'hide_empty' => false,
+                'number' => 100,
                 'meta_query' => array(
                   array(
                     'key'     => 'equipment_type',
@@ -146,6 +158,8 @@
               ));
               $sprayers = get_terms(array(
                 'taxonomy' => 'post_tag',
+                'hide_empty' => false,
+                'number' => 100,
                 'meta_query' => array(
                   array(
                     'key'     => 'equipment_type',
@@ -156,6 +170,8 @@
               ));
               $tractors = get_terms(array(
                 'taxonomy' => 'post_tag',
+                'hide_empty' => false,
+                'number' => 100,
                 'meta_query' => array(
                   array(
                     'key'     => 'equipment_type',
@@ -166,6 +182,8 @@
               ));
               $combines = get_terms(array(
                 'taxonomy' => 'post_tag',
+                'hide_empty' => false,
+                'number' => 100,
                 'meta_query' => array(
                   array(
                     'key'     => 'equipment_type',
@@ -176,6 +194,8 @@
               ));
               $planters = get_terms(array(
                 'taxonomy' => 'post_tag',
+                'hide_empty' => false,
+                'number' => 100,
                 'meta_query' => array(
                   array(
                     'key'     => 'equipment_type',
@@ -186,6 +206,8 @@
               ));
               $balers = get_terms(array(
                 'taxonomy' => 'post_tag',
+                'hide_empty' => false,
+                'number' => 100,
                 'meta_query' => array(
                   array(
                     'key'     => 'equipment_type',
@@ -196,6 +218,8 @@
               ));
               $rotary_cutters = get_terms(array(
                 'taxonomy' => 'post_tag',
+                'hide_empty' => false,
+                'number' => 100,
                 'meta_query' => array(
                   array(
                     'key'     => 'equipment_type',
@@ -206,6 +230,8 @@
               ));
               $commercial_mowers = get_terms(array(
                 'taxonomy' => 'post_tag',
+                'hide_empty' => false,
+                'number' => 100,
                 'meta_query' => array(
                   array(
                     'key'     => 'equipment_type',
@@ -216,6 +242,8 @@
               ));
               $skid_steers = get_terms(array(
                 'taxonomy' => 'post_tag',
+                'hide_empty' => false,
+                'number' => 100,
                 'meta_query' => array(
                   array(
                     'key'     => 'equipment_type',
@@ -226,6 +254,8 @@
               ));
               $aerators = get_terms(array(
                 'taxonomy' => 'post_tag',
+                'hide_empty' => false,
+                'number' => 100,
                 'meta_query' => array(
                   array(
                     'key'     => 'equipment_type',
@@ -236,6 +266,8 @@
               ));
               $greens_mowers = get_terms(array(
                 'taxonomy' => 'post_tag',
+                'hide_empty' => false,
+                'number' => 100,
                 'meta_query' => array(
                   array(
                     'key'     => 'equipment_type',
@@ -246,6 +278,8 @@
               ));
               $fairway_mowers = get_terms(array(
                 'taxonomy' => 'post_tag',
+                'hide_empty' => false,
+                'number' => 100,
                 'meta_query' => array(
                   array(
                     'key'     => 'equipment_type',
@@ -256,6 +290,8 @@
               ));
               $undercarriage = get_terms(array(
                 'taxonomy' => 'post_tag',
+                'hide_empty' => false,
+                'number' => 100,
                 'meta_query' => array(
                   array(
                     'key'     => 'equipment_type',
