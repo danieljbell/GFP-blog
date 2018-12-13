@@ -1,57 +1,54 @@
-<?php
-  $cart = WC()->instance()->cart;
-  $cart_line_items = $cart->get_cart();
-  $items_in_cart = count($cart_line_items);
-  $items_in_cart_text = ($items_in_cart > 1 ? 'Products' : 'Product');
-?>
-
-<div class="alert--add-to-cart" role="alert">
-  <div class="alert--header">
-    <h4><?php echo '<span class="product-count">', $items_in_cart, '</span> ', $items_in_cart_text; ?> in Cart</h4>
-    <button class="alert--close" id="closeAlert">&times;</button>
-  </div>
-  <div class="alert--content">
-    <ul class="alert--cart-list">
-      <?php
-        $i = 0;
-        foreach ($cart_line_items as $line_item) :
-          $line_item_details = $line_item[data];
-          $permalink = $line_item_details->get_permalink();
-          $id = $line_item_details->get_id();
-          $sku = strtoupper($line_item_details->get_sku());
-          $qty = $line_item[quantity];
-          $name = $line_item_details->get_name();
-          $name = str_replace('John Deere ', '', $name);
-          $name = str_replace('Green Farm Parts ', '', $name);
-          $name = str_replace('Frontier ', '', $name);
-          $name = str_replace('A&I ', '', $name);
-          $name = str_replace($sku, '', $name);
-          $price = $line_item_details->get_regular_price();
-          $sale_price = $line_item_details->get_sale_price();
-      ?>
-      <li class="alert--cart-item" data-index="<?php echo $i; ?>" data-productID="<?php echo $id; ?>">
-        <span class="alert--cart-part">
-          <span class="alert--cart-part-type"><a href="<?php echo $permalink; ?>"><?php echo $name; ?></a></span>
-          <?php if ($sale_price) : ?>
-            <span class="alert--cart-part-number"><?php echo $sku; ?> - <del>$<?php echo $price; ?></del> <span class="sale-price">$<?php echo $sale_price; ?></span></span>
-          <?php else : ?>
-            <span class="alert--cart-part-number"><?php echo $sku; ?> - $<?php echo $price; ?></span>
-          <?php endif; ?>
-        </span>
-        <span class="alert--cart-actions">
-          <label for="product_quantity">Qty: </label>
-          <input type="number" name="product_quantity" min="1" max="50" value="<?php echo $qty; ?>">
-          <button class="alert--remove-item" data-index="<?php echo $i; ?>">&times;</button>
-        </span>
-      </li>
-      <?php
-        $i++;
-        endforeach;
-      ?>
-    </ul>
-    <div class="has-text-center mar-t--more">
-      <!-- <button id="saveForLater" class="btn-outline--brand-two">Save for Later</button> -->
-      <a id="submitCheckout" href="/cart/" class="btn-solid--brand">Checkout</a>
-    </div>
-  </div>
+<div class="drawer drawer--add-to-cart" role="alert">
+  <button class="close-drawer btn-solid--brand-two"><span>&times;</span> Hide Cart</button>
+  <h3 class="drawer--header">## Items in your Cart<br /><span>Cart Total: $29.99</span></h3>
+  <ul class="drawer--items-list">
+    <li class="drawer--item">
+      <div class="drawer-item-action">
+        <button class="drawer-remove-item">&times;</button>
+      </div>
+      <div class="drawer-item-image">
+        <a href="#0">
+          <img src="//fillmurray.com/100/100" alt="">
+        </a>
+      </div>
+      <div class="drawer-item-content">
+        <p class="drawer-item-title"><a href="#0">Lorem ipsum dolor sit.</a></p>
+        <p class="drawer-item-price"><span class="drawer-item-sku">abc123</span> - <del>$9.99</del> <span class="drawer-item-sale-price">$5.99</span> each</p>
+        <label for="" class="drawer-item-label">Quantity:</label>
+        <input type="number" class="drawer-item-input" min="1" step="1" value="1">
+      </div>
+    </li>
+    <li class="drawer--item">
+      <div class="drawer-item-action">
+        <button class="drawer-remove-item">&times;</button>
+      </div>
+      <div class="drawer-item-image">
+        <a href="#0">
+          <img src="//fillmurray.com/100/100" alt="">
+        </a>
+      </div>
+      <div class="drawer-item-content">
+        <p class="drawer-item-title"><a href="#0">Lorem ipsum dolor sit.</a></p>
+        <p class="drawer-item-price"><span class="drawer-item-sku">abc123</span> - $9.99 each</p>
+        <label for="" class="drawer-item-label">Quantity:</label>
+        <input type="number" class="drawer-item-input" min="1" step="1" value="1">
+      </div>
+    </li>
+    <li class="drawer--item">
+      <div class="drawer-item-action">
+        <button class="drawer-remove-item">&times;</button>
+      </div>
+      <div class="drawer-item-image">
+        <a href="#0">
+          <img src="//fillmurray.com/100/100" alt="">
+        </a>
+      </div>
+      <div class="drawer-item-content">
+        <p class="drawer-item-title"><a href="#0">Lorem ipsum dolor sit.</a></p>
+        <p class="drawer-item-price"><span class="drawer-item-sku">abc123</span> - $9.99 each</p>
+        <label for="" class="drawer-item-label">Quantity:</label>
+        <input type="number" class="drawer-item-input" min="1" step="1" value="1">
+      </div>
+    </li>
+  </ul>
 </div>
