@@ -145,7 +145,7 @@ var dompurify = window.DOMPurify;
   }
 
   function closeSearchBarClick(e) {
-    if (!e.target.classList.contains('screen')) {
+    if (!e.target.classList.contains('screen') || (document.body.classList.contains('cart-drawer--open'))) {
       return;
     }
     searchResults.classList.add('visually-hidden');

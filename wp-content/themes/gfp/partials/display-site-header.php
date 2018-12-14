@@ -689,16 +689,19 @@
             </a>
           </li>
         <li class="cart-container">
-          <a href=/cart">
+          <button class="open-drawer">
             <?php
               $cart = WC()->instance()->cart;
               $cart_line_items = $cart->get_cart();
-              $items_in_cart = count($cart_line_items);
+              $item_count = 0;
+              foreach ($cart_line_items as $key => $line_item) {
+                $item_count = $item_count + $line_item[quantity];
+              }
             ?>
             <span class="mobile-only">Shopping Cart</span>
-            <strong class="cart--count"><?php echo $items_in_cart; ?></strong>
+            <strong class="cart--count"><?php echo $item_count; ?></strong>
             <img src="https://www.greenfarmparts.com/v/vspfiles/templates/gfp-test/img/cart-icon.jpg" style="display: inline-block; vertical-align: middle; border-radius: 50%; max-width: 40px;">
-          </a>
+          </button>
         </li>
       </ul>
     </nav>

@@ -1,3 +1,13 @@
+// .cart-drawer--open {
+//   overflow: hidden;
+//   @include phone {
+//     overflow: scroll;
+//   }
+//   .drawer {
+//     overflow: scroll; 
+//   }
+// }
+
 .drawer {
   position: fixed;
   z-index: 101;
@@ -7,27 +17,30 @@
   width: 100%;
   max-width: 500px;
   transform: translate(-100%);
-  background-color: white;
-  box-shadow: -20px 0 50px #333;
+  background-color: $light-gray;
+  border-left: 1px solid $medium-gray;
+  box-shadow: -10px 0 20px rgba(black, 0.3);
   padding: 2rem;
   transition: all 400ms ease-out;
   @include phone {
     padding: 1.5rem 1rem;
   }
 
+  .cart-drawer--closed & {
+    transform: translate(0);
+    box-shadow: 0px 0 0px rgba(black, 0);
+  }
+
   .close-drawer {
     position: absolute;
     top: 2rem;
-    right: calc(100% + 2rem);
-    width: 100%;
+    right: 1rem;
     max-width: 115px;
     font-size: 1rem;
     font-weight: bold;
     padding: 0.5rem;
     @include phone {
       top: 1.5rem;
-      right: 1rem;
-      width: auto;
     }
     
     span {
@@ -45,7 +58,7 @@
   .drawer--header {
     margin-bottom: 2rem;
     
-    span {
+    span.cart-subtotal {
       font-size: 0.85em;
       font-weight: normal;
     }
@@ -61,6 +74,15 @@
     margin-bottom: 1rem;
     display: table;
     width: 100%;
+    transition: all 400ms ease-out;
+    max-height: 300px;
+
+    &.remove {
+      opacity: 0;
+      transform: translateX(calc(100% + 2rem));
+      max-height: 0;
+    }
+
   }
 
   .drawer-item-action,
@@ -140,6 +162,20 @@
     line-height: inherit;
     // width: 100%;
     max-width: 2.5rem;
+    text-align: center;
   }
 
+}
+
+.drawer--add-to-cart a[href="/cart/"] {
+  @include phone {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 0;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+  }
 }

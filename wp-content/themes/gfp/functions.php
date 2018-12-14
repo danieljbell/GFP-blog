@@ -196,10 +196,45 @@ function yoasttobottom() {
 add_filter( 'wpseo_metabox_prio', 'yoasttobottom');
 
 
+function formatCartItems($response) {
+  $lineItems = array();
+
+  foreach ($response as $key => $line_item) {
+    $line_item_details = $line_item[data];
+    $name = $line_item_details->get_name();
+    $product_brands = get_terms('pa_brand');
+    foreach ($product_brands as $key => $brand) {
+      $name = str_replace($brand->name . ' ', '', $name);
+    }
+    if (has_post_thumbnail($line_item_details->get_id())) :
+      $thumb = '<img src="https://res.cloudinary.com/greenfarmparts/image/upload/e_brightness:30,w_100,h_100,c_fill/' . $line_item_details->get_sku() . '-0.jpg" alt="' . $line_item_details->get_name() . '">';
+    else :
+      $thumb = '<img src="' . get_stylesheet_directory_URI() . '/dist/img/partPicComingSoon.jpg" alt="No Part Image">';
+    endif;
+    $singleLineItem = array(
+      'productName'         => $name,
+      'productID'           => $line_item_details->get_id(),
+      'productSku'          => $line_item_details->get_sku(),
+      'productQty'          => $line_item[quantity],
+      'productRegularPrice' => $line_item_details->get_regular_price(),
+      'productSalePrice'    => $line_item_details->get_sale_price(),
+      'productImg'          => $thumb,
+      'productPermalink'    => $line_item_details->get_permalink()
+    );
+    array_push($lineItems, $singleLineItem);
+  }
+  return $lineItems;
+}
+
+
 function get_cart() {
   $cart = WC()->instance()->cart;
   $response = $cart->get_cart();
-  echo json_encode($response, true);
+  
+  wp_send_json(array(
+    'subtotal' => $cart->get_totals()[subtotal],
+    'lineItems' => formatCartItems($response)
+  ));
 }
 
 
@@ -209,9 +244,13 @@ function remove_item_from_cart() {
   $cart_id = $cart->generate_cart_id($id);
   $cart_item_id = $cart->find_product_in_cart($cart_id);
   if ($cart_item_id) {
-   $cart->set_quantity($cart_item_id, 0);
-   echo 'product removed';
-  } 
+    $cart->set_quantity($cart_item_id, 0);
+    // wp_send_json();
+    wp_send_json(array(
+      'subtotal' => $cart->get_totals()[subtotal],
+      'lineItems' => formatCartItems($cart->get_cart())
+    ));
+  }
 }
 
 function add_item_to_cart() {
@@ -221,7 +260,10 @@ function add_item_to_cart() {
   $cart_item_id = $cart->find_product_in_cart($cart_id);
   $cart->add_to_cart($id, 1);
   $response = $cart->get_cart();
-  echo json_encode($response, true);
+  wp_send_json(array(
+    'subtotal' => $cart->get_totals()[subtotal],
+    'lineItems' => formatCartItems($cart->get_cart())
+  ));
 }
 
 function increment_item_in_cart() {
