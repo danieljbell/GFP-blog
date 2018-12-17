@@ -277,6 +277,10 @@ function increment_item_in_cart() {
   $qty = $_POST['qty'];
   $cart_item_id = $cart->find_product_in_cart($key);
   $cart->set_quantity($cart_item_id, $qty);
+  wp_send_json(array(
+    'subtotal' => $cart->get_totals()[subtotal],
+    'lineItems' => formatCartItems($cart->get_cart())
+  ));
 }
 
 function get_product_details() {

@@ -28,6 +28,10 @@
   closeDrawerButton.on('click', closeDrawer);
 
   body.on('click', '.open-drawer', function(e) {
+    if (body.hasClass('woocommerce-cart')) {
+      window.location.reload(false);
+      return;
+    }
     $('body').toggleClass('cart-drawer--open').toggleClass('cart-drawer--closed');
   })
 
@@ -56,7 +60,7 @@
   function updateCartCount(items) {
     var count = 0;
     for (var i = 0; i < items.length; i++) {
-      count += items[i].productQty;
+      count += parseInt(items[i].productQty);
     }
     if ((count > 1) || (count === 0)) {
       itemCountText.text(count + ' Items in your Cart');
@@ -132,7 +136,8 @@
         qty: parseInt(val)
       },
       success: function(results) {
-        // console.log(results);
+        cartSubtotal.text('$' + results.subtotal);
+        updateCartCount(results.lineItems);
       },
       error: function(error) {
         console.log(error);
