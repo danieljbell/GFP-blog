@@ -528,7 +528,8 @@ function gfp_ajax_search( $request ) {
 
       $categories = get_categories(array(
         'taxonomy'      => 'product_cat',
-        'name__like'          => $request['s'],
+        'name__like'    => $request['s'],
+        'number'        => $post_count,
         'hide_empty'    => false
       ));
 
@@ -537,6 +538,7 @@ function gfp_ajax_search( $request ) {
         'name__like'    => $request['s'],
         'meta_key'      => 'is_model',
         'meta_value'    => true,
+        'number'        => $post_count,
         'hide_empty'    => false
       ));
       
