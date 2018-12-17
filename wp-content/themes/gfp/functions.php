@@ -18,13 +18,13 @@ ADD GLOBAL JS TO PAGE
 function enqueue_global_js() {
   wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '0.1.29', true);
 
-  if (is_page_template( 'page-templates/check-order-status.php' ) || is_account_page()) {
-    $translation_array = array(
-      'ajax_url'   => admin_url( 'admin-ajax.php' ),
-      'nonce'  => wp_create_nonce( 'nonce_name' )
-    );
-    wp_localize_script( 'global', 'ajax_order_tracking', $translation_array );
-  }
+  // if (is_page_template( 'page-templates/check-order-status.php' ) || is_account_page()) {
+  //   $translation_array = array(
+  //     'ajax_url'   => admin_url( 'admin-ajax.php' ),
+  //     'nonce'  => wp_create_nonce( 'nonce_name' )
+  //   );
+  //   wp_localize_script( 'global', 'ajax_order_tracking', $translation_array );
+  // }
   
 }
 add_action('wp_enqueue_scripts', 'enqueue_global_js');
