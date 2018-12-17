@@ -214,6 +214,7 @@ function formatCartItems($response) {
     $singleLineItem = array(
       'productName'         => $name,
       'productID'           => $line_item_details->get_id(),
+      'productKey'          => $line_item[key],
       'productSku'          => $line_item_details->get_sku(),
       'productQty'          => $line_item[quantity],
       'productRegularPrice' => $line_item_details->get_regular_price(),
@@ -230,19 +231,19 @@ function formatCartItems($response) {
 function get_cart() {
   $cart = WC()->instance()->cart;
   $response = $cart->get_cart();
-  
-  wp_send_json(array(
-    'subtotal' => $cart->get_totals()[subtotal],
-    'lineItems' => formatCartItems($response)
-  ));
+  wp_send_json($response);
+  // wp_send_json(array(
+  //   'subtotal' => $cart->get_totals()[subtotal],
+  //   'lineItems' => formatCartItems($response)
+  // ));
 }
 
 
 function remove_item_from_cart() {
   $cart = WC()->instance()->cart;
   $id = $_POST['product_id'];
-  $cart_id = $cart->generate_cart_id($id);
-  $cart_item_id = $cart->find_product_in_cart($cart_id);
+  $key = $_POST['product_key'];
+  $cart_item_id = $cart->find_product_in_cart($key);
   if ($cart_item_id) {
     $cart->set_quantity($cart_item_id, 0);
     // wp_send_json();
@@ -250,14 +251,13 @@ function remove_item_from_cart() {
       'subtotal' => $cart->get_totals()[subtotal],
       'lineItems' => formatCartItems($cart->get_cart())
     ));
-  }
+  } 
+  
 }
 
 function add_item_to_cart() {
   $cart = WC()->instance()->cart;
   $id = $_POST['product_id'];
-  $cart_id = $cart->generate_cart_id($id);
-  $cart_item_id = $cart->find_product_in_cart($cart_id);
   $cart->add_to_cart($id, 1);
   $response = $cart->get_cart();
   wp_send_json(array(

@@ -72,7 +72,11 @@ if ($current_promotions_query->have_posts()) :
 
 endif;
 wp_reset_postdata();
+?>
 
+<?php
+/*
+=========================
 // finds a nested array value
 function in_array_r($needle, $haystack, $strict = false) {
   foreach ($haystack as $item) {
@@ -122,6 +126,10 @@ function in_array_r($needle, $haystack, $strict = false) {
   </section> -->
 
 <?php endif; ?>
+=========================
+*/
+?>
+
 
 <?php
 /**

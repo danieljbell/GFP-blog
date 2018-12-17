@@ -7,8 +7,22 @@
   var addToCartButton = $('.add-to-cart');
   var body = $('body');
   var cartSubtotal = $('.drawer--add-to-cart .subtotal-amount');
+  var itemCountText = $('.drawer--add-to-cart .item-count');
+  // var cartItemCount = 0;
+  // var itemInputs = document.querySelectorAll('.drawer--item .drawer-item-input');
 
-  var itemInputs = document.querySelectorAll('.drawer--item .drawer-item-input');
+  // body.on('click', function() {
+  //   $.ajax({
+  //     url: window.location.origin + '/wp-admin/admin-ajax.php',
+  //     method: 'POST',
+  //     data: {
+  //       action: 'get_cart',
+  //     },
+  //     success: function(results) {
+  //       console.log(results);
+  //     }
+  //   })
+  // });
 
 
   closeDrawerButton.on('click', closeDrawer);
@@ -34,8 +48,17 @@
     body.toggleClass('cart-drawer--open').toggleClass('cart-drawer--closed');
   }
 
-  function updateCartCount() {
-    $('.drawer--add-to-cart .item-count').text(itemsInCart);
+  function updateCartCount(items) {
+    var count = 0;
+    for (var i = 0; i < items.length; i++) {
+      count += items[i].productQty;
+    }
+    if ((count > 1) || (count === 0)) {
+      itemCountText.text(count + ' Items in your Cart');
+    } else {
+      itemCountText.text(count + ' Item in your Cart');
+    }
+    $('.cart--count').text(count);
   }
 
   function updateCartSubtotal(amount) {
@@ -54,6 +77,7 @@
       success: function(results) {
         cartSubtotal.text('$' + results.subtotal);
         populateCart(results.lineItems);
+        updateCartCount(results.lineItems);
       }
     })
     $(this).prop('disabled', true).addClass('disabled').text('Added To Cart!');
@@ -62,15 +86,18 @@
 
   function removeLineItem(elem) {
     var productID = elem.parents('.drawer--item').data('product-id');
+    var productKey = elem.parents('.drawer--item').data('product-key');
     $.ajax({
       url: window.location.origin + '/wp-admin/admin-ajax.php',
       method: 'POST',
       data: {
         action: 'remove_item_from_cart',
-        product_id: productID
+        product_id: productID,
+        product_key: productKey
       },
       success: function(results) {
-        console.log(results);
+        cartSubtotal.text('$' + results.subtotal);
+        updateCartCount(results.lineItems);
         elem.parents('.drawer--item').addClass('remove');
         elem.parents('.drawer--item').on('transitionend', function() {
           $(this).remove();
@@ -91,7 +118,7 @@
         var priceHTML = '<p class="drawer-item-price">Yes Sale</p>';
       }
       return (
-        '<li class="drawer--item" data-product-id="">' + 
+        '<li class="drawer--item" data-product-id="' + item.productID + '" data-product-key="' + item.productKey + '">' + 
           '<div class="drawer-item-action">' +
             '<button class="drawer-remove-item">&times;</button>' +
           '</div>' +

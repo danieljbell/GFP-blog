@@ -10,9 +10,9 @@
 <div class="drawer drawer--add-to-cart" role="alert">
   <button class="close-drawer btn-solid--brand-two"><span>&times;</span> Hide Cart</button>
   <?php if (($item_count > 1) || ($item_count === 0)) : ?>
-    <h3 class="drawer--header"><span class="item-count"><?php echo $item_count; ?></span> Items in your Cart<br /><span class="cart-subtotal">Cart Subtotal: <span class="subtotal-amount">$<?php echo $cart->get_totals()[subtotal]; ?></span></span></h3>
+    <h3 class="drawer--header"><span class="item-count"><?php echo $item_count; ?> Items in your Cart</span><br /><span class="cart-subtotal">Cart Subtotal: <span class="subtotal-amount">$<?php echo $cart->get_totals()[subtotal]; ?></span></span></h3>
   <?php else : ?>
-    <h3 class="drawer--header"><span class="item-count"><?php echo $item_count; ?></span> Item in your Cart<br /><span class="cart-subtotal">Cart Subtotal: <span class="subtotal-amount">$<?php echo $cart->get_totals()[subtotal]; ?></span></span></h3>
+    <h3 class="drawer--header"><span class="item-count"><?php echo $item_count; ?> Item in your Cart</span><br /><span class="cart-subtotal">Cart Subtotal: <span class="subtotal-amount">$<?php echo $cart->get_totals()[subtotal]; ?></span></span></h3>
   <?php endif; ?>
   <ul class="drawer--items-list">
     <?php 
@@ -31,7 +31,7 @@
         $price = $line_item_details->get_regular_price();
         $sale_price = $line_item_details->get_sale_price();
        ?>
-      <li class="drawer--item" data-product-id="<?php echo $id; ?>">
+      <li class="drawer--item" data-product-id="<?php echo $id; ?>" data-product-key="<?php echo $line_item[key]; ?>">
         <div class="drawer-item-action">
           <button class="drawer-remove-item">&times;</button>
         </div>
