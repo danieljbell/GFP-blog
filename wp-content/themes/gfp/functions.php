@@ -18,13 +18,13 @@ ADD GLOBAL JS TO PAGE
 function enqueue_global_js() {
   wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '0.1.29', true);
 
-  if (is_page_template( 'page-templates/check-order-status.php' ) || is_account_page()) {
+  // if (is_page_template( 'page-templates/check-order-status.php' ) || is_account_page()) {
     $translation_array = array(
       'ajax_url'   => admin_url( 'admin-ajax.php' ),
       'nonce'  => wp_create_nonce( 'nonce_name' )
     );
     wp_localize_script( 'global', 'ajax_order_tracking', $translation_array );
-  }
+  // }
   
 }
 add_action('wp_enqueue_scripts', 'enqueue_global_js');
@@ -229,6 +229,7 @@ function formatCartItems($response) {
 
 
 function get_cart() {
+  check_ajax_referer( 'nonce_name' );
   $cart = WC()->instance()->cart;
   $response = $cart->get_cart();
   wp_send_json($response);
@@ -240,6 +241,7 @@ function get_cart() {
 
 
 function remove_item_from_cart() {
+  check_ajax_referer( 'nonce_name' );
   $cart = WC()->instance()->cart;
   $id = $_POST['product_id'];
   $key = $_POST['product_key'];
@@ -256,6 +258,7 @@ function remove_item_from_cart() {
 }
 
 function add_item_to_cart() {
+  check_ajax_referer( 'nonce_name' );
   $cart = WC()->instance()->cart;
   $id = $_POST['product_id'];
   $cart->add_to_cart($id, 1);
@@ -267,15 +270,13 @@ function add_item_to_cart() {
 }
 
 function increment_item_in_cart() {
+  check_ajax_referer( 'nonce_name' );
   $cart = WC()->instance()->cart;
   $id = $_POST['product_id'];
+  $key = $_POST['product_key'];
   $qty = $_POST['qty'];
-  
-  $cart_id = $cart->generate_cart_id($id);
-  $cart_item_id = $cart->find_product_in_cart($cart_id);
+  $cart_item_id = $cart->find_product_in_cart($key);
   $cart->set_quantity($cart_item_id, $qty);
-
-  echo json_encode($cart->get_cart());
 }
 
 function get_product_details() {

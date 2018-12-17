@@ -33,6 +33,11 @@
 
   addToCartButton.on('click', addLineItem);
 
+  body.on('change', '.drawer--item .drawer-item-input', function(e) {
+    var item = $(this).parents('.drawer--item');
+    changeQuantity(item);
+  })
+
   body.on('keyup', function(e) {
     if ((e.keyCode === 27) && body.hasClass('cart-drawer--open')) {
       closeDrawer();
@@ -72,6 +77,7 @@
       method: 'POST',
       data: {
         action: 'add_item_to_cart',
+        _ajax_nonce: window.ajax_order_tracking.nonce,
         product_id: productID
       },
       success: function(results) {
@@ -87,26 +93,51 @@
   function removeLineItem(elem) {
     var productID = elem.parents('.drawer--item').data('product-id');
     var productKey = elem.parents('.drawer--item').data('product-key');
+    elem.parents('.drawer--item').addClass('remove');
+    elem.parents('.drawer--item').on('transitionend', function() {
+      $(this).remove();
+    })
     $.ajax({
       url: window.location.origin + '/wp-admin/admin-ajax.php',
       method: 'POST',
       data: {
         action: 'remove_item_from_cart',
+        _ajax_nonce: window.ajax_order_tracking.nonce,
         product_id: productID,
         product_key: productKey
       },
       success: function(results) {
         cartSubtotal.text('$' + results.subtotal);
         updateCartCount(results.lineItems);
-        elem.parents('.drawer--item').addClass('remove');
-        elem.parents('.drawer--item').on('transitionend', function() {
-          $(this).remove();
-        })
       },
       error: function(error) {
         console.log(error);
       }
     })
+  }
+
+  function changeQuantity(item) {
+    var productID = item.data('product-id');
+    var productKey = item.data('product-key');
+    var val = item.find('input.drawer-item-input').val();
+    console.log(productID, productKey, val);
+    $.ajax({
+      url: window.location.origin + '/wp-admin/admin-ajax.php',
+      method: 'POST',
+      data: {
+        action: 'increment_item_in_cart',
+        _ajax_nonce: window.ajax_order_tracking.nonce,
+        product_id: productID,
+        product_key: productKey,
+        qty: parseInt(val)
+      },
+      success: function(results) {
+        // console.log(results);
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
   }
 
   function populateCart(lineItems) {
