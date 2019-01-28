@@ -1,0 +1,267 @@
+.single-product .onsale {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background: red;
+  width: 75px;
+  height: 75px;
+  line-height: 75px;
+  text-align: center;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.single-product .woocommerce-tabs.wc-tabs-wrapper {
+  margin-bottom: 2rem;
+}
+
+.single-product .comment_container {
+  display: flex;
+  @include phone {
+    flex-direction: column;
+  }
+  .comment-text {
+    padding-left: 1rem;
+    flex-grow: 2;
+    @include phone {
+      padding-top: 1rem;
+      padding-left: 0;
+    }
+  }
+}
+
+.single-product .summary .price {
+  margin-bottom: 1rem;
+}
+
+.single-product .type-product {
+  margin-top: 3rem;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  @include phone {
+    margin-top: 0; 
+    flex-direction: column;
+  }
+
+  > * {
+    flex: 1;
+  }
+
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  @include desktop {
+    @supports (display: grid) {
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      grid-gap: 3rem;
+    }
+  }
+
+}
+
+.woocommerce-product-gallery__wrapper .wp-post-image {
+  max-width: 200px;
+  display: block;
+  margin: 0 auto 1rem;
+  @include desktop {
+    max-width: 100%;
+    margin: 0;
+  }
+}
+
+.woocommerce-product-gallery__image img {
+  display: block;
+}
+
+.woocommerce-product-gallery__thumbs {
+  list-style-type: none;
+  display: flex;
+  
+  > li {
+    cursor: pointer;
+    border: 1px solid $medium-gray;
+    margin-right: 0.25rem;
+  }
+
+  img {
+    display: block;
+  }
+
+}
+
+.single--part-fitment-list {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  @supports (display: grid) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 100px);
+    grid-gap: 0.5rem;
+  }
+}
+
+.single--part-fitment-item {
+  // flex: 1;
+  list-style-type: none;
+  // margin-right: 0.5rem;
+  // margin-bottom: 0.25rem;
+  text-align: center;
+  
+  a {
+    border: 1px solid $medium-gray;
+    display: block;
+    font-size: 0.9em;
+    padding: 0.25em 0.5em;
+    border-radius: 50px;
+    transition: all 250ms ease-in-out;
+    background-color: #fff;
+    &:focus,
+    &:hover {
+      outline: none;
+      text-decoration: none;
+      background-color: $brand;
+      color: #fff;
+      border-color: $brand;
+    }
+  }
+
+  &.hidden {
+    display: none;
+  }
+
+}
+
+.product-content {
+  margin: 2rem 0;
+  p {
+    margin-bottom: 1rem;
+  }
+}
+
+.tabs.wc-tabs {
+  display: flex;
+  list-style-type: none;
+  margin-top: 2rem;
+  
+  a {
+    display: block;
+    padding: 1rem;
+    background-color: $light-gray;
+    border: 1px solid $medium-gray;
+    border-bottom: 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    box-shadow: inset 0 -4px 10px rgba(black, 0.1);
+    // transition: all 250ms ease-in-out;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  li:first-child a {
+    border-top-left-radius: 5px;
+  }
+
+  li:last-child a {
+    border-top-right-radius: 5px;
+  }
+
+  li.active a {
+    background-color: $brand;
+    color: #fff;
+    border-color: $brand;
+    box-shadow: inset 0 4px 10px rgba(black, 0.2);
+  }
+
+}
+
+.woocommerce-Tabs-panel {
+  border: 1px solid $medium-gray;
+  // background-color: $light-gray;
+  padding: 2rem 1.5rem;
+  border-radius: 5px;
+  border-top-left-radius: 0;
+}
+
+.part--replaced_by {
+  background-color: rgba(red, 0.05);
+  border: 1px solid red;
+  border-radius: 4px;
+  padding: 1rem;
+
+  p {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  ul {
+    list-style-type: none;
+    display: flex;
+    align-items: stretch;
+  }
+
+}
+
+.comment-form-rating {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+  label {
+    margin-right: 1rem;
+  }
+}
+
+.comment-form-rating .stars {
+
+  polygon {
+    fill: $medium-gray;
+  }
+  
+  a {
+    background-color: transparent;
+    display: inline-block;
+    padding: 0.25rem;
+    line-height: 1.2;
+    height: 1.8rem;
+    width: 1.8rem;
+    text-align: center;
+    border-radius: 50%;
+    border: 1px solid $brand;
+    margin-right: 0.5rem;
+    &.active {
+      color: #fff;
+      background-color: $brand;
+    }
+    &:hover {
+      text-decoration: none;
+      color: #fff;
+      background-color: $brand;
+    }
+  }
+
+  svg {
+    max-width: 20px;
+  }
+
+}
+
+.single-product .woocommerce-Reviews .commentlist {
+  margin-top: 2rem;
+  .review {
+    margin-bottom: 2rem;
+    img {
+      border-radius: 50%;
+    }
+  }
+}

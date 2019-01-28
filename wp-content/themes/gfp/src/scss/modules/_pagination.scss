@@ -1,0 +1,37 @@
+// .woocommerce-pagination {}
+
+.woocommerce-pagination ul {
+  display: flex;
+  list-style-type: none;
+  align-items: center;
+  
+  li {
+    a, .current {
+      margin-left: 0.25rem;
+      margin-right: 0.25rem;
+    }
+    &:last-child a {
+      margin-right: 0;
+    }
+  }
+
+  .page-numbers.current {
+    // margin-left: 0.25rem;
+    // margin-right: 0.25rem;
+    background-color: $medium-gray;
+    color: #fff;
+    font-weight: bold;
+    padding: 0.25em;
+    border-radius: 50%;
+    line-height: 1;
+    width: 1.5em;
+    text-align: center;
+    display: inline-block;
+  }
+
+  .product-list--sorting-after & {
+    margin-top: 2rem;
+    justify-content: center;
+  }
+
+}

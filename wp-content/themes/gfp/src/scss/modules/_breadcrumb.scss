@@ -1,0 +1,21 @@
+.woocommerce-breadcrumb {
+  display: none;
+  @include desktop {
+    display: block;
+  }
+}
+
+.woocommerce-breadcrumb a {
+  padding: 0 0.75rem;
+  &:first-child {
+    padding-left: 0;
+  }
+  &:last-child {
+    padding-right: 1rem;
+  }
+}
+
+.breadcrumb-delimiter:last-child {
+  display: inline-block;
+  margin-right: 0.75rem;
+}

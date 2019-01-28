@@ -1,0 +1,44 @@
+#order_tracking_form label {
+  margin-right: 0.5rem;
+}
+
+#order_tracking_form input[type="text"] {
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px #ddd;
+}
+
+.order-tracking-container {
+  display: flex;
+}
+
+.order-tracking-status-details {
+  flex-basis: 350px;
+}
+
+.order-tracking-details {
+  flex: 1;
+  padding-left: 3rem;
+  overflow: hidden;
+}
+
+.page-template-check-order-status .woocommerce-view-order form {
+  display: flex;
+  flex-direction: column;
+  @include desktop {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  input {
+    margin-bottom: 1rem;
+    @include desktop {
+      margin-right: 2rem;
+      margin-bottom: 0;
+    }
+    &[type="submit"] {
+      margin-right: 0;
+    }
+  }
+
+}

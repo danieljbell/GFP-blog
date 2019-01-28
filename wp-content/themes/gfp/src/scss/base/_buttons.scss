@@ -1,0 +1,104 @@
+@mixin button() {
+    padding: 0.5em 1em;
+    border-radius: 7px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 250ms ease-in-out;
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+@mixin solidButton($bgc, $c: #fff, $hover: 'lighten') {
+    @include button();
+    background-color: $bgc;
+    color: $c;
+    border: 2px solid $bgc;
+    &:hover {
+        text-decoration: none;
+        @if $hover == lighten {
+            background-color: lighten($bgc, 15%);
+            border-color: lighten($bgc, 15%);
+        } @else {
+            color: lighten($c, 75%);
+            background-color: darken($bgc, 15%);
+            border-color: darken($bgc, 15%);
+        }
+    }
+    &.disabled {
+        background-color: #ccc;
+        border-color: #ccc;
+        cursor: auto;
+    }
+}
+
+@mixin outlineButton($c: #fff, $hover-color: #fff) {
+    @include button();
+    border: 2px solid $c;
+    color: $c;
+    &:hover {
+        text-decoration: none;
+        color: $hover-color;
+        background-color: $c;
+    }
+}
+
+
+/*
+====================
+SOLID BUTTONS
+====================
+*/
+.btn-solid--brand {
+    @include solidButton($brand);
+}
+
+.btn-solid--brand-two {
+    @include solidButton($brand-two, #fff, 'darken');
+}
+
+.btn-solid--white {
+    @include solidButton(#fff, $black);
+}
+
+
+/*
+====================
+OUTLINE BUTTONS
+====================
+*/
+.btn-outline--brand {
+    @include outlineButton($brand);
+}
+
+.btn-outline--brand-two {
+    @include outlineButton($brand-two);
+}
+
+.btn-outline--white {
+    @include outlineButton(#fff, $black);
+}
+
+/*
+===========================
+WOOCOMMERCE ACCOUNT BUTTONS
+===========================
+*/
+.woocommerce-button.pay {
+    @include solidButton($brand);
+    font-size: 0.8em;
+    padding: 0.25em 0.75em;
+}
+
+.woocommerce-button.view {
+    @include solidButton($brand-two);
+    font-size: 0.8em;
+    padding: 0.25em 0.75em;
+}
+
+.woocommerce-button.cancel {
+    @include solidButton(red, #fff, 'darken');
+    font-size: 0.8em;
+    padding: 0.25em 0.75em;
+}

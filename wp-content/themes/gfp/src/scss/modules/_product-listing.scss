@@ -1,0 +1,323 @@
+.products.columns-4,
+.products.columns-3 {
+  display: flex;
+  flex-wrap: wrap;
+  > * {
+    flex-basis: calc((100% / 3) - 2rem);
+    margin-right: 2rem;
+    @include phone {
+      flex-basis: calc((100% / 2) - 2rem);
+    }
+
+    &:nth-child(2n) {
+      @include phone {
+        margin-right: 0;
+      }
+    }
+    
+    &:nth-child(3n) {
+      margin-right: 0;
+      @include phone {
+        margin-right: 2rem;
+      }
+    }
+
+  }
+}
+
+.product-list-with-filters {
+  display: flex;
+  flex-direction: column;
+  @include desktop {
+    flex-direction: row;
+    @supports (display: gggggrid) {
+      display: grid;
+      grid-template-columns: 150px 1fr 250px;
+      grid-gap: 3rem;
+    }  
+  }
+  
+
+  aside, section {
+    flex: 1;
+    @supports (display: gggggrid) {
+      flex: none;
+    }
+  }
+  
+  aside {
+    // border: 1px solid red;
+    &.product-list--filters {
+      @include desktop {
+        margin-right: 2rem;
+        @supports (display: gggggrid) {
+          margin-right: 0;
+        }
+      }
+    }
+    &.product-list--promos {
+      margin-left: 2rem;
+      flex-grow: 1.5;
+      @include phone {
+        margin-left: 0;
+      }
+    }
+    @supports (display: gggggrid) {
+      &.product-list--filters,
+      &.product-list--promos {
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
+  }
+
+  section {
+    flex-grow: 4;
+    @supports (display: gggggrid) {
+      flex: none;
+    }
+  }
+
+}
+
+.filters--list,
+.filters--list ul {
+  list-style-type: none;
+}
+
+.filters--list > li {
+  background-color: $light-gray;
+  border: 1px solid $medium-gray;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  padding: 0.25rem 0.5rem;
+  h2 {
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    text-transform: uppercase;
+    font-size: 1rem;
+    background-color: $brand;
+    color: #fff;
+    position: relative;
+    left: -0.5rem;
+    top: -0.25rem;
+    width: calc(100% + 1rem);
+    padding: 0.5rem;
+  }
+}
+
+.widget_layered_nav_filters .chosen {
+  position: relative;
+  margin-bottom: 0.5rem;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.woocommerce-widget-layered-nav-list {
+  font-size: 0.9rem;
+}
+
+.widget_layered_nav_filters .chosen:before {
+  transform: rotate(90deg);
+  transform-origin: bottom left;
+  content: url('../img/tag-notch.svg');
+  position: absolute;
+  bottom: 100%;
+  right: calc(100% - 4px);
+  z-index: 1;
+  width: 10px;
+}
+
+.widget_layered_nav_filters .chosen:after {
+  content: url('../img/tag-notch.svg');
+  position: absolute;
+  top: calc(100% - 17px);
+  left: 0;
+  z-index: 1;
+  width: 10px;
+}
+
+.widget_layered_nav_filters .chosen a {
+  font-size: 0.9rem;
+  background-color: $medium-gray;
+  display: inline-block;
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+  position: relative;
+  font-weight: bold;
+  &:before {
+    content: '\00d7';
+    margin-right: 0.5rem;
+  }
+  
+  &:hover {
+    text-decoration: none;
+  }
+
+}
+
+.filters--list ul {
+  padding: 0.5rem 0;
+}
+
+.product-list-filters-list {
+  list-style-type: none;
+}
+
+.product-list-filters-item {
+  input {
+    margin-right: 0.5rem;
+  }
+  label {
+    font-size: 0.9em;
+  }
+}
+
+.product-list--sorting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+
+  form select {
+    width: 250px;
+    font-size: 0.8em;
+  }
+
+}
+
+.products--list {
+  list-style-type: none;
+  padding: 0 2rem;
+  @supports (display: gggggrid) {
+    padding: 0;
+  }
+}
+
+.products--item {
+  border-bottom: 1px solid $medium-gray;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  text-align: center;
+  @include tablet {
+    text-align: left;
+    flex-direction: row;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+  }
+  @include desktop {
+    text-align: left;
+    flex-direction: row;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .products--image {
+    width: 100%;
+    img {
+      max-width: 175px;
+      display: block;
+      height: auto;
+      margin: 0 auto 1rem;
+    }
+    @include tablet {
+      max-width: 125px;
+      img {
+        max-width: 125px;
+      }
+    }
+    @include desktop {
+      max-width: 125px;
+      img {
+        max-width: 125px;
+      }
+    }
+  }
+
+  .products--content {
+    @include tablet {
+      padding-left: 2rem;
+    }
+    @include desktop {
+      padding-left: 2rem;
+    }
+  }
+
+  .products--actions {
+    margin-top: 1rem;
+    button, a {
+      font-size: 0.8rem;
+      padding: 0.3em 0.7em;
+    }
+  }
+
+  h2 {
+    font-size: 1.3rem;
+    line-height: 1.1;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  .card-category a {
+    background-color: #fff;
+    border: 2px solid $medium-gray;
+    color: lighten($black, 25%);
+    padding: 0.1em 0.25em;
+  }
+
+}
+
+
+.archive.tag .products--list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0;
+}
+
+.products--item.products--item-slim {
+  flex: 1;
+  max-width: 250px;
+  margin-right: 2rem;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 1px solid $medium-gray;
+  border-radius: 5px;
+  padding: 1rem;
+  @include phone {
+    align-items: flex-start;
+    flex-direction: row;
+    max-width: unset;
+    margin-right: 0;
+    text-align: left;
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+  }
+  
+  .products--content {
+    padding-left: 0;
+    @include phone {
+      padding-left: 1rem;
+    }
+  }
+
+  .products--image {
+    @include phone {
+      max-width: 100px;
+      img {
+        max-width: 90px;
+      }
+    }
+  }
+
+  .onsale {
+    display: none;
+  }
+
+}

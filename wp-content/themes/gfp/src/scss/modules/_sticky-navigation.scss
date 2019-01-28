@@ -1,0 +1,24 @@
+.sticky-navigation ul {
+  list-style-type: none;
+  display: none;
+  @include desktop {
+    display: block;
+  }
+}
+
+.sticky-navigation li {
+  padding-left: 0;
+}
+
+.sticky-navigation a {
+  display: block;
+  border-bottom: 1px solid $medium-gray;
+  padding: 0.5rem;
+}
+
+.nav--is-sticky {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  transform: translateY(3rem);
+}

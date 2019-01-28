@@ -1,0 +1,87 @@
+html,
+body {
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1.4;
+  color: $black;
+}
+
+address {
+    font-style: unset;
+}
+
+.h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.5em;
+}
+
+a {
+  color: $brand;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+hr {
+  border: 0;
+  background-color: transparent;
+  border-top: 1px solid $medium-gray;
+}
+
+button {
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.single .post p {
+  margin-bottom: 1.5em;
+}
+
+.single .post hr {
+  margin: 1.5rem 0;
+}
+
+.single .post .single-content a {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap; /* 1 */
+}
+
+
+/*
+=========================
+STYLING PRICES
+=========================
+*/
+del .woocommerce-Price-amount {
+  opacity: 0.6;
+  display: inline-block;
+  text-decoration: line-through;
+  // margin-right: 0.5rem;
+}
+
+ins {
+  text-decoration: none;
+}
+
+ins .woocommerce-Price-amount {
+  color: red;
+  font-weight: bold;
+}
