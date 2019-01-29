@@ -30,57 +30,57 @@
 LOOP OVER TAGS TO GET TROUBLESHOOTING RELATED CONTENT
 =====================================================
 */  
-// foreach (get_the_tags() as $tag) {
-//   // if tag is set as a model then query for posts
-//   if (get_field('is_model', $tag)) {
-//     $troubleshooting_args = array(
-//       'post_type' => 'post',
-//       'tax_query' => array(
-//         'relation' => 'AND',
-//         array(
-//           'taxonomy' => 'category',
-//           'field'    => 'slug',
-//           'terms'    => array( 'troubleshooting' ),
-//         ),
-//         array(
-//           'taxonomy' => 'post_tag',
-//           'field'    => 'term_id',
-//           'terms'  => $tag->term_id,
-//         ),
-//       ),
-//     );
-//     $troubleshooting_query = new WP_Query( $troubleshooting_args );
-//   }
-// }
+foreach (get_the_tags() as $tag) {
+  // if tag is set as a model then query for posts
+  if (get_field('is_model', $tag)) {
+    $troubleshooting_args = array(
+      'post_type' => 'post',
+      'tax_query' => array(
+        'relation' => 'AND',
+        array(
+          'taxonomy' => 'category',
+          'field'    => 'slug',
+          'terms'    => array( 'troubleshooting' ),
+        ),
+        array(
+          'taxonomy' => 'post_tag',
+          'field'    => 'term_id',
+          'terms'  => $tag->term_id,
+        ),
+      ),
+    );
+    $troubleshooting_query = new WP_Query( $troubleshooting_args );
+  }
+}
 
 /*
 =====================================================
 LOOP OVER TAGS TO GET SERVICE RELATED CONTENT
 =====================================================
 */  
-// foreach (get_the_tags() as $tag) {
-//   // if tag is set as a model then query for posts
-//   if (get_field('is_model', $tag)) {
-//     $has_model = true;
-//     $service_args = array(
-//       'post_type' => 'post',
-//       'tax_query' => array(
-//         'relation' => 'AND',
-//         array(
-//           'taxonomy' => 'category',
-//           'field'    => 'slug',
-//           'terms'    => array( 'service-intervals' ),
-//         ),
-//         array(
-//           'taxonomy' => 'post_tag',
-//           'field'    => 'term_id',
-//           'terms'  => $tag->term_id,
-//         ),
-//       ),
-//     );
-//     $service_query = new WP_Query( $service_args );
-//   }
-// }
+foreach (get_the_tags() as $tag) {
+  // if tag is set as a model then query for posts
+  if (get_field('is_model', $tag)) {
+    $has_model = true;
+    $service_args = array(
+      'post_type' => 'post',
+      'tax_query' => array(
+        'relation' => 'AND',
+        array(
+          'taxonomy' => 'category',
+          'field'    => 'slug',
+          'terms'    => array( 'service-intervals' ),
+        ),
+        array(
+          'taxonomy' => 'post_tag',
+          'field'    => 'term_id',
+          'terms'  => $tag->term_id,
+        ),
+      ),
+    );
+    $service_query = new WP_Query( $service_args );
+  }
+}
 ?>
 
 <section <?php post_class(); ?>>
@@ -93,45 +93,45 @@ LOOP OVER TAGS TO GET SERVICE RELATED CONTENT
         <?php endif; ?>
       </div>
       <?php
-        // foreach (get_the_tags() as $tag) {
-        //   if (get_field('is_series', $tag)) {
-        //     $has_series = true;
-        //     $related_model_args = array(
-        //       'post_type' => 'post',
-        //       'order' => 'ASC',
-        //       'tax_query' => array(
-        //         'relation' => 'AND',
-        //         array(
-        //           'taxonomy' => 'category',
-        //           'field'    => 'slug',
-        //           'terms'    => array( 'maintenance-reminder' ),
-        //         ),
-        //         array(
-        //           'taxonomy' => 'post_tag',
-        //           'field'    => 'term_id',
-        //           'terms'  => $tag->term_id,
-        //         ),
-        //       ),
-        //     );
-        //     $related_model_args_query = new WP_Query( $related_model_args );
-        //   }
-        // }
+        foreach (get_the_tags() as $tag) {
+          if (get_field('is_series', $tag)) {
+            $has_series = true;
+            $related_model_args = array(
+              'post_type' => 'post',
+              'order' => 'ASC',
+              'tax_query' => array(
+                'relation' => 'AND',
+                array(
+                  'taxonomy' => 'category',
+                  'field'    => 'slug',
+                  'terms'    => array( 'maintenance-reminder' ),
+                ),
+                array(
+                  'taxonomy' => 'post_tag',
+                  'field'    => 'term_id',
+                  'terms'  => $tag->term_id,
+                ),
+              ),
+            );
+            $related_model_args_query = new WP_Query( $related_model_args );
+          }
+        }
         
-        // if ($has_series && $related_model_args_query->have_posts()) :
-        //   echo '<h4>Looking for a different model in this series?</h4><p style="margin-bottom: 0.5rem;">Browse other models in this series below</p>';
-        //   echo '<select id="modelModifiers" style="width: 100%;">';
-        //     echo '<option selected disabled>Choose Different Model in this Series</option>';
-        //   while ($related_model_args_query->have_posts()) : $related_model_args_query->the_post();
-        //     $is_current_page = str_replace(site_url(), '', get_the_permalink());
-        //     $stripped_title = str_replace('John Deere ', '', str_replace('Maintenance Sheet', '', get_the_title()));
-        //     if ($is_current_page === $_SERVER['REQUEST_URI']) {
-        //       echo '<option selected value="' . get_the_permalink() . '">' . $stripped_title . '</option>';
-        //     } else {
-        //       echo '<option value="' . get_the_permalink() . '">' . $stripped_title . '</option>';
-        //     }
-        //   endwhile;
-        //   echo '</select>';
-        // endif; wp_reset_postdata();
+        if ($has_series && $related_model_args_query->have_posts()) :
+          echo '<h4>Looking for a different model in this series?</h4><p style="margin-bottom: 0.5rem;">Browse other models in this series below</p>';
+          echo '<select id="modelModifiers" style="width: 100%;">';
+            echo '<option selected disabled>Choose Different Model in this Series</option>';
+          while ($related_model_args_query->have_posts()) : $related_model_args_query->the_post();
+            $is_current_page = str_replace(site_url(), '', get_the_permalink());
+            $stripped_title = str_replace('John Deere ', '', str_replace('Maintenance Sheet', '', get_the_title()));
+            if ($is_current_page === $_SERVER['REQUEST_URI']) {
+              echo '<option selected value="' . get_the_permalink() . '">' . $stripped_title . '</option>';
+            } else {
+              echo '<option value="' . get_the_permalink() . '">' . $stripped_title . '</option>';
+            }
+          endwhile;
+          echo '</select>';
+        endif; wp_reset_postdata();
       ?>
 
       <?php if ($maintenance_kit) : ?>
@@ -172,8 +172,7 @@ LOOP OVER TAGS TO GET SERVICE RELATED CONTENT
 
       <?php
         // if ( ($has_model && $troubleshooting_query->have_posts()) || ($has_model && $service_query->have_posts()) ) :
-        /*
-        =========================
+      ?>
         <section class="mar-y--most pad-b related-model-links">
         <ul class="related-model-link-list">
             <?php
@@ -232,8 +231,7 @@ LOOP OVER TAGS TO GET SERVICE RELATED CONTENT
             <?php endif; ?>
         </ul>
       </section>
-        =========================
-        */
+      <?php 
         // endif;
       ?>
 
