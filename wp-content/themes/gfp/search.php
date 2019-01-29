@@ -14,7 +14,7 @@
   ]);
 
   $products = new WP_Query([
-    'posts_per_page' => -1,
+    'posts_per_page' => 30,
     'post_type' => 'product',
     's' => $_GET['s']
   ]);
