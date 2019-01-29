@@ -47,7 +47,7 @@ if ( (!empty( $tabs )) || $allProductTags || (count($part_replaces[0]) > 0)) :
           <a href="#tab-<?php echo esc_attr( $key ); ?>"><?php echo apply_filters( 'woocommerce_product_' . $key . '_tab_title', esc_html( ucwords($tab['title']) ), $key ); ?></a>
         </li>
       <?php endforeach; ?>
-      <?php if (count($part_replaces[0]) > 0) {
+      <?php if ($part_replaces[0] && (count($part_replaces[0]) > 0)) {
         echo '<li class="part_replaces_tab" id="tab-title-part_replaces" role="tab" aria-controls="tab-part_replaces"><a href="#tab-part_replaces">Part Replaces</a></li>';
       } ?>
     </ul>
@@ -59,7 +59,7 @@ if ( (!empty( $tabs )) || $allProductTags || (count($part_replaces[0]) > 0)) :
         <?php if ( isset( $tab['callback'] ) ) { call_user_func( $tab['callback'], $key, $tab ); } ?>
       </div>
     <?php endforeach; ?>
-    <?php if (count($part_replaces[0]) > 0) : ?>
+    <?php if ($part_replaces[0] && (count($part_replaces[0]) > 0)) : ?>
       <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--part_replaces panel entry-content wc-tab" id="tab-part_replaces" role="tabpanel" aria-labelledby="tab-title-part_replaces" style="display: block;">
         <ul class="pad-x">
           <?php foreach ($part_replaces[0] as $key => $part) : ?>
