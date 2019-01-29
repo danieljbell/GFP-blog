@@ -1135,10 +1135,10 @@ function unhook_those_pesky_emails( $email_class ) {
 
 
 
-add_filter('woocommerce_get_catalog_ordering_args', 'am_woocommerce_catalog_orderby');
-function am_woocommerce_catalog_orderby( $args ) {
-    $args['meta_key'] = '_thumbnail_id';
-    $args['orderby'] = 'meta_value';
-    // $args['order'] = 'asc'; 
-    return $args;
-}
+// add_filter('woocommerce_get_catalog_ordering_args', 'am_woocommerce_catalog_orderby');
+// function am_woocommerce_catalog_orderby( $args ) {
+//     $args['meta_key'] = '_thumbnail_id';
+//     $args['orderby'] = 'meta_value';
+//     // $args['order'] = 'asc'; 
+//     return $args;
+// }

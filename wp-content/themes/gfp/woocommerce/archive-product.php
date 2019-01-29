@@ -72,6 +72,8 @@ if ($current_promotions_query->have_posts()) :
 
 endif;
 wp_reset_postdata();
+
+// global $product;
 ?>
 
 <?php
