@@ -130,38 +130,45 @@ var searchResultCount = '';
 
   }
 
-  // searchResults.addEventListener('click', sendGAEvent, false);
+  $('.global-search-bar .search-results').on('click', 'a', sendGAEvent);
 
   // function sendGAEvent(e) {
+  //   console.log(e.target);
   //   e.preventDefault();
-  //   var link;
-  //   if (e.target.tagName !== 'A') {
-  //     if (e.target.tagName === 'IMG') {
-  //       link = e.target.parentElement.parentElement;
-  //     }
-  //     if (e.target.tagName === 'DIV') {
-  //       link = e.target.parentElement;
-  //     }
-  //   } else {
-  //     link = e.target;
-  //   }
-  //   var searchLinkCategory = link.parentElement.classList[0].split('--')[1];
-  //   var searchLinkText = link.textContent;
-  //   if (link.tagName === 'A') {
-  //     if (!window.ga) {
-  //       document.location = link;
-  //       return;
-  //     }
-  //     ga('send', 'event', {
-  //       eventCategory: 'live-search',
-  //       eventAction: searchLinkCategory,
-  //       eventLabel: searchLinkText,
-  //       hitCallback: function() {
-  //         document.location = link;
-  //       }
-  //     });
-  //   }
+  //   console.log('clicked');
   // }
+
+  function sendGAEvent(e) {
+    console.log('clicked');
+    e.preventDefault();
+    var link;
+    if (e.target.tagName !== 'A') {
+      if (e.target.tagName === 'IMG') {
+        link = e.target.parentElement.parentElement;
+      }
+      if (e.target.tagName === 'DIV') {
+        link = e.target.parentElement;
+      }
+    } else {
+      link = e.target;
+    }
+    var searchLinkCategory = link.parentElement.classList[0].split('--')[1];
+    var searchLinkText = link.textContent;
+    if (link.tagName === 'A') {
+      if (!window.ga) {
+        document.location = link;
+        return;
+      }
+      ga('send', 'event', {
+        eventCategory: 'live-search',
+        eventAction: searchLinkCategory,
+        eventLabel: searchLinkText,
+        hitCallback: function() {
+          document.location = link;
+        }
+      });
+    }
+  }
 
   document.addEventListener('keyup', closeSearchBar);
   document.addEventListener('click', closeSearchBarClick);

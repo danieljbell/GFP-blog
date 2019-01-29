@@ -36,9 +36,9 @@ gulp.task('js', function () {
   gulp.src([
     './wp-content/themes/gfp/src/js/lib/atomic.min.js',
     './wp-content/themes/gfp/src/js/lib/dompurify.min.js',
-    // 'node_modules/moment/min/moment.min.js',
-    // 'node_modules/countdown/countdown.js',
-    // 'node_modules/tiny-slider/dist/tiny-slider.js',
+    'node_modules/moment/min/moment.min.js',
+    'node_modules/countdown/countdown.js',
+    'node_modules/tiny-slider/dist/tiny-slider.js',
     './wp-content/themes/gfp/src/js/lib/moment-countdown.min.js',
     './wp-content/themes/gfp/src/js/modules/helpers.js',
     './wp-content/themes/gfp/src/js/modules/site-header.js',
