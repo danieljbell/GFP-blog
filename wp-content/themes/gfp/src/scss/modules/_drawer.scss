@@ -12,7 +12,7 @@
   position: fixed;
   z-index: 101;
   top: 0;
-  bottom: 0;
+  // bottom: 0;
   left: 100%;
   width: 100%;
   max-width: 500px;
@@ -34,7 +34,7 @@
   .close-drawer {
     position: absolute;
     top: 2rem;
-    right: 1rem;
+    left: 1rem;
     max-width: 115px;
     font-size: 1rem;
     font-weight: bold;
@@ -57,6 +57,7 @@
 
   .drawer--header {
     margin-bottom: 2rem;
+    padding-left: 115px;
     
     span.cart-subtotal {
       font-size: 0.85em;

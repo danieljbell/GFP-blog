@@ -114,7 +114,10 @@
 
     <?php else : ?>
       
-      <li class="current-promotions--item" style="background-image: url(https://unsplash.it/500/350);">
+      <?php
+        /*
+        =========================
+        <li class="current-promotions--item" style="background-image: url(https://unsplash.it/500/350);">
         <a href="#0">
           <span class="current-promotions--content">
             <span class="current-promotions--offer">Free</span>
@@ -122,6 +125,9 @@
           </span>
         </a>
       </li>
+        =========================
+        */
+      ?>
 
     <?php endif; wp_reset_postdata(); ?>
 

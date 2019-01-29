@@ -44,12 +44,13 @@ if ( $product->is_in_stock() ) : ?>
     // do_action( 'woocommerce_after_add_to_cart_quantity' );
     $nla_part = get_post_meta($product->get_ID(), 'nla_part');
     // print_r($nla_part);
-    if ($nla_part[0] === 'no') {
     ?>
 
-    <button id="single-product--add-to-cart" data-sku="<?php echo $product->sku; ?>" data-product-title="<?php echo $product->name; ?>" type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="single_add_to_cart_button btn-solid--brand-two button alt add-to-cart mar-b--more"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
+    <?php if ($nla_part[0] && ($nla_part[0] === 'no')) : ?>
 
-  <?php } ?>
+      <button id="single-product--add-to-cart" data-sku="<?php echo $product->sku; ?>" data-product-title="<?php echo $product->name; ?>" type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="single_add_to_cart_button btn-solid--brand-two button alt add-to-cart mar-b--more"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
+
+    <?php endif; ?>
 
     <?php do_action( 'woocommerce_template_single_excerpt' ); ?>
 
