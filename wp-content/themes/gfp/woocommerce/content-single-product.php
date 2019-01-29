@@ -209,32 +209,37 @@ $nla_part = get_post_meta($post->ID, 'nla_part');
 				do_action( 'woocommerce_template_single_title' );
 				do_action( 'woocommerce_template_single_rating' );
 				$part_replacements = get_post_meta($post->ID, 'replaced_by');
-				$replacement_count = count($part_replacements[0]);
-				$replacement_text = 'It\'s been replaced by:';
-				if ($replacement_count > 1) {
-					$replacement_text = 'It\'s been replaced by these ' .$replacement_count .' parts:';
-				}
-				if ($replacement_count === 0) {
-					if ($nla_part[0] !== 'yes') {
-						do_action( 'woocommerce_template_single_price' );
-						do_action( 'woocommerce_template_single_add_to_cart' );
+				if ($part_replacements) {
+					$replacement_count = count($part_replacements[0]);
+					$replacement_text = 'It\'s been replaced by:';
+					if ($replacement_count > 1) {
+						$replacement_text = 'It\'s been replaced by these ' .$replacement_count .' parts:';
+					}
+					if ($replacement_count === 0) {
+						if ($nla_part[0] !== 'yes') {
+							do_action( 'woocommerce_template_single_price' );
+							do_action( 'woocommerce_template_single_add_to_cart' );
+						}
+					} else {
+						echo '<div class="part--replaced_by">';
+							echo '<p>This part is no longer available. ' . $replacement_text . '</p>';
+							echo '<ul>';
+								foreach ($part_replacements[0] as $part) {
+									$replacement_part = wc_get_product($part);
+									echo '<li class="product-card--slim">';
+										echo '<a href="' . $replacement_part->get_permalink() . '">';
+											// echo '<img src="' .  . '">';
+											echo $replacement_part->get_image(array(75,75));
+											print_r($replacement_part->get_name());
+										echo '</a>';
+									echo '</li>';
+								}
+							echo '</ul>';
+						echo '</div>';
 					}
 				} else {
-					echo '<div class="part--replaced_by">';
-						echo '<p>This part is no longer available. ' . $replacement_text . '</p>';
-						echo '<ul>';
-							foreach ($part_replacements[0] as $part) {
-								$replacement_part = wc_get_product($part);
-								echo '<li class="product-card--slim">';
-									echo '<a href="' . $replacement_part->get_permalink() . '">';
-										// echo '<img src="' .  . '">';
-										echo $replacement_part->get_image(array(75,75));
-										print_r($replacement_part->get_name());
-									echo '</a>';
-								echo '</li>';
-							}
-						echo '</ul>';
-					echo '</div>';
+					do_action( 'woocommerce_template_single_price' );
+					do_action( 'woocommerce_template_single_add_to_cart' );
 				}
 
 				
