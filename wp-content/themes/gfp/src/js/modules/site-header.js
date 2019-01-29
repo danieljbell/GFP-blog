@@ -64,23 +64,24 @@
     button.addEventListener('click', showChildEquipment);
   });
 
-  var allBack = document.querySelectorAll('.equipmentResultsBack');
-  allBack.forEach(function(button) {
-    button.addEventListener('click', function(e) {
-      e.target.parentElement.classList.add('visually-hidden');
-      var items = e.target.parentElement.parentElement.querySelectorAll('.mega-menu--child-item');
-      items.forEach(function(item) {
-        item.classList.remove('visually-hidden');
-      });
-      document.querySelector('.equipment-results h4').textContent = '';
-    });
-  })
+  // var allBack = document.querySelectorAll('.equipmentResultsBack');
+  // allBack.forEach(function(button) {
+  //   button.addEventListener('click', function(e) {
+  //     e.target.parentElement.classList.add('visually-hidden');
+  //     var items = e.target.parentElement.parentElement.querySelectorAll('.mega-menu--child-item');
+  //     items.forEach(function(item) {
+  //       item.classList.remove('visually-hidden');
+  //     });
+  //     document.querySelector('.equipment-results h4').textContent = '';
+  //   });
+  // })
 
   function showChildEquipment(e) {
     e.preventDefault();
 
     $(this).parent().siblings().toggle();
     $(this).next().toggleClass('visually-hidden');
+    $(this).toggleClass('display-back');
 
   }
 

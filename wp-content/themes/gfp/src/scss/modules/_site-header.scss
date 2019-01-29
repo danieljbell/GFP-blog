@@ -247,7 +247,7 @@ li.loading {
 
 button.mega-menu--equipment-parent {
   background-color: #fff !important;
-  // text-align: center;
+  position: relative;
   border: 0;
   width: 100%;
   padding: 1rem;
@@ -256,6 +256,24 @@ button.mega-menu--equipment-parent {
     display: block;
     margin: 0 auto;
   }
+  
+  &.display-back {
+    &:after {
+      content: 'Back';
+      color: $black;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    color: white;
+    
+    img {
+      display: none;
+    }
+
+  }
+
 }
 
 .mega-menu--shop-by-part .mega-menu--child-list {

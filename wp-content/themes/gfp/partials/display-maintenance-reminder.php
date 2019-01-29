@@ -1,7 +1,7 @@
 <?php
   $deere_permalink = get_field('deere_permalink');
 
-  if ($deere_permalink) {
+  if ($deere_permalink && !has_post_thumbnail()) {
     $url = $deere_permalink . 'index.json';
     $getJSON = curl_init();
     curl_setopt($getJSON, CURLOPT_URL, $url);
@@ -16,6 +16,13 @@
     $maintenance_kit = get_field('maintenance_kit_part_number');
 
     $formal_model_name = $model_number . ' ' . $model_name;
+    
+    $httpCode = curl_getinfo($getJSON, CURLINFO_HTTP_CODE);
+    if($httpCode == 404) {
+        /* Handle 404 here. */
+        $deere_permalink = null;
+    }
+
   }
 
   $title = get_the_title();
@@ -88,8 +95,16 @@ foreach (get_the_tags() as $tag) {
 
     <aside>
       <div class="model-image">
-        <?php if ($deere_permalink) : ?>
+        <?php if ($deere_permalink && !has_post_thumbnail()) : ?>
           <img src="<?php echo $model_image; ?>" alt="John Deere <?php echo $model_number . ' ' . $model_name; ?>">
+        <?php else : ?>
+          <?php
+            if (has_post_thumbnail()) {
+              the_post_thumbnail();
+            } else {
+              echo '<img src="' . get_stylesheet_directory_URI() . '/dist/img/default-model-image.png" alt="Model Image Coming Soon">';
+            }
+          ?>
         <?php endif; ?>
       </div>
       <?php
@@ -320,7 +335,7 @@ foreach (get_the_tags() as $tag) {
 
   </div>
 
-  <div class="modal modal--is-hidden" data-modal="sign-up-form">
+  <div class="modal modal--is-hidden modal--sign-up-form" data-modal="sign-up-form">
     <div class="modal-container">
       <button class="modal--close">&times;</button>
       <div class="modal-content">
