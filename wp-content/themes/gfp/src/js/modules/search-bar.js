@@ -132,11 +132,20 @@ var searchResultCount = '';
 
   $('.global-search-bar .search-results').on('click', 'a', sendGAEvent);
 
-  // function sendGAEvent(e) {
-  //   console.log(e.target);
-  //   e.preventDefault();
-  //   console.log('clicked');
-  // }
+  $('.global-search-bar form').on('submit', something);
+
+  function something(e) {
+    e.preventDefault();
+    var searchTerm = $(this).find('input').val();
+    ga('send', 'event', {
+      eventCategory: 'live-search',
+      eventAction: 'view-all',
+      eventLabel: searchTerm,
+      hitCallback: function() {
+        document.location = '/?s=' + searchTerm;
+      }
+    });
+  }
 
   function sendGAEvent(e) {
     console.log('clicked');
@@ -153,6 +162,10 @@ var searchResultCount = '';
       link = e.target;
     }
     var searchLinkCategory = link.parentElement.classList[0].split('--')[1];
+    // console.log(link.hterm);
+    if (link.href.includes('?s=')) {
+      searchLinkCategory = 'view-all'
+    }
     var searchLinkText = link.textContent;
     if (link.tagName === 'A') {
       if (!window.ga) {
