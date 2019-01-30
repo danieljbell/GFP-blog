@@ -38,21 +38,23 @@ $comments = get_comments(array(
 ));
 
 $fitment = get_the_terms($post->ID, 'pa_part-catalog');
-
-$sorted_fitment = array_sort($fitment, 'description', SORT_ASC);
+if ($fitment) {
+  $sorted_fitment = array_sort($fitment, 'description', SORT_ASC);
+}
 
 
 //if ( ! empty( $tabs ) ) : ?>
 
-
-  <div class="woocommerce-tabs wc-tabs-wrapper">
+<div class="woocommerce-tabs wc-tabs-wrapper">
     <ul class="tabs wc-tabs" role="tablist">
       <li class="reviews_tab" id="tab-title-reviews" role="tab" aria-controls="tab-reviews">
         <a href="#tab-reviews">Reviews</a>
       </li>
-      <li class="fitment_tab" id="tab-title-fitment" role="tab" aria-controls="tab-fitment">
-        <a href="#tab-fitment">Product Fitment</a>
-      </li>
+      <?php if ($fitment) : ?>
+        <li class="fitment_tab" id="tab-title-fitment" role="tab" aria-controls="tab-fitment">
+          <a href="#tab-fitment">Product Fitment</a>
+        </li>
+      <?php endif; ?>
     </ul>
     <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--reviews panel entry-content wc-tab" id="tab-reviews" role="tabpanel" aria-labelledby="tab-title-reviews">
       <?php
@@ -141,16 +143,19 @@ $sorted_fitment = array_sort($fitment, 'description', SORT_ASC);
 
       <?php endif; ?>
     </div>
-    <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--fitment panel entry-content wc-tab" id="tab-fitment" role="tabpanel" aria-labelledby="tab-title-fitment">
-      <p><strong><?php echo $product->get_name() . ' fits ' . count($fitment) . ' models'; ?></strong></p>
-      <input type="text" id="fitment-text-filter" placeholder="Start typing your model to filter the list" style="width: 100%; margin-bottom: 1rem; font-size: 0.8em; border-radius: 4px;">
-      <ul class="single--part-fitment-list">
-      <?php foreach ($sorted_fitment as $key => $fit) {
-        echo '<li class="single--part-fitment-item part-fitment-item--', $fit->slug, '">', $fit->description ,'</li>';
-      } ?>
-      </ul>
-    </div>
+    <?php if ($fitment) : ?>
+      <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--fitment panel entry-content wc-tab" id="tab-fitment" role="tabpanel" aria-labelledby="tab-title-fitment">
+        <p><strong><?php echo $product->get_name() . ' fits ' . count($fitment) . ' models'; ?></strong></p>
+        <input type="text" id="fitment-text-filter" placeholder="Start typing your model to filter the list" style="width: 100%; margin-bottom: 1rem; font-size: 0.8em; border-radius: 4px;">
+        <ul class="single--part-fitment-list">
+        <?php foreach ($sorted_fitment as $key => $fit) {
+          echo '<li class="single--part-fitment-item part-fitment-item--', $fit->slug, '">', $fit->description ,'</li>';
+        } ?>
+        </ul>
+      </div>
+    <?php endif; ?>
   </div>
+  
 
 <?php //endif; ?>
 
@@ -161,8 +166,7 @@ SORT ARRAY BY NESTED KEY
 @Link - http://php.net/manual/en/function.sort.php
 =========================
 */
-function array_sort($array, $on, $order=SORT_ASC)
-{
+function array_sort($array, $on, $order=SORT_ASC) {
     $new_array = array();
     $sortable_array = array();
 
