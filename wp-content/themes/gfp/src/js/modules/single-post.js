@@ -25,12 +25,11 @@
   $.each(allParts, function() {
     var elem = $(this);
     var sku = elem.data('sku');
+    console.log(sku);
     $.ajax({
       url: window.ajax_order_tracking.ajax_url,
       method: 'POST',
-      headers: {
-        "Content-type": "application/x-www-form-urlencoded"
-      },
+      contentType: 'application/x-www-form-urlencoded',
       data: {
         action: 'get_product_info',
         _ajax_nonce: window.ajax_order_tracking.nonce,
