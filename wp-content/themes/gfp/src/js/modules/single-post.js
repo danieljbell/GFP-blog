@@ -29,12 +29,12 @@
     $.ajax({
       url: window.ajax_order_tracking.ajax_url,
       method: 'POST',
-      contentType: 'application/json',
       data: {
         action: 'get_product_info',
         _ajax_nonce: window.ajax_order_tracking.nonce,
         sku: sku
       },
+      dataType: 'json',
       success: function(response) {
         var price = response.price;
         var html = elem.html();
