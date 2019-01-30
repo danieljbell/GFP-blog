@@ -29,7 +29,7 @@
     $.ajax({
       url: window.ajax_order_tracking.ajax_url,
       method: 'POST',
-      contentType: 'application/x-www-form-urlencoded',
+      async: false,
       data: {
         action: 'get_product_info',
         _ajax_nonce: window.ajax_order_tracking.nonce,
