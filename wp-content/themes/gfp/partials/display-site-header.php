@@ -118,6 +118,7 @@
               <a href="">Landscapers</a>
               <ul class="mega-menu--child-list">
                 <?php
+                  format_equipment_menu('landscapers', 'Zero Turns', 'zero-turn', 'zero_turn');
                   format_equipment_menu('landscapers', 'Commercial Mowers', 'commercial-mower', 'commercial_mower');
                   format_equipment_menu('landscapers', 'Skid Steers', 'skid-steer', 'skid_steer');
                 ?>

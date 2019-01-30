@@ -26,6 +26,7 @@ Thumbs.db
 # "themes" directory
 wp-content/*
 !wp-content/mu-plugins/
+wp-content/mu-plugins/local-by-flywheel-demo-urls.php
 wp-content/plugins/
 !wp-content/themes/
 

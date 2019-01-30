@@ -17,7 +17,7 @@
 
   // Get Vars
   var fitmentTextFilter = document.querySelector('#fitment-text-filter'),
-      productFitmentTags = document.querySelectorAll('.single--part-fitment-list a');
+      productFitmentTags = document.querySelectorAll('.single--part-fitment-list li');
 
   // Check that page has text filter
   if (fitmentTextFilter) {
@@ -25,9 +25,9 @@
       var value = e.target.value.toUpperCase();
       // Loop over all fitment and add/remove hidden class
       for (var i = 0; i < productFitmentTags.length; i++) {
-        productFitmentTags[i].parentElement.classList.add('hidden');
-        if (productFitmentTags[i].textContent.includes(value)) {
-          productFitmentTags[i].parentElement.classList.remove('hidden');
+        productFitmentTags[i].classList.add('hidden');
+        if (productFitmentTags[i].textContent.toUpperCase().includes(value)) {
+          productFitmentTags[i].classList.remove('hidden');
         }
       }
     });

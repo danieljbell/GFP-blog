@@ -322,7 +322,6 @@ $nla_part = get_post_meta($post->ID, 'nla_part');
 						echo '</ul>';
 					echo '</div>';
 				}
-
 				
 				do_action( 'woocommerce_output_product_data_tabs' );
 				

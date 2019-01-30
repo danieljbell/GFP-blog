@@ -18,20 +18,20 @@
   margin-bottom: 2rem;
 }
 
-.single-product .comment_container {
-  display: flex;
-  @include phone {
-    flex-direction: column;
-  }
-  .comment-text {
-    padding-left: 1rem;
-    flex-grow: 2;
-    @include phone {
-      padding-top: 1rem;
-      padding-left: 0;
-    }
-  }
-}
+// .single-product .comment_container {
+//   display: flex;
+//   @include phone {
+//     flex-direction: column;
+//   }
+//   .comment-text {
+//     padding-left: 1rem;
+//     flex-grow: 2;
+//     @include phone {
+//       padding-top: 1rem;
+//       padding-left: 0;
+//     }
+//   }
+// }
 
 .single-product .summary .price {
   margin-bottom: 1rem;
@@ -103,38 +103,25 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  align-items: flex-start;
-  @supports (display: grid) {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 100px);
-    grid-gap: 0.5rem;
-  }
+  align-items: center;
+  // @supports (display: grid) {
+  //   display: grid;
+  //   grid-template-columns: repeat(auto-fit, 100px);
+  //   grid-gap: 0.5rem;
+  // }
 }
 
 .single--part-fitment-item {
-  // flex: 1;
   list-style-type: none;
-  // margin-right: 0.5rem;
-  // margin-bottom: 0.25rem;
   text-align: center;
-  
-  a {
-    border: 1px solid $medium-gray;
-    display: block;
-    font-size: 0.9em;
-    padding: 0.25em 0.5em;
-    border-radius: 50px;
-    transition: all 250ms ease-in-out;
-    background-color: #fff;
-    &:focus,
-    &:hover {
-      outline: none;
-      text-decoration: none;
-      background-color: $brand;
-      color: #fff;
-      border-color: $brand;
-    }
-  }
+  flex-basis: calc((100%/3) - 1rem);
+  margin-right: 1rem;
+  border: 1px solid $medium-gray;
+  box-shadow: 3px 3px 8px rgba(black, 0.1);
+  font-size: 0.85rem;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 2rem;
 
   &.hidden {
     display: none;

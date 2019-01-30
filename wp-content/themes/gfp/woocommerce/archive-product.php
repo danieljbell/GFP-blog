@@ -186,6 +186,16 @@ do_action( 'woocommerce_before_main_content' );
             if ( function_exists('dynamic_sidebar') ) :
               dynamic_sidebar( 'Product Filters' );
             endif;
+            $part_catalog_terms = get_terms(array(
+              'taxonomy' => 'pa_part-catalog',
+              // 'hide_empty' => false
+            ));
+            echo '<select>';
+            foreach ($part_catalog_terms as $key => $term) {
+              echo '<option value="' . $term->term_id . '">' . $term->description . '</option>';
+            }
+            echo '</select>';
+            
           ?>
         </ul>
         <?php

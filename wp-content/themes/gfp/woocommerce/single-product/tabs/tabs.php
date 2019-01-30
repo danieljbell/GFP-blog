@@ -20,8 +20,6 @@ if ( ! defined( 'ABSPATH' ) ) {
   exit;
 }
 
-global $product;
-
 /**
  * Filter tabs and allow third parties to add their own.
  *
@@ -30,47 +28,123 @@ global $product;
  */
 $tabs = apply_filters( 'woocommerce_product_tabs', array() );
 
-$allProductTags = wp_get_post_terms($product->get_id(), 'product_tag');
+$comments = get_comments(array(
+  'post_id' => $post->ID
+));
 
-$part_replaces = get_post_meta($product->get_id(), 'replaces');
+$fitment = get_the_terms($post->ID, 'pa_part-catalog');
 
-if ( (!empty( $tabs )) || $allProductTags || (count($part_replaces[0]) > 0)) : 
-?>
+global $product;
+
+
+//if ( ! empty( $tabs ) ) : ?>
+
 
   <div class="woocommerce-tabs wc-tabs-wrapper">
     <ul class="tabs wc-tabs" role="tablist">
-      <?php if ($allProductTags) {
-        echo '<li class="part_fitment_tab" id="tab-title-part_fitment" role="tab" aria-controls="tab-part_fitment"><a href="#tab-part_fitment">Part Fitment</a></li>';
-      } ?>
-      <?php foreach ( $tabs as $key => $tab ) : ?>
-        <li class="<?php echo esc_attr( $key ); ?>_tab" id="tab-title-<?php echo esc_attr( $key ); ?>" role="tab" aria-controls="tab-<?php echo esc_attr( $key ); ?>">
-          <a href="#tab-<?php echo esc_attr( $key ); ?>"><?php echo apply_filters( 'woocommerce_product_' . $key . '_tab_title', esc_html( ucwords($tab['title']) ), $key ); ?></a>
-        </li>
-      <?php endforeach; ?>
-      <?php if ($part_replaces[0] && (count($part_replaces[0]) > 0)) {
-        echo '<li class="part_replaces_tab" id="tab-title-part_replaces" role="tab" aria-controls="tab-part_replaces"><a href="#tab-part_replaces">Part Replaces</a></li>';
-      } ?>
+      <li class="reviews_tab" id="tab-title-reviews" role="tab" aria-controls="tab-reviews">
+        <a href="#tab-reviews">Reviews</a>
+      </li>
+      <li class="fitment_tab" id="tab-title-fitment" role="tab" aria-controls="tab-fitment">
+        <a href="#tab-fitment">Product Fitment</a>
+      </li>
     </ul>
-    <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--part_fitment panel entry-content wc-tab" id="tab-part_fitment" role="tabpanel" aria-labelledby="tab-title-part_fitment" style="display: block;">
-      <?php do_action( 'woocommerce_template_single_meta' ); ?>
-    </div>
-    <?php foreach ( $tabs as $key => $tab ) : ?>
-      <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--<?php echo esc_attr( $key ); ?> panel entry-content wc-tab" id="tab-<?php echo esc_attr( $key ); ?>" role="tabpanel" aria-labelledby="tab-title-<?php echo esc_attr( $key ); ?>">
-        <?php if ( isset( $tab['callback'] ) ) { call_user_func( $tab['callback'], $key, $tab ); } ?>
-      </div>
-    <?php endforeach; ?>
-    <?php if ($part_replaces[0] && (count($part_replaces[0]) > 0)) : ?>
-      <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--part_replaces panel entry-content wc-tab" id="tab-part_replaces" role="tabpanel" aria-labelledby="tab-title-part_replaces" style="display: block;">
-        <ul class="pad-x">
-          <?php foreach ($part_replaces[0] as $key => $part) : ?>
+    <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--reviews panel entry-content wc-tab" id="tab-reviews" role="tabpanel" aria-labelledby="tab-title-reviews">
+      <?php
+        if ($comments) :
+          echo '<ul class="comments-list">';
+          foreach ($comments as $key => $comment) : ?>
             <?php
-              $replaced_part = wc_get_product($part);
-              echo '<li><a href="' . $replaced_part->get_permalink() . '">' . $replaced_part->get_name() . '</a></li>';
+              $reviewed_date = strtotime($comment->comment_date);
+              $reviewed_date = date('F d, Y', $reviewed_date);
+              $review_rating = get_comment_meta($comment->comment_ID)['rating'][0];
             ?>
-          <?php endforeach; ?>
-        </ul>
-      </div>
-    <?php endif; ?>
+            <li class="comment-item">
+              <div class="comment_container">
+                <div class="comment-body">
+                  <div class="comment-rating">
+                    <?php
+                      for ($i=0; $i < $review_rating; $i++) { 
+                        echo '<img src="' . get_stylesheet_directory_URI() . '/dist/img/star--filled.svg" alt="" class="rating-star">';
+                      }
+                      for ($i=$review_rating; $i < 5; $i++) { 
+                        echo '<img src="' . get_stylesheet_directory_URI() . '/dist/img/star--empty.svg" alt="" class="rating-star">';
+                      }
+                    ?>
+                  </div>
+                  <p class="comment-name"><?php echo $comment->comment_author; ?> - <?php echo $reviewed_date; ?></p>
+                  <p class="comment-text"><?php echo $comment->comment_content; ?></p>
+                </div>
+              </div>
+            </li>
+      <?php
+          endforeach;
+          echo '</ul>';
+        endif;
+      ?>
+      <?php if ( get_option( 'woocommerce_review_rating_verification_required' ) === 'no' || wc_customer_bought_product( '', get_current_user_id(), $product->get_id() ) ) : ?>
+
+        <div id="review_form_wrapper">
+          <div id="review_form">
+            <?php
+              $commenter = wp_get_current_commenter();
+
+              global $product;
+
+              $comment_form = array(
+                'title_reply'          => '<h3 class="mar-b--less">Rate ' . $product->get_name() . '</h3>',
+                'title_reply_to'       => __( 'Leave a Reply to %s', 'woocommerce' ),
+                'title_reply_before'   => '<span id="reply-title" class="comment-reply-title">',
+                'title_reply_after'    => '</span>',
+                'comment_notes_after'  => '',
+                'fields'               => array(
+                  'author' => '<p class="comment-form-author">' . '<label for="author">' . esc_html__( 'Name', 'woocommerce' ) . '&nbsp;<span class="required">*</span></label> ' .
+                        '<input id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) . '" size="30" required /></p>',
+                  'email'  => '<p class="comment-form-email"><label for="email">' . esc_html__( 'Email', 'woocommerce' ) . '&nbsp;<span class="required">*</span></label> ' .
+                        '<input id="email" name="email" type="email" value="' . esc_attr( $commenter['comment_author_email'] ) . '" size="30" required /></p>',
+                ),
+                'label_submit'  => __( 'Submit Your Rating', 'woocommerce' ),
+                'logged_in_as'  => '',
+                'comment_field' => '',
+              );
+
+              if ( $account_page_url = wc_get_page_permalink( 'myaccount' ) ) {
+                $comment_form['must_log_in'] = '<p class="must-log-in">' . sprintf( __( 'You must be <a href="%s">logged in</a> to post a review.', 'woocommerce' ), esc_url( $account_page_url ) ) . '</p>';
+              }
+
+              if ( get_option( 'woocommerce_enable_review_rating' ) === 'yes' ) {
+                $comment_form['comment_field'] = '<div class="comment-form-rating"><label for="rating">' . esc_html__( 'Your rating', 'woocommerce' ) . '</label><select name="rating" id="rating" required>
+                  <option value="">' . esc_html__( 'Rate&hellip;', 'woocommerce' ) . '</option>
+                  <option value="5">' . esc_html__( 'Perfect', 'woocommerce' ) . '</option>
+                  <option value="4">' . esc_html__( 'Good', 'woocommerce' ) . '</option>
+                  <option value="3">' . esc_html__( 'Average', 'woocommerce' ) . '</option>
+                  <option value="2">' . esc_html__( 'Not that bad', 'woocommerce' ) . '</option>
+                  <option value="1">' . esc_html__( 'Very poor', 'woocommerce' ) . '</option>
+                </select></div>';
+              }
+
+              $comment_form['comment_field'] .= '<p class="comment-form-comment"><label for="comment">' . esc_html__( 'Your review', 'woocommerce' ) . '&nbsp;<span class="required">*</span></label><textarea id="comment" name="comment" cols="45" rows="8" required></textarea></p>';
+
+              comment_form( apply_filters( 'woocommerce_product_review_comment_form_args', $comment_form ) );
+            ?>
+          </div>
+        </div>
+
+      <?php else : ?>
+
+        <p class="woocommerce-verification-required"><?php _e( 'Only logged in customers who have purchased this product may leave a review.', 'woocommerce' ); ?></p>
+
+      <?php endif; ?>
+    </div>
+    <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--fitment panel entry-content wc-tab" id="tab-fitment" role="tabpanel" aria-labelledby="tab-title-fitment">
+      <p><strong><?php echo $product->get_name() . ' fits ' . count($fitment) . ' models'; ?></strong></p>
+      <input type="text" id="fitment-text-filter" placeholder="Start typing your model to filter the list" style="width: 100%; margin-bottom: 1rem; font-size: 0.8em; border-radius: 4px;">
+      <ul class="single--part-fitment-list">
+      <?php foreach ($fitment as $key => $fit) {
+        echo '<li class="single--part-fitment-item part-fitment-item--', $fit->slug, '">', $fit->description ,'</li>';
+      } ?>
+      </ul>
+    </div>
   </div>
 
-<?php endif; ?>
+<?php //endif; ?>
