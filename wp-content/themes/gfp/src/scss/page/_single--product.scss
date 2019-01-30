@@ -114,7 +114,7 @@
 .single--part-fitment-item {
   list-style-type: none;
   text-align: center;
-  flex-basis: calc((100%/3) - 1rem);
+  flex-basis: calc((100%/2) - 1rem);
   margin-right: 1rem;
   border: 1px solid $medium-gray;
   box-shadow: 3px 3px 8px rgba(black, 0.1);
@@ -122,6 +122,9 @@
   padding: 1rem;
   border-radius: 5px;
   margin-bottom: 2rem;
+  @include desktop {
+    flex-basis: calc((100%/3) - 1rem);
+  }
 
   &.hidden {
     display: none;

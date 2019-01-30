@@ -26,7 +26,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Each tab is an array containing title, callback and priority.
  * @see woocommerce_default_product_tabs()
  */
+global $post;
+global $product;
+
 $tabs = apply_filters( 'woocommerce_product_tabs', array() );
+
+
 
 $comments = get_comments(array(
   'post_id' => $post->ID
@@ -34,7 +39,7 @@ $comments = get_comments(array(
 
 $fitment = get_the_terms($post->ID, 'pa_part-catalog');
 
-global $product;
+$sorted_fitment = array_sort($fitment, 'description', SORT_ASC);
 
 
 //if ( ! empty( $tabs ) ) : ?>
@@ -140,7 +145,7 @@ global $product;
       <p><strong><?php echo $product->get_name() . ' fits ' . count($fitment) . ' models'; ?></strong></p>
       <input type="text" id="fitment-text-filter" placeholder="Start typing your model to filter the list" style="width: 100%; margin-bottom: 1rem; font-size: 0.8em; border-radius: 4px;">
       <ul class="single--part-fitment-list">
-      <?php foreach ($fitment as $key => $fit) {
+      <?php foreach ($sorted_fitment as $key => $fit) {
         echo '<li class="single--part-fitment-item part-fitment-item--', $fit->slug, '">', $fit->description ,'</li>';
       } ?>
       </ul>
@@ -148,3 +153,46 @@ global $product;
   </div>
 
 <?php //endif; ?>
+
+<?php
+/*
+=========================
+SORT ARRAY BY NESTED KEY
+@Link - http://php.net/manual/en/function.sort.php
+=========================
+*/
+function array_sort($array, $on, $order=SORT_ASC)
+{
+    $new_array = array();
+    $sortable_array = array();
+
+    if (count($array) > 0) {
+        foreach ($array as $k => $v) {
+            if (is_array($v)) {
+                foreach ($v as $k2 => $v2) {
+                    if ($k2 == $on) {
+                        $sortable_array[$k] = $v2;
+                    }
+                }
+            } else {
+                $sortable_array[$k] = $v;
+            }
+        }
+
+        switch ($order) {
+            case SORT_ASC:
+                asort($sortable_array);
+            break;
+            case SORT_DESC:
+                arsort($sortable_array);
+            break;
+        }
+
+        foreach ($sortable_array as $k => $v) {
+            $new_array[$k] = $array[$k];
+        }
+    }
+
+    return $new_array;
+}
+?>
