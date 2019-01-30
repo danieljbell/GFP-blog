@@ -44,6 +44,7 @@ gulp.task('js', function () {
     './wp-content/themes/gfp/src/js/modules/site-header.js',
     './wp-content/themes/gfp/src/js/modules/single-post.js',
     './wp-content/themes/gfp/src/js/modules/single-product.js',
+    './wp-content/themes/gfp/src/js/modules/archive-product.js',
     './wp-content/themes/gfp/src/js/modules/single-comments.js',
     './wp-content/themes/gfp/src/js/modules/ajax-add-to-cart.js',
     './wp-content/themes/gfp/src/js/modules/accordian.js',

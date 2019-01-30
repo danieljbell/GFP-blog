@@ -153,6 +153,14 @@ do_action( 'woocommerce_before_main_content' );
       <section>
 
         <?php
+          if (is_tax()) {
+            $query_obj = get_queried_object();
+            echo '<h1>' . $query_obj->description . ' Parts</h1>';
+            echo '<h2>' . $query_obj->count . ' Parts</h2>';
+          }
+        ?>
+
+        <?php
           if ( woocommerce_product_loop() ) {
         ?>
 
@@ -192,9 +200,9 @@ do_action( 'woocommerce_before_main_content' );
             ));
             // print_r($part_catalog_terms);
             $sorted_part_catalog_terms = array_sort($part_catalog_terms, 'description', SORT_ASC);
-            echo '<select style="width: 100%;">';
+            echo '<select id="filter--select-fitment" style="width: 100%;">';
             foreach ($sorted_part_catalog_terms as $key => $term) {
-              echo '<option value="' . $term->term_id . '">' . $term->description . '</option>';
+              echo '<option value="' . $term->slug . '">' . $term->description . '</option>';
             }
             echo '</select>';
             

@@ -1,5 +1,5 @@
 <?php
-  $actual_link = $_SERVER[REQUEST_URI];
+  $actual_link = $_SERVER['REQUEST_URI'];
 ?>
 
 <?php get_header(); ?>
