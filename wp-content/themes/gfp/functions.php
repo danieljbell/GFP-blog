@@ -287,6 +287,18 @@ function add_item_to_cart_with_qty() {
   }
 }
 
+function add_multiple_items() {
+  check_ajax_referer( 'nonce_name' );
+  $items = $_POST['items'];
+  $cart = WC()->instance()->cart;
+  foreach ($items as $key => $item) {
+    $cart->add_to_cart($item['id'], $item['qty']);
+  }
+  wp_send_json(array(
+    'success' => true
+  ));
+}
+
 
 function get_product_info() {
   check_ajax_referer( 'nonce_name' );
@@ -546,6 +558,8 @@ function get_order_notes() {
 
 add_action('wp_ajax_get_product_info', 'get_product_info');
 add_action('wp_ajax_nopriv_get_product_info', 'get_product_info');
+add_action('wp_ajax_add_multiple_items', 'add_multiple_items');
+add_action('wp_ajax_nopriv_add_multiple_items', 'add_multiple_items');
 add_action('wp_ajax_add_item_to_cart_with_qty', 'add_item_to_cart_with_qty');
 add_action('wp_ajax_nopriv_add_item_to_cart_with_qty', 'add_item_to_cart_with_qty');
 add_action('wp_ajax_get_cart', 'get_cart');

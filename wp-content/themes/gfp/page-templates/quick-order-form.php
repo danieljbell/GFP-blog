@@ -39,7 +39,7 @@ get_header();
       </div>
       <ul class="gfp-order-details--list visually-hidden"></ul>
       <div class="checkout has-text-center visually-hidden">
-        <a href="/cart/" class="btn-solid--brand">Checkout</a>
+        <button class="btn-solid--brand">Checkout</button>
       </div>
     </div>
   </div>

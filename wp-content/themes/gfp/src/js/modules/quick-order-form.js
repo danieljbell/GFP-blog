@@ -8,11 +8,18 @@
   form.on('submit', addPart);
   products.on('click', '.remove', removePart);
   products.on('keyup', 'input[name="part-qty"]', changePartQty);
+  checkout.on('click', 'button', buildCart);
 
   function addPart(e) {
     e.preventDefault();
-    var sku = $(this).find('#sku').val();
-    var qty = $(this).find('#qty').val()
+    var skuInput = $(this).find('#sku');
+    var qtyInput = $(this).find('#qty');
+    var sku = skuInput.val();
+    var qty = qtyInput.val();
+
+    skuInput.val('');
+    skuInput.focus();
+    qtyInput.val('1');
     
     showSpinner();
     hideErrors();
@@ -56,7 +63,7 @@
       return;
     }
 
-    products.append('<li class="gfp-order-details--item" data-product-id="' + res.id + '"><button class="remove">&times;</button><div class="gfp-order-details--item-image"><a href="' + res.link + '">' + res.img + '</a></div><div class="gfp-order-details--item-details"><div class="gfp-order-details--item-name"><a href="' + res.link + '">' + res.name + '</a></div><div class="gfp-order-details--item-price">$' + (Number(res.price) * qty).toFixed(2) + ' <span class="each-price">- $' + Number(res.price).toFixed(2) + ' each</span></div><div class="gfp-order-details--item-quantity">Quantity: ' + qty + '</div></div></li>');
+    products.append('<li class="gfp-order-details--item" data-product-id="' + res.id + '" data-product-price="' + res.price + '"><button class="remove">&times;</button><div class="gfp-order-details--item-image"><a href="' + res.link + '">' + res.img + '</a></div><div class="gfp-order-details--item-details"><div class="gfp-order-details--item-name"><a href="' + res.link + '">' + res.name + '</a></div><div class="gfp-order-details--item-price">$<span class="subtotal">' + (Number(res.price) * qty).toFixed(2) + '</span> <span class="each-price">- $' + Number(res.price).toFixed(2) + ' each</span></div><div class="gfp-order-details--item-quantity">Quantity: <input type="number" min="1" max="100" name="part-qty" value="' + qty + '" /></div></div></li>');
 
     showCheckoutButton();
   }
@@ -73,20 +80,49 @@
 
   function changePartQty() {
     var productID = $(this).parents('.gfp-order-details--item').data('productId');
+    var productPrice = $(this).parents('.gfp-order-details--item').data('productPrice');
     var newQty = Number($(this).val());
+    var newSubtotal = Number(productPrice) * newQty;
+    $(this).parents('.gfp-order-details--item').find('.gfp-order-details--item-price .subtotal').text(newSubtotal.toFixed(2));
+  }
+
+  function buildCart(e) {
+    e.preventDefault();
+    $(this).prop('disabled', true).html('<img src="' + window.location.origin + '/wp-content/themes/gfp/dist/img/spinner--light.svg" alt="spinner" class="spinner" style="vertical-align: middle; max-width: 25px; margin-right: 0.5rem;"> Adding Items to Cart');
+    var items = products.find('li');
+    var productsToAdd = [];
+    $.each(items, function() {
+      var id = $(this).data('productId');
+      var qty = $(this).find('input[name="part-qty"]').val();
+      productsToAdd.push({
+        id: id,
+        qty: Number(qty)
+      })
+    });
+    
     $.ajax({
       url: window.ajax_order_tracking.ajax_url,
-      method: 'GET',
+      method: 'POST',
       data: {
-        action: 'increment_item_in_cart',
+        action: 'add_multiple_items',
         _ajax_nonce: window.ajax_order_tracking.nonce,
-        sku: sku,
-        qty: qty
+        items: productsToAdd
       },
       success: function(res) {
-        console.log(res);
+        if (res.success === true) {
+          ga('send', 'event', {
+            eventCategory: 'Form',
+            eventAction: 'Quick Order Form',
+            eventLabel: productsToAdd.length,
+            hitCallback: function() {
+              document.location = '/cart/';
+            }
+          });
+        }
       }
-    });
+    })
+
+    // console.log(productsToAdd);
   }
 
 })(jQuery);

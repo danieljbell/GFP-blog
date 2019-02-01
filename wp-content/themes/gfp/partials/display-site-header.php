@@ -98,9 +98,9 @@
                   format_equipment_menu('lawn-garden', 'Compact Tractors', 'compact-tractor', 'compact_tractor');
                   format_equipment_menu('lawn-garden', 'Gators', 'gator', 'gator');
                   format_equipment_menu('lawn-garden', 'Walk Behind', 'walk-behind', 'walk_behind');
-                  format_equipment_menu('lawn-garden', 'Front Mowers', 'front-mowers', 'front_mowers');
-                  format_equipment_menu('lawn-garden', 'Hand Held Equipment', 'hand-held-equipment', 'hand_held_equipment');
-                  format_equipment_menu('lawn-garden', 'Loaders', 'loaders', 'loaders');
+                  // format_equipment_menu('lawn-garden', 'Front Mowers', 'front-mowers', 'front_mowers');
+                  // format_equipment_menu('lawn-garden', 'Hand Held Equipment', 'hand-held-equipment', 'hand_held_equipment');
+                  // format_equipment_menu('lawn-garden', 'Loaders', 'loaders', 'loaders');
                   format_equipment_menu('lawn-garden', 'Snow Blowers', 'snow-blower', 'snow_blower');
                 ?>
               </ul>
@@ -115,8 +115,8 @@
                   format_equipment_menu('agriculture', 'Planters', 'planter', 'planter');
                   format_equipment_menu('agriculture', 'Balers', 'baler', 'baler');
                   format_equipment_menu('agriculture', 'Rotary Cutters', 'rotary-cutter', 'rotary_cutter');
-                  format_equipment_menu('agriculture', 'Loaders', 'loaders', 'loaders');
-                  format_equipment_menu('agriculture', 'Windrowers', 'windrowers', 'windrowers');
+                  // format_equipment_menu('agriculture', 'Loaders', 'loaders', 'loaders');
+                  // format_equipment_menu('agriculture', 'Windrowers', 'windrowers', 'windrowers');
                 ?>
               </ul>
             </li>
@@ -125,10 +125,10 @@
               <ul class="mega-menu--child-list">
                 <?php
                   format_equipment_menu('landscapers', 'Zero Turns', 'zero-turn', 'zero_turn');
-                  format_equipment_menu('landscapers', 'Front Mowers', 'front-mowers', 'front_mowers');
-                  format_equipment_menu('landscapers', 'Quik-Traks', 'quik-traks', 'quik_traks');
+                  // format_equipment_menu('landscapers', 'Front Mowers', 'front-mowers', 'front_mowers');
+                  // format_equipment_menu('landscapers', 'Quik-Traks', 'quik-traks', 'quik_traks');
                   format_equipment_menu('landscapers', 'Walk Behind', 'walk-behind', 'walk_behind');
-                  format_equipment_menu('landscapers', 'Wide Area', 'wide-area', 'wide_area');
+                  // format_equipment_menu('landscapers', 'Wide Area', 'wide-area', 'wide_area');
                 ?>
               </ul>
             </li>
@@ -139,8 +139,8 @@
                   format_equipment_menu('golf', 'Aerators', 'aerator', 'aerator');
                   format_equipment_menu('golf', 'Greens Mowers', 'greens-mower', 'greens_mower');
                   format_equipment_menu('golf', 'Fairway Mowers', 'fairway-mower', 'fairway_mower');
-                  format_equipment_menu('golf', 'Rough & Trim Mowers', 'rough-trim', 'rough_trim');
-                  format_equipment_menu('golf', 'Turf Sprayers', 'turf-sprayers', 'turf_sprayers');
+                  // format_equipment_menu('golf', 'Rough & Trim Mowers', 'rough-trim', 'rough_trim');
+                  // format_equipment_menu('golf', 'Turf Sprayers', 'turf-sprayers', 'turf_sprayers');
                 ?>
               </ul>
             </li>
