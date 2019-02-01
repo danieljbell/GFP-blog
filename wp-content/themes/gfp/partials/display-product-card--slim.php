@@ -20,13 +20,6 @@
         do_action( 'woocommerce_shop_loop_item_title' );
         echo '</a>';
         do_action( 'woocommerce_after_shop_loop_item_title' );
-        if ($allProductTags) {
-          $model_text = 'models';
-          if (count($allProductTags) < 2) {
-            $model_text = 'model';
-          }
-          echo '<p class="cart-fitment-count"><em>Fits ', count($allProductTags), ' ', $model_text, '</em></p>';
-        }
       ?>
         <div class="products--actions">
           <button class="add-to-cart btn-solid--brand-two" value="<?php echo $post->ID; ?>">Add to Cart</button>
