@@ -294,9 +294,17 @@ function get_product_info() {
   $wc_product_id = wc_get_product_id_by_sku($sku);
   $wc_product = wc_get_product($wc_product_id);
   if ($wc_product) {
+    if (has_post_thumbnail($wc_product->get_id())) :
+      $thumb = '<img src="https://res.cloudinary.com/greenfarmparts/image/upload/e_brightness:30,w_100,h_100,c_fill/' . $wc_product->get_sku() . '-0.jpg" alt="' . $wc_product->get_name() . '">';
+    else :
+      $thumb = '<img src="' . get_stylesheet_directory_URI() . '/dist/img/partPicComingSoon.jpg" alt="No Part Image">';
+    endif;
     $response = array(
       'id'    => $wc_product_id,
-      'price' => '$' . $wc_product->get_price()
+      'name' => $wc_product->get_name(),
+      'link' => $wc_product->get_permalink(),
+      'img' => $thumb,
+      'price' => $wc_product->get_price()
     );
   } else {
     $response = array(

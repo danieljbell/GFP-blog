@@ -25,7 +25,6 @@
   $.each(allParts, function() {
     var elem = $(this);
     var sku = elem.data('sku');
-    console.log(sku);
     $.ajax({
       url: window.ajax_order_tracking.ajax_url,
       method: 'POST',
@@ -36,9 +35,9 @@
       },
       dataType: 'json',
       success: function(response) {
-        var price = response.price;
+        var price = Number(response.price).toFixed(2);
         var html = elem.html();
-        elem.siblings('[data-header="Price"]').html(price);
+        elem.siblings('[data-header="Price"]').html('$' + price);
         if (response.id) {
           elem.html('<a href="/?p=' + response.id + '">' + html + '</a>');
           elem.parent().find('button').removeClass('disabled').addClass('add-to-cart').text('Add to Cart').attr('value', response.id);
