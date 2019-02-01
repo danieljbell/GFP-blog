@@ -99,3 +99,19 @@ label.input--error {
 input.input--error {
   border-color: red;
 }
+
+.quick-order-form {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+  
+  > * {
+    margin-right: 1.5rem;
+    
+    &:last-child {
+      margin-right: 0rem;
+    }
+
+  }
+
+}

@@ -3,25 +3,25 @@
   $cart_line_items = $cart->get_cart();
   $item_count = 0;
   foreach ($cart_line_items as $key => $line_item) {
-    $item_count = $item_count + $line_item[quantity];
+    $item_count = $item_count + $line_item['quantity'];
   }
 ?>
 
 <div class="drawer drawer--add-to-cart" role="alert">
   <button class="close-drawer btn-solid--brand-two"><span>&times;</span> Hide Cart</button>
   <?php if (($item_count > 1) || ($item_count === 0)) : ?>
-    <h3 class="drawer--header"><span class="item-count"><?php echo $item_count; ?> Items in your Cart</span><br /><span class="cart-subtotal">Cart Subtotal: <span class="subtotal-amount">$<?php echo $cart->get_totals()[subtotal]; ?></span></span></h3>
+    <h3 class="drawer--header"><span class="item-count"><?php echo $item_count; ?> Items in your Cart</span><br /><span class="cart-subtotal">Cart Subtotal: <span class="subtotal-amount">$<?php echo $cart->get_totals()['subtotal']; ?></span></span></h3>
   <?php else : ?>
-    <h3 class="drawer--header"><span class="item-count"><?php echo $item_count; ?> Item in your Cart</span><br /><span class="cart-subtotal">Cart Subtotal: <span class="subtotal-amount">$<?php echo $cart->get_totals()[subtotal]; ?></span></span></h3>
+    <h3 class="drawer--header"><span class="item-count"><?php echo $item_count; ?> Item in your Cart</span><br /><span class="cart-subtotal">Cart Subtotal: <span class="subtotal-amount">$<?php echo $cart->get_totals()['subtotal']; ?></span></span></h3>
   <?php endif; ?>
   <ul class="drawer--items-list">
     <?php 
       foreach ($cart_line_items as $line_item) :
-        $line_item_details = $line_item[data];
+        $line_item_details = $line_item['data'];
         $permalink = $line_item_details->get_permalink();
         $id = $line_item_details->get_id();
         $sku = strtoupper($line_item_details->get_sku());
-        $qty = $line_item[quantity];
+        $qty = $line_item['quantity'];
         $name = $line_item_details->get_name();
         $product_brands = get_terms('pa_brand');
         foreach ($product_brands as $key => $brand) {

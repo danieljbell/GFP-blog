@@ -257,6 +257,36 @@ function formatCartItems($response) {
   return $lineItems;
 }
 
+function add_item_to_cart_with_qty() {
+  check_ajax_referer( 'nonce_name' );
+  $sku = $_POST['sku'];
+  $qty = $_POST['qty'];
+  $wc_product_id = wc_get_product_id_by_sku($sku);
+  $wc_product = wc_get_product($wc_product_id);
+  if ($wc_product) {
+    $cart = WC()->instance()->cart;
+    $cart->add_to_cart($wc_product_id, $qty);
+    
+    if (has_post_thumbnail($wc_product->get_id())) :
+      $thumb = '<img src="https://res.cloudinary.com/greenfarmparts/image/upload/e_brightness:30,w_100,h_100,c_fill/' . $wc_product->get_sku() . '-0.jpg" alt="' . $wc_product->get_name() . '">';
+    else :
+      $thumb = '<img src="' . get_stylesheet_directory_URI() . '/dist/img/partPicComingSoon.jpg" alt="No Part Image">';
+    endif;
+
+    wp_send_json(array(
+      'id' => $wc_product->get_id(),
+      'name' => $wc_product->get_name(),
+      'link' => $wc_product->get_permalink(),
+      'img' => $thumb,
+      'price' => $wc_product->get_price()
+    ));
+  } else {
+    wp_send_json(array(
+      'status' => 'failed'
+    ));
+  }
+}
+
 
 function get_product_info() {
   check_ajax_referer( 'nonce_name' );
@@ -508,7 +538,8 @@ function get_order_notes() {
 
 add_action('wp_ajax_get_product_info', 'get_product_info');
 add_action('wp_ajax_nopriv_get_product_info', 'get_product_info');
-
+add_action('wp_ajax_add_item_to_cart_with_qty', 'add_item_to_cart_with_qty');
+add_action('wp_ajax_nopriv_add_item_to_cart_with_qty', 'add_item_to_cart_with_qty');
 add_action('wp_ajax_get_cart', 'get_cart');
 add_action('wp_ajax_nopriv_get_cart', 'get_cart');
 add_action('wp_ajax_remove_item_from_cart', 'remove_item_from_cart');
