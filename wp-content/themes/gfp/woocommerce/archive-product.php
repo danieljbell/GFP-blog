@@ -156,7 +156,7 @@ do_action( 'woocommerce_before_main_content' );
           if (is_tax()) {
             $query_obj = get_queried_object();
             echo '<h1>' . $query_obj->description . ' Parts</h1>';
-            echo '<h2>' . $query_obj->count . ' Parts</h2>';
+            echo '<h2>' . number_format($query_obj->count, 2, '.', ',') . ' Parts</h2>';
           }
         ?>
 
