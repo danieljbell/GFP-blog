@@ -113,7 +113,7 @@
           ga('send', 'event', {
             eventCategory: 'Form',
             eventAction: 'Quick Order Form',
-            eventLabel: productsToAdd.length,
+            eventLabel: productsToAdd.length + ' products',
             hitCallback: function() {
               document.location = '/cart/';
             }
