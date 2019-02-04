@@ -201,7 +201,7 @@ th.product-name {
   }
 
   th {
-    font-weight: normal;
+    // font-weight: normal;
     text-align: left;
   }
 
@@ -235,6 +235,34 @@ th.product-name {
   //   padding-top: 0.1rem;
   //   padding-bottom: 1rem;
   // }
+
+}
+
+.shop_table {
+  
+  tr {
+    padding: 1rem 0;
+  }
+
+  tr.shipping {
+    display: flex;
+    flex-direction: column;
+    
+    td {
+      text-align: left;
+    }
+
+  }
+
+  th {
+    font-weight: bold !important;
+    small {
+      font-style: italic;
+      font-size: 0.8rem;
+      display: block;
+      font-weight: normal;
+    }
+  }
 
 }
 

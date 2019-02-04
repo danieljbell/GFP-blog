@@ -88,15 +88,15 @@ defined( 'ABSPATH' ) || exit;
                   $qty = $cart_item['quantity'];
                   $is_sale = $line->get_sale_price();
                   if ($is_sale) {
-                    echo '<del>$<span class="regular-price" data-price="', $line->get_regular_price(), '">', $line->get_regular_price() * $qty, '</span></del>';
-                    echo '<span class="sale-price" data-sale-price="', $line->get_sale_price(), '">$', $line->get_sale_price() * $qty, '</span>';
+                    echo '<del>$<span class="regular-price" data-price="', number_format($line->get_regular_price(), 2, '.', ','), '">', number_format($line->get_regular_price(), 2, '.', ',') * $qty, '</span></del>';
+                    echo '<span class="sale-price" data-sale-price="', number_format($line->get_sale_price(), 2, '.', ','), '">$', number_format($line->get_sale_price(), 2, '.', ',') * $qty, '</span>';
                     if ($qty > 1) {
-                      echo '&nbsp;<span class="each-price"> &ndash;&nbsp; $', $line->get_sale_price(), ' each</span>';
+                      echo '&nbsp;<span class="each-price"> &ndash;&nbsp; $', number_format($line->get_sale_price(), 2, '.', ','), ' each</span>';
                     }
                   } else {
-                    echo '$<span class="regular-price" data-price="', $line->get_regular_price(), '">', $line->get_regular_price() * $qty, '</span>';
+                    echo '$<span class="regular-price" data-price="', number_format($line->get_regular_price(), 2, '.', ','), '">', number_format($line->get_regular_price(), 2, '.', ',') * $qty, '</span>';
                     if ($qty > 1) {
-                      echo '&nbsp;<span class="each-price"> &ndash;&nbsp; $', $line->get_regular_price(), ' each</span>';
+                      echo '&nbsp;<span class="each-price"> &ndash;&nbsp; $', number_format($line->get_regular_price(), 2, '.', ','), ' each</span>';
                     }
                   }
                 ?>

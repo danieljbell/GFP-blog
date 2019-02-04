@@ -88,7 +88,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
                       </div>
                       <div class="gfp-order-details--item-price">
                         <?php
-                          $line = $cart_item[data];
+                          $line = $cart_item['data'];
                           $qty = $cart_item['quantity'];
                           $is_sale = $line->get_sale_price();
                           if ($is_sale) {
