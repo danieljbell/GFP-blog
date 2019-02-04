@@ -344,4 +344,4 @@ $nla_part = get_post_meta($post->ID, 'nla_part');
 
 <?php do_action( 'woocommerce_after_single_product' ); ?>
 
-<?php get_template_part('partials/display', 'alert--add-to-cart'); ?>
+<?php //get_template_part('partials/display', 'alert--add-to-cart'); ?>

@@ -33,12 +33,12 @@ if ($current_promotions_query->have_posts()) :
   
   while ($current_promotions_query->have_posts()) : 
     $current_promotions_query->the_post();
-      $promotion_terms = get_field('categories_on_sale');
-      $promo_categories = array();
+      // $promotion_terms = get_field('categories_on_sale');
+      // $promo_categories = array();
       
-      foreach ($promotion_terms as $term) {
-        array_push($promo_categories, $term->slug);
-      }
+      // foreach ($promotion_terms as $term) {
+      //   array_push($promo_categories, $term->slug);
+      // }
 
       $promo_selected_type = get_field('promo_type');
       if ($promo_selected_type === 'coupon') {

@@ -1,12 +1,12 @@
 <?php
-  $promotion_terms = get_field('categories_on_sale');
-  $promo_not_current_category = false;
+  // $promotion_terms = get_field('categories_on_sale');
+  // $promo_not_current_category = false;
 
-  foreach ($promotion_terms as $term) {
-    if ($current_page->slug !== $term->slug) {
-      $promo_not_current_category = true;
-    }
-  }
+  // foreach ($promotion_terms as $term) {
+  //   if ($current_page->slug !== $term->slug) {
+  //     $promo_not_current_category = true;
+  //   }
+  // }
 
   $image = get_field('current_promo_image');
 
@@ -14,7 +14,7 @@
     $thumbnail_id = get_woocommerce_term_meta( $promotion_terms[0]->term_id, 'thumbnail_id', true );
     $image = wp_get_attachment_url( $thumbnail_id );
   } else {
-    $image = $image[url];
+    $image = $image['url'];
   }
 
   $promo_selected_type = get_field('promo_type');
@@ -69,7 +69,7 @@
     $button_link = get_term_link($promotion_terms[0]);
   }
 
-  if ($promo_not_current_category && (substr($expiry, 0, 8) > date("Ymd"))) :
+  if ((substr($expiry, 0, 8) > date("Ymd"))) :
 ?>
 
 <li class="card--promo-card">

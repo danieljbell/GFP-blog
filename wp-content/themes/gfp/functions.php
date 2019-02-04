@@ -12,7 +12,7 @@ ADD GLOBAL CSS TO PAGE
 ==============================
 */
 function enqueue_global_css() {
-  wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '1.0.7');
+  wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '1.0.8');
 }
 add_action('wp_enqueue_scripts', 'enqueue_global_css');
 
@@ -22,7 +22,7 @@ ADD GLOBAL JS TO PAGE
 ==============================
 */
 function enqueue_global_js() {
-  wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.7', true);
+  wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.8', true);
 
   // if (is_page_template( 'page-templates/check-order-status.php' ) || is_account_page()) {
     $translation_array = array(
@@ -330,11 +330,11 @@ function get_cart() {
   check_ajax_referer( 'nonce_name' );
   $cart = WC()->instance()->cart;
   $response = $cart->get_cart();
-  wp_send_json($response);
-  // wp_send_json(array(
-  //   'subtotal' => $cart->get_totals()[subtotal],
-  //   'lineItems' => formatCartItems($response)
-  // ));
+  // wp_send_json($response);
+  wp_send_json(array(
+    'totals' => $cart->get_totals(),
+    'lineItems' => formatCartItems($response)
+  ));
 }
 
 

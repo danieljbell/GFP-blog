@@ -14,14 +14,14 @@
     <?php while ($current_promotions_query->have_posts()) : $current_promotions_query->the_post(); ?>
 
       <?php
-        $promotion_terms = get_field('categories_on_sale');
-        $promo_not_current_category = false;
+        // $promotion_terms = get_field('categories_on_sale');
+        // $promo_not_current_category = false;
 
-        foreach ($promotion_terms as $term) {
-          if ($current_page->slug !== $term->slug) {
-            $promo_not_current_category = true;
-          }
-        }
+        // foreach ($promotion_terms as $term) {
+        //   if ($current_page->slug !== $term->slug) {
+        //     $promo_not_current_category = true;
+        //   }
+        // }
 
         $image = get_field('current_promo_image');
         
@@ -85,7 +85,7 @@
         // echo date("Ymd") . '<br>';
         // echo substr($expiry, 0, 8);
         
-        if ($promo_not_current_category && (substr($expiry, 0, 8) > date("Ymd"))) :
+        if ((substr($expiry, 0, 8) > date("Ymd"))) :
       ?>
 
         <li class="current-promotions--item <?php if ($promo_selected_type === 'coupon') { echo 'current-promotions--item__has-body-copy'; } ?>" style="background-image: url(<?php echo $image; ?>);" <?php if ($expiry) { echo 'data-offer-expiry="' . $expiry . '"'; } ?>>
