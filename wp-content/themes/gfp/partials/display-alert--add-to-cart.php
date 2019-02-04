@@ -31,7 +31,7 @@
         $price = $line_item_details->get_regular_price();
         $sale_price = $line_item_details->get_sale_price();
        ?>
-      <li class="drawer--item" data-product-id="<?php echo $id; ?>" data-product-key="<?php echo $line_item[key]; ?>">
+      <li class="drawer--item" data-product-id="<?php echo $id; ?>" data-product-key="<?php echo $line_item['key']; ?>">
         <div class="drawer-item-action">
           <button class="drawer-remove-item">&times;</button>
         </div>

@@ -78,10 +78,10 @@
   }
 
   function addLineItem(e) {
-    console.log(e.target);
+    // console.log(e.target);
     e.preventDefault();
     var productID = $(this).attr('value');
-    console.log(productID);
+    // console.log(productID);
     $.ajax({
       url: window.location.origin + '/wp-admin/admin-ajax.php',
       method: 'POST',
@@ -142,6 +142,7 @@
         qty: parseInt(val)
       },
       success: function(results) {
+        console.log(results);
         cartSubtotal.text('$' + results.subtotal);
         updateCartCount(results.lineItems);
       },
