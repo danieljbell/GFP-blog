@@ -206,12 +206,12 @@
     flex: 1;
     margin: 0 0.5rem;
     border-radius: 2rem;
+    overflow: hidden;
     
     .status {
       display: block;
       height: 100%;
       background-color: $brand;
-      border-radius: 2rem;
     }
 
   }

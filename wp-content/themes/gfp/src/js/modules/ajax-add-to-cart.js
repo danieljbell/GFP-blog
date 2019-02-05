@@ -60,7 +60,7 @@
     body.removeClass('cart-drawer--open').addClass('cart-drawer--closed');
   }
 
-  function updateCartCount(items) {
+  function updateCartCount(items, subtotal) {
     var count = 0;
     for (var i = 0; i < items.length; i++) {
       count += parseInt(items[i].productQty);
@@ -71,6 +71,10 @@
       itemCountText.text(count + ' Item in your Cart');
     }
     $('.cart--count').text(count);
+    console.log(subtotal);
+    $('.progress .bar .status').animate({
+      width: ((subtotal / 49.99) * 100).toFixed(2) + '%'
+    });
   }
 
   function updateCartSubtotal(amount) {
@@ -94,7 +98,7 @@
         console.log(results);
         cartSubtotal.text('$' + results.subtotal);
         populateCart(results.lineItems);
-        updateCartCount(results.lineItems);
+        updateCartCount(results.lineItems, results.subtotal);
       }
     })
     openDrawer();
@@ -118,7 +122,7 @@
       },
       success: function(results) {
         cartSubtotal.text('$' + results.subtotal);
-        updateCartCount(results.lineItems);
+        updateCartCount(results.lineItems, results.subtotal);
       },
       error: function(error) {
         console.log(error);
@@ -144,7 +148,7 @@
       success: function(results) {
         console.log(results);
         cartSubtotal.text('$' + results.subtotal);
-        updateCartCount(results.lineItems);
+        updateCartCount(results.lineItems, results.subtotal);
       },
       error: function(error) {
         console.log(error);
