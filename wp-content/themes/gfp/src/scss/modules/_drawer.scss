@@ -68,6 +68,8 @@
 
   .drawer--items-list {
     list-style-type: none;
+    overflow: scroll;
+    max-height: 50vh;
   }
 
   .drawer--item {
