@@ -339,7 +339,7 @@ function get_cart() {
 
 
 function remove_item_from_cart() {
-  check_ajax_referer( 'nonce_name' );
+  // check_ajax_referer( 'nonce_name' );
   $cart = WC()->instance()->cart;
   $id = $_POST['product_id'];
   $key = $_POST['product_key'];
