@@ -189,25 +189,30 @@ do_action( 'woocommerce_before_main_content' );
 
       <aside class="product-list--promos">
         <ul class="filters--list">
-          <?php //echo the_widget( 'product_filters' ); ?> 
-          <?php
+          <?php 
             if ( function_exists('dynamic_sidebar') ) :
               dynamic_sidebar( 'Product Filters' );
-            endif;
+            endif; 
+          ?> 
+        </ul>
+        <div class="box--with-header mar-b">
+          <header>Filter By Model</header>
+          <?php
             $part_catalog_terms = get_terms(array(
               'taxonomy' => 'pa_part-catalog',
               // 'hide_empty' => false
             ));
             // print_r($part_catalog_terms);
             $sorted_part_catalog_terms = array_sort($part_catalog_terms, 'description', SORT_ASC);
-            echo '<select id="filter--select-fitment" style="width: 100%;">';
+            echo '<select id="filter--select-fitment" style="width: 100%; background-color: #fff;">';
+              echo '<option value="" disabled selected>Choose Your Model</option>';
             foreach ($sorted_part_catalog_terms as $key => $term) {
               echo '<option value="' . $term->slug . '">' . $term->description . '</option>';
             }
             echo '</select>';
             
           ?>
-        </ul>
+        </div>
         <?php
           $current_category = get_queried_object();
           $current_term_id = $current_category->term_id;

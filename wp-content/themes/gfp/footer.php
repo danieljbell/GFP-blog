@@ -118,6 +118,21 @@
   </script>
 
 <?php endif; ?>
+
+<!--FRESHCHAT-->
+<script src="https://wchat.freshchat.com/js/widget.js"></script>
+<script>
+    var now = new Date();
+    var hourInDay = now.getHours();
+    if ((hourInDay >= 7) && (hourInDay <= 16)) {
+        window.fcWidget.init({
+            token: "17cc4e66-20da-4cdb-afbf-5ed4b7ca6a63",
+            host: "https://wchat.freshchat.com"
+        });
+    }
+</script>
+
+
   <div class="screen screen--is-hidden"></div>
 </body>
 </html>
