@@ -97,7 +97,7 @@
                   format_equipment_menu('lawn-garden', 'Zero Turns', 'zero-turn', 'zero_turn');
                   format_equipment_menu('lawn-garden', 'Compact Tractors', 'compact-tractor', 'compact_tractor');
                   format_equipment_menu('lawn-garden', 'Gators', 'gator', 'gator');
-                  format_equipment_menu('lawn-garden', 'Walk Behind', 'walk-behind', 'walk_behind');
+                  format_equipment_menu('lawn-garden', 'Walk Behind', 'walk-behind-mowers', 'walk_behind_mowers');
                   // format_equipment_menu('lawn-garden', 'Front Mowers', 'front-mowers', 'front_mowers');
                   // format_equipment_menu('lawn-garden', 'Hand Held Equipment', 'hand-held-equipment', 'hand_held_equipment');
                   // format_equipment_menu('lawn-garden', 'Loaders', 'loaders', 'loaders');
