@@ -71,10 +71,19 @@
       itemCountText.text(count + ' Item in your Cart');
     }
     $('.cart--count').text(count);
-    $('.countdown-to-free-shipping .countdown').text((49.99 - subtotal).toFixed(2));
-    $('.progress .bar .status').animate({
-      width: ((subtotal / 49.99) * 100).toFixed(2) + '%'
-    });
+
+    if ((49.99 - subtotal) < 0.01) {
+      $('.countdown-to-free-shipping .free').show();
+      $('.countdown-to-free-shipping .not-free').hide();
+    } else {
+      $('.countdown-to-free-shipping .free').hide();
+      $('.countdown-to-free-shipping .not-free').show()
+      $('.countdown-to-free-shipping .countdown').text((49.99 - subtotal).toFixed(2));
+      $('.progress .bar .status').animate({
+        width: ((subtotal / 49.99) * 100).toFixed(2) + '%'
+      });
+    }
+
   }
 
   function updateCartSubtotal(amount) {
