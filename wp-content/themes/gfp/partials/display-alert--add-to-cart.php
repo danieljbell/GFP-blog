@@ -14,6 +14,15 @@
   <?php else : ?>
     <h3 class="drawer--header"><span class="item-count"><?php echo $item_count; ?> Item in your Cart</span><br /><span class="cart-subtotal">Cart Subtotal: <span class="subtotal-amount">$<?php echo $cart->get_totals()['subtotal']; ?></span></span></h3>
   <?php endif; ?>
+  <div class="countdown-to-free-shipping">
+    <h4>Keep Shopping!</h4>
+    <p>Add $<span class="countdown">24.85</span> to your order to get free shipping</p>
+    <div class="progress">
+      <p class="start">$0</p>
+      <p class="bar"><span class="status" style="width: 24%;"></span></p>
+      <p class="end">$49.99</p>
+    </div>
+  </div>
   <ul class="drawer--items-list">
     <?php 
       foreach ($cart_line_items as $line_item) :

@@ -20,52 +20,59 @@
 if ( ! defined( 'ABSPATH' ) ) {
   exit;
 }
+$cart = WC()->instance()->cart;
+global $wpdb;
 ?>
 <tr class="shipping">
+  
+
   <th><?php echo wp_kses_post( $package_name ); ?></th>
   <td data-title="<?php echo esc_attr( $package_name ); ?>">
-    <?php if ( 1 < count( $available_methods ) ) : ?>
-      <ul id="shipping_method">
+    <?php 
+      $cart_line_items = $cart->get_cart();
+      $is_oversized = false;
+      foreach ($cart_line_items as $key => $line_item) {
+        $oversized = $wpdb->query( $wpdb->prepare( 
+          "
+            SELECT * FROM wp_woocommerce_per_product_shipping_rules
+            WHERE product_id = %s
+          ", 
+          $line_item['product_id']
+        ) );
+        if ($oversized) {
+          $is_oversized = true;
+        }
+      }
+    ?>
+
+    <ul style="list-style-type: none;">
+      <?php if ($is_oversized) : ?>
+        <?php foreach ( $available_methods as $method ) : ?>
+          <?php if ($method->get_method_id() !== 'free_shipping') : ?>
+            <li>
+              <?php
+                $text =  wc_cart_totals_shipping_method_label( $method );
+                $text = str_replace('Flat rate', 'Oversized Shipping', $text);
+                printf( '<input type="radio" name="shipping_method[%1$d]" data-index="%1$d" id="shipping_method_%1$d_%2$s" value="%3$s" class="shipping_method mar-r" %4$s checked />', $index, esc_attr( sanitize_title( $method->id ) ), esc_attr( $method->id ), checked( $method->id, $chosen_method, false ) ); // WPCS: XSS ok.
+                printf( '<label for="shipping_method_%1$s_%2$s">%3$s</label>', $index, esc_attr( sanitize_title( $method->id ) ), $text ); // WPCS: XSS ok.
+              ?>
+            </li>
+          <?php endif; ?>
+        <?php endforeach; ?>
+      <?php else : ?>
         <?php foreach ( $available_methods as $method ) : ?>
           <li>
             <?php
-              printf( '<input type="radio" name="shipping_method[%1$d]" data-index="%1$d" id="shipping_method_%1$d_%2$s" value="%3$s" class="shipping_method" %4$s />
-                <label for="shipping_method_%1$d_%2$s">%5$s</label>',
-                $index, sanitize_title( $method->id ), esc_attr( $method->id ), checked( $method->id, $chosen_method, false ), wc_cart_totals_shipping_method_label( $method ) );
-
-              do_action( 'woocommerce_after_shipping_rate', $method, $index );
+              printf( '<input type="radio" name="shipping_method[%1$d]" data-index="%1$d" id="shipping_method_%1$d_%2$s" value="%3$s" class="shipping_method mar-r" %4$s />', $index, esc_attr( sanitize_title( $method->id ) ), esc_attr( $method->id ), checked( $method->id, $chosen_method, false ) ); // WPCS: XSS ok.
+              printf( '<label for="shipping_method_%1$s_%2$s">%3$s</label>', $index, esc_attr( sanitize_title( $method->id ) ), wc_cart_totals_shipping_method_label( $method ) ); // WPCS: XSS ok.
             ?>
           </li>
         <?php endforeach; ?>
-      </ul>
-    <?php elseif ( 1 === count( $available_methods ) ) :  ?>
-      <?php
-        $method = current( $available_methods );
-        if ($method->get_label() === 'Free shipping') {
-          echo '$', $method->get_cost();
-        } else {
-          printf( '%3$s <input type="hidden" name="shipping_method[%1$d]" data-index="%1$d" id="shipping_method_%1$d" value="%2$s" class="shipping_method" />', $index, esc_attr( $method->id ), wc_cart_totals_shipping_method_label( $method ) );
-        }
-        do_action( 'woocommerce_after_shipping_rate', $method, $index );
-      ?>
-    <?php elseif ( WC()->customer->has_calculated_shipping() ) : ?>
-      <?php
-        if ( is_cart() ) {
-          echo apply_filters( 'woocommerce_cart_no_shipping_available_html', wpautop( __( 'There are no shipping methods available. Please ensure that your address has been entered correctly, or contact us if you need any help.', 'woocommerce' ) ) );
-        } else {
-          echo apply_filters( 'woocommerce_no_shipping_available_html', wpautop( __( 'There are no shipping methods available. Please ensure that your address has been entered correctly, or contact us if you need any help.', 'woocommerce' ) ) );
-        }
-      ?>
-    <?php elseif ( ! is_cart() ) : ?>
-      <?php echo wpautop( __( 'Enter your full address to see shipping costs.', 'woocommerce' ) ); ?>
-    <?php endif; ?>
+      <?php endif; ?>
+    </ul>
 
-    <?php if ( $show_package_details ) : ?>
-      <?php echo '<p class="woocommerce-shipping-contents"><small>' . esc_html( $package_details ) . '</small></p>'; ?>
-    <?php endif; ?>
 
-    <?php if ( ! empty( $show_shipping_calculator ) ) : ?>
-      <?php //woocommerce_shipping_calculator(); ?>
-    <?php endif; ?>
-  </td>
+
+  <td>
+  
 </tr>

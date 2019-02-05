@@ -180,3 +180,40 @@
     font-weight: bold;
   }
 }
+
+.countdown-to-free-shipping {
+  padding: 1rem;
+  margin-bottom: 2rem;
+  border-radius: 5px;
+  border: 1px solid $medium-gray;
+  background-color: #fff;
+  box-shadow: 4px 4px 8px rgba(black, 0.05);
+  text-align: center;
+
+  p {
+    margin: 0 auto;
+    font-size: 0.9em;
+  }
+
+  .progress {
+    display: flex;
+    max-width: 75%;
+    margin: 1rem auto 0;
+  }
+
+  .bar {
+    background-color: $medium-gray;
+    flex: 1;
+    margin: 0 0.5rem;
+    border-radius: 2rem;
+    
+    .status {
+      display: block;
+      height: 100%;
+      background-color: $brand;
+      border-radius: 2rem;
+    }
+
+  }
+
+}

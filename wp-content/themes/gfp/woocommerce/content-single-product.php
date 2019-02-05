@@ -322,6 +322,22 @@ $nla_part = get_post_meta($post->ID, 'nla_part');
 						echo '</ul>';
 					echo '</div>';
 				}
+
+				$oversized = $wpdb->query( $wpdb->prepare( 
+          "
+            SELECT * FROM wp_woocommerce_per_product_shipping_rules
+            WHERE product_id = %s
+          ", 
+          $post->ID
+        ) );
+
+        if (!$oversized) : ?>
+				<div class="notification--free-shipping">
+					<img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/shipping.svg" alt="Shipping Icon">
+					This product is eligible for free shipping with orders over $49.99!
+				</div>
+        <?php
+        endif;
 				
 				do_action( 'woocommerce_output_product_data_tabs' );
 				
