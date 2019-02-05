@@ -71,7 +71,7 @@
       itemCountText.text(count + ' Item in your Cart');
     }
     $('.cart--count').text(count);
-    console.log(subtotal);
+    $('.countdown-to-free-shipping .countdown').text((49.99 - subtotal).toFixed(2));
     $('.progress .bar .status').animate({
       width: ((subtotal / 49.99) * 100).toFixed(2) + '%'
     });
