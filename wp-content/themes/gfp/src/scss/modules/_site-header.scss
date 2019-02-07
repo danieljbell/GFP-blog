@@ -286,18 +286,23 @@ button.mega-menu--equipment-parent {
     max-width: calc((100%/2) - 1rem);
     margin-right: 1rem;
     margin-bottom: 1rem;
+    float: left;
     &:nth-child(2n) {
       margin-right: 0;
     }
   }
   > li a {
+    min-height: 100px;
+    display: block;
     padding: 1rem;
     background-color: #fff;
     border: 1px solid $medium-gray;
-    display: block;
     border-radius: 5px;
     box-shadow: 3px 3px 8px rgba(black, 0.05);
     text-align: center;
+    &:hover {
+      text-decoration: none;
+    }
   }
 }
 
