@@ -253,9 +253,17 @@ $nla_part = get_post_meta($post->ID, 'nla_part');
 				$product_alternatives = explode('|', $product_alternative[0]);
 				$alt_array = explode('|', $deere_alternatives[0]);
 				$product = wc_get_product($post->ID);
+				
+				$has_alt_parts = false;
+				foreach ($product_alternatives as $part) {
+					$wc_part_id = wc_get_product_id_by_sku($part);
+					if ($wc_part_id) {
+						$has_alt_parts = true;
+					}
+				}
 
 				// if on deere part or alt part, open up div
-				if ((count($product_alternatives) > 1) || (count($alt_array) > 1)) {
+				if ($has_alt_parts && (count($product_alternatives) > 1) || (count($alt_array) > 1)) {
 					echo '<div class="mar-y--most box--with-header">';
 						echo '<header>Alternative Products to ' . $product->get_name() . '</header>';
 						echo '<ul class="product-alternatives--list">';
@@ -266,28 +274,8 @@ $nla_part = get_post_meta($post->ID, 'nla_part');
 							$parts = array();
 							foreach ($product_alternatives as $part) {
 								$wc_part_id = wc_get_product_id_by_sku($part);
-								$wc_part = wc_get_product($wc_part_id);
-								array_push($parts, array(
-									'name' => $wc_part->get_name(),
-									'link' => $wc_part->get_permalink(),
-									'image' => $wc_part->get_image('thumbnail'),
-									'price' => $wc_part->get_price()
-								));
-							}
-						} else {
-							$parts = array();
-							foreach ($alt_array as $part) {
-								$wc_part_id = wc_get_product_id_by_sku($part);
-								$wc_part = wc_get_product($wc_part_id);
-								if ($post->ID === $wc_part->get_ID()) {
-									$deere_part = wc_get_product($deere_part);
-									array_push($parts, array(
-										'name' => $deere_part->get_name(),
-										'link' => $deere_part->get_permalink(),
-										'image' => $deere_part->get_image('thumbnail'),
-										'price' => $deere_part->get_price()
-									));
-								} else {
+								if ($wc_part_id) {
+									$wc_part = wc_get_product($wc_part_id);
 									array_push($parts, array(
 										'name' => $wc_part->get_name(),
 										'link' => $wc_part->get_permalink(),
@@ -296,8 +284,32 @@ $nla_part = get_post_meta($post->ID, 'nla_part');
 									));
 								}
 							}
+						} else {
+							$parts = array();
+							foreach ($alt_array as $part) {
+								$wc_part_id = wc_get_product_id_by_sku($part);
+								if ($wc_part_id) {
+									$wc_part = wc_get_product($wc_part_id);
+									if ($post->ID === $wc_part->get_ID()) {
+										$deere_part = wc_get_product($deere_part);
+										array_push($parts, array(
+											'name' => $deere_part->get_name(),
+											'link' => $deere_part->get_permalink(),
+											'image' => $deere_part->get_image('thumbnail'),
+											'price' => $deere_part->get_price()
+										));
+									} else {
+										array_push($parts, array(
+											'name' => $wc_part->get_name(),
+											'link' => $wc_part->get_permalink(),
+											'image' => $wc_part->get_image('thumbnail'),
+											'price' => $wc_part->get_price()
+										));
+									}
+								}
+							}
 						}
-						
+						if (count($parts) > 0) :
 						foreach ($parts as $part) {
 							?>
 							<li class="product-alternatives--item">
@@ -317,6 +329,7 @@ $nla_part = get_post_meta($post->ID, 'nla_part');
 							</li>
 							<?php
 						}
+						endif;
 				
 				// if on deere part or alt part, close div
 						echo '</ul>';
