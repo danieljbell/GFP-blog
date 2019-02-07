@@ -277,9 +277,28 @@ button.mega-menu--equipment-parent {
 }
 
 .mega-menu--shop-by-part .mega-menu--child-list {
-  list-style-type: disc;
+  list-style-type: none;
   padding-left: 3rem !important;
   font-size: 0.95em;
+  > li {
+    display: inline-block;
+    width: 100%;
+    max-width: calc((100%/2) - 1rem);
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    &:nth-child(2n) {
+      margin-right: 0;
+    }
+  }
+  > li a {
+    padding: 1rem;
+    background-color: #fff;
+    border: 1px solid $medium-gray;
+    display: block;
+    border-radius: 5px;
+    box-shadow: 3px 3px 8px rgba(black, 0.05);
+    text-align: center;
+  }
 }
 
 .mega-menu--shop-by-brand {
