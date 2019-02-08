@@ -48,7 +48,12 @@
 
 <?php if( current_user_can('edit_pages') || current_user_can('edit_products') ) :
   echo '<ul style="position: fixed; left: 1rem; bottom: 1rem; z-index: 999;" class="no-print"><li style="display: inline-block;"><a href="' . site_url() . '/wp-admin/edit.php?post_type=shop_order" class="btn-solid--brand" style="text-decoration: none; font-weight: bold;">Admin</a></li>';
-  echo '<li style="display: inline-block; margin-left: 1rem;"><a href="' . site_url() . '/wp-admin/post.php?post=' . $post->ID . '&action=edit" class="btn-solid--brand-two" style="text-decoration: none; font-weight: bold;">Edit</a></li>';
+  if (is_product_category()) {
+    $cat = get_queried_object();
+    echo '<li style="display: inline-block; margin-left: 1rem;"><a href="' . site_url() . '/wp-admin/edit.php?product_cat=' . $cat->slug . '&post_type=product" class="btn-solid--brand-two" style="text-decoration: none; font-weight: bold;">Edit</a></li>';
+  } else {
+    echo '<li style="display: inline-block; margin-left: 1rem;"><a href="' . site_url() . '/wp-admin/post.php?post=' . $post->ID . '&action=edit" class="btn-solid--brand-two" style="text-decoration: none; font-weight: bold;">Edit</a></li>';
+  }
   echo '</ul>';
   endif; ?>
 

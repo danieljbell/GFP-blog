@@ -233,7 +233,6 @@
         echo '<img src="' . get_stylesheet_directory_URI() . '/dist/img/' . $parent . '-' . $slug . '.jpg" alt="' . $pretty_name . '">' . $pretty_name;
       echo '</button>';
       echo '<ul class="visually-hidden">';
-        // echo '<li>Daniel</li>';
         foreach ($posts as $key => $equip) {
           echo '<li><a href="' . $equip['link'] . '" style="padding: 0; display: inline-block; text-align: left;">' . $equip['name'] . '</a></li>';
         }
