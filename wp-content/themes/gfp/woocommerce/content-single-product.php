@@ -357,7 +357,11 @@ $nla_part = get_post_meta($post->ID, 'nla_part');
 				
 		?>
 
-		<?php dynamic_sidebar( 'Product Recommendations' ); ?>
+		<?php
+			if ( function_exists('dynamic_sidebar') ) :
+        dynamic_sidebar( 'Product Recommendations' );
+      endif; 
+		?>
 	</div>
 
 	<?php

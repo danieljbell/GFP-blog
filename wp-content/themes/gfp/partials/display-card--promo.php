@@ -10,12 +10,12 @@
 
   $image = get_field('current_promo_image');
 
-  if (!$image) {
-    $thumbnail_id = get_woocommerce_term_meta( $promotion_terms[0]->term_id, 'thumbnail_id', true );
-    $image = wp_get_attachment_url( $thumbnail_id );
-  } else {
+  // if (!$image) {
+  //   $thumbnail_id = get_woocommerce_term_meta( $promotion_terms[0]->term_id, 'thumbnail_id', true );
+  //   $image = wp_get_attachment_url( $thumbnail_id );
+  // } else {
     $image = $image['url'];
-  }
+  // }
 
   $promo_selected_type = get_field('promo_type');
   if ($promo_selected_type === 'coupon') {
