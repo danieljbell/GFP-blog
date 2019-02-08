@@ -208,35 +208,36 @@ $nla_part = get_post_meta($post->ID, 'nla_part');
 			// echo '<div class="single-product--content">';
 				do_action( 'woocommerce_template_single_title' );
 				do_action( 'woocommerce_template_single_rating' );
-				$part_replacements = get_post_meta($post->ID, 'replaced_by');
-				if ($part_replacements) {
-					$replacement_count = count($part_replacements[0]);
+				$part_replacements = get_post_meta($post->ID, 'product_subs');
+				if ((count($part_replacements) > 0) && ($nla_part[0] !== 'yes')) {
 					$replacement_text = 'It\'s been replaced by:';
-					if ($replacement_count > 1) {
-						$replacement_text = 'It\'s been replaced by these ' .$replacement_count .' parts:';
-					}
-					if ($replacement_count === 0) {
-						if ($nla_part[0] !== 'yes') {
-							do_action( 'woocommerce_template_single_price' );
-							do_action( 'woocommerce_template_single_add_to_cart' );
-						}
-					} else {
-						echo '<div class="part--replaced_by">';
-							echo '<p>This part is no longer available. ' . $replacement_text . '</p>';
-							echo '<ul>';
-								foreach ($part_replacements[0] as $part) {
-									$replacement_part = wc_get_product($part);
-									echo '<li class="product-card--slim">';
-										echo '<a href="' . $replacement_part->get_permalink() . '">';
-											// echo '<img src="' .  . '">';
-											echo $replacement_part->get_image(array(75,75));
-											print_r($replacement_part->get_name());
-										echo '</a>';
+					echo '<div class="part--replaced_by mar-t">';
+						echo '<p class="mar-b">This part is no longer available. ' . $replacement_text . '</p>';
+						echo '<ul>';
+							foreach ($part_replacements as $part) {
+								$replacement_part_id = wc_get_product_id_by_sku($part);
+								if ($replacement_part_id) {
+									$replacement_part = wc_get_product($replacement_part_id);
+									echo '<li class="products--item product-card--slim">';
+										echo '<div class="products--image">';
+											echo '<a href="' . $replacement_part->get_permalink() . '">';
+												if ( has_post_thumbnail() ) :
+									        echo '<img src="https://res.cloudinary.com/greenfarmparts/image/upload/e_brightness:30,w_100,h_100,c_fill/' . $product->get_sku() . '-0.jpg" alt="" style="max-width: 65px;">';
+												else :
+									        echo '<img src="' . wc_placeholder_img_src() . '" alt="Part Photo Coming Soon" style="max-width: 65px;">';
+									      endif;
+								      echo '</a>';
+										echo '</div>';
+										echo '<div class="products--content">';
+											echo '<a href="' . $replacement_part->get_permalink() . '" style="font-size: 0.85rem;">';
+												echo $replacement_part->get_name();
+											echo '</a>';
+										echo '</div>';
 									echo '</li>';
 								}
-							echo '</ul>';
-						echo '</div>';
-					}
+							}
+						echo '</ul>';
+					echo '</div>';
 				} else {
 					do_action( 'woocommerce_template_single_price' );
 					do_action( 'woocommerce_template_single_add_to_cart' );
@@ -344,7 +345,7 @@ $nla_part = get_post_meta($post->ID, 'nla_part');
           $post->ID
         ) );
 
-        if (!$oversized) : ?>
+        if (!$oversized && !$part_replacements) : ?>
 				<div class="notification--free-shipping">
 					<img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/shipping.svg" alt="Shipping Icon">
 					This product is eligible for free shipping with orders over $49.99!

@@ -782,9 +782,9 @@ function create_nla_parts() {
 add_action( 'woocommerce_product_options_general_product_data', 'create_nla_parts' );
 
 /*
-==================================
-SAVE CUSTOM FIELD FOR PRODUCT SUBS
-==================================
+===============================
+SAVE CUSTOM FIELD FOR NLA PARTS
+===============================
 */
 function save_nla_parts( $post_id ) {
  $woocommerce_checkbox = isset( $_POST['nla_part'] ) ? 'yes' : 'no';
@@ -793,122 +793,16 @@ function save_nla_parts( $post_id ) {
 add_action( 'woocommerce_process_product_meta', 'save_nla_parts' );
 
 /*
-====================================
-CREATE CUSTOM FIELD FOR PRODUCT SUBS
-function create_replaced_by() {
-  global $woocommerce, $post;
-?>
-<p class="form-field">
-    <label for="replaced_by"><?php _e( 'Replaced By', 'woocommerce' ); ?></label>
-    <select class="wc-product-search" multiple="multiple" style="width: 50%;" id="replaced_by" name="replaced_by[]" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce' ); ?>" data-action="woocommerce_json_search_products_and_variations" data-exclude="<?php echo intval( $post->ID ); ?>">
-        <?php
-            $product_ids = get_post_meta( $post->ID, 'replaced_by', true );
-
-            foreach ( $product_ids as $product_id ) {
-                $product = wc_get_product( $product_id );
-                if ( is_object( $product ) ) {
-                    echo '<option value="' . esc_attr( $product_id ) . '"' . selected( true, true, false ) . '>' . wp_kses_post( $product->get_formatted_name() ) . '</option>';
-                }
-            }
-        ?>
-    </select> <?php echo wc_help_tip( __( 'Select Products Here.', 'woocommerce' ) ); ?>
-</p>
-
-<?php
-}
-add_action( 'woocommerce_product_options_related', 'create_replaced_by' );
-====================================
-*/
-
-
-/*
-==================================
-SAVE CUSTOM FIELD FOR PRODUCT SUBS
-function save_replaced_by( $post_id ) {
- $product_field_type =  $_POST['replaced_by'];
-    update_post_meta( $post_id, 'replaced_by', $product_field_type );
-}
-add_action( 'woocommerce_process_product_meta', 'save_replaced_by' );
-==================================
-*/
-
-
-
-/*
-========================================
-CREATE CUSTOM FIELD FOR PRODUCT REPLACES
-function create_replaces() {
-  global $woocommerce, $post;
-?>
-<p class="form-field">
-    <label for="replaces"><?php _e( 'Replaces', 'woocommerce' ); ?></label>
-    <select class="wc-product-search" multiple="multiple" style="width: 50%;" id="replaces" name="replaces[]" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce' ); ?>" data-action="woocommerce_json_search_products_and_variations" data-exclude="<?php echo intval( $post->ID ); ?>">
-        <?php
-            $product_ids = get_post_meta( $post->ID, 'replaces', true );
-
-            foreach ( $product_ids as $product_id ) {
-                $product = wc_get_product( $product_id );
-                if ( is_object( $product ) ) {
-                    echo '<option value="' . esc_attr( $product_id ) . '"' . selected( true, true, false ) . '>' . wp_kses_post( $product->get_formatted_name() ) . '</option>';
-                }
-            }
-        ?>
-    </select> <?php echo wc_help_tip( __( 'Select Products Here.', 'woocommerce' ) ); ?>
-</p>
-
-<?php
-}
-add_action( 'woocommerce_product_options_related', 'create_replaces' );
-========================================
-*/
-
-/*
-======================================
-SAVE CUSTOM FIELD FOR PRODUCT REPLACES
-function save_replaces( $post_id ) {
- $product_field_type =  $_POST['replaces'];
-    update_post_meta( $post_id, 'replaces', $product_field_type );
-}
-add_action( 'woocommerce_process_product_meta', 'save_replaces' );
-======================================
-*/
-
-
-
-
-/*
 ============================================
 CREATE CUSTOM FIELD FOR PRODUCT ALTERNATIVES
-function create_product_alternatives() {
-  global $woocommerce, $post;
-?>
-<p class="form-field">
-    <label for="product_alternatives"><?php _e( 'Product Alternatives', 'woocommerce' ); ?></label>
-    <select class="wc-product-search" multiple="multiple" style="width: 50%;" id="product_alternatives" name="product_alternatives[]" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce' ); ?>" data-action="woocommerce_json_search_products_and_variations" data-exclude="<?php echo intval( $post->ID ); ?>">
-        <?php
-            $product_ids = get_post_meta( $post->ID, 'product_alternatives', true );
-
-            foreach ( $product_ids as $product_id ) {
-                $product = wc_get_product( $product_id );
-                if ( is_object( $product ) ) {
-                    echo '<option value="' . esc_attr( $product_id ) . '"' . selected( true, true, false ) . '>' . wp_kses_post( $product->get_formatted_name() ) . '</option>';
-                }
-            }
-        ?>
-    </select> <?php echo wc_help_tip( __( 'Select Products Here.', 'woocommerce' ) ); ?>
-</p>
-
-<?php
-}
-add_action( 'woocommerce_product_options_related', 'create_product_alternatives' );
 ============================================
 */
 function create_product_alternative_field() {
  $args = array(
  'id' => 'product_alternatives',
- 'label' => __( 'Product Alternatives', 'cfwc' ),
+ 'label' => 'Product Alternatives',
  'desc_tip' => true,
- 'description' => __( 'Separate SKUs by | with no spaces Ex: ABC123|DEF456|GHI789', 'ctwc' ),
+ 'description' => 'Separate SKUs by | with no spaces Ex: ABC123|DEF456|GHI789',
  );
  woocommerce_wp_text_input( $args );
 }
@@ -917,11 +811,6 @@ add_action( 'woocommerce_product_options_related', 'create_product_alternative_f
 /*
 ==========================================
 SAVE CUSTOM FIELD FOR PRODUCT ALTERNATIVES
-function save_product_alternatives( $post_id ) {
- $product_field_type =  $_POST['product_alternatives'];
-    update_post_meta( $post_id, 'product_alternatives', $product_field_type );
-}
-add_action( 'woocommerce_process_product_meta', 'save_product_alternatives' );
 ==========================================
 */
 function save_product_alternatives( $post_id ) {
@@ -931,6 +820,36 @@ function save_product_alternatives( $post_id ) {
  $product->save();
 }
 add_action( 'woocommerce_process_product_meta', 'save_product_alternatives' );
+
+
+/*
+====================================
+CREATE CUSTOM FIELD FOR PRODUCT SUBS
+====================================
+*/
+function create_product_subs_field() {
+ $args = array(
+ 'id' => 'product_subs',
+ 'label' => 'Product Subs',
+ 'desc_tip' => true,
+ 'description' => 'Separate SKUs by | with no spaces Ex: ABC123|DEF456|GHI789',
+ );
+ woocommerce_wp_text_input( $args );
+}
+add_action( 'woocommerce_product_options_related', 'create_product_subs_field' );
+
+/*
+==================================
+SAVE CUSTOM FIELD FOR PRODUCT SUBS
+==================================
+*/
+function save_product_subs( $post_id ) {
+ $product = wc_get_product( $post_id );
+ $title = isset( $_POST['product_subs'] ) ? $_POST['product_subs'] : '';
+ $product->update_meta_data( 'product_subs', sanitize_text_field( $title ) );
+ $product->save();
+}
+add_action( 'woocommerce_process_product_meta', 'save_product_subs' );
 
 
 
