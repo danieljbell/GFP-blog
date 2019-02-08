@@ -293,6 +293,7 @@ button.mega-menu--equipment-parent {
     border-radius: 5px;
     box-shadow: 3px 3px 8px rgba(black, 0.05);
     position: relative;
+    min-height: 100px;
     &:nth-child(2n) {
       margin-right: 0;
     }
@@ -305,6 +306,7 @@ button.mega-menu--equipment-parent {
     display: flex;
     bottom: 0;
     align-items: center;
+    text-align: center;
     justify-content: center;
     &:hover {
       text-decoration: none;
