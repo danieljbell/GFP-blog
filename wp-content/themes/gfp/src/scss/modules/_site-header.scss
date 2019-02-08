@@ -287,19 +287,25 @@ button.mega-menu--equipment-parent {
     margin-right: 1rem;
     margin-bottom: 1rem;
     float: left;
-    &:nth-child(2n) {
-      margin-right: 0;
-    }
-  }
-  > li a {
-    min-height: 100px;
-    display: block;
     padding: 1rem;
     background-color: #fff;
     border: 1px solid $medium-gray;
     border-radius: 5px;
     box-shadow: 3px 3px 8px rgba(black, 0.05);
-    text-align: center;
+    position: relative;
+    &:nth-child(2n) {
+      margin-right: 0;
+    }
+  }
+  > li a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
     &:hover {
       text-decoration: none;
     }
