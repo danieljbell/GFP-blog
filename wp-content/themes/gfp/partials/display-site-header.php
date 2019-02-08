@@ -98,9 +98,9 @@
                   format_equipment_menu('lawn-garden', 'Compact Tractors', 'compact-tractors', 'compact_tractors');
                   format_equipment_menu('lawn-garden', 'Gators', 'gators', 'gators');
                   format_equipment_menu('lawn-garden', 'Walk Behind', 'walk-behind-mowers', 'walk_behind_mowers');
-                  format_equipment_menu('lawn-garden', 'Front Mowers', 'front-mowers', 'front_mowers');
+                  // format_equipment_menu('lawn-garden', 'Front Mowers', 'front-mowers', 'front_mowers');
                   format_equipment_menu('lawn-garden', 'Hand Held Equipment', 'hand-held-equipment', 'hand_held_equipment');
-                  format_equipment_menu('lawn-garden', 'Loaders', 'loaders', 'loaders');
+                  // format_equipment_menu('lawn-garden', 'Loaders', 'loaders', 'loaders');
                   // format_equipment_menu('lawn-garden', 'Snow Blowers', 'snow-blower', 'snow_blower');
                 ?>
               </ul>
@@ -126,10 +126,10 @@
                 <?php
                   format_equipment_menu('landscapers', 'Zero Turns', 'zero-turn-mowers', 'zero_turn_mowers');
                   format_equipment_menu('landscapers', 'Front Mowers', 'front-mowers', 'front_mowers');
-                  format_equipment_menu('landscapers', 'Quik-Traks', 'quik-traks', 'quik_traks');
+                  // format_equipment_menu('landscapers', 'Quik-Traks', 'quik-traks', 'quik_traks');
                   format_equipment_menu('landscapers', 'Walk Behind', 'walk-behind-mowers', 'walk_behind_mowers');
                   format_equipment_menu('landscapers', 'Wide Area', 'wide-area-mowers', 'wide_area_mowers');
-                  format_equipment_menu('landscapers', 'Loaders', 'loaders', 'loaders');
+                  // format_equipment_menu('landscapers', 'Loaders', 'loaders', 'loaders');
                 ?>
               </ul>
             </li>
@@ -145,6 +145,9 @@
                 ?>
               </ul>
             </li>
+            <?php
+            /*
+            =========================
             <li class="mega-menu--parent mega-menu--parent--is-hidden">
               <a href="">Construction</a>
               <ul class="mega-menu--child-list">
@@ -153,6 +156,9 @@
                 ?>
               </ul>
             </li>
+            =========================
+            */
+            ?>
           </ul>
         </li>
         <li class="mega-menu">
