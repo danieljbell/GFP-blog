@@ -224,7 +224,7 @@
     endwhile; endif; wp_reset_query();
     echo '<li class="mega-menu--child-item">';
       echo '<button class="mega-menu--equipment-parent">';
-        echo '<img src="' . get_stylesheet_directory_URI() . '/dist/img/' . $slug . '.jpg" alt="' . $pretty_name . '">' . $pretty_name;
+        echo '<img src="' . get_stylesheet_directory_URI() . '/dist/img/' . $parent . '-' . $slug . '.jpg" alt="' . $pretty_name . '">' . $pretty_name;
       echo '</button>';
       echo '<ul class="visually-hidden">';
         // echo '<li>Daniel</li>';
