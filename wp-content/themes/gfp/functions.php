@@ -315,6 +315,7 @@ function get_product_prices() {
       ));
     } else {
       array_push($response, array(
+        'id' => null,
         'sku' => $part,
         'regular_price' => '-'
       ));
