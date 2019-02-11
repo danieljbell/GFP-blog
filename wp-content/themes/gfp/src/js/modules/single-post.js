@@ -42,7 +42,7 @@
       success: function(response) {
         for (var i = 0; i < response.length; i++) {
           var id = response[i].id;
-          if (id !== null) {
+          if (id !== '') {
             var sku = response[i].sku;
             var price = response[i].regular_price;
             var elem = $('[data-sku="' + sku.toUpperCase() + '"]');
