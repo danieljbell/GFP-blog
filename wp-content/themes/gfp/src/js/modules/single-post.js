@@ -30,7 +30,7 @@
       method: 'POST',
       data: {
         action: 'get_product_info',
-        _ajax_nonce: window.ajax_order_tracking.nonce,
+        // _ajax_nonce: window.ajax_order_tracking.nonce,
         sku: sku
       },
       dataType: 'json',

@@ -13,6 +13,8 @@
 
 .current-promotions--list {
   list-style-type: none;
+  padding: 0;
+  margin: 0;
 
   // cart page
   .woocommerce-cart &,

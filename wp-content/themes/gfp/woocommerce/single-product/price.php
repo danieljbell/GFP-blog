@@ -32,3 +32,4 @@ global $product;
 <?php else : ?>
   <p class="price"><?php echo $product->get_price_html(); ?></p>
 <?php endif; ?>
+

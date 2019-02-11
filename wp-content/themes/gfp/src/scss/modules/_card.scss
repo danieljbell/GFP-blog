@@ -159,6 +159,7 @@
     left: 50%;
     transform: translateX(-50%);
     white-space: nowrap;
+    color: $brand;
   }
 
   &:hover .btn-solid--brand-two {
@@ -170,5 +171,54 @@
     color: red !important;
     font-weight: bold;
   }
+
+}
+
+.card--promo-sidebar {
+  margin: 1.5rem 0;
+  position: relative;
+  
+  a:hover {
+    text-decoration: none;
+  }
+
+}
+
+.card--promo-sidebar .card-bg {
+  
+}
+
+.card--promo-sidebar .card-content {
+  padding: 5rem 1.5rem 1.5rem;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center center;
+}
+
+.card--promo-sidebar-title {
+  color: $brand-two;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1.8rem;
+  line-height: 0.9;
+  text-shadow: 3px 3px 5px #000;
+  transform: translateY(calc(100%));
+  transition: all 400ms ease-out;
+  padding-bottom: 1rem;
+}
+
+.card--promo-sidebar-details {
+  color: #fff;
+  font-size: 0.9em;
+  transform: translateY(calc(100% + 1.5rem));
+  transition: all 400ms ease-out;
+}
+
+.card--promo-sidebar a:hover {
+  
+  .card--promo-sidebar-title,
+  .card--promo-sidebar-details {
+    transform: translateY(0);
+  } 
 
 }

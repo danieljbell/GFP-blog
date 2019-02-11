@@ -301,7 +301,7 @@ function add_multiple_items() {
 
 
 function get_product_info() {
-  check_ajax_referer( 'nonce_name' );
+  // check_ajax_referer( 'nonce_name' );
   $sku = $_POST['sku'];
   $wc_product_id = wc_get_product_id_by_sku($sku);
   $wc_product = wc_get_product($wc_product_id);

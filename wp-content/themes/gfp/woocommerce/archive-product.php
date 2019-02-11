@@ -19,64 +19,17 @@ defined( 'ABSPATH' ) || exit;
 
 get_header( 'shop' );
 
-$current_page = get_queried_object();
 
 $current_promotions_args = array(
-  'post_type' => 'promotions'
+  'post_type' => 'promotions',
+  'posts_per_page' => -1,
+  'meta_key' => 'promotion_end_date',
+  'meta_value' => date('Ymd'),
+  'meta_compare' => '>='
 );
 
 $current_promotions_query = new WP_Query($current_promotions_args);
 
-if ($current_promotions_query->have_posts()) : 
-  $promo_categories = array();
-  $promotions = array();
-  
-  while ($current_promotions_query->have_posts()) : 
-    $current_promotions_query->the_post();
-      // $promotion_terms = get_field('categories_on_sale');
-      // $promo_categories = array();
-      
-      // foreach ($promotion_terms as $term) {
-      //   array_push($promo_categories, $term->slug);
-      // }
-
-      $promo_selected_type = get_field('promo_type');
-      if ($promo_selected_type === 'coupon') {
-        $coupon = new WC_coupon(get_field('coupon'));
-        $promo_type = $coupon->get_discount_type();
-        $discount = $coupon->get_amount();
-      } else {
-        $discount = get_field('sale_amount');
-        $promo_type = get_field('sale_type');
-      }
-
-      if (get_field('sale_end_date')) {
-        $expiry = get_field('sale_end_date');
-      }        
-      if ($promo_selected_type === 'coupon') {
-        $expiry = str_replace("-", "", $coupon->get_date_expires()->date_i18n()) . ', 12:00 am';
-      }
-
-      array_push($promotions, array(
-        'name'              => get_the_title(),
-        'promo_categories'  => $promo_categories,
-        'promo_type'        => get_field('promo_type'),
-        'discount_type'     => $promo_type,
-        'discount_amount'   => $discount,
-        'expires'           => $expiry
-      ));
-
-  endwhile;
-
-    
-
-endif;
-wp_reset_postdata();
-
-// global $product;
-?>
-
-<?php
 /*
 =========================
 // finds a nested array value
@@ -153,11 +106,22 @@ do_action( 'woocommerce_before_main_content' );
       <section>
 
         <?php
-          if (is_tax()) {
-            $query_obj = get_queried_object();
-            echo '<h1>' . $query_obj->description . ' Parts</h1>';
-            echo '<h2>' . number_format($query_obj->count, 0, '.', ',') . ' Parts</h2>';
-          }
+          if ($current_promotions_query->have_posts()) :
+            while ($current_promotions_query->have_posts()) : $current_promotions_query->the_post();
+              if (get_field('categories_on_sale')[0]->term_id === get_queried_object()->term_id) {
+                echo '<section class="hero mar-b--more" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(' . get_field('promotion_image') . ');">';
+                  echo '<h1>' . get_queried_object()->name . '</h1>';
+                  echo '<h2>Save Now! <span class="offer-text" style="color: inherit;">Offer expires <span class="promo-countdown" style="color: inherit !important;" data-expires="' . date("Ymd", strtotime(get_field('promotion_end_date'))) . '">on ' . date("F j, Y", strtotime(get_field('promotion_end_date'))) . '</span></span><h2>';
+                echo '</section>';
+              }
+            endwhile;
+          else :  
+            if (is_tax()) {
+              $query_obj = get_queried_object();
+              echo '<h1>' . $query_obj->description . ' Parts</h1>';
+              echo '<h2>' . number_format($query_obj->count, 0, '.', ',') . ' Parts</h2>';
+            }
+          endif; wp_reset_postdata();
         ?>
 
         <?php

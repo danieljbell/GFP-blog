@@ -55,8 +55,34 @@ if ( $product->is_in_stock() ) : ?>
     <?php do_action( 'woocommerce_template_single_excerpt' ); ?>
 
     <?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
+    
+    <?php  
+
+      echo '<p>danel</p>';
+      
+      $current_promotions_args = array(
+        'post_type' => 'promotions',
+        'posts_per_page' => -1,
+        'meta_key' => 'promotion_end_date',
+        'meta_value' => date('Ymd'),
+        'meta_compare' => '>='
+      );
+
+      $current_promotions_query = new WP_Query($current_promotions_args);
+
+      print_r(get_queried_object());
+
+      if ($current_promotions_query->have_posts()) : while ($current_promotions_query->have_posts()) : $current_promotions_query->the_post();
+        echo '<hr />';
+        print_r(get_queried_object());
+      endwhile; endif; wp_reset_postdata();
+
+    ?>
+
   </form>
 
   <?php do_action( 'woocommerce_after_add_to_cart_form' ); ?>
+
+  
 
 <?php endif; ?>
