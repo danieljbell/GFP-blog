@@ -1,21 +1,21 @@
 <?php
-  // $promotion_terms = get_field('categories_on_sale');
-  // $promo_not_current_category = false;
+  $promotion_terms = get_field('categories_on_sale');
+  $promo_not_current_category = false;
 
-  // foreach ($promotion_terms as $term) {
-  //   if ($current_page->slug !== $term->slug) {
-  //     $promo_not_current_category = true;
-  //   }
-  // }
+  foreach ($promotion_terms as $term) {
+    if ($current_page->slug !== $term->slug) {
+      $promo_not_current_category = true;
+    }
+  }
 
   $image = get_field('current_promo_image');
 
-  // if (!$image) {
-  //   $thumbnail_id = get_woocommerce_term_meta( $promotion_terms[0]->term_id, 'thumbnail_id', true );
-  //   $image = wp_get_attachment_url( $thumbnail_id );
-  // } else {
+  if (!$image) {
+    $thumbnail_id = get_woocommerce_term_meta( $promotion_terms[0]->term_id, 'thumbnail_id', true );
+    $image = wp_get_attachment_url( $thumbnail_id );
+  } else {
     $image = $image['url'];
-  // }
+  }
 
   $promo_selected_type = get_field('promo_type');
   if ($promo_selected_type === 'coupon') {
@@ -36,19 +36,19 @@
   }
 
   $promo_headline = get_field('promo_headline');
-  // if (!$promo_headline) {
-  //   $i = 0;
-  //   $promotion_terms_length = count($promotion_terms);
-  //   foreach ($promotion_terms as $cool) {
-  //     // last iteration
-  //     if ($i == $promotion_terms_length - 1) {
-  //       $promo_headline = $promo_headline . $cool->name;
-  //     } else {
-  //       $promo_headline = $promo_headline . $cool->name . ' & ';
-  //     }
-  //     $i++;
-  //   }
-  // }
+  if (!$promo_headline) {
+    $i = 0;
+    $promotion_terms_length = count($promotion_terms);
+    foreach ($promotion_terms as $cool) {
+      // last iteration
+      if ($i == $promotion_terms_length - 1) {
+        $promo_headline = $promo_headline . $cool->name;
+      } else {
+        $promo_headline = $promo_headline . $cool->name . ' & ';
+      }
+      $i++;
+    }
+  }
 
   if (get_field('sale_end_date')) {
     $expiry = get_field('sale_end_date');
@@ -65,11 +65,10 @@
     $promo_body_copy = 'Save now on all ' . $promo_headline . '. No code needed, savings automatically applied. Offer ends ' . date("F jS, Y", strtotime($expiry));
   }
 
-  // if ($promotion_terms_length === 1) {
-    // $button_link = get_term_link($promotion_terms[0]);
-  // }
-
   $button_link = '#0';
+  if ($promotion_terms_length === 1) {
+    $button_link = get_term_link($promotion_terms[0]);
+  }
 
   if ((substr($expiry, 0, 8) > date("Ymd"))) :
 ?>

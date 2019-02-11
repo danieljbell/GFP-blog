@@ -126,7 +126,7 @@
                 <?php
                   format_equipment_menu('landscapers', 'Zero Turns', 'zero-turn-mowers', 'zero_turn_mowers');
                   format_equipment_menu('landscapers', 'Front Mowers', 'front-mowers', 'front_mowers');
-                  // format_equipment_menu('landscapers', 'Quik-Traks', 'quik-traks', 'quik_traks');
+                  format_equipment_menu('landscapers', 'Quik-Traks', 'quik-traks', 'quik_traks');
                   format_equipment_menu('landscapers', 'Walk Behind', 'walk-behind-mowers', 'walk_behind_mowers');
                   format_equipment_menu('landscapers', 'Wide Area', 'wide-area-mowers', 'wide_area_mowers');
                   // format_equipment_menu('landscapers', 'Loaders', 'loaders', 'loaders');
