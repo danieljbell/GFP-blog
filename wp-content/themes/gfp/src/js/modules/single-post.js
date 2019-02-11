@@ -21,15 +21,16 @@
   AJAX FOR PRICE
   =========================
   */
-  var allParts = $('.category-maintenance-reminder [data-sku]');
-  var partsArray = [];
-  $.each(allParts, function(i) {
+  var allSections = $('.category-maintenance-reminder table');
+  $.each(allSections, function(i) {
     var elem = $(this);
-    var sku = elem.data('sku');
-    // console.log(sku);
-    partsArray.push(sku);
-  });
-  $.ajax({
+    var allSectionParts = elem.find('[data-sku]');
+    var partsArray = [];
+    $.each(allSectionParts, function() {
+      partsArray.push($(this).data('sku'));
+    })
+    // console.log(partsArray);
+    $.ajax({
       url: window.ajax_order_tracking.ajax_url,
       method: 'POST',
       data: {
@@ -40,20 +41,45 @@
       dataType: 'json',
       success: function(response) {
         for (var i = 0; i < response.length; i++) {
-          console.log(response[i]);
+          var sku = response[i].sku;
+          var price = response[i].regular_price;
+          var elem = $('[data-sku="' + sku.toUpperCase() + '"]');
+          elem.siblings('[data-header="Price"]').html('$' + Number(price).toFixed(2));
+          elem.parent().find('button').removeClass('disabled').addClass('add-to-cart').text('Add to Cart').attr('value', response.id);
         }
-        // var price = Number(response.price).toFixed(2);
-        // var html = elem.html();
-        // elem.siblings('[data-header="Price"]').html('$' + price);
-        // if (response.id) {
-        //   elem.html('<a href="/?p=' + response.id + '">' + html + '</a>');
-        //   elem.parent().find('button').removeClass('disabled').addClass('add-to-cart').text('Add to Cart').attr('value', response.id);
-        // }
       },
       error: function(err) {
         console.log(err);
       }
     });
+  });
+  // $.ajax({
+  //     url: window.ajax_order_tracking.ajax_url,
+  //     method: 'POST',
+  //     data: {
+  //       action: 'get_product_prices',
+  //       _ajax_nonce: window.ajax_order_tracking.nonce,
+  //       parts: partsArray
+  //     },
+  //     dataType: 'json',
+  //     success: function(response) {
+  //       for (var i = 0; i < response.length; i++) {
+  //         var sku = response[i].sku;
+  //         var price = response[i].regular_price;
+  //         $('[data-sku="' + sku.toUpperCase() + '"]').siblings('[data-header="Price"]').html('$' + price);
+  //       }
+  //       // var price = Number(response.price).toFixed(2);
+  //       // var html = elem.html();
+  //       // elem.siblings('[data-header="Price"]').html('$' + price);
+  //       // if (response.id) {
+  //       //   elem.html('<a href="/?p=' + response.id + '">' + html + '</a>');
+  //       //   elem.parent().find('button').removeClass('disabled').addClass('add-to-cart').text('Add to Cart').attr('value', response.id);
+  //       // }
+  //     },
+  //     error: function(err) {
+  //       console.log(err);
+  //     }
+  //   });
 
 
   /*
