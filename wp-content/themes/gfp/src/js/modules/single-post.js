@@ -33,6 +33,8 @@
         // _ajax_nonce: window.ajax_order_tracking.nonce,
         sku: sku
       },
+      tryCount: 0,
+      retryLimit: 3,
       dataType: 'json',
       success: function(response) {
         var price = Number(response.price).toFixed(2);
