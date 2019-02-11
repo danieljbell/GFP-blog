@@ -309,8 +309,9 @@ function get_product_prices() {
     if ($wc_product_id) {
       $wc_product = wc_get_product($wc_product_id);
       array_push($response, array(
+        'id' => $wc_product->get_id(),
         'sku' => $wc_product->get_sku(),
-        'regular_price' => $wc_product->get_regular_price()
+        'regular_price' => $wc_product->get_regular_price(),
       ));
     } else {
       array_push($response, array(

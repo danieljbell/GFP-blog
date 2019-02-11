@@ -43,9 +43,10 @@
         for (var i = 0; i < response.length; i++) {
           var sku = response[i].sku;
           var price = response[i].regular_price;
+          var id = response[i].id;
           var elem = $('[data-sku="' + sku.toUpperCase() + '"]');
           elem.siblings('[data-header="Price"]').html('$' + Number(price).toFixed(2));
-          elem.parent().find('button').removeClass('disabled').addClass('add-to-cart').text('Add to Cart').attr('value', response.id);
+          elem.parent().find('button').removeClass('disabled').addClass('add-to-cart').text('Add to Cart').attr('value', id);
         }
       },
       error: function(err) {
