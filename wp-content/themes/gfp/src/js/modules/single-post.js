@@ -22,34 +22,38 @@
   =========================
   */
   var allParts = $('.category-maintenance-reminder [data-sku]');
-  $.each(allParts, function() {
+  var partsArray = [];
+  $.each(allParts, function(i) {
     var elem = $(this);
     var sku = elem.data('sku');
-    $.ajax({
+    // console.log(sku);
+    partsArray.push(sku);
+  });
+  $.ajax({
       url: window.ajax_order_tracking.ajax_url,
       method: 'POST',
       data: {
-        action: 'get_product_info',
-        // _ajax_nonce: window.ajax_order_tracking.nonce,
-        sku: sku
+        action: 'get_product_prices',
+        _ajax_nonce: window.ajax_order_tracking.nonce,
+        parts: partsArray
       },
-      tryCount: 0,
-      retryLimit: 3,
       dataType: 'json',
       success: function(response) {
-        var price = Number(response.price).toFixed(2);
-        var html = elem.html();
-        elem.siblings('[data-header="Price"]').html('$' + price);
-        if (response.id) {
-          elem.html('<a href="/?p=' + response.id + '">' + html + '</a>');
-          elem.parent().find('button').removeClass('disabled').addClass('add-to-cart').text('Add to Cart').attr('value', response.id);
+        for (var i = 0; i < response.length; i++) {
+          console.log(response[i]);
         }
+        // var price = Number(response.price).toFixed(2);
+        // var html = elem.html();
+        // elem.siblings('[data-header="Price"]').html('$' + price);
+        // if (response.id) {
+        //   elem.html('<a href="/?p=' + response.id + '">' + html + '</a>');
+        //   elem.parent().find('button').removeClass('disabled').addClass('add-to-cart').text('Add to Cart').attr('value', response.id);
+        // }
       },
       error: function(err) {
         console.log(err);
       }
     });
-  });
 
 
   /*

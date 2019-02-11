@@ -300,8 +300,30 @@ function add_multiple_items() {
 }
 
 
+function get_product_prices() {
+  check_ajax_referer( 'nonce_name' );
+  $parts = $_POST['parts'];
+  $response = [];
+  foreach ($parts as $key => $part) {
+    $wc_product_id = wc_get_product_id_by_sku($part);
+    if ($wc_product_id) {
+      $wc_product = wc_get_product($wc_product_id);
+      array_push($response, array(
+        'sku' => $wc_product->get_sku(),
+        'regular_price' => $wc_product->get_regular_price()
+      ));
+    } else {
+      array_push($response, array(
+        'sku' => $part,
+        'regular_price' => '-'
+      ));
+    }
+  }
+  wp_send_json($response);
+}
+
 function get_product_info() {
-  // check_ajax_referer( 'nonce_name' );
+  check_ajax_referer( 'nonce_name' );
   $sku = $_POST['sku'];
   $wc_product_id = wc_get_product_id_by_sku($sku);
   $wc_product = wc_get_product($wc_product_id);
@@ -556,6 +578,9 @@ function get_order_notes() {
 }
 
 
+
+add_action('wp_ajax_get_product_prices', 'get_product_prices');
+add_action('wp_ajax_nopriv_get_product_prices', 'get_product_prices');
 add_action('wp_ajax_get_product_info', 'get_product_info');
 add_action('wp_ajax_nopriv_get_product_info', 'get_product_info');
 add_action('wp_ajax_add_multiple_items', 'add_multiple_items');
