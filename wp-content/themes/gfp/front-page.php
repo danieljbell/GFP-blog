@@ -14,9 +14,14 @@
 </section>
 
 <?php
+  // print_r(date('Ymd'));
+
   $current_promotions_args = array(
     'post_type' => 'promotions',
-    'posts_per_page' => -1
+    'posts_per_page' => -1,
+    'meta_key' => 'promotion_end_date',
+    'meta_value' => date('Ymd'),
+    'meta_compare' => '>='
   );
 
   $current_promotions_query = new WP_Query($current_promotions_args);
