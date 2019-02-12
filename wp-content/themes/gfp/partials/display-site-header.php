@@ -89,7 +89,7 @@
         <li class="mega-menu">
           <button class="navigation--button">Shop By Equipment</button>
           <ul class="mega-menu--list mega-menu--shop-by-equipment">
-            <li class="mega-menu--parent">
+            <li class="mega-menu--parent menu-item-has-children">
               <a href="#0">Lawn & Garden</a>
               <ul class="mega-menu--child-list">
                 <?php
@@ -105,7 +105,7 @@
                 ?>
               </ul>
             </li>
-            <li class="mega-menu--parent mega-menu--parent--is-hidden">
+            <li class="mega-menu--parent mega-menu--parent--is-hidden menu-item-has-children">
               <a href="">Agriculture</a>
               <ul class="mega-menu--child-list">
                 <?php
@@ -120,7 +120,7 @@
                 ?>
               </ul>
             </li>
-            <li class="mega-menu--parent mega-menu--parent--is-hidden">
+            <li class="mega-menu--parent mega-menu--parent--is-hidden menu-item-has-children">
               <a href="">Landscapers</a>
               <ul class="mega-menu--child-list">
                 <?php
@@ -133,7 +133,7 @@
                 ?>
               </ul>
             </li>
-            <li class="mega-menu--parent mega-menu--parent--is-hidden">
+            <li class="mega-menu--parent mega-menu--parent--is-hidden menu-item-has-children">
               <a href="">Golf</a>
               <ul class="mega-menu--child-list">
                 <?php
