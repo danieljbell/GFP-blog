@@ -1,8 +1,23 @@
 (function($) {
 
+  var allCheckboxes = $('.sticky-elements input');
+  allCheckboxes.on('change', function(e) {
+    var val = e.target;
+    if (val.checked) {
+      $('section.equipment-container--' + val.id).removeClass('visually-hidden');
+    } else {
+      $('section.equipment-container--' + val.id).addClass('visually-hidden');
+    }
+  });
+
   var input = $('#search_model');
   var allAccordians = $('.all-models-container .accordian');
   input.on('keyup', function(e) {
+    
+    $.each(allCheckboxes, function(i, elem) {
+      $(elem).prop('checked', true);
+    });
+
     if (e.target.value === '') {
       clearEverything();
       return;

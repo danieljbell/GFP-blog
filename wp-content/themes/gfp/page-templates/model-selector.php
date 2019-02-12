@@ -18,11 +18,7 @@ Template Name: Model Selector
   <div class="site-width">
     <div class="all-models-container">
       <div>
-        <div class="form-group mar-b--more">
-          <label for="search_model" class="visually-hidden">Filter Page By Model Number</label>
-          <input type="text" name="search_model" id="search_model" placeholder="Filter Page By Model Number">
-        </div>
-        <section id="lawn-garden" class="mar-b--most equipment-container">
+        <section class="mar-b--most equipment-container equipment-container--lawn-garden">
           <div class="box--with-header">
             <header>
               <h2>Lawn &amp; Garden</h2>
@@ -37,7 +33,7 @@ Template Name: Model Selector
             ?>
           </div>
         </section>
-        <section id="agriculture" class="mar-b--most equipment-container">
+        <section class="mar-b--most equipment-container equipment-container--agriculture">
           <div class="box--with-header">
             <header>
               <h2>Agriculture</h2>
@@ -52,7 +48,7 @@ Template Name: Model Selector
             ?>
           </div>
         </section>
-        <section id="landscapers" class="mar-b--most equipment-container">
+        <section class="mar-b--most equipment-container equipment-container--landscapers">
           <div class="box--with-header">
             <header>
               <h2>Landscapers</h2>
@@ -66,7 +62,7 @@ Template Name: Model Selector
             ?>
           </div>
         </section>
-        <section id="golf" class="equipment-container">
+        <section class="equipment-container equipment-container--golf">
           <div class="box--with-header">
             <header>
               <h2>Golf</h2>
@@ -84,12 +80,28 @@ Template Name: Model Selector
       <aside>
         <div class="sticky-elements">
           <div class="box--with-header">
-            <header>Categories</header>
-            <ul>
-              <li><a href="/model-selector/#lawn-garden">Lawn &amp; Garden</a></li>
-              <li><a href="/model-selector/#agriculture">Agriculture</a></li>
-              <li><a href="/model-selector/#landscapers">Landscapers</a></li>
-              <li><a href="/model-selector/#golf">Golf</a></li>
+            <header>Filters</header>
+            <div class="form-group mar-b">
+              <label for="search_model" class="visually-hidden">Filter Page By Model Number</label>
+              <input type="text" name="search_model" id="search_model" placeholder="Filter Page By Model Number">
+            </div>
+            <ul style="list-style-type: none;">
+              <li>
+                <input type="checkbox" id="lawn-garden" checked>
+                <label for="lawn-garden">Lawn &amp; Garden</label>
+              </li>
+              <li>
+                <input type="checkbox" id="agriculture" checked>
+                <label for="agriculture">Agriculture</label>
+              </li>
+              <li>
+                <input type="checkbox" id="landscapers" checked>
+                <label for="landscapers">Landscapers</label>
+              </li>
+              <li>
+                <input type="checkbox" id="golf" checked>
+                <label for="golf">Golf</label>
+              </li>
             </ul>
           </div>
         </div>
