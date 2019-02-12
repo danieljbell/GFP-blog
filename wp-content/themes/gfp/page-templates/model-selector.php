@@ -79,9 +79,12 @@ Template Name: Model Selector
       </div>
       <aside>
         <div class="sticky-elements">
-          <div class="form-group mar-b--more">
-            <label for="search_model" class="visually-hidden">Filter Page By Model Number</label>
-            <input type="text" name="search_model" id="search_model" placeholder="Filter Page By Model Number">
+          <div class="box--with-header mar-b--more">
+            <header>Filter Models</header>
+            <div class="form-group">
+              <label for="search_model" class="visually-hidden">Filter Page By Model Number</label>
+              <input type="text" name="search_model" id="search_model" placeholder="Filter Page By Model Number">
+            </div>
           </div>
           <div class="box--with-header">
             <header>Categories</header>
@@ -118,19 +121,27 @@ function format_equipment_menu($parent, $pretty_name, $slug, $equip_var) {
         'link' => get_the_permalink()
       ));
     endwhile; endif; wp_reset_query();
-    echo '<div class="industry-vertical--section" id="' . $parent . '-' . $slug . '">';
-      echo '<div class="industry-vertical--image">';
-        echo '<img src="' . get_stylesheet_directory_URI() . '/dist/img/' . $parent . '-' . $slug . '.jpg" alt="' . $pretty_name . '">';
-      echo '</div>';
+    echo '<div class="industry-vertical--section mar-b" id="' . $parent . '-' . $slug . '">';
       echo '<div class="industry-vertical--links">';
-        echo '<h3>' . $pretty_name . '</h3>';
-        echo '<ul>';
-          foreach ($posts as $key => $post) {
-            $name = $post['name'];
-            $name = explode(' ', $name);
-            echo '<li><a href="' . $post['link'] . '">' . $name[0] . '</a></li>';
-          }
+        echo '<ul class="accordian">';
+          echo '<li class="accordian--item">';
+            echo '<button class="accordian--title"><img src="' . get_stylesheet_directory_URI() . '/dist/img/' . $parent . '-' . $slug . '.jpg" alt="' . $pretty_name . '">' . $pretty_name . '</button>';
+            echo '<div class="accordian--content">';
+              echo '<ul class="single--part-fitment-list">';
+                foreach ($posts as $key => $post) {
+                  $name = $post['name'];
+                  $name = explode(' ', $name);
+                  echo '<li class="single--part-fitment-item"><a href="' . $post['link'] . '">' . $name[1] . '</a></li>';
+                }
+              echo '</ul>';
+            echo '</div>';
+          echo '</li>';
         echo '</ul>';
-      echo '</div>';  
+      echo '</div>';
     echo '</div>';
+    //   echo '<div class="industry-vertical--links">';
+    //     echo '<h3>' . $pretty_name . '</h3>';
+    //     
+    //   echo '</div>';  
+    // echo '</div>';
   }

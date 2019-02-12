@@ -23,30 +23,43 @@
     width: 100%;
   }
 
-  .industry-vertical--section {
-    display: table;
-    width: 100%;
-
-    &:last-child > * {
-      padding-bottom: 0;
-    }
+  .accordian--item {
     
-    > * {
-      display: table-cell;
-      vertical-align: top;
-      padding-bottom: 2rem;
-      
-      &:first-child {
-        width: 100px;
-      }
-
+    img {
+      max-width: 50px;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 1rem;
     }
 
+    .single--part-fitment-item {
+      list-style-type: none;
+    }
+
+  }
+
+  .accordian-title {
+    background-color: $medium-gray;
+  }
+
+  .accordian--is-collapsed .accordian--title:after {
+    top: 50%;
+    transform: rotate(0) translateY(-50%);
+  }
+
+  .accordian--title:after {
+    top: 50%;
+    transform: rotate(45deg) translateY(-50%); 
+    transform-origin: top;
   }
 
   .sticky-elements {
     position: sticky;
     top: 3rem;
+  }
+
+  .single--part-fitment-item {
+    margin-bottom: 1rem;
   }
 
 }
