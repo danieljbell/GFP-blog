@@ -209,7 +209,6 @@ $nla_part = get_post_meta($post->ID, 'nla_part');
 				do_action( 'woocommerce_template_single_title' );
 				do_action( 'woocommerce_template_single_rating' );
 				$part_replacements = get_post_meta($post->ID, 'product_subs');
-				print_r(count($part_replacements));
 				if ((count($part_replacements) > 0) && ($nla_part[0] !== 'yes')) {
 					echo '<div class="part--replaced_by mar-t">';
 						echo '<p class="mar-b">This part is no longer available. It\'s been replaced by:</p>';
