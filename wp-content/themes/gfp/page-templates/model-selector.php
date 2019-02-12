@@ -126,7 +126,9 @@ function format_equipment_menu($parent, $pretty_name, $slug, $equip_var) {
         echo '<h3>' . $pretty_name . '</h3>';
         echo '<ul>';
           foreach ($posts as $key => $post) {
-            echo '<li><a href="' . $post['link'] . '">' . $post['name'] . '</a></li>';
+            $name = $post['name'];
+            $name = explode(' ', $name);
+            echo '<li><a href="' . $post['link'] . '">' . $name[0] . '</a></li>';
           }
         echo '</ul>';
       echo '</div>';  
