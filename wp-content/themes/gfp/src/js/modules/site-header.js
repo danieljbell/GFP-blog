@@ -52,9 +52,10 @@
   if (window.innerWidth < 769) {
     megaMenuParents.forEach(function(item) {
       item.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.target.parentElement.classList.toggle('mega-menu--parent--is-hidden');
-        console.log('open me up');
+        if (e.target.parentElement.classList.contains('menu-item-has-children')) {
+          e.preventDefault();
+          e.target.parentElement.classList.toggle('mega-menu--parent--is-hidden');
+        }
       });
     });
   }
