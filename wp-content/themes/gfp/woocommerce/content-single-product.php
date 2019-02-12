@@ -209,10 +209,10 @@ $nla_part = get_post_meta($post->ID, 'nla_part');
 				do_action( 'woocommerce_template_single_title' );
 				do_action( 'woocommerce_template_single_rating' );
 				$part_replacements = get_post_meta($post->ID, 'product_subs');
+				print_r(count($part_replacements));
 				if ((count($part_replacements) > 0) && ($nla_part[0] !== 'yes')) {
-					$replacement_text = 'It\'s been replaced by:';
 					echo '<div class="part--replaced_by mar-t">';
-						echo '<p class="mar-b">This part is no longer available. ' . $replacement_text . '</p>';
+						echo '<p class="mar-b">This part is no longer available. It\'s been replaced by:</p>';
 						echo '<ul>';
 							foreach ($part_replacements as $part) {
 								$replacement_part_id = wc_get_product_id_by_sku($part);
@@ -222,7 +222,7 @@ $nla_part = get_post_meta($post->ID, 'nla_part');
 										echo '<div class="products--image">';
 											echo '<a href="' . $replacement_part->get_permalink() . '">';
 												if ( has_post_thumbnail() ) :
-									        echo '<img src="https://res.cloudinary.com/greenfarmparts/image/upload/e_brightness:30,w_100,h_100,c_fill/' . $product->get_sku() . '-0.jpg" alt="" style="max-width: 65px;">';
+									        echo '<img src="https://res.cloudinary.com/greenfarmparts/image/upload/e_brightness:30,w_100,h_100,c_fill/' . $replacement_part->get_sku() . '-0.jpg" alt="" style="max-width: 65px;">';
 												else :
 									        echo '<img src="' . wc_placeholder_img_src() . '" alt="Part Photo Coming Soon" style="max-width: 65px;">';
 									      endif;

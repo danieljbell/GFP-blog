@@ -250,23 +250,30 @@ foreach (get_the_tags() as $tag) {
         // endif;
       ?>
 
-      <secion class="mar-y--most">
-        <h3>Service Schedule Parts <span>for a <?php echo $title; ?></span></h3>
-        <p>While your John Deere machine is certainly built with quality parts, they have a limited life. Good news is you can easily service your machine yourself using a John Deere maintenance kit or service kits or by getting the specific John Deere part needed to keep your John Deere mower or tractor running for a long time. These are the parts on your <?php echo $title; ?> that need to be regularly serviced.</p>
-        <?php format_tables('hourly_part', true); ?>
-      </secion>
+      
+      <?php if (have_rows('hourly_parts')) : ?>
+        <section class="mar-y--most">
+          <h3>Service Schedule Parts <span>for a <?php echo $title; ?></span></h3>
+          <p>While your John Deere machine is certainly built with quality parts, they have a limited life. Good news is you can easily service your machine yourself using a John Deere maintenance kit or service kits or by getting the specific John Deere part needed to keep your John Deere mower or tractor running for a long time. These are the parts on your <?php echo $title; ?> that need to be regularly serviced.</p>
+          <?php format_tables('hourly_part', true); ?>
+        </section>
+      <?php endif; ?>
+      
+      <?php if (have_rows('common_parts')) : ?>
+        <section class="mar-y--most">
+          <h3>Commonly Used Parts <span>for a <?php echo $title; ?></span></h3>
+          <p>Outside of the schedule service intervals, you may need a part for a quick repair. While this is not an inclusive list of all the parts for a <?php echo $title; ?>, these are the typical parts that we see purchased for your model.</p>
+          <?php format_tables('common_part', false); ?>
+        </section>
+      <?php endif; ?>
 
-      <section class="mar-y--most">
-        <h3>Commonly Used Parts <span>for a <?php echo $title; ?></span></h3>
-        <p>Outside of the schedule service intervals, you may need a part for a quick repair. While this is not an inclusive list of all the parts for a <?php echo $title; ?>, these are the typical parts that we see purchased for your model.</p>
-        <?php format_tables('common_part', false); ?>
-      </section>
-
-      <section class="mar-y--most">
-        <h3>As Needed Parts <span>for a <?php echo $title; ?></span></h3>
-        <p>Regardless of your John Deere model, these John Deere parts are used frequently in maintaining and your <?php echo $title; ?> and can be used around your garage.</p>
-        <?php format_tables('as_needed_part', false); ?>
-      </section>
+      <?php if (have_rows('as_needed_parts')) : ?>
+        <section class="mar-y--most">
+          <h3>As Needed Parts <span>for a <?php echo $title; ?></span></h3>
+          <p>Regardless of your John Deere model, these John Deere parts are used frequently in maintaining and your <?php echo $title; ?> and can be used around your garage.</p>
+          <?php format_tables('as_needed_part', false); ?>
+        </section>
+      <?php endif; ?>
 
 
       <?php function format_tables($section, $interval) { ?>
