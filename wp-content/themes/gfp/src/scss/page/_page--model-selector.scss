@@ -38,10 +38,15 @@
 
   }
 
-  .accordian-title {
-    background-color: $medium-gray;
+  .accordian--is-collapsed .accordian--title {
+    background-color: #fff;
   }
 
+  .accordian--title {
+    background-color: $brand-two;
+    color: $brand;
+  }
+  
   .accordian--is-collapsed .accordian--title:after {
     top: 50%;
     transform: rotate(0) translateY(-50%);

@@ -62,6 +62,7 @@ gulp.task('js', function () {
     './wp-content/themes/gfp/src/js/modules/alerts.js',
     './wp-content/themes/gfp/src/js/modules/account.js',
     './wp-content/themes/gfp/src/js/modules/category.js',
+    './wp-content/themes/gfp/src/js/modules/model-selector.js',
   ])
     .pipe(sourcemaps.init())
     .pipe(concat('global.js'))

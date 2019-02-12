@@ -18,7 +18,11 @@ Template Name: Model Selector
   <div class="site-width">
     <div class="all-models-container">
       <div>
-        <section id="lawn-garden" class="mar-b--most">
+        <div class="form-group mar-b--more">
+          <label for="search_model" class="visually-hidden">Filter Page By Model Number</label>
+          <input type="text" name="search_model" id="search_model" placeholder="Filter Page By Model Number">
+        </div>
+        <section id="lawn-garden" class="mar-b--most equipment-container">
           <div class="box--with-header">
             <header>
               <h2>Lawn &amp; Garden</h2>
@@ -33,7 +37,7 @@ Template Name: Model Selector
             ?>
           </div>
         </section>
-        <section id="agriculture" class="mar-b--most">
+        <section id="agriculture" class="mar-b--most equipment-container">
           <div class="box--with-header">
             <header>
               <h2>Agriculture</h2>
@@ -48,7 +52,7 @@ Template Name: Model Selector
             ?>
           </div>
         </section>
-        <section id="landscapers" class="mar-b--most">
+        <section id="landscapers" class="mar-b--most equipment-container">
           <div class="box--with-header">
             <header>
               <h2>Landscapers</h2>
@@ -62,7 +66,7 @@ Template Name: Model Selector
             ?>
           </div>
         </section>
-        <section id="golf">
+        <section id="golf" class="equipment-container">
           <div class="box--with-header">
             <header>
               <h2>Golf</h2>
@@ -79,13 +83,6 @@ Template Name: Model Selector
       </div>
       <aside>
         <div class="sticky-elements">
-          <div class="box--with-header mar-b--more">
-            <header>Filter Models</header>
-            <div class="form-group">
-              <label for="search_model" class="visually-hidden">Filter Page By Model Number</label>
-              <input type="text" name="search_model" id="search_model" placeholder="Filter Page By Model Number">
-            </div>
-          </div>
           <div class="box--with-header">
             <header>Categories</header>
             <ul>
@@ -114,8 +111,8 @@ function format_equipment_menu($parent, $pretty_name, $slug, $equip_var) {
     $posts = [];
     if ($equipment_query->have_posts()) : while ($equipment_query->have_posts()) : $equipment_query->the_post();
       $name = get_the_title();
-      $name = str_replace("John Deere", "", $name);
-      $name = str_replace("Maintenance Guide", "", $name);
+      $name = str_replace("John Deere ", "", $name);
+      $name = str_replace(" Maintenance Guide", "", $name);
       array_push($posts, array(
         'name' => $name,
         'link' => get_the_permalink()
@@ -131,7 +128,7 @@ function format_equipment_menu($parent, $pretty_name, $slug, $equip_var) {
                 foreach ($posts as $key => $post) {
                   $name = $post['name'];
                   $name = explode(' ', $name);
-                  echo '<li class="single--part-fitment-item"><a href="' . $post['link'] . '">' . $name[1] . '</a></li>';
+                  echo '<li class="single--part-fitment-item" data-model-number="' . $post['name'] . '"><a href="' . $post['link'] . '">' . $name[0] . '</a></li>';
                 }
               echo '</ul>';
             echo '</div>';
@@ -139,9 +136,4 @@ function format_equipment_menu($parent, $pretty_name, $slug, $equip_var) {
         echo '</ul>';
       echo '</div>';
     echo '</div>';
-    //   echo '<div class="industry-vertical--links">';
-    //     echo '<h3>' . $pretty_name . '</h3>';
-    //     
-    //   echo '</div>';  
-    // echo '</div>';
   }
