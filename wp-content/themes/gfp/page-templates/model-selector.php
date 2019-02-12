@@ -18,7 +18,7 @@ Template Name: Model Selector
   <div class="site-width">
     <div class="all-models-container">
       <div>
-        <section class="mar-b--most equipment-container equipment-container--lawn-garden">
+        <section id="equipment-container--lawn" class="mar-b--most equipment-container equipment-container--lawn-garden">
           <div class="box--with-header">
             <header>
               <h2>Lawn &amp; Garden</h2>
@@ -33,7 +33,7 @@ Template Name: Model Selector
             ?>
           </div>
         </section>
-        <section class="mar-b--most equipment-container equipment-container--agriculture">
+        <section id="equipment-container--agriculture" class="mar-b--most equipment-container equipment-container--agriculture">
           <div class="box--with-header">
             <header>
               <h2>Agriculture</h2>
@@ -48,7 +48,7 @@ Template Name: Model Selector
             ?>
           </div>
         </section>
-        <section class="mar-b--most equipment-container equipment-container--landscapers">
+        <section id="equipment-container--landscapers" class="mar-b--most equipment-container equipment-container--landscapers">
           <div class="box--with-header">
             <header>
               <h2>Landscapers</h2>
@@ -62,7 +62,7 @@ Template Name: Model Selector
             ?>
           </div>
         </section>
-        <section class="equipment-container equipment-container--golf">
+        <section id="equipment-container--golf" class="equipment-container equipment-container--golf">
           <div class="box--with-header">
             <header>
               <h2>Golf</h2>
