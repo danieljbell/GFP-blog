@@ -8,15 +8,15 @@ Template Name: Indvidual Products On Sale
 
 <?php get_header(); ?>
 
-  <section class="hero">
+  <section class="hero" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<?php echo get_stylesheet_directory_URI(); ?>/dist/img/hero--generic-<?php echo mt_rand(1,5);?>.jpg);">
     <div class="site-width">
       <h1><?php echo get_the_title(); ?></h1>
     </div>
   </section>
 
-  <section>
+  <section class="pad-y--most">
     <div class="site-width">
-      <ul>
+      <ul class="grid--third">
         <?php while (have_rows('products')) : the_row(); ?>
           <?php
             $product_id = wc_get_product_id_by_sku(get_sub_field('part_sku'));
@@ -25,11 +25,13 @@ Template Name: Indvidual Products On Sale
 ?>
   <li class="products--item product-card--slim">
       <div class="products--image">
-        <?php if ( has_post_thumbnail($wc_product->get_id()) ) : ?>
-          <img src="https://res.cloudinary.com/greenfarmparts/image/upload/e_brightness:30,w_100,h_100,c_fill/<?php echo $wc_product->get_sku(); ?>-0.jpg" alt="">
-        <?php else : ?>
-          <img src="<?php echo wc_placeholder_img_src(); ?>" alt="Part Photo Coming Soon">
-        <?php endif; ?>
+        <a href="<?php echo $wc_product->get_permalink(); ?>">
+          <?php if ( has_post_thumbnail($wc_product->get_id()) ) : ?>
+            <img src="https://res.cloudinary.com/greenfarmparts/image/upload/e_brightness:30,w_100,h_100,c_fill/<?php echo $wc_product->get_sku(); ?>-0.jpg" alt="">
+          <?php else : ?>
+            <img src="<?php echo wc_placeholder_img_src(); ?>" alt="Part Photo Coming Soon">
+          <?php endif; ?>
+        </a>
       </div>
       <div class="products--content">
         <a href="<?php echo $wc_product->get_permalink(); ?>">
