@@ -14,6 +14,10 @@
     $button_link = get_term_link($categories_on_sale[0]->term_id);
   }
 
+  if (get_field('custom_link')) {
+    $button_link = get_field('custom_link_url');
+  }
+
   $discount = [
     "type" => get_field('discount_type'),
     "amount" => (get_field('discount_type')) === 'dollar' ? "$" . get_field('discount_amount') : get_field('discount_amount') . "%"
