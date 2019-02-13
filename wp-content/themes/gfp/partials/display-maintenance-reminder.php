@@ -299,7 +299,7 @@ foreach (get_the_tags() as $tag) {
                   <tr>
                     <?php
                       $sku = get_sub_field($section . '_number');
-                      $sku = str_replace(' ', '', $sku);
+                      $sku = trim($sku);
                     ?>
                     <td data-header="Part" data-sku="<?php echo strtoupper($sku); ?>">
                       <?php if ($interval && get_sub_field('quantity')) : ?>
