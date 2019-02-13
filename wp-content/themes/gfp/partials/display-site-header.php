@@ -21,10 +21,11 @@
         <li class="mega-menu">
           <button class="navigation--button">Shop By Equipment</button>
           <?php
+
             wp_nav_menu( array(
               'menu' => 'shop-by-equipment',
               'menu_class' => 'mega-menu--list mega-menu--shop-by-part',
-              'container' => ''
+              'container' => '',
             ) );
           ?>
         </li>
