@@ -21,40 +21,103 @@
   AJAX FOR PRICE
   =========================
   */
-  var allSections = $('.category-maintenance-reminder table');
-  $.each(allSections, function(i) {
-    var elem = $(this);
-    var allSectionParts = elem.find('[data-sku]');
-    var partsArray = [];
-    $.each(allSectionParts, function() {
-      $.ajax({
-        url: window.ajax_order_tracking.ajax_url,
+  var allSkus = $('[data-sku]');
+  var int = 0;
+  var intervalFunc = setInterval(getPartData, 100);
+
+  function getPartData() {
+    for (var i = int; i < (int + 1); i++) {
+      if (allSkus[int]) {
+        $.ajax({
+          url: window.ajax_order_tracking.ajax_url,
         method: 'POST',
         data: {
           action: 'get_product_prices',
           _ajax_nonce: window.ajax_order_tracking.nonce,
-          parts: [$(this).data('sku').toUpperCase()]
+          parts: [$(allSkus[int]).data('sku').toUpperCase()]
         },
         dataType: 'json',
         success: function(response) {
-          for (var i = 0; i < response.length; i++) {
-            var id = response[i].id;
-            if (id !== '') {
-              var sku = response[i].sku;
-              var price = response[i].regular_price;
-              var elem = $('[data-sku="' + sku.toUpperCase() + '"]');
-              elem.siblings('[data-header="Price"]').html('$' + Number(price).toFixed(2));
-              elem.parent().find('button').removeClass('disabled').addClass('add-to-cart').text('Add to Cart').attr('value', id);
-            } else {
-              console.log('null product');
-            }
+          var id = response.id;
+          if (id !== '') {
+            var sku = response.sku;
+            var price = response.regular_price;
+            var elem = $('[data-sku="' + sku.toUpperCase() + '"]');
+            elem.siblings('[data-header="Price"]').html('$' + Number(price).toFixed(2));
+            elem.parent().find('button').removeClass('disabled').addClass('add-to-cart').text('Add to Cart').attr('value', id);
+          } else {
+            console.log('null product');
           }
         },
         error: function(err) {
           console.log(err);
         }
-      });
-    });
+        })
+      } else {
+        console.log('done');
+        clearInterval(intervalFunc);
+      }
+    }
+    int++;
+  }
+
+  // setInterval(function() {
+  //   for (var i = int; i < (int + 1); i++) {
+  //     if (allSkus[int]) {
+  //       console.log('[' + int + '] - chach');
+  //       console.log($(allSkus[int]).data('sku'));
+  //     } else {
+  //       console.log('done');
+  //       clearInterval(myVar);
+  //     }
+  //   }
+  //   int++;
+  // }, 100);
+
+  // var allSections = $('.category-maintenance-reminder table');
+  // $.each(allSections, function(i) {
+  //   var elem = $(this);
+  //   var allSectionParts = elem.find('[data-sku]');
+  //   var partsArray = [];
+  //   $.each(allSectionParts, function() {
+      // var int = 0;
+      // setInterval(function() {
+      //   for (var i = int; i < (int + 1); i++) {
+      //     console.log('[' + int + '] - chach');
+      //     console.log($(allSectionParts[int]).data('sku'));
+      //   }
+      //   int++;
+      // }, 1000);
+      // $.ajax({
+      //   url: window.ajax_order_tracking.ajax_url,
+      //   method: 'POST',
+      //   data: {
+      //     action: 'get_product_prices',
+      //     _ajax_nonce: window.ajax_order_tracking.nonce,
+      //     parts: [$(this).data('sku').toUpperCase()]
+      //   },
+      //   dataType: 'json',
+      //   success: function(response) {
+          
+      //     // var int = 0;
+      //     // for (var i = 0; i < response.length; i++) {
+      //     //   var id = response[i].id;
+      //     //   if (id !== '') {
+      //     //     var sku = response[i].sku;
+      //     //     var price = response[i].regular_price;
+      //     //     var elem = $('[data-sku="' + sku.toUpperCase() + '"]');
+      //     //     elem.siblings('[data-header="Price"]').html('$' + Number(price).toFixed(2));
+      //     //     elem.parent().find('button').removeClass('disabled').addClass('add-to-cart').text('Add to Cart').attr('value', id);
+      //     //   } else {
+      //     //     console.log('null product');
+      //     //   }
+      //     // }
+      //   },
+      //   error: function(err) {
+      //     console.log(err);
+      //   }
+      // });
+    // });
     // console.log(partsArray);
     // $.ajax({
     //   url: window.ajax_order_tracking.ajax_url,
@@ -83,7 +146,7 @@
     //     console.log(err);
     //   }
     // });
-  });
+  // });
   // $.ajax({
   //     url: window.ajax_order_tracking.ajax_url,
   //     method: 'POST',
