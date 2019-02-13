@@ -297,7 +297,11 @@ foreach (get_the_tags() as $tag) {
                   if (get_sub_field($section . '_number')) :
                 ?>
                   <tr>
-                    <td data-header="Part" data-sku="<?php echo strtoupper(get_sub_field($section . '_number')); ?>">
+                    <?php
+                      $sku = get_sub_field($section . '_number');
+                      $sku = str_replace('&nbsp;', '', $sku);
+                    ?>
+                    <td data-header="Part" data-sku="<?php echo strtoupper($sku); ?>">
                       <?php if ($interval && get_sub_field('quantity')) : ?>
                         <?php echo get_sub_field('quantity') . ' &ndash; ' . get_sub_field($section . '_description') . ' ' . get_sub_field($section . '_number'); ?>
                       <?php else : ?>
