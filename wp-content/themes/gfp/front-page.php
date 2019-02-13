@@ -52,9 +52,8 @@
           echo '<li class="home--promoted-categories-item">';
             echo '<a href="' . $promoted_category->url . '">';
               echo '<div class="home--promoted-categories-image">';
-                $thing = get_post_meta($promoted_category->ID)['_menu_item_object_id'][0];
-                $image_id = get_woocommerce_term_meta( $thing, 'thumbnail_id', true );
-                echo '<img src="' . wp_get_attachment_url($image_id) . '" />';
+                $post_meta = get_post_meta($promoted_category->ID);
+                echo '<img src="' . wp_get_attachment_url($post_meta['image'][0]) . '" />';
               echo '</div>';
               echo '<div class="home--promoted-categories-title">';
                 echo $promoted_category->title;
