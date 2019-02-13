@@ -37,7 +37,15 @@ Template Name: Indvidual Products On Sale
         <a href="<?php echo $wc_product->get_permalink(); ?>">
           <h3><?php echo $wc_product->get_name(); ?></h3>
         </a>
-        <span class="price"><?php echo $wc_product->get_price_html(); ?></span>
+        <?php if ($wc_product->get_sale_price()) : ?>
+          <span class="price">
+            <del><span class="woocommerce-Price-amount amount"><?php echo $wc_product->get_regular_price(); ?></span></del>
+            <br>
+            <ins><span class="woocommerce-Price-amount amount">See Price in Cart</span></ins>
+          </span>
+        <?php else : ?>
+          <span class="price"><?php echo $wc_product->get_price_html(); ?></span>
+        <?php endif; ?>
           <div class="products--actions">
             <button class="add-to-cart btn-solid--brand-two" value="<?php echo $wc_product->get_id(); ?>">Add to Cart</button>
           </div>
