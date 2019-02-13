@@ -27,36 +27,62 @@
     var allSectionParts = elem.find('[data-sku]');
     var partsArray = [];
     $.each(allSectionParts, function() {
-      partsArray.push($(this).data('sku'));
-    })
-    // console.log(partsArray);
-    $.ajax({
-      url: window.ajax_order_tracking.ajax_url,
-      method: 'POST',
-      data: {
-        action: 'get_product_prices',
-        _ajax_nonce: window.ajax_order_tracking.nonce,
-        parts: partsArray
-      },
-      dataType: 'json',
-      success: function(response) {
-        for (var i = 0; i < response.length; i++) {
-          var id = response[i].id;
-          if (id !== '') {
-            var sku = response[i].sku;
-            var price = response[i].regular_price;
-            var elem = $('[data-sku="' + sku.toUpperCase() + '"]');
-            elem.siblings('[data-header="Price"]').html('$' + Number(price).toFixed(2));
-            elem.parent().find('button').removeClass('disabled').addClass('add-to-cart').text('Add to Cart').attr('value', id);
-          } else {
-            console.log('null product');
+      $.ajax({
+        url: window.ajax_order_tracking.ajax_url,
+        method: 'POST',
+        data: {
+          action: 'get_product_prices',
+          _ajax_nonce: window.ajax_order_tracking.nonce,
+          parts: [$(this).data('sku').toUpperCase()]
+        },
+        dataType: 'json',
+        success: function(response) {
+          for (var i = 0; i < response.length; i++) {
+            var id = response[i].id;
+            if (id !== '') {
+              var sku = response[i].sku;
+              var price = response[i].regular_price;
+              var elem = $('[data-sku="' + sku.toUpperCase() + '"]');
+              elem.siblings('[data-header="Price"]').html('$' + Number(price).toFixed(2));
+              elem.parent().find('button').removeClass('disabled').addClass('add-to-cart').text('Add to Cart').attr('value', id);
+            } else {
+              console.log('null product');
+            }
           }
+        },
+        error: function(err) {
+          console.log(err);
         }
-      },
-      error: function(err) {
-        console.log(err);
-      }
+      });
     });
+    // console.log(partsArray);
+    // $.ajax({
+    //   url: window.ajax_order_tracking.ajax_url,
+    //   method: 'POST',
+    //   data: {
+    //     action: 'get_product_prices',
+    //     _ajax_nonce: window.ajax_order_tracking.nonce,
+    //     parts: partsArray
+    //   },
+    //   dataType: 'json',
+    //   success: function(response) {
+    //     for (var i = 0; i < response.length; i++) {
+    //       var id = response[i].id;
+    //       if (id !== '') {
+    //         var sku = response[i].sku;
+    //         var price = response[i].regular_price;
+    //         var elem = $('[data-sku="' + sku.toUpperCase() + '"]');
+    //         elem.siblings('[data-header="Price"]').html('$' + Number(price).toFixed(2));
+    //         elem.parent().find('button').removeClass('disabled').addClass('add-to-cart').text('Add to Cart').attr('value', id);
+    //       } else {
+    //         console.log('null product');
+    //       }
+    //     }
+    //   },
+    //   error: function(err) {
+    //     console.log(err);
+    //   }
+    // });
   });
   // $.ajax({
   //     url: window.ajax_order_tracking.ajax_url,
