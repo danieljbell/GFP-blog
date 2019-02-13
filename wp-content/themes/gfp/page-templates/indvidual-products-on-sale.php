@@ -26,7 +26,7 @@ Template Name: Indvidual Products On Sale
   <li class="products--item product-card--slim">
       <div class="products--image">
         <?php if ( has_post_thumbnail($wc_product->get_id()) ) : ?>
-          <img src="https://res.cloudinary.com/greenfarmparts/image/upload/e_brightness:30,w_100,h_100,c_fill/<?php echo $product->get_sku(); ?>-0.jpg" alt="">
+          <img src="https://res.cloudinary.com/greenfarmparts/image/upload/e_brightness:30,w_100,h_100,c_fill/<?php echo $wc_product->get_sku(); ?>-0.jpg" alt="">
         <?php else : ?>
           <img src="<?php echo wc_placeholder_img_src(); ?>" alt="Part Photo Coming Soon">
         <?php endif; ?>
