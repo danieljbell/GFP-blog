@@ -299,6 +299,7 @@ foreach (get_the_tags() as $tag) {
                   <tr>
                     <?php
                       $sku = get_sub_field($section . '_number');
+                      $sku = html_entity_decode($sku);
                       $sku = preg_replace("/\s/", '', $sku);
                     ?>
                     <td data-header="Part" data-sku="<?php echo strtoupper($sku); ?>">
