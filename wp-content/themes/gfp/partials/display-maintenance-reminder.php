@@ -294,25 +294,27 @@ foreach (get_the_tags() as $tag) {
                   if ($interval) {
                     $interval_hour = get_sub_field('interval');
                   }
+                  if (get_sub_field($section . '_number')) :
                 ?>
-                <tr>
-                  <td data-header="Part" data-sku="<?php echo get_sub_field($section . '_number'); ?>">
-                    <?php if ($interval && get_sub_field('quantity')) : ?>
-                      <?php echo get_sub_field('quantity') . ' &ndash; ' . get_sub_field($section . '_description') . ' ' . get_sub_field($section . '_number'); ?>
-                    <?php else : ?>
-                      <?php echo get_sub_field($section . '_description') . ' ' . get_sub_field($section . '_number'); ?>
+                  <tr>
+                    <td data-header="Part" data-sku="<?php echo strtoupper(get_sub_field($section . '_number')); ?>">
+                      <?php if ($interval && get_sub_field('quantity')) : ?>
+                        <?php echo get_sub_field('quantity') . ' &ndash; ' . get_sub_field($section . '_description') . ' ' . get_sub_field($section . '_number'); ?>
+                      <?php else : ?>
+                        <?php echo get_sub_field($section . '_description') . ' ' . get_sub_field($section . '_number'); ?>
+                      <?php endif; ?>
+                    </td>
+                    <?php if ($interval) : ?>
+                      <td data-header="Hour Interval"><?php if (count(explode(',', $interval_hour)) < 2 && $interval_hour != 'As Needed') echo 'Every '; echo $interval_hour;  ?></td>
                     <?php endif; ?>
-                  </td>
-                  <?php if ($interval) : ?>
-                    <td data-header="Hour Interval"><?php if (count(explode(',', $interval_hour)) < 2 && $interval_hour != 'As Needed') echo 'Every '; echo $interval_hour;  ?></td>
-                  <?php endif; ?>
-                  <td data-header="Price">
-                    <img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/spinner.svg" alt="Loading" class="spinner" style="max-width: 20px;" />
-                  </td>
-                  <td>
-                    <button class="disabled">Not Sold Online</button>
-                  </td>
-                </tr>
+                    <td data-header="Price">
+                      <img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/spinner.svg" alt="Loading" class="spinner" style="max-width: 20px;" />
+                    </td>
+                    <td>
+                      <button class="disabled">Not Sold Online</button>
+                    </td>
+                  </tr>
+                <?php endif; ?>
               <?php endwhile; ?>
               <?php if ($section === 'as_needed_part') : ?>
                 <?php
