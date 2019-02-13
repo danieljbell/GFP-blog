@@ -12,7 +12,7 @@ ADD GLOBAL CSS TO PAGE
 ==============================
 */
 function enqueue_global_css() {
-  wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '1.0.25');
+  wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '1.0.26');
 }
 add_action('wp_enqueue_scripts', 'enqueue_global_css');
 
@@ -22,7 +22,7 @@ ADD GLOBAL JS TO PAGE
 ==============================
 */
 function enqueue_global_js() {
-  wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.25', true);
+  wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.26', true);
 
   // if (is_page_template( 'page-templates/check-order-status.php' ) || is_account_page()) {
     $translation_array = array(
@@ -302,26 +302,22 @@ function add_multiple_items() {
 
 function get_product_prices() {
   check_ajax_referer( 'nonce_name' );
-  $parts = $_POST['parts'];
-  $response = [];
-  foreach ($parts as $key => $part) {
-    $wc_product_id = wc_get_product_id_by_sku($part);
-    if ($wc_product_id) {
-      $wc_product = wc_get_product($wc_product_id);
-      array_push($response, array(
-        'id' => $wc_product->get_id(),
-        'sku' => $wc_product->get_sku(),
-        'regular_price' => $wc_product->get_regular_price(),
-      ));
-    } else {
-      array_push($response, array(
-        'id' => '',
-        'sku' => $part,
-        'regular_price' => '-'
-      ));
-    }
+  $part = $_POST['parts'];
+  $wc_product_id = wc_get_product_id_by_sku($part);
+  if ($wc_product_id) {
+    $wc_product = wc_get_product($wc_product_id);
+    wp_send_json(array(
+      'id' => $wc_product->get_id(),
+      'sku' => $wc_product->get_sku(),
+      'regular_price' => $wc_product->get_regular_price(),
+    ));
+  } else {
+    wp_send_json(array(
+      'id' => '',
+      'sku' => $part,
+      'regular_price' => '-'
+    ));
   }
-  wp_send_json($response);
 }
 
 function get_product_info() {
