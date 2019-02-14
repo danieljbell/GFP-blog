@@ -264,7 +264,7 @@ $nla_part = get_post_meta($post->ID, 'nla_part');
 				}
 
 				// if on deere part or alt part, open up div
-				if ($has_alt_parts && (count($product_alternatives) > 1) || (count($alt_array) > 1)) {
+				if ($has_alt_parts && ($product_alternatives[0] !== '') || (count($alt_array) > 1)) {
 					echo '<div class="mar-y--most box--with-header">';
 						echo '<header>Alternative Products to ' . $product->get_name() . '</header>';
 						echo '<ul class="product-alternatives--list">';
