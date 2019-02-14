@@ -45,6 +45,8 @@ $nla_part = get_post_meta($post->ID, 'nla_part');
 		while($query->have_posts()) : $query->the_post();
 		$deere_part = $post->ID;
 		$deere_alternatives = get_post_meta($post->ID, 'product_alternatives');
+		print_r($deere_part);
+		print_r($deere_alternatives);
 		endwhile;
 	endif; wp_reset_postdata();
 ?>
@@ -252,7 +254,7 @@ $nla_part = get_post_meta($post->ID, 'nla_part');
 				$product_alternative = get_post_meta($post->ID, 'product_alternatives');
 				$product_alternatives = explode('|', $product_alternative[0]);
 				$alt_array = explode('|', $deere_alternatives[0]);
-				print_r($deere_alternatives[0]);
+				print_r($deere_alternatives);
 				$product = wc_get_product($post->ID);
 				
 				$has_alt_parts = false;
