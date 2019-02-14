@@ -33,11 +33,12 @@ $nla_part = get_post_meta($post->ID, 'nla_part');
 ?>
 
 <?php
+global $product;
 
 	$args = array(
 		'post_type' 		=> 'product',
 		'meta_key'			=> 'product_alternatives',
-		'meta_value' 		=> $product,
+		'meta_value' 		=> $product->get_sku(),
 		'meta_compare'	=> 'LIKE'
 	);
 	$query = new WP_Query( $args );
@@ -45,8 +46,7 @@ $nla_part = get_post_meta($post->ID, 'nla_part');
 		while($query->have_posts()) : $query->the_post();
 		$deere_part = $post->ID;
 		$deere_alternatives = get_post_meta($post->ID, 'product_alternatives');
-		print_r($deere_part);
-		print_r($deere_alternatives);
+		// print_r($deere_alternatives);
 		endwhile;
 	endif; wp_reset_postdata();
 ?>
@@ -211,7 +211,7 @@ $nla_part = get_post_meta($post->ID, 'nla_part');
 				do_action( 'woocommerce_template_single_title' );
 				do_action( 'woocommerce_template_single_rating' );
 				$part_replacements = get_post_meta($post->ID, 'product_subs');
-				if ((count($part_replacements) > 0) && ($nla_part[0] !== 'yes')) {
+				if (($part_replacements[0] !== '') && ($nla_part[0] !== 'yes') && ($deere_alternatives[0] === '')) {
 					echo '<div class="part--replaced_by mar-t">';
 						echo '<p class="mar-b">This part is no longer available. It\'s been replaced by:</p>';
 						echo '<ul>';
@@ -254,7 +254,6 @@ $nla_part = get_post_meta($post->ID, 'nla_part');
 				$product_alternative = get_post_meta($post->ID, 'product_alternatives');
 				$product_alternatives = explode('|', $product_alternative[0]);
 				$alt_array = explode('|', $deere_alternatives[0]);
-				print_r($deere_alternatives);
 				$product = wc_get_product($post->ID);
 				
 				$has_alt_parts = false;
@@ -266,7 +265,7 @@ $nla_part = get_post_meta($post->ID, 'nla_part');
 				}
 
 				// if on deere part or alt part, open up div
-				if ($has_alt_parts && ($product_alternatives[0] !== '') || (count($alt_array) > 1)) {
+				if ($has_alt_parts && ($product_alternatives[0] !== '') || ($alt_array[0] !== '')) {
 					echo '<div class="mar-y--most box--with-header">';
 						echo '<header>Alternative Products to ' . $product->get_name() . '</header>';
 						echo '<ul class="product-alternatives--list">';
