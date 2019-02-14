@@ -271,7 +271,7 @@ $nla_part = get_post_meta($post->ID, 'nla_part');
 				
 
 						// on the deere part
-						if ((count($product_alternatives) > 1)) {
+						if ($product_alternatives[0] !== '') {
 							$parts = array();
 							foreach ($product_alternatives as $part) {
 								$wc_part_id = wc_get_product_id_by_sku($part);
