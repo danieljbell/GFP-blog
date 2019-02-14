@@ -1,208 +1,213 @@
 (function($) {
 
-  /*
-  =========================================
-  CHANGE PAGE WHEN SELECTED MODEL MODIFIER
-  =========================================
-  */
-  var modelModiferSelect = document.querySelector('#modelModifiers');
-  var mainContainer = document.querySelector('#main_content');
+  if ($('body').hasClass('single-post')) {
 
-  if (modelModiferSelect) {
-    modelModiferSelect.addEventListener('change', function(e) {
-      var loc = e.target.value;
-      window.location.href = loc;
-    });
-  }
+    /*
+    =========================================
+    CHANGE PAGE WHEN SELECTED MODEL MODIFIER
+    =========================================
+    */
+    var modelModiferSelect = document.querySelector('#modelModifiers');
+    var mainContainer = document.querySelector('#main_content');
 
-
-  /*
-  =========================
-  AJAX FOR PRICE
-  =========================
-  */
-  var allSkus = $('[data-sku]');
-  var int = 0;
-  var intervalFunc = setInterval(getPartData, 100);
-
-  function getPartData() {
-    for (var i = int; i < (int + 1); i++) {
-      if (allSkus[int]) {
-        $.ajax({
-          url: window.ajax_order_tracking.ajax_url,
-        method: 'POST',
-        data: {
-          action: 'get_product_prices',
-          _ajax_nonce: window.ajax_order_tracking.nonce,
-          parts: [$(allSkus[int]).data('sku').toUpperCase()]
-        },
-        dataType: 'json',
-        success: function(response) {
-          var id = response.id;
-          if (id !== '') {
-            var sku = response.sku;
-            var price = response.regular_price;
-            var elem = $('[data-sku="' + sku + '"]');
-            elem.siblings('[data-header="Price"]').html('$' + Number(price).toFixed(2));
-            elem.parent().find('button').removeClass('disabled').addClass('add-to-cart').text('Add to Cart').attr('value', id);
-          } else {
-            console.log('null product');
-          }
-        },
-        error: function(err) {
-          console.log(err);
-        }
-        })
-      } else {
-        console.log('done');
-        clearInterval(intervalFunc);
-      }
+    if (modelModiferSelect) {
+      modelModiferSelect.addEventListener('change', function(e) {
+        var loc = e.target.value;
+        window.location.href = loc;
+      });
     }
-    int++;
-  }
 
-  // setInterval(function() {
-  //   for (var i = int; i < (int + 1); i++) {
-  //     if (allSkus[int]) {
-  //       console.log('[' + int + '] - chach');
-  //       console.log($(allSkus[int]).data('sku'));
-  //     } else {
-  //       console.log('done');
-  //       clearInterval(myVar);
-  //     }
-  //   }
-  //   int++;
-  // }, 100);
 
-  // var allSections = $('.category-maintenance-reminder table');
-  // $.each(allSections, function(i) {
-  //   var elem = $(this);
-  //   var allSectionParts = elem.find('[data-sku]');
-  //   var partsArray = [];
-  //   $.each(allSectionParts, function() {
-      // var int = 0;
-      // setInterval(function() {
-      //   for (var i = int; i < (int + 1); i++) {
-      //     console.log('[' + int + '] - chach');
-      //     console.log($(allSectionParts[int]).data('sku'));
-      //   }
-      //   int++;
-      // }, 1000);
+    /*
+    =========================
+    AJAX FOR PRICE
+    =========================
+    */
+    var allSkus = $('[data-sku]');
+    var int = 0;
+    var intervalFunc = setInterval(getPartData, 100);
+
+    function getPartData() {
+      for (var i = int; i < (int + 1); i++) {
+        if (allSkus[int]) {
+          $.ajax({
+            url: window.ajax_order_tracking.ajax_url,
+          method: 'POST',
+          data: {
+            action: 'get_product_prices',
+            _ajax_nonce: window.ajax_order_tracking.nonce,
+            parts: [$(allSkus[int]).data('sku').toUpperCase()]
+          },
+          dataType: 'json',
+          success: function(response) {
+            var id = response.id;
+            if (id !== '') {
+              var sku = response.sku;
+              var price = response.regular_price;
+              var elem = $('[data-sku="' + sku + '"]');
+              elem.siblings('[data-header="Price"]').html('$' + Number(price).toFixed(2));
+              elem.parent().find('button').removeClass('disabled').addClass('add-to-cart').text('Add to Cart').attr('value', id);
+            } else {
+              console.log('null product');
+            }
+          },
+          error: function(err) {
+            console.log(err);
+          }
+          })
+        } else {
+          console.log('done');
+          clearInterval(intervalFunc);
+        }
+      }
+      int++;
+    }
+
+    // setInterval(function() {
+    //   for (var i = int; i < (int + 1); i++) {
+    //     if (allSkus[int]) {
+    //       console.log('[' + int + '] - chach');
+    //       console.log($(allSkus[int]).data('sku'));
+    //     } else {
+    //       console.log('done');
+    //       clearInterval(myVar);
+    //     }
+    //   }
+    //   int++;
+    // }, 100);
+
+    // var allSections = $('.category-maintenance-reminder table');
+    // $.each(allSections, function(i) {
+    //   var elem = $(this);
+    //   var allSectionParts = elem.find('[data-sku]');
+    //   var partsArray = [];
+    //   $.each(allSectionParts, function() {
+        // var int = 0;
+        // setInterval(function() {
+        //   for (var i = int; i < (int + 1); i++) {
+        //     console.log('[' + int + '] - chach');
+        //     console.log($(allSectionParts[int]).data('sku'));
+        //   }
+        //   int++;
+        // }, 1000);
+        // $.ajax({
+        //   url: window.ajax_order_tracking.ajax_url,
+        //   method: 'POST',
+        //   data: {
+        //     action: 'get_product_prices',
+        //     _ajax_nonce: window.ajax_order_tracking.nonce,
+        //     parts: [$(this).data('sku').toUpperCase()]
+        //   },
+        //   dataType: 'json',
+        //   success: function(response) {
+            
+        //     // var int = 0;
+        //     // for (var i = 0; i < response.length; i++) {
+        //     //   var id = response[i].id;
+        //     //   if (id !== '') {
+        //     //     var sku = response[i].sku;
+        //     //     var price = response[i].regular_price;
+        //     //     var elem = $('[data-sku="' + sku.toUpperCase() + '"]');
+        //     //     elem.siblings('[data-header="Price"]').html('$' + Number(price).toFixed(2));
+        //     //     elem.parent().find('button').removeClass('disabled').addClass('add-to-cart').text('Add to Cart').attr('value', id);
+        //     //   } else {
+        //     //     console.log('null product');
+        //     //   }
+        //     // }
+        //   },
+        //   error: function(err) {
+        //     console.log(err);
+        //   }
+        // });
+      // });
+      // console.log(partsArray);
       // $.ajax({
       //   url: window.ajax_order_tracking.ajax_url,
       //   method: 'POST',
       //   data: {
       //     action: 'get_product_prices',
       //     _ajax_nonce: window.ajax_order_tracking.nonce,
-      //     parts: [$(this).data('sku').toUpperCase()]
+      //     parts: partsArray
       //   },
       //   dataType: 'json',
       //   success: function(response) {
-          
-      //     // var int = 0;
-      //     // for (var i = 0; i < response.length; i++) {
-      //     //   var id = response[i].id;
-      //     //   if (id !== '') {
-      //     //     var sku = response[i].sku;
-      //     //     var price = response[i].regular_price;
-      //     //     var elem = $('[data-sku="' + sku.toUpperCase() + '"]');
-      //     //     elem.siblings('[data-header="Price"]').html('$' + Number(price).toFixed(2));
-      //     //     elem.parent().find('button').removeClass('disabled').addClass('add-to-cart').text('Add to Cart').attr('value', id);
-      //     //   } else {
-      //     //     console.log('null product');
-      //     //   }
-      //     // }
+      //     for (var i = 0; i < response.length; i++) {
+      //       var id = response[i].id;
+      //       if (id !== '') {
+      //         var sku = response[i].sku;
+      //         var price = response[i].regular_price;
+      //         var elem = $('[data-sku="' + sku.toUpperCase() + '"]');
+      //         elem.siblings('[data-header="Price"]').html('$' + Number(price).toFixed(2));
+      //         elem.parent().find('button').removeClass('disabled').addClass('add-to-cart').text('Add to Cart').attr('value', id);
+      //       } else {
+      //         console.log('null product');
+      //       }
+      //     }
       //   },
       //   error: function(err) {
       //     console.log(err);
       //   }
       // });
     // });
-    // console.log(partsArray);
     // $.ajax({
-    //   url: window.ajax_order_tracking.ajax_url,
-    //   method: 'POST',
-    //   data: {
-    //     action: 'get_product_prices',
-    //     _ajax_nonce: window.ajax_order_tracking.nonce,
-    //     parts: partsArray
-    //   },
-    //   dataType: 'json',
-    //   success: function(response) {
-    //     for (var i = 0; i < response.length; i++) {
-    //       var id = response[i].id;
-    //       if (id !== '') {
+    //     url: window.ajax_order_tracking.ajax_url,
+    //     method: 'POST',
+    //     data: {
+    //       action: 'get_product_prices',
+    //       _ajax_nonce: window.ajax_order_tracking.nonce,
+    //       parts: partsArray
+    //     },
+    //     dataType: 'json',
+    //     success: function(response) {
+    //       for (var i = 0; i < response.length; i++) {
     //         var sku = response[i].sku;
     //         var price = response[i].regular_price;
-    //         var elem = $('[data-sku="' + sku.toUpperCase() + '"]');
-    //         elem.siblings('[data-header="Price"]').html('$' + Number(price).toFixed(2));
-    //         elem.parent().find('button').removeClass('disabled').addClass('add-to-cart').text('Add to Cart').attr('value', id);
-    //       } else {
-    //         console.log('null product');
+    //         $('[data-sku="' + sku.toUpperCase() + '"]').siblings('[data-header="Price"]').html('$' + price);
     //       }
+    //       // var price = Number(response.price).toFixed(2);
+    //       // var html = elem.html();
+    //       // elem.siblings('[data-header="Price"]').html('$' + price);
+    //       // if (response.id) {
+    //       //   elem.html('<a href="/?p=' + response.id + '">' + html + '</a>');
+    //       //   elem.parent().find('button').removeClass('disabled').addClass('add-to-cart').text('Add to Cart').attr('value', response.id);
+    //       // }
+    //     },
+    //     error: function(err) {
+    //       console.log(err);
     //     }
-    //   },
-    //   error: function(err) {
-    //     console.log(err);
-    //   }
-    // });
-  // });
-  // $.ajax({
-  //     url: window.ajax_order_tracking.ajax_url,
-  //     method: 'POST',
-  //     data: {
-  //       action: 'get_product_prices',
-  //       _ajax_nonce: window.ajax_order_tracking.nonce,
-  //       parts: partsArray
-  //     },
-  //     dataType: 'json',
-  //     success: function(response) {
-  //       for (var i = 0; i < response.length; i++) {
-  //         var sku = response[i].sku;
-  //         var price = response[i].regular_price;
-  //         $('[data-sku="' + sku.toUpperCase() + '"]').siblings('[data-header="Price"]').html('$' + price);
-  //       }
-  //       // var price = Number(response.price).toFixed(2);
-  //       // var html = elem.html();
-  //       // elem.siblings('[data-header="Price"]').html('$' + price);
-  //       // if (response.id) {
-  //       //   elem.html('<a href="/?p=' + response.id + '">' + html + '</a>');
-  //       //   elem.parent().find('button').removeClass('disabled').addClass('add-to-cart').text('Add to Cart').attr('value', response.id);
-  //       // }
-  //     },
-  //     error: function(err) {
-  //       console.log(err);
-  //     }
-  //   });
+    //   });
 
 
-  /*
-  ==============================
-  STICKY MAINTENANCE KIT BUY NOW
-  ==============================
-  */
+    /*
+    ==============================
+    STICKY MAINTENANCE KIT BUY NOW
+    ==============================
+    */
 
-  var maintenanceKitContainer = document.querySelector('.maintenance-kit-container');
-  if (maintenanceKitContainer && window.innerWidth > 1080) {
-    window.onload = function() {
-      var offsetTop = maintenanceKitContainer.offsetTop;
-      var baseFontSize = window.getComputedStyle(document.body, null).fontSize;
-      baseFontSize = parseInt(baseFontSize.split('px')[0]);
+    var maintenanceKitContainer = document.querySelector('.maintenance-kit-container');
+    if (maintenanceKitContainer && window.innerWidth > 1080) {
+      window.onload = function() {
+        var offsetTop = maintenanceKitContainer.offsetTop;
+        var baseFontSize = window.getComputedStyle(document.body, null).fontSize;
+        baseFontSize = parseInt(baseFontSize.split('px')[0]);
 
-      window.addEventListener('scroll', function(e) {
-        if (window.scrollY > (offsetTop - (baseFontSize * 3))) {
-          maintenanceKitContainer.classList.add('maintenance-kit-container--is-fixed');
-        }
-        if (window.scrollY < (offsetTop - (baseFontSize * 3))) {
-          maintenanceKitContainer.classList.remove('maintenance-kit-container--is-fixed');
-        }
-      });
+        window.addEventListener('scroll', function(e) {
+          if (window.scrollY > (offsetTop - (baseFontSize * 3))) {
+            maintenanceKitContainer.classList.add('maintenance-kit-container--is-fixed');
+          }
+          if (window.scrollY < (offsetTop - (baseFontSize * 3))) {
+            maintenanceKitContainer.classList.remove('maintenance-kit-container--is-fixed');
+          }
+        });
+      }
+
     }
 
   }
 
 
 })(jQuery);
+
 
 
 /*
