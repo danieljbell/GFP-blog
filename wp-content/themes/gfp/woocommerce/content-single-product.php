@@ -210,6 +210,23 @@ global $product;
 			// echo '<div class="single-product--content">';
 				do_action( 'woocommerce_template_single_title' );
 				do_action( 'woocommerce_template_single_rating' );
+				
+				$oversized = $wpdb->query( $wpdb->prepare( 
+          "
+            SELECT * FROM wp_woocommerce_per_product_shipping_rules
+            WHERE product_id = %s
+          ", 
+          $post->ID
+        ) );
+
+        if (!$oversized && !$part_replacements) : ?>
+					<div class="notification--free-shipping">
+						<img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/shipping.svg" alt="Shipping Icon">
+						This product is eligible for free shipping with orders over $49.99!
+					</div>
+        <?php
+        endif;
+
 				$part_replacements = get_post_meta($post->ID, 'product_subs');
 				if (($part_replacements[0] !== '') && ($nla_part[0] !== 'yes') && ($deere_alternatives[0] === '')) {
 					echo '<div class="part--replaced_by mar-t">';
@@ -337,22 +354,6 @@ global $product;
 						echo '</ul>';
 					echo '</div>';
 				}
-
-				$oversized = $wpdb->query( $wpdb->prepare( 
-          "
-            SELECT * FROM wp_woocommerce_per_product_shipping_rules
-            WHERE product_id = %s
-          ", 
-          $post->ID
-        ) );
-
-        if (!$oversized && !$part_replacements) : ?>
-				<div class="notification--free-shipping">
-					<img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/shipping.svg" alt="Shipping Icon">
-					This product is eligible for free shipping with orders over $49.99!
-				</div>
-        <?php
-        endif;
 				
 				do_action( 'woocommerce_output_product_data_tabs' );
 				
