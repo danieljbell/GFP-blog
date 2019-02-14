@@ -251,6 +251,7 @@ $nla_part = get_post_meta($post->ID, 'nla_part');
 
 				$product_alternative = get_post_meta($post->ID, 'product_alternatives');
 				$product_alternatives = explode('|', $product_alternative[0]);
+				print_r($product_alternatives);
 				$alt_array = explode('|', $deere_alternatives[0]);
 				$product = wc_get_product($post->ID);
 				
