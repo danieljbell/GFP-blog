@@ -96,7 +96,7 @@
     (function() {
       var list = document.querySelectorAll('.promo-card-list li');
       var count = list.length;
-      if (count > 3) {
+      if (count > 2) {
         count = 2;
       }
       var slider = tns({
