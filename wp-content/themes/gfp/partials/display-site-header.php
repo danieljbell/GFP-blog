@@ -40,7 +40,7 @@
           </ul>
         </li>
         <li>
-          <a href="#0" class="navigation--button">Parts Diagram</a>
+          <a href="<?php echo site_url(); ?>/parts-diagram/" class="navigation--button">Parts Diagram</a>
         </li>
           <li class="mobile-only">
             <a href="/account">
