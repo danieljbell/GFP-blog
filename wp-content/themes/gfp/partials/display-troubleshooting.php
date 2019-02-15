@@ -6,7 +6,7 @@
   $post_title = str_replace('Troubleshooting Common Problems for a ', '', get_the_title());
 ?>
 
-<section class="hero" <?php if (has_post_thumbnail()) { echo 'style="' . $hero_bg . '"'; } ?>>
+<section class="hero" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<?php echo get_stylesheet_directory_URI(); ?>/dist/img/hero--generic-<?php echo mt_rand(1,5);?>.jpg);">
       
   <div class="site-width">
     <h1 style="margin-bottom: 0;"><?php echo ($current_cat[0]->slug === 'talk-with-a-tech') ? 'Talk With A Tech ' : '';  ?><?php echo get_the_title(); ?></h1>

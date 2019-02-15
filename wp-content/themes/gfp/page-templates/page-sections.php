@@ -8,7 +8,7 @@ Template Name: Page Sections
 
 <?php get_header(); ?>
 
-<section class="hero">
+<section class="hero" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<?php echo get_stylesheet_directory_URI(); ?>/dist/img/hero--generic-<?php echo mt_rand(1,5);?>.jpg);">
   <div class="site-width">
     <h1><?php echo get_the_title(); ?></h1>
   </div>

@@ -7,7 +7,7 @@
     $order = wc_get_order($path_array[3]);
     $order_number = $order->get_order_number();
 ?>
-  <section class="hero">
+  <section class="hero" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<?php echo get_stylesheet_directory_URI(); ?>/dist/img/hero--generic-<?php echo mt_rand(1,5);?>.jpg);">
     <div class="site-width">
       <h1>Thanks <?php echo $order->get_billing_first_name(); ?> for your business!</h1>
       <h2>Your order #<?php echo $order_number; ?> has been received and you will receive an email order confirmation shortly.</h2>
