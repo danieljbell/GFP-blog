@@ -12,7 +12,7 @@ ADD GLOBAL CSS TO PAGE
 ==============================
 */
 function enqueue_global_css() {
-  wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '1.0.28');
+  wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '1.0.29');
 }
 add_action('wp_enqueue_scripts', 'enqueue_global_css');
 
@@ -22,7 +22,7 @@ ADD GLOBAL JS TO PAGE
 ==============================
 */
 function enqueue_global_js() {
-  wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.28', true);
+  wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.29', true);
 
   // if (is_page_template( 'page-templates/check-order-status.php' ) || is_account_page()) {
     $translation_array = array(
@@ -734,10 +734,16 @@ function gfp_ajax_search( $request ) {
             $title = $post->post_title;
             $title = str_replace('John Deere ', "", $title);
             $title = str_replace(' Maintenance Guide', "", $title);
+            if (has_post_thumbnail($post->ID)) {
+              $image = get_the_post_thumbnail($post->ID);
+            } else {
+              $image = '<img src="' . get_stylesheet_directory_URI() . '/dist/img/default-model-image.png" alt="Model Image Coming Soon">';
+            }
           }
           $results[] = [
             'title' => $title,
             'link' => get_permalink( $post->ID ),
+            'image' => $image,
             'type' => ($slug === 'maintenance-reminder' ? 'model' : $post->post_type)
           ];
         endforeach;

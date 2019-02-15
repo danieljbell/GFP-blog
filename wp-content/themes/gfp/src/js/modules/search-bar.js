@@ -124,7 +124,7 @@ var searchResultCount = '';
       modelsSearchResults.innerHTML = '<li class="search-result-item--empty">No result for ' + value + '</li>';
     } else {
       modelsSearchResults.innerHTML = models.map(function(models) {
-        return '<li class="search-result-item--model"><a href="' + models.link + '"><div class="search-results--product-image"><img src="' + models.image + '" /></div>' + models.title + '</a></li>';
+        return '<li class="search-result-item--model"><a href="' + models.link + '"><div class="search-results--product-image">' + models.image + '</div>' + models.title + '</a></li>';
       }).join('');
     }
 
