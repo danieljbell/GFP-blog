@@ -30,18 +30,30 @@
   <a href="<?php echo $button_link; ?>">
     <header style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<?php echo $promotion_image; ?>);">
       <div class="promo-card--meta">
-        <div class="promo-card--tag"><?php echo $discount['amount']; ?> Off</div>
-        <div class="promo-card--title"><?php echo $promotion_headline; ?></div>
+        <?php 
+          if ($promotion_type !== 'landing-page') :
+            echo '<div class="promo-card--tag">' . $discount['amount'] . ' Off</div>';
+            echo '<div class="promo-card--title">' . $promotion_headline . '</div>';
+          endif;
+        ?>
       </div>
     </header>
     <div class="promo-card--content">
-      <div class="btn-solid--brand-two">Save <?php echo $discount['amount'] . ' Now'; ?></div>
+      <?php
+        if ($promotion_type === 'landing-page') :
+          echo '<div class="btn-solid--brand-two">Learn More</div>';
+        else :
+          echo '<div class="btn-solid--brand-two">Save ' . $discount['amount'] . ' Now</div>';
+        endif;
+      ?>
       <?php
         if ($promotion_type === 'coupon') {
           $coupon_details = get_field('coupon');
           echo '<p>' . $promotion_body_copy . '. Use coupon code <span class="current-promotions--promo-code">' . $coupon_details->post_title . '</span> when checking out to save! <span class="offer-text" style="color: inherit;">Offer expires <span class="promo-countdown" style="color: inherit !important;" data-expires="' . date("Ymd", strtotime($promotion_end_date)) . '">on ' . date("F j, Y", strtotime($promotion_end_date)) . '</span></span></p>';
-        } else {
+        } elseif ($promotion_type === 'discount')  {
           echo '<p>' . $promotion_body_copy . '. <span class="offer-text" style="color: inherit;">Offer expires <span class="promo-countdown" style="color: inherit !important;" data-expires="' . date("Ymd", strtotime($promotion_end_date)) . '">on ' . date("F j, Y", strtotime($promotion_end_date)) . '</span></span></p>';
+        } else {
+          echo '<p>' . $promotion_body_copy . '</p>';
         }
       ?>
     </div>
