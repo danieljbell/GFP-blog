@@ -48,7 +48,9 @@
               elem.siblings('[data-header="Price"]').html('$' + Number(price).toFixed(2));
               elem.parent().find('button').removeClass('disabled').addClass('add-to-cart').text('Add to Cart').attr('value', id);
             } else {
-              console.log('null product');
+              var sku = response.sku;
+              var elem = $('[data-sku="' + sku + '"]');
+              elem.siblings('[data-header="Price"]').html('&mdash;');
             }
           },
           error: function(err) {
