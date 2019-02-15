@@ -93,29 +93,29 @@
 <?php if (is_front_page()) : ?>
 
   <script>
-    // (function() {
-    //   var list = document.querySelectorAll('.promo-card-list li');
-    //   var count = list.length;
-    //   if (count > 3) {
-    //     count = 2;
-    //   }
-    //   var slider = tns({
-    //     container: '.promo-card-list',
-    //     items: 1,
-    //     slideBy: 'page',
-    //     autoplay: true,
-    //     controls: false,
-    //     autoplay: false,
-    //     center: true,
-    //     navPosition: 'bottom',
-    //     responsive: {
-    //         960: {
-    //             items: count,
-    //             nav: true
-    //         } 
-    //     }
-    //   });
-    // })();
+    (function() {
+      var list = document.querySelectorAll('.promo-card-list li');
+      var count = list.length;
+      if (count > 3) {
+        count = 2;
+      }
+      var slider = tns({
+        container: '.promo-card-list',
+        items: 1,
+        slideBy: 'page',
+        autoplay: true,
+        controls: false,
+        autoplay: false,
+        center: true,
+        navPosition: 'bottom',
+        responsive: {
+            960: {
+                items: count,
+                nav: true
+            } 
+        }
+      });
+    })();
   </script>
 
 <?php endif; ?>
