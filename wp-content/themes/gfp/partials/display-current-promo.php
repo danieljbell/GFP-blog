@@ -1,11 +1,23 @@
 <?php
-  $current_promotions_args = array(
-    'post_type' => 'promotions',
-    'posts_per_page' => -1,
-    'meta_key' => 'promotion_end_date',
-    'meta_value' => date('Ymd'),
-    'meta_compare' => '>='
-  );
+  
+  if (is_cart()) {
+    $current_promotions_args = array(
+      'post_type' => 'promotions',
+      'posts_per_page' => 1,
+      'orderby'        => 'rand',
+      'meta_key' => 'promotion_end_date',
+      'meta_value' => date('Ymd'),
+      'meta_compare' => '>='
+    );
+  } else {
+    $current_promotions_args = array(
+      'post_type' => 'promotions',
+      'posts_per_page' => -1,
+      'meta_key' => 'promotion_end_date',
+      'meta_value' => date('Ymd'),
+      'meta_compare' => '>='
+    );
+  }
   
   $current_promotions_query = new WP_Query($current_promotions_args);
 
