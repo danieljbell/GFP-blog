@@ -118,21 +118,27 @@
             </div>
         </article>
 
-        <aside class="single-categories">
-          <ul class="single-categories--list">
-            <?php
-              $blog_cats = get_categories();
-              foreach ($blog_cats as $cat) {
-                $name = $cat->name;
-                $count = $cat->count;
-                $slug = $cat->slug;
-                $class = ($current_cat[0]->slug === $slug) ? 'single-categories--active' : ''; 
-                echo '<li class="single-categories--item"><a href="/category/' . $slug . '" class="single-categories--link ' . $class . '">' . $name . '<span>' . $count . '</span></a></li>';
-              }
-            ?>
-          </ul>
-          <?php get_template_part('partials/display', 'current-promo') ?>
-        </aside>
+        <?php 
+          /*
+          =========================
+          <aside class="single-categories">
+            <ul class="single-categories--list">
+              <?php
+                $blog_cats = get_categories();
+                foreach ($blog_cats as $cat) {
+                  $name = $cat->name;
+                  $count = $cat->count;
+                  $slug = $cat->slug;
+                  $class = ($current_cat[0]->slug === $slug) ? 'single-categories--active' : ''; 
+                  echo '<li class="single-categories--item"><a href="/category/' . $slug . '" class="single-categories--link ' . $class . '">' . $name . '<span>' . $count . '</span></a></li>';
+                }
+              ?>
+            </ul>
+            <?php get_template_part('partials/display', 'current-promo') ?>
+          </aside>
+          =========================
+          */
+        ?>
 
       </div>
 
