@@ -71,7 +71,7 @@ if ( $product->is_in_stock() ) : ?>
       $product_category = get_the_terms($product->get_ID(), 'product_cat');
 
       if ($current_promotions_query->have_posts()) : while ($current_promotions_query->have_posts()) : $current_promotions_query->the_post();
-        if ((get_field('custom_link') !== 1) && (get_field('promotion_type') !== 'landing-page') && ($product_category[0]->term_id === get_field('categories_on_sale')[0]->term_id)) {
+        if (($product_category[0]->slug !== 'uncategorized') && ($product_category[0]->term_id === get_field('categories_on_sale')[0]->term_id)) {
           $promotion_body_copy = get_field('promotion_body_copy');
           $promotion_end_date = get_field('promotion_end_date');
           if ($promotion_type === 'coupon') {
