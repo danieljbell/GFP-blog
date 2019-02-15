@@ -106,7 +106,7 @@
         autoplay: true,
         controls: false,
         autoplay: false,
-        center: true,
+        // center: true,
         navPosition: 'bottom',
         responsive: {
             960: {
