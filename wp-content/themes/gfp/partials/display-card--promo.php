@@ -33,6 +33,8 @@
         <?php 
           if ($promotion_type !== 'landing-page') :
             echo '<div class="promo-card--tag">' . $discount['amount'] . ' Off</div>';
+          else :
+            echo '<div class="promo-card--tag">Feature</div>';
           endif;
           echo '<div class="promo-card--title">' . $promotion_headline . '</div>';
         ?>
