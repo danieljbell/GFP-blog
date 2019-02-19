@@ -1,6 +1,6 @@
 <?php
   $sku = $_GET['sku'];
-  if ($sku) {
+  if ($sku && ($sku != '')) {
     $product_id = wc_get_product_id_by_sku($sku);
     $product = wc_get_product($product_id);
     header("HTTP/1.1 302 Found");
