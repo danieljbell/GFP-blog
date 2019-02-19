@@ -63,7 +63,7 @@
             ?>
             <span class="mobile-only">Shopping Cart</span>
             <strong class="cart--count"><?php echo $item_count; ?></strong>
-            <img src="https://www.greenfarmparts.com/v/vspfiles/templates/gfp-test/img/cart-icon.jpg" style="display: inline-block; vertical-align: middle; border-radius: 50%; max-width: 40px;">
+            <img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/cart-icon.jpg" style="display: inline-block; vertical-align: middle; border-radius: 50%; max-width: 40px;">
           </button>
         </li>
       </ul>

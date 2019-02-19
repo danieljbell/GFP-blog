@@ -23,7 +23,7 @@
       <div class="footer-address-content">
         <p>Reynolds Farm Equipment</p>
         <address class="footer-address">
-          <p>1451 E 276th St, Atlanta, IN</p>
+          <p>12501 Reynolds Drive Fishers, IN</p>
         </address>
         <p>Hours: 7:30 am - 5:00 pm EST Monday - Friday</p>
         <p>P: 877-620-6070</p>
