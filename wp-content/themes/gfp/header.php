@@ -2,9 +2,11 @@
   $sku = $_GET['sku'];
   if ($sku && ($sku != '')) {
     $product_id = wc_get_product_id_by_sku($sku);
-    $product = wc_get_product($product_id);
-    header("HTTP/1.1 302 Found");
-    header("Location: " . $product->get_permalink());
+    if ($product_id) {
+      $product = wc_get_product($product_id);
+      header("HTTP/1.1 302 Found");
+      header("Location: " . $product->get_permalink());
+    }
   }
 ?>
 
