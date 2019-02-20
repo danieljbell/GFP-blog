@@ -31,6 +31,10 @@ function enqueue_global_js() {
     );
     wp_localize_script( 'global', 'ajax_order_tracking', $translation_array );
   // }
+
+    if (is_page_template( 'page-templates/admin-phone-order.php' )) {
+      wp_enqueue_script('admin-phone-order', get_stylesheet_directory_URI() . '/dist/js/admin-phone-order.js', array(), '1.0.30', true);
+    }
   
 }
 add_action('wp_enqueue_scripts', 'enqueue_global_js');
@@ -575,8 +579,32 @@ function get_order_notes() {
   die();
 }
 
+function find_user_by_email() {
+  check_ajax_referer( 'nonce_name' );
+  $email = $_POST['email_address'];
+  $user = get_users(array(
+    'search' => $email,
+    'fields' => ['ID', 'user_email', 'display_name']
+  ));
+  if ($user) {
+    $customer = new WC_Customer( $user[0]->ID );
+    
+    wp_send_json(array(
+      'id'   => $customer->get_id(),
+      'name' => $customer->get_display_name(),
+      'billing' => $customer->get_billing(),
+      'shipping' => $customer->get_shipping()
+    ));
+  } else {
+    wp_send_json(array(
+      'success' => false,
+      'message' => 'No User Found! Check the Email Address'
+    ));
+  }
+}
 
 
+add_action('wp_ajax_find_user_by_email', 'find_user_by_email');
 add_action('wp_ajax_get_product_prices', 'get_product_prices');
 add_action('wp_ajax_nopriv_get_product_prices', 'get_product_prices');
 add_action('wp_ajax_get_product_info', 'get_product_info');

@@ -72,10 +72,10 @@ gulp.task('js', function () {
     .pipe(browserSync.stream());
 });
 
-// gulp.task('js-libs', function () {
-//   gulp.src('node_modules/vue/dist/vue.js')
-//     .pipe(gulp.dest('./dist/js'));
-// });
+gulp.task('js-libs', function () {
+  gulp.src('./wp-content/themes/gfp/src/js/lib/admin-phone-order.js')
+    .pipe(gulp.dest('./wp-content/themes/gfp/dist/js'));
+});
 
 gulp.task('img', function() {
   gulp.src('./wp-content/themes/gfp/src/img/*')
@@ -85,7 +85,7 @@ gulp.task('img', function() {
 gulp.task('watch', function() {
   gulp.watch('./wp-content/themes/gfp/src/scss/**/*.scss', ['css']);
   gulp.watch('./wp-content/themes/gfp/src/css/*.css', ['css']);
-  gulp.watch('./wp-content/themes/gfp/src/js/**/*.js', ['js']);
+  gulp.watch('./wp-content/themes/gfp/src/js/**/*.js', ['js', 'js-libs']);
   gulp.watch('./wp-content/themes/gfp/src/img/*.{png,jpg,gif,svg}', ['img']).on('change', browserSync.reload);
   gulp.watch(['./wp-content/themes/gfp/*.php', './wp-content/themes/gfp/page-templates/*.php',  './wp-content/themes/gfp/partials/**/*.php', './wp-content/themes/gfp/woocommerce/**/*.php']).on('change', browserSync.reload);
 });
@@ -96,4 +96,4 @@ gulp.task('browser-sync', function() {
     });
 });
 
-gulp.task('default', ['css', 'js', 'img', 'watch', 'browser-sync']);
+gulp.task('default', ['css', 'js', 'js-libs', 'img', 'watch', 'browser-sync']);
