@@ -163,3 +163,68 @@
     // border-bottom: 1px solid $medium-gray;
   }
 }
+
+table.skus {
+  width: 100%;
+  margin-top: 2rem;
+  
+  thead th {
+    background-color: $medium-gray;
+    padding: 0.75rem;
+    border: 1px solid $medium-gray;
+  }
+
+  tbody td {
+    padding: 0.5rem 1rem;
+    border-left: 1px solid $medium-gray;
+    text-align: center;
+    position: relative;
+  }
+
+  tbody tr:nth-child(2n-1) {
+    background-color: #fff;
+  }
+
+  tbody tr:nth-child(2n) {
+    background-color: darken($light-gray, 3%);
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 1px solid $medium-gray;
+  }
+
+  tbody tr td:nth-child(2) {
+    text-align: left;
+  }
+
+  tbody tr td:last-child {
+    border-right: 1px solid $medium-gray;
+  }
+
+  .remove-sku {
+    background: transparent;
+    width: 1.3rem;
+    height: 1.3rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 0;
+    font-size: 1.1rem;
+    border: 0;
+    color: #fff;
+    &:after {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border: 1px solid $brand-two;
+      background-color: $brand-two;
+      border-radius: 50%;
+    }
+  }
+
+}

@@ -185,6 +185,10 @@ TYPOGRAPHY
     text-align: center;
 }
 
+.has-text-right {
+    text-align: right;
+}
+
 .no-print {
     @media print {
         display: none;

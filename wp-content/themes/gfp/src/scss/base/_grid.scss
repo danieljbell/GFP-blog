@@ -37,6 +37,7 @@
 }
 
 .grid--phone-half {
+  display: flex;
   > * {
     flex-basis: calc((100% / 2) - 1rem);
     margin-right: 1rem;
