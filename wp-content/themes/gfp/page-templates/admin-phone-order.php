@@ -9,6 +9,31 @@ Template Name: Admin Phone Order
 
 <?php get_header(); ?>
 
+<?php
+// $customer = new WC_Customer(11);
+// print_r($customer);
+
+// $last_order_query = $wpdb->get_results( 
+//     "
+//     SELECT ID, post_title, wp_postmeta.meta_value 
+//     FROM $wpdb->posts wp_posts
+//     INNER JOIN $wpdb->post_meta wp_postmeta
+//     ON wp_posts.ID = wp_postmeta.post_id
+//     WHERE post_type = 'shop_order' 
+//     AND wp_postmeta.meta_key = '_order_number_formatted'
+//     ORDER BY ID DESC
+//     LIMIT 1
+//     "
+
+//   );
+// $last_order = $last_order_query[0]->meta_value;
+// $last_order = str_replace('GFP-', '', $last_order);
+// $last_order++;
+// print_r(gettype($last_order));
+
+  // $last_order = $last_order_query[0]->ID + 1;
+?>
+  
   <section class="pad-y--most has-text-center">
     <div class="site-width">
       <h1>Phone Orders</h1>
@@ -60,17 +85,13 @@ Template Name: Admin Phone Order
     <div class="site-width">
       <div class="box--with-header">
         <header>Line Items</header>
-        <form action="" id="addSkus">
-          <div class="grid--phone-half">
-            <div class="form-group has-text-right">
-              <label for="sku">Part Number</label>
-              <input type="text" name="sku" id="sku">
-            </div>
-            <div class="form-group">
-              <label for="qty">Quantity</label>
-              <input type="number" min="1" max="100" name="qty" id="qty" value="1">
-              <button class="btn-solid--brand mar-l">Add Part</button>
-            </div>
+        <form action="" id="addSkus" class="has-text-center">
+          <div class="form-group">
+            <label for="sku" class="mar-r">Part Number</label>
+            <input type="text" name="sku" id="sku" class="mar-r--more mar-b">
+            <label for="qty" class="mar-r">Quantity</label>
+            <input type="number" min="1" name="qty" id="qty" value="1">
+            <input type="submit" class="visually-hidden">
           </div>
         </form>
         <table class="skus visually-hidden">
@@ -88,5 +109,25 @@ Template Name: Admin Phone Order
       </div>
     </div>
   </section>
+
+  <section class="mar-y--most">
+    <div class="site-width">
+      <div class="has-text-center">
+        <button class="btn-solid--brand" id="createOrder">Create Order</button>
+      </div>
+      <div class="order-actions"></div>
+    </div>
+  </section>
   
 <?php get_footer(); ?>
+
+<?php 
+  function partForm($i) {
+    echo '<div class="form-group has-text-center">';
+      echo '<label for="sku-' . $i . '" class="mar-r">Part Number</label>';
+      echo '<input type="text" name="sku-' . $i . '" id="sku-' . $i . '" class="mar-r--more mar-b">';
+      echo '<label for="qty-' . $i . '" class="mar-r">Quantity</label>';
+      echo '<input type="number" min="1" max="100" name="qty-' . $i . '" id="qty-' . $i . '" value="1">';
+    echo '</div>';
+  }
+?>

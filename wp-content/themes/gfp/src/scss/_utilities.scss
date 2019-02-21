@@ -216,3 +216,18 @@ TYPOGRAPHY
   top: 0;
   width: 100%;
 }
+
+
+#user_switching_switch_on {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: rgba(0,0,0,0.5);
+  z-index: 101;
+  padding: 1rem;
+  a {
+    color: white;
+  }
+}

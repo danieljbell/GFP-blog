@@ -12,7 +12,7 @@ ADD GLOBAL CSS TO PAGE
 ==============================
 */
 function enqueue_global_css() {
-  wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '1.0.30');
+  wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '1.0.31');
 }
 add_action('wp_enqueue_scripts', 'enqueue_global_css');
 
@@ -22,7 +22,7 @@ ADD GLOBAL JS TO PAGE
 ==============================
 */
 function enqueue_global_js() {
-  wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.30', true);
+  wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.31', true);
 
   // if (is_page_template( 'page-templates/check-order-status.php' ) || is_account_page()) {
     $translation_array = array(
@@ -33,7 +33,7 @@ function enqueue_global_js() {
   // }
 
     if (is_page_template( 'page-templates/admin-phone-order.php' )) {
-      wp_enqueue_script('admin-phone-order', get_stylesheet_directory_URI() . '/dist/js/admin-phone-order.js', array(), '1.0.30', true);
+      wp_enqueue_script('admin-phone-order', get_stylesheet_directory_URI() . '/dist/js/admin-phone-order.js', array(), '1.0.31', true);
     }
   
 }
@@ -603,8 +603,108 @@ function find_user_by_email() {
   }
 }
 
+function draft_order() {
+  check_ajax_referer( 'nonce_name' );
+  global $woocommerce;
+  global $wpdb;
+
+  
+
+  /*
+  =========================
+  GET LAST ORDER NUMBER
+  =========================
+  */
+
+  $last_order_query = $wpdb->get_results( 
+    "
+    SELECT ID, post_title, wp_postmeta.meta_value 
+    FROM $wpdb->posts wp_posts
+    INNER JOIN $wpdb->post_meta wp_postmeta
+    ON wp_posts.ID = wp_postmeta.post_id
+    WHERE post_type = 'shop_order' 
+    AND wp_postmeta.meta_key = '_order_number_formatted'
+    ORDER BY ID DESC
+    LIMIT 1
+    "
+
+  );
+  $last_order = $last_order_query[0]->meta_value;
+  $last_order = str_replace('GFP-', '', $last_order);
+  $last_order++;
+
+  // get customer data
+  $customer = new WC_Customer($_POST['customer']);
+  $customer_id = $customer->get_id();
+  $billing_address = array(
+    'first_name' => $customer->get_billing_first_name(),
+    'last_name'  => $customer->get_billing_last_name(),
+    'company'    => $customer->get_billing_company(),
+    'email'      => $customer->get_billing_email(),
+    'phone'      => $customer->get_billing_phone(),
+    'address_1'  => $customer->get_billing_address_1(),
+    'address_2'  => $customer->get_billing_address_2(),
+    'city'       => $customer->get_billing_city(),
+    'state'      => $customer->get_billing_state(),
+    'postcode'   => $customer->get_billing_postcode(),
+    'country'    => $customer->get_billing_country()
+  );
+  $shipping_address = array(
+    'first_name' => $customer->get_shipping_first_name(),
+    'last_name'  => $customer->get_shipping_last_name(),
+    'company'    => $customer->get_shipping_company(),
+    'address_1'  => $customer->get_shipping_address_1(),
+    'address_2'  => $customer->get_shipping_address_2(),
+    'city'       => $customer->get_shipping_city(),
+    'state'      => $customer->get_shipping_state(),
+    'postcode'   => $customer->get_shipping_postcode(),
+    'country'    => $customer->get_shipping_country()
+  );
+
+
+  $order = wc_create_order();
+  $line_items = $_POST['lineItems'];
+  foreach ($line_items as $key => $item) {
+    $order->add_product( get_product( $item['id'] ), $item['qty'] );
+  }
+  $order->set_address( $billing_address, 'billing' );
+  $order->set_address( $shipping_address, 'shipping' );
+  $order->set_customer_id( $_POST['customer'] );
+  $order->update_meta_data('_order_number', $last_order);
+  $order->update_meta_data('_order_number_formatted', 'GFP-' . $last_order);
+  $order->update_meta_data('_order_number_meta', 'a:3:{s:6:"prefix";s:4:"GFP-";s:6:"suffix";s:0:"";s:6:"length";s:1:"4";}');
+  $order->calculate_totals();
+  $order->update_status("Completed", 'Imported order', TRUE);
+
+  $order_details = wc_get_order($last_order_query[0]->ID + 1);
+  $login = wp_nonce_url( add_query_arg( array(
+      'action'  => 'switch_to_user',
+      'user_id' => $customer_id,
+      'nr'      => 1,
+    ), wp_login_url() ), "switch_to_user_{$customer_id}" );
+
+  wp_send_json(array(
+    'id' => $order_details->get_id(),
+    'order_key' => $order_details->get_order_key(),
+    'login' => $login
+  ));
+}
+
+// function edit_or_accept_order() {
+//   check_ajax_referer( 'nonce_name' );
+//   global $woocommerce;
+//   $order_id = $_POST['order_id'];
+//   $order = wc_get_order( $order_id );
+//   // $order_items = $order->get_items();
+//   wp_send_json(array(
+//     'id' => $order->get_id()
+//   ));
+// }
+
 
 add_action('wp_ajax_find_user_by_email', 'find_user_by_email');
+add_action('wp_ajax_draft_order', 'draft_order');
+add_action('wp_ajax_edit_or_accept_order', 'edit_or_accept_order');
 add_action('wp_ajax_get_product_prices', 'get_product_prices');
 add_action('wp_ajax_nopriv_get_product_prices', 'get_product_prices');
 add_action('wp_ajax_get_product_info', 'get_product_info');
