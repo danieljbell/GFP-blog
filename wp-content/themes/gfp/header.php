@@ -56,6 +56,7 @@
   } else {
     echo '<li style="display: inline-block; margin-left: 1rem;"><a href="' . site_url() . '/wp-admin/post.php?post=' . $post->ID . '&action=edit" class="btn-solid--brand-two" style="text-decoration: none; font-weight: bold;">Edit</a></li>';
   }
+  echo '<li style="display: inline-block; margin-left: 1rem;"><a href="' . site_url() . '/admin-phone-order" class="btn-solid--brand" style="text-decoration: none; font-weight: bold;">Phone Order</a></li>';
   echo '</ul>';
   endif; ?>
 
