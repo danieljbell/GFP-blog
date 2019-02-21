@@ -75,6 +75,17 @@ Template Name: Admin Phone Order
           </div>
           <div class="customer--new visually-hidden">
             <h3>New Customer</h3>
+            <div class="form-group">
+              <form action="" id="createNewCustomer">
+                <label for="new_customer_first_name" class="mar-r">First Name</label>
+                <input type="text" name="new_customer_first_name" id="new_customer_first_name" class="mar-r--more">
+                <label for="new_customer_last_name" class="mar-r">Last Name</label>
+                <input type="text" name="new_customer_last_name" id="new_customer_last_name" class="mar-r--more">
+                <label for="new_customer_email_address">Email</label>
+                <input type="email" name="new_customer_email_address" id="new_customer_email_address">
+                <input type="submit" class="visually-hidden">
+              </form>
+            </div>
           </div>
         </div>
       </div>

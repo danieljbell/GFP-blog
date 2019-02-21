@@ -690,21 +690,33 @@ function draft_order() {
   ));
 }
 
-// function edit_or_accept_order() {
-//   check_ajax_referer( 'nonce_name' );
-//   global $woocommerce;
-//   $order_id = $_POST['order_id'];
-//   $order = wc_get_order( $order_id );
-//   // $order_items = $order->get_items();
-//   wp_send_json(array(
-//     'id' => $order->get_id()
-//   ));
-// }
+function create_customer() {
+  check_ajax_referer( 'nonce_name' );
+
+  
+  $first_name = $_POST['first_name'];
+  $last_name = $_POST['last_name'];
+  $email_address = $_POST['email_address'];
+
+  $customer = wc_create_new_customer($email_address, $email_address, 'N2OIN13nslss');
+  
+  function generateRandomString($length = 16) {
+    return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
+  }
+
+
+  wp_send_json(array(
+    'first' => $first_name,
+    'last' => $last_name,
+    'email' => $email_address,
+    'customer' => $customer
+  ));
+}
 
 
 add_action('wp_ajax_find_user_by_email', 'find_user_by_email');
 add_action('wp_ajax_draft_order', 'draft_order');
-add_action('wp_ajax_edit_or_accept_order', 'edit_or_accept_order');
+add_action('wp_ajax_create_customer', 'create_customer');
 add_action('wp_ajax_get_product_prices', 'get_product_prices');
 add_action('wp_ajax_nopriv_get_product_prices', 'get_product_prices');
 add_action('wp_ajax_get_product_info', 'get_product_info');

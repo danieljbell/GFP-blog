@@ -7,6 +7,7 @@
   $('#choose_customer').on('click', chooseCustomer);
   $('#addSkus').on('submit', addSku);
   $('#createOrder').on('click', createOrder);
+  $('#createNewCustomer').on('submit', createCustomer);
 
   function toggle(e) {
     e.preventDefault();
@@ -90,6 +91,30 @@
     })
   }
 
+  function createCustomer(e) {
+    e.preventDefault(); 
+    console.log('creating customer');
+    var firstName = $(this).find('#new_customer_first_name').val();
+    var lastName = $(this).find('#new_customer_last_name').val();
+    var emailAddress = $(this).find('#new_customer_email_address').val();
+    console.log(firstName, lastName, emailAddress);
+    $.ajax({
+      url: window.ajax_order_tracking.ajax_url,
+      method: 'POST',
+      data: {
+        action: 'create_customer',
+        _ajax_nonce: window.ajax_order_tracking.nonce,
+        first_name: firstName,
+        last_name: lastName,
+        email_address: emailAddress
+      },
+      success: function(res) {
+        console.log(res);
+        userID = res.customer;
+      }
+    })
+  }
+
   function createOrder(e) {
     e.preventDefault();
     console.log('creating order for user: ' + userID);
@@ -114,9 +139,6 @@
       },
       success: function(res) {
         console.log(res);
-        // // https://gfp.local/checkout/order-pay/817886/?pay_for_order=true&key=wc_order_sxT5XXpOK3A5K
-        // $('.order-actions').append();
-        // ''
         $('#createOrder').hide();
         $('#createOrder').parent().append('<a href="' + res.login + '" class="btn-solid--brand mar-r">Collect Payment</a><a href="/wp-admin/post.php?post=' + res.id + '&action=edit" class="btn-solid--brand-two">View Draft Order</a>');
       }
