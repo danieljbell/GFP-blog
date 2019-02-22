@@ -14,6 +14,9 @@
   if ($categories_on_sale) {
     $button_link = get_term_link($categories_on_sale[0]->term_id);
   }
+  if (get_field('custom_link')) {
+    $button_link = get_field('custom_link_url');
+  }
 
   $discount = [
     "type" => get_field('discount_type'),
@@ -26,11 +29,19 @@
     <div class="card-content" style="background-image: linear-gradient(rgba(0,0,0,0) 40%, rgba(0,0,0,1)), url(<?php echo $promotion_image; ?>);">
       <p class="card--promo-sidebar-title"><?php echo $promotion_headline; ?></p>
       <?php
+        // if ($promotion_type === 'coupon') {
+        //   $coupon_details = get_field('coupon');
+        //   echo '<p class="card--promo-sidebar-details">' . $promotion_body_copy . '. Use coupon code <span class="current-promotions--promo-code">' . $coupon_details->post_title . '</span> when checking out to save! <span class="offer-text" style="color: inherit;">Offer expires <span class="promo-countdown" style="color: inherit !important;" data-expires="' . date("Ymd", strtotime($promotion_end_date)) . '">on ' . date("F j, Y", strtotime($promotion_end_date)) . '</span></span></p>';
+        // } else {
+        //   echo '<p class="card--promo-sidebar-details">' . $promotion_body_copy . '. <span class="offer-text" style="color: inherit;">Offer expires <span class="promo-countdown" style="color: inherit !important;" data-expires="' . date("Ymd", strtotime($promotion_end_date)) . '">on ' . date("F j, Y", strtotime($promotion_end_date)) . '</span></span></p>';
+        // }
         if ($promotion_type === 'coupon') {
           $coupon_details = get_field('coupon');
           echo '<p class="card--promo-sidebar-details">' . $promotion_body_copy . '. Use coupon code <span class="current-promotions--promo-code">' . $coupon_details->post_title . '</span> when checking out to save! <span class="offer-text" style="color: inherit;">Offer expires <span class="promo-countdown" style="color: inherit !important;" data-expires="' . date("Ymd", strtotime($promotion_end_date)) . '">on ' . date("F j, Y", strtotime($promotion_end_date)) . '</span></span></p>';
-        } else {
+        } elseif ($promotion_type === 'discount')  {
           echo '<p class="card--promo-sidebar-details">' . $promotion_body_copy . '. <span class="offer-text" style="color: inherit;">Offer expires <span class="promo-countdown" style="color: inherit !important;" data-expires="' . date("Ymd", strtotime($promotion_end_date)) . '">on ' . date("F j, Y", strtotime($promotion_end_date)) . '</span></span></p>';
+        } else {
+          echo '<p class="card--promo-sidebar-details">' . $promotion_body_copy . '</p>';
         }
       ?>
     </div>
