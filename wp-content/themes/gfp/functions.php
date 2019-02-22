@@ -33,7 +33,7 @@ function enqueue_global_js() {
   // }
 
     if (is_page_template( 'page-templates/admin-phone-order.php' )) {
-      wp_enqueue_script('admin-phone-order', get_stylesheet_directory_URI() . '/dist/js/admin-phone-order.js', array(), '1.0.31', true);
+      wp_enqueue_script('admin-phone-order', get_stylesheet_directory_URI() . '/dist/js/admin-phone-order.js', array(), '1.0.0', true);
     }
   
 }
@@ -698,19 +698,31 @@ function create_customer() {
   $last_name = $_POST['last_name'];
   $email_address = $_POST['email_address'];
 
-  $customer = wc_create_new_customer($email_address, $email_address, 'N2OIN13nslss');
-  
-  function generateRandomString($length = 16) {
-    return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
+  $user = get_users(array(
+    'search' => $email_address,
+    'fields' => ['ID', 'user_email', 'display_name']
+  ));
+  if ($user) {
+    $customer = new WC_Customer( $user[0]->ID );
+    wp_send_json(array(
+      'returning' => true,
+      'first' => $first_name,
+      'last' => $last_name,
+      'email' => $email_address,
+      'customer' => $customer->get_id()
+    ));
+  } else {
+    $customer = wc_create_new_customer($email_address, $email_address, 'N2OIN13nslss');
+    wp_send_json(array(
+      'returning' => false,
+      'first' => $first_name,
+      'last' => $last_name,
+      'email' => $email_address,
+      'customer' => $customer
+    ));
   }
 
 
-  wp_send_json(array(
-    'first' => $first_name,
-    'last' => $last_name,
-    'email' => $email_address,
-    'customer' => $customer
-  ));
 }
 
 
