@@ -90,6 +90,66 @@
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i" rel="stylesheet">
 <?php wp_footer(); ?>
 
+<!--CRITEO-->
+<script type="text/javascript" src="//static.criteo.net/js/ld/ld.js" async="true"></script>
+<script type="text/javascript">
+  var deviceType = /iPad/.test(navigator.userAgent) ? "t" : /Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Silk/.test(navigator.userAgent) ? "m" : "d";
+  window.criteo_q = window.criteo_q || [];
+  
+  <?php if (is_front_page()) : ?>
+    window.criteo_q.push(
+      { event: "setAccount", account: 41336 },
+    <?php if (is_user_logged_in()) : ?>
+      { event: "setEmail", email: <?php echo '"' . wp_get_current_user()->user_email . '"'; ?> },
+    <?php else : ?>
+      { event: "setEmail", email: "" },
+    <?php endif; ?>
+      { event: "setSiteType", type: deviceType },
+      { event: "viewHome" }
+    );
+  <?php endif; ?>
+
+  <?php if (is_shop() || is_product_category()) : ?>
+    console.log('fire dis chach');
+    var allProducts = document.querySelectorAll('.product-list-with-filters ul.products li');
+    var remarketProducts = [];
+    for (var i = 0; i < allProducts.length; i++) {
+      if (i < 3) {
+        remarketProducts.push(allProducts[i].dataset.sku);
+      }
+    }
+
+    window.criteo_q.push(
+      { event: "setAccount", account: 41336 },
+    <?php if (is_user_logged_in()) : ?>
+      { event: "setEmail", email: <?php echo '"' . wp_get_current_user()->user_email . '"'; ?> },
+    <?php else : ?>
+      { event: "setEmail", email: "" },
+    <?php endif; ?>
+      { event: "setSiteType", type: deviceType },
+      { event: "viewList", item: remarketProducts}
+    );
+  <?php endif; ?>
+
+  <?php if (is_search()) : ?>
+    console.log('search dis chach');
+  <?php endif; ?>
+
+  <?php if (is_product()) : ?>
+    window.criteo_q.push(
+      { event: "setAccount", account: 41336 },
+    <?php if (is_user_logged_in()) : ?>
+      { event: "setEmail", email: <?php echo '"' . wp_get_current_user()->user_email . '"'; ?> },
+    <?php else : ?>
+      { event: "setEmail", email: "" },
+    <?php endif; ?>
+      { event: "setSiteType", type: deviceType },
+      { event: "viewItem", item: "<?php global $product; echo $product->get_sku(); ?>" }
+    );
+  <?php endif; ?>
+
+</script>
+
 <?php if (is_front_page()) : ?>
 
   <script>

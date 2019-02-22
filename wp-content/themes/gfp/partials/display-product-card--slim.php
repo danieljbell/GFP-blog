@@ -5,7 +5,7 @@
 ?>
 
 
-<li class="products--item product-card--slim" data-brand="<?php echo $product_vendor; ?>">
+<li class="products--item product-card--slim" data-sku="<?php echo $product->get_sku(); ?>">
     <div class="products--image">
       <?php if ( has_post_thumbnail() ) : ?>
         <img src="https://res.cloudinary.com/greenfarmparts/image/upload/e_brightness:30,w_100,h_100,c_fill/<?php echo $product->get_sku(); ?>-0.jpg" alt="">
