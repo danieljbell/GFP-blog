@@ -114,7 +114,7 @@
         if (res.returning === true) {
           $('#createNewCustomer').parent().append('<p>Account already exists for ' + res.email + '. It\'s been selected, you can just add lined items now.</p>');
         } else {
-          $('#createNewCustomer').parent().append('<p>Account created for: ' + res.first + res.last + ' - ' + res.email + '</p>');
+          $('#createNewCustomer').parent().append('<p>Account created for: ' + res.first + ' ' + res.last + ' - ' + res.email + '</p>');
         }
       }
     })

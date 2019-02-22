@@ -117,6 +117,8 @@ function format_equipment_menu($parent, $pretty_name, $slug, $equip_var) {
     $equipment_query = new WP_Query(array(
       'post_type' => 'post',
       'category' => 'maintenance-reminder',
+      'order' => 'ASC',
+      'orderby' => 'title',
       'posts_per_page' => -1,
       'tag_slug__and' => [$parent, $slug]
     ));
