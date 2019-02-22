@@ -109,9 +109,14 @@
     );
   <?php endif; ?>
 
-  <?php if (is_shop() || is_product_category()) : ?>
-    console.log('fire dis chach');
-    var allProducts = document.querySelectorAll('.product-list-with-filters ul.products li');
+  <?php if (is_shop() || is_product_category() || is_search()) : ?>
+    <?php if (is_search()) : ?>
+      var firstProduct = document.querySelector('.products--item');
+      var allProducts = firstProduct.parentElement.querySelectorAll('li');
+    <?php else : ?>
+      var allProducts = document.querySelectorAll('.product-list-with-filters ul.products li');
+    <?php endif; ?>
+
     var remarketProducts = [];
     for (var i = 0; i < allProducts.length; i++) {
       if (i < 3) {
@@ -129,10 +134,6 @@
       { event: "setSiteType", type: deviceType },
       { event: "viewList", item: remarketProducts}
     );
-  <?php endif; ?>
-
-  <?php if (is_search()) : ?>
-    console.log('search dis chach');
   <?php endif; ?>
 
   <?php if (is_product()) : ?>
