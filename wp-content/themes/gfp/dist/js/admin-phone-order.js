@@ -87,8 +87,23 @@
         $('table.skus tbody').append('<tr><td data-sku-id="' + res.id + '">' + sku + '</td><td>' + res.name + '</td><td>$' + res.price + '</td><td>' + qty + '</td><td><button class="remove-sku">&times</button></td></tr>');
         document.querySelector('#addSkus').reset();
         $('#sku').focus();
+        getTotals();
       },
     })
+  }
+
+  function getTotals() {
+    console.log('getting totals');
+    var rows = $('table.skus tbody tr');
+    var total = 0;
+    $.each(rows, function(i, elem) {
+      var price = $(elem).find('td:nth-child(3)').text();
+      var qty = Number($(elem).find('td:nth-child(4)').text());
+      price = price.replace('$', '');
+      price = Number(price);
+      total += price * qty;
+    })
+    $('table.skus tfoot td:nth-child(2)').text('$' + total);
   }
 
   function createCustomer(e) {

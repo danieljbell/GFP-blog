@@ -201,6 +201,21 @@ table.skus {
     border-right: 1px solid $medium-gray;
   }
 
+  tfoot {
+    background-color: $brand-two;
+    color: $brand;
+    
+    td {
+      padding: 0.5rem 1rem;
+      font-weight: bold;
+      text-align: center;
+      &:first-child {
+        text-align: right;
+      }
+    }
+
+  }
+
   .remove-sku {
     background: transparent;
     width: 1.3rem;

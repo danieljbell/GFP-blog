@@ -116,6 +116,13 @@ Template Name: Admin Phone Order
             </tr>
           </thead>
           <tbody></tbody>
+          <tfoot>
+            <tr>
+              <td colspan="2">Total</td>
+              <td></td>
+              <td colspan="2"></td>
+            </tr>
+          </tfoot>
         </table>
       </div>
     </div>
