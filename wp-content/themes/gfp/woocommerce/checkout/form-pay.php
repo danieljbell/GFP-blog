@@ -23,7 +23,6 @@ $totals = $order->get_order_item_totals();
 // print_r(absint($wp->query_vars['order-pay']));
 ?>
 
-
 <form id="order_review" method="post" class="order-pay">
   
   <div class="gfp-checkout--contents">
@@ -90,34 +89,112 @@ $totals = $order->get_order_item_totals();
   </div>
 
   <div class="gfp-checkout--totals">
-    <div id="payment">
-      <?php if ( $order->needs_payment() ) : ?>
-        <ul class="wc_payment_methods payment_methods methods">
-          <?php
-          if ( ! empty( $available_gateways ) ) {
-            foreach ( $available_gateways as $gateway ) {
-              wc_get_template( 'checkout/payment-method.php', array( 'gateway' => $gateway ) );
+    <div class="gfp-checkout--totals-inner">
+      <div id="order_review" class="woocommerce-checkout-review-order">
+        <table class="shop_table woocommerce-checkout-review-order-table">
+          <!-- <thead>
+            <tr>
+              <th class="product-name"><?php _e( 'Product', 'woocommerce' ); ?></th>
+              <th class="product-total"><?php _e( 'Total', 'woocommerce' ); ?></th>
+            </tr>
+          </thead> -->
+          <tbody>
+            <?php
+              do_action( 'woocommerce_review_order_before_cart_contents' );
+              do_action( 'woocommerce_review_order_after_cart_contents' );
+            ?>
+          </tbody>
+          <tfoot>
+
+            <tr class="cart-subtotal">
+              <th><?php _e( 'Subtotal', 'woocommerce' ); ?></th>
+              <td><?php wc_cart_totals_subtotal_html(); ?></td>
+            </tr>
+
+            <?php foreach ( WC()->cart->get_coupons() as $code => $coupon ) : ?>
+              <tr class="cart-discount coupon-<?php echo esc_attr( sanitize_title( $code ) ); ?>">
+                <th><?php wc_cart_totals_coupon_label( $coupon ); ?></th>
+                <td><?php wc_cart_totals_coupon_html( $coupon ); ?></td>
+              </tr>
+            <?php endforeach; ?>
+
+            <?php if ( WC()->cart->needs_shipping() && WC()->cart->show_shipping() ) : ?>
+
+              <?php do_action( 'woocommerce_review_order_before_shipping' ); ?>
+
+              <?php wc_cart_totals_shipping_html(); ?>
+
+              <?php do_action( 'woocommerce_review_order_after_shipping' ); ?>
+
+            <?php endif; ?>
+
+            <?php foreach ( WC()->cart->get_fees() as $fee ) : ?>
+              <tr class="fee">
+                <th><?php echo esc_html( $fee->name ); ?></th>
+                <td><?php wc_cart_totals_fee_html( $fee ); ?></td>
+              </tr>
+            <?php endforeach; ?>
+
+            <?php if ( wc_tax_enabled() && ! WC()->cart->display_prices_including_tax() ) : ?>
+              <?php if ( 'itemized' === get_option( 'woocommerce_tax_total_display' ) ) : ?>
+                <?php foreach ( WC()->cart->get_tax_totals() as $code => $tax ) : ?>
+                  <tr class="tax-rate tax-rate-<?php echo sanitize_title( $code ); ?>">
+                    <th><?php echo esc_html( $tax->label ); ?></th>
+                    <td><?php echo wp_kses_post( $tax->formatted_amount ); ?></td>
+                  </tr>
+                <?php endforeach; ?>
+              <?php else : ?>
+                <tr class="tax-total">
+                  <th><?php echo esc_html( WC()->countries->tax_or_vat() ); ?></th>
+                  <td><?php wc_cart_totals_taxes_total_html(); ?></td>
+                </tr>
+              <?php endif; ?>
+            <?php endif; ?>
+
+            <?php do_action( 'woocommerce_review_order_before_order_total' ); ?>
+
+            <tr class="order-total">
+              <th><?php _e( 'Total', 'woocommerce' ); ?></th>
+              <td><?php wc_cart_totals_order_total_html(); ?></td>
+            </tr>
+
+            <?php do_action( 'woocommerce_review_order_after_order_total' ); ?>
+
+          </tfoot>
+        </table>
+
+      </div>
+      <div id="payment">
+        <?php if ( $order->needs_payment() ) : ?>
+          <ul class="wc_payment_methods payment_methods methods">
+            <?php
+            if ( ! empty( $available_gateways ) ) {
+              foreach ( $available_gateways as $gateway ) {
+                if ($gateway->get_method_title() !== 'PayPal Checkout') {
+                  wc_get_template( 'checkout/payment-method.php', array( 'gateway' => $gateway ) );
+                }
+              }
+            } else {
+              echo '<li class="woocommerce-notice woocommerce-notice--info woocommerce-info">' . apply_filters( 'woocommerce_no_available_payment_methods_message', __( 'Sorry, it seems that there are no available payment methods for your location. Please contact us if you require assistance or wish to make alternate arrangements.', 'woocommerce' ) ) . '</li>'; // @codingStandardsIgnoreLine
             }
-          } else {
-            echo '<li class="woocommerce-notice woocommerce-notice--info woocommerce-info">' . apply_filters( 'woocommerce_no_available_payment_methods_message', __( 'Sorry, it seems that there are no available payment methods for your location. Please contact us if you require assistance or wish to make alternate arrangements.', 'woocommerce' ) ) . '</li>'; // @codingStandardsIgnoreLine
-          }
-          ?>
-        </ul>
-      <?php endif; ?>
-      <!-- <div class="form-row"> -->
-        <input type="hidden" name="woocommerce_pay" value="1" />
+            ?>
+          </ul>
+        <?php endif; ?>
+        <!-- <div class="form-row"> -->
+          <input type="hidden" name="woocommerce_pay" value="1" />
 
-        <?php wc_get_template( 'checkout/terms.php' ); ?>
+          <?php wc_get_template( 'checkout/terms.php' ); ?>
 
-        <?php do_action( 'woocommerce_pay_order_before_submit' ); ?>
-        <div class="has-text-center">
-          <?php echo apply_filters( 'woocommerce_pay_order_button_html', '<button type="submit" class="button alt btn-solid--brand" id="place_order" value="' . esc_attr( $order_button_text ) . '" data-value="' . esc_attr( $order_button_text ) . '">' . esc_html( $order_button_text ) . '</button>' ); // @codingStandardsIgnoreLine ?>
-        </div>
+          <?php do_action( 'woocommerce_pay_order_before_submit' ); ?>
+          <div class="has-text-center">
+            <?php echo apply_filters( 'woocommerce_pay_order_button_html', '<button type="submit" class="button alt btn-solid--brand" id="place_order" value="' . esc_attr( $order_button_text ) . '" data-value="' . esc_attr( $order_button_text ) . '">' . esc_html( $order_button_text ) . '</button>' ); // @codingStandardsIgnoreLine ?>
+          </div>
 
-        <?php do_action( 'woocommerce_pay_order_after_submit' ); ?>
+          <?php do_action( 'woocommerce_pay_order_after_submit' ); ?>
 
-        <?php wp_nonce_field( 'woocommerce-pay', 'woocommerce-pay-nonce' ); ?>
-      <!-- </div> -->
+          <?php wp_nonce_field( 'woocommerce-pay', 'woocommerce-pay-nonce' ); ?>
+        <!-- </div> -->
+      </div>
     </div>
   </div>
 
