@@ -16,17 +16,13 @@
       if (preg_match('/ProductCode/i', $arr)) {
         $sku = explode('=', $arr);
         $sku = $sku[1];
-      }
-      if (preg_match('/Qty/i', $arr)) {
-        $qty = explode('=', $arr);
-        $qty = $qty[1];
+        $product_id = wc_get_product_id_by_sku($sku);
       }
     }
-    
-    // print_r($queryArr);
+    if ($product_id) {
+      header("Location: " . site_url() . '/cart/?add-to-cart=' . $product_id . '&quantity=' . substr($queryArr[2], -1));
+    }
   }
-  print_r($sku);
-print_r($qty);
 ?>
 
 <!DOCTYPE html>
