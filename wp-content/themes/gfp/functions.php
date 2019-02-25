@@ -12,7 +12,7 @@ ADD GLOBAL CSS TO PAGE
 ==============================
 */
 function enqueue_global_css() {
-  wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '1.0.32');
+  wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '1.0.33');
 }
 add_action('wp_enqueue_scripts', 'enqueue_global_css');
 
@@ -22,7 +22,7 @@ ADD GLOBAL JS TO PAGE
 ==============================
 */
 function enqueue_global_js() {
-  wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.32', true);
+  wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.33', true);
 
   // if (is_page_template( 'page-templates/check-order-status.php' ) || is_account_page()) {
     $translation_array = array(
@@ -1245,53 +1245,43 @@ add_post_type_support( 'page', 'excerpt' );
 
 
 
-// add_action('pre_get_posts','shop_filter_cat');
+/*
+=========================
+CUSTOM XML FEED
+=========================
+*/
+add_filter('init','tj_init_custom_feed');
 
-//  function shop_filter_cat($query) {
-//     if (is_post_type_archive( 'product' ) && $query->is_main_query()) {
-//       $query->query_vars[‘product_cat’] = $_GET['product_cat']; 
-//     }
-//  }
+function tj_init_custom_feed() { //initialize the feed
+  add_feed('custom-feed','criteo_product_feed');
+}
 
-/**
- * Unhook and remove WooCommerce default emails.
- */
-// add_action( 'woocommerce_email', 'unhook_those_pesky_emails' );
+function tj_custom_feed() {
+  header("Content-type: text/xml");
 
-// function unhook_those_pesky_emails( $email_class ) {
+  echo "\n";
+  echo "\n";
 
-//     /**
-//      * Hooks for sending emails during store events
-//      **/
-//     remove_action( 'woocommerce_low_stock_notification', array( $email_class, 'low_stock' ) );
-//     remove_action( 'woocommerce_no_stock_notification', array( $email_class, 'no_stock' ) );
-//     remove_action( 'woocommerce_product_on_backorder_notification', array( $email_class, 'backorder' ) );
-    
-//     // New order emails
-//     remove_action( 'woocommerce_order_status_pending_to_processing_notification', array( $email_class->emails['WC_Email_New_Order'], 'trigger' ) );
-//     remove_action( 'woocommerce_order_status_pending_to_completed_notification', array( $email_class->emails['WC_Email_New_Order'], 'trigger' ) );
-//     remove_action( 'woocommerce_order_status_pending_to_on-hold_notification', array( $email_class->emails['WC_Email_New_Order'], 'trigger' ) );
-//     remove_action( 'woocommerce_order_status_failed_to_processing_notification', array( $email_class->emails['WC_Email_New_Order'], 'trigger' ) );
-//     remove_action( 'woocommerce_order_status_failed_to_completed_notification', array( $email_class->emails['WC_Email_New_Order'], 'trigger' ) );
-//     remove_action( 'woocommerce_order_status_failed_to_on-hold_notification', array( $email_class->emails['WC_Email_New_Order'], 'trigger' ) );
-    
-//     // Processing order emails
-//     remove_action( 'woocommerce_order_status_pending_to_processing_notification', array( $email_class->emails['WC_Email_Customer_Processing_Order'], 'trigger' ) );
-//     remove_action( 'woocommerce_order_status_pending_to_on-hold_notification', array( $email_class->emails['WC_Email_Customer_Processing_Order'], 'trigger' ) );
-    
-//     // Completed order emails
-//     remove_action( 'woocommerce_order_status_completed_notification', array( $email_class->emails['WC_Email_Customer_Completed_Order'], 'trigger' ) );
-      
-//     // Note emails
-//     remove_action( 'woocommerce_new_customer_note_notification', array( $email_class->emails['WC_Email_Customer_Note'], 'trigger' ) );
-// }
+  $posts = get_posts(array(
+    'posts_per_page'   => 5
+  ));
+
+  foreach($posts as $post){
+    $post_link = get_permalink( $post->ID );
+    $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+
+    echo '';
+    echo "\t" . $post->ID . "\n";
+
+    echo "\t" . $post->post_date . "\n";
+    echo "\t" . $post_link . "\n";
+    echo "\t\n";
+    echo "\t" . esc_html(strip_tags($post->post_excerpt)) . "\n";
+    echo "\t" . $image[0] . "";
+    echo '';
+  }
 
 
-
-// add_filter('woocommerce_get_catalog_ordering_args', 'am_woocommerce_catalog_orderby');
-// function am_woocommerce_catalog_orderby( $args ) {
-//     $args['meta_key'] = '_thumbnail_id';
-//     $args['orderby'] = 'meta_value';
-//     // $args['order'] = 'asc'; 
-//     return $args;
-// }
+  echo "";
+  exit;
+}
