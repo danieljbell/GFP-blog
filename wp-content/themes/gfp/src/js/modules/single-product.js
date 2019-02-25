@@ -141,5 +141,14 @@
   //   })
   // }
 
+  /*
+  =========================
+  ARI LINKS
+  =========================
+  */
+  $('body').on('click', '.ariPartListAddToCart', function(e) {
+    e.preventDefault();
+    console.log('clicked');
+  })
 
 })(jQuery);

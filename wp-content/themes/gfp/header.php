@@ -8,6 +8,25 @@
       header("Location: " . $product->get_permalink());
     }
   }
+  $request = $_SERVER['REQUEST_URI'];
+  $requestQuery = parse_url($request);
+  if (strpos($request, 'shoppingcart.asp')) {
+    $queryArr = explode('&', $requestQuery['query']);
+    foreach ($queryArr as $key => $arr) {
+      if (preg_match('/ProductCode/i', $arr)) {
+        $sku = explode('=', $arr);
+        $sku = $sku[1];
+      }
+      if (preg_match('/Qty/i', $arr)) {
+        $qty = explode('=', $arr);
+        $qty = $qty[1];
+      }
+    }
+    
+    // print_r($queryArr);
+  }
+  print_r($sku);
+print_r($qty);
 ?>
 
 <!DOCTYPE html>
