@@ -145,7 +145,7 @@
       success: function(res) {
         console.log(res);
         $('#createOrder').hide();
-        $('#createOrder').parent().append('<a href="' + res.login + '" class="btn-solid--brand mar-r">Collect Payment</a><a href="/wp-admin/post.php?post=' + res.id + '&action=edit" class="btn-solid--brand-two">View Draft Order</a>');
+        $('#createOrder').parent().append('<a href="' + res.login + '" class="btn-solid--brand mar-r">Collect Payment</a><a href="/wp-admin/post.php?post=' + res.id + '&action=edit" class="btn-solid--brand-two" target="_blank">View Draft Order</a>');
       }
     })
   }
