@@ -50,6 +50,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
           if ($email->id === 'customer_processing_order') {
             echo 'Thanks ' . $order->get_billing_first_name() . ' for your order! Your order number is ' . $order->get_order_number() . '.';
+          } elseif ($email->id === 'new_order') {
+            echo '$' . $order->get_total();
           }
       ?>
     </div>
