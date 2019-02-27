@@ -100,7 +100,7 @@
     window.criteo_q.push(
       { event: "setAccount", account: 41336 },
     <?php if (is_user_logged_in()) : ?>
-      { event: "setEmail", email: <?php echo '"' . wp_get_current_user()->user_email . '"'; ?> },
+      { event: "setEmail", email: <?php echo '"' . md5(wp_get_current_user()->user_email) . '"'; ?> },
     <?php else : ?>
       { event: "setEmail", email: "" },
     <?php endif; ?>
