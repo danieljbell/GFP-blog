@@ -147,7 +147,7 @@
     window.criteo_q.push(
       { event: "setAccount", account: 41336 },
     <?php if (is_user_logged_in()) : ?>
-      { event: "setEmail", email: <?php echo '"' . wp_get_current_user()->user_email . '"'; ?> },
+      { event: "setEmail", email: <?php echo '"' . md5(wp_get_current_user()->user_email) . '"'; ?> },
     <?php else : ?>
       { event: "setEmail", email: "" },
     <?php endif; ?>
@@ -160,12 +160,38 @@
     window.criteo_q.push(
       { event: "setAccount", account: 41336 },
     <?php if (is_user_logged_in()) : ?>
-      { event: "setEmail", email: <?php echo '"' . wp_get_current_user()->user_email . '"'; ?> },
+      { event: "setEmail", email: <?php echo '"' . md5(wp_get_current_user()->user_email) . '"'; ?> },
     <?php else : ?>
       { event: "setEmail", email: "" },
     <?php endif; ?>
       { event: "setSiteType", type: deviceType },
       { event: "viewItem", item: "<?php global $product; echo $product->get_sku(); ?>" }
+    );
+  <?php endif; ?>
+
+  <?php 
+    $path = $_SERVER['REQUEST_URI'];
+    $path_array = explode('/', $path);
+    if (($path_array[1] === 'checkout') && ($path_array[2] === 'order-received')) : 
+  ?>
+    var allPurchased = document.querySelectorAll('.gfp-order-details--list .gfp-order-details--item');
+    var purchasedItems = [];
+    for (var i = 0; i < allPurchased.length; i++) {
+      purchasedItems.push({
+        id: allPurchased[i].dataset.sku.toUpperCase(),
+        price: allPurchased[i].dataset.price,
+        quantity: allPurchased[i].dataset.qty,
+      });
+    }
+    window.criteo_q.push(
+      { event: "setAccount", account: 41336 },
+      <?php if (is_user_logged_in()) : ?>
+        { event: "setEmail", email: <?php echo '"' . md5(wp_get_current_user()->user_email) . '"'; ?> },
+      <?php else : ?>
+        { event: "setEmail", email: "" },
+      <?php endif; ?>
+      { event: "setSiteType", type: deviceType },
+      { event: "trackTransaction", id: "transaction_id", item: purchasedItems}
     );
   <?php endif; ?>
 

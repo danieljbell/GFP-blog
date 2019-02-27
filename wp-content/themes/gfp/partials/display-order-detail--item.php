@@ -1,4 +1,4 @@
-<li class="gfp-order-details--item">
+<li class="gfp-order-details--item" data-sku="<?php echo $product->get_sku(); ?>" data-price="<?php echo $unit_price; ?>" data-qty="<?php echo $qty; ?>">
   <div class="gfp-order-details--item-image">
     <a href="<?php echo $link; ?>">
       <?php echo $image; ?>
