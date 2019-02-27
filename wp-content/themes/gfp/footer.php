@@ -107,6 +107,26 @@
       { event: "setSiteType", type: deviceType },
       { event: "viewHome" }
     );
+  <?php elseif (is_cart()) : ?>
+    var allCartItems = document.querySelectorAll('.gfp-order-details--list .gfp-order-details--item');
+    var formatedItems = [];
+    for (var i = 0; i < allCartItems.length; i++) {
+      formatedItems.push({
+        id: allCartItems[i].querySelector('a.remove').dataset.product_sku.toUpperCase(),
+        price: allCartItems[i].querySelector('.regular-price').dataset.price,
+        quantity: allCartItems[i].querySelector('.quantity input').value,
+      });
+    }
+    window.criteo_q.push(
+      { event: "setAccount", account: 41336 },
+    <?php if (is_user_logged_in()) : ?>
+      { event: "setEmail", email: <?php echo '"' . md5(wp_get_current_user()->user_email) . '"'; ?> },
+    <?php else : ?>
+      { event: "setEmail", email: "" },
+    <?php endif; ?>
+      { event: "setSiteType", type: deviceType },
+      { event: "viewBasket", item: formatedItems}
+    );
   <?php endif; ?>
 
   <?php if (is_shop() || is_product_category() || is_search()) : ?>
