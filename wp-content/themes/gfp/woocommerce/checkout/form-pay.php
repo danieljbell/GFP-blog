@@ -99,6 +99,7 @@ $totals = $order->get_order_item_totals();
             </tr>
           </thead> -->
           <tbody>
+            <?php do_action( 'woocommerce_checkout_shipping' ); ?>
             <?php
               do_action( 'woocommerce_review_order_before_cart_contents' );
               do_action( 'woocommerce_review_order_after_cart_contents' );
