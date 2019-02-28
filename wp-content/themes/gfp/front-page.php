@@ -21,7 +21,7 @@
     'posts_per_page' => -1,
     'meta_key' => 'promotion_end_date',
     'meta_value' => date('Ymd'),
-    'meta_compare' => '>='
+    'meta_compare' => '>'
   );
 
   $current_promotions_query = new WP_Query($current_promotions_args);
