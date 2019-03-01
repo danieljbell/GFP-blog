@@ -222,7 +222,7 @@
           }
         });
       } else {
-        list.classList.add('slider--not-active');
+        document.querySelector('.promo-card-list').classList.add('slider--not-active');
       }
     })();
   </script>
