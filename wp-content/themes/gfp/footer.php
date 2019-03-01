@@ -221,6 +221,8 @@
               } 
           }
         });
+      } else {
+        list.classList.add('slider--not-active');
       }
     })();
   </script>
