@@ -218,7 +218,8 @@
         responsive: {
             960: {
                 items: count,
-                nav: true
+                nav: true,
+                items: 2
             } 
         }
       });
