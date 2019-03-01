@@ -217,9 +217,8 @@
         navPosition: 'bottom',
         responsive: {
             960: {
-                items: count,
+                items: 2,
                 nav: true,
-                items: 2
             } 
         }
       });
