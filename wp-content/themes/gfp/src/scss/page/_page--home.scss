@@ -81,6 +81,15 @@
     }
   }
 
+  .slider--not-active {
+    @include phone {
+      flex-direction: column;
+      li {
+        margin-bottom: 2rem;
+      }
+    }
+  }
+
 }
 
 // .tns-ovh {
