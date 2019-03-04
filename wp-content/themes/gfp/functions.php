@@ -401,7 +401,7 @@ function add_item_to_cart() {
 }
 
 function increment_item_in_cart() {
-  check_ajax_referer( 'nonce_name' );
+  // check_ajax_referer( 'nonce_name' );
   $cart = WC()->instance()->cart;
   $id = $_POST['product_id'];
   $key = $_POST['product_key'];
