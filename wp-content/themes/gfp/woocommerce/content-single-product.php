@@ -17,6 +17,10 @@
 
 defined( 'ABSPATH' ) || exit;
 
+
+// $chach = $wpdb->get_row( "SELECT * FROM $wpdb->postmeta WHERE post_id = 817919 AND meta_key = 'qty_increment'" );
+// print_r($last_order_query->meta_value);
+
 /**
  * Hook: woocommerce_before_single_product.
  *

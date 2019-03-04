@@ -104,7 +104,7 @@
         product_id: productID
       },
       success: function(results) {
-        console.log(results);
+        // console.log(results);
         cartSubtotal.text('$' + results.subtotal);
         populateCart(results.lineItems);
         updateCartCount(results.lineItems, results.subtotal);
@@ -168,6 +168,10 @@
   function populateCart(lineItems) {
     console.log(lineItems);
     cartItemList.innerHTML = lineItems.map(function(item) {
+      var productQtyInc = 1;
+      if (item.productQtyInc) {
+        productQtyInc = item.productQtyInc;
+      }
       if (item.SalePrice !== "") {
         var priceHTML = '<p class="drawer-item-price"><span class="drawer-item-sku">' + item.productSku + '</span> - $' + item.productRegularPrice + ' each</p>';
       } else {
@@ -187,7 +191,7 @@
             '<p class="drawer-item-title"><a href="' + item.productPermalink + '">' + item.productName + '</a></p>' +
               priceHTML +
             '<label for="" class="drawer-item-label">Quantity:</label>' +
-            '<input type="number" class="drawer-item-input" min="1" step="1" value="' + item.productQty + '">' +
+            '<input type="number" class="drawer-item-input" min="' + productQtyInc + '" step="' + productQtyInc + '" value="' + item.productQty + '">' +
           '</div>' +
         '</li>'
       );

@@ -12,7 +12,7 @@ ADD GLOBAL CSS TO PAGE
 ==============================
 */
 function enqueue_global_css() {
-  wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '1.0.36');
+  wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '1.0.37');
 }
 add_action('wp_enqueue_scripts', 'enqueue_global_css');
 
@@ -22,7 +22,7 @@ ADD GLOBAL JS TO PAGE
 ==============================
 */
 function enqueue_global_js() {
-  wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.36', true);
+  wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.37', true);
 
   // if (is_page_template( 'page-templates/check-order-status.php' ) || is_account_page()) {
     $translation_array = array(
@@ -227,12 +227,14 @@ add_filter( 'wpseo_metabox_prio', 'yoasttobottom');
 
 
 function formatCartItems($response) {
+  global $wpdb;
   $lineItems = array();
 
   foreach ($response as $key => $line_item) {
     $line_item_details = $line_item[data];
     $name = $line_item_details->get_name();
     $product_brands = get_terms('pa_brand');
+    $qty_increment = $wpdb->get_row( "SELECT meta_value FROM $wpdb->postmeta WHERE post_id = " . $line_item_details->get_id() . " AND meta_key = 'qty_increment'" );
     if ($product_brands) {
       foreach ($product_brands as $key => $brand) {
         $name = str_replace($brand->name . ' ', '', $name);
@@ -249,6 +251,7 @@ function formatCartItems($response) {
       'productKey'          => $line_item[key],
       'productSku'          => $line_item_details->get_sku(),
       'productQty'          => $line_item[quantity],
+      'productQtyInc'       => $qty_increment->meta_value,
       'productRegularPrice' => number_format($line_item_details->get_regular_price(), 2, '.', ''),
       'productSalePrice'    => number_format($line_item_details->get_sale_price(), 2, '.', ''),
       'productImg'          => $thumb,
@@ -381,9 +384,15 @@ function remove_item_from_cart() {
 
 function add_item_to_cart() {
   // check_ajax_referer( 'nonce_name' );
+  global $wpdb;
   $cart = WC()->instance()->cart;
   $id = $_POST['product_id'];
-  $cart->add_to_cart($id, 1);
+  $qty_increment = $wpdb->get_row( "SELECT meta_value FROM $wpdb->postmeta WHERE post_id = " . $id . " AND meta_key = 'qty_increment'" );
+  if ($qty_increment) {
+    $cart->add_to_cart($id, $qty_increment->meta_value);
+  } else {
+    $cart->add_to_cart($id, 1);
+  }
   $response = $cart->get_cart();
   wp_send_json(array(
     'subtotal' => $cart->get_totals()['subtotal'],
@@ -1002,6 +1011,35 @@ function save_product_alternatives( $post_id ) {
 }
 add_action( 'woocommerce_process_product_meta', 'save_product_alternatives' );
 
+/*
+==========================================
+CREATE CUSTOM FIELD FOR QUANTITY INCREMENT
+==========================================
+*/
+function create_product_qty_increment_field() {
+ $args = array(
+ 'id' => 'qty_increment',
+ 'label' => 'Quantity Increment',
+ 'desc_tip' => true,
+ 'description' => 'Number to display as quantity',
+ );
+ woocommerce_wp_text_input( $args );
+}
+add_action( 'woocommerce_product_options_general_product_data', 'create_product_qty_increment_field' );
+
+/*
+==========================================
+SAVE CUSTOM FIELD FOR PRODUCT ALTERNATIVES
+==========================================
+*/
+function save_product_qty_increment( $post_id ) {
+ $product = wc_get_product( $post_id );
+ $title = isset( $_POST['qty_increment'] ) ? $_POST['qty_increment'] : '';
+ $product->update_meta_data( 'qty_increment', sanitize_text_field( $title ) );
+ $product->save();
+}
+add_action( 'woocommerce_process_product_meta', 'save_product_qty_increment' );
+
 
 /*
 ====================================
@@ -1243,45 +1281,17 @@ add_post_type_support( 'page', 'excerpt' );
 
 
 
+/**
+ * Adjust the quantity input values
+ */
+add_filter( 'woocommerce_quantity_input_args', 'jk_woocommerce_quantity_input_args', 10, 2 ); // Simple products
 
-
-/*
-=========================
-CUSTOM XML FEED
-=========================
-*/
-add_filter('init','tj_init_custom_feed');
-
-function tj_init_custom_feed() { //initialize the feed
-  add_feed('custom-feed','criteo_product_feed');
-}
-
-function tj_custom_feed() {
-  header("Content-type: text/xml");
-
-  echo "\n";
-  echo "\n";
-
-  $posts = get_posts(array(
-    'posts_per_page'   => 5
-  ));
-
-  foreach($posts as $post){
-    $post_link = get_permalink( $post->ID );
-    $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-
-    echo '';
-    echo "\t" . $post->ID . "\n";
-
-    echo "\t" . $post->post_date . "\n";
-    echo "\t" . $post_link . "\n";
-    echo "\t\n";
-    echo "\t" . esc_html(strip_tags($post->post_excerpt)) . "\n";
-    echo "\t" . $image[0] . "";
-    echo '';
+function jk_woocommerce_quantity_input_args( $args, $product ) {
+  if ( is_singular( 'product' ) ) {
+    $args['input_value']  = 2;  // Starting value (we only want to affect product pages, not cart)
   }
-
-
-  echo "";
-  exit;
+  $args['max_value']  = 80;   // Maximum value
+  $args['min_value']  = 2;    // Minimum value
+  $args['step']     = 2;    // Quantity steps
+  return $args;
 }
