@@ -107,6 +107,7 @@ defined( 'ABSPATH' ) || exit;
               </div>
               <div class="gfp-order-details--item-quantity">
                 <?php
+                // print_r($cart_item);
                   if ( $_product->is_sold_individually() ) {
                     $product_quantity = sprintf( '1 <input type="hidden" name="cart[%s][qty]" value="1" />', $cart_item_key );
                   } else {
@@ -118,8 +119,12 @@ defined( 'ABSPATH' ) || exit;
                       'product_name' => $_product->get_name(),
                     ), $_product, false );
                   }
+                  
+                  echo '<label>Quantity:</label>';
+                  echo '<input type="number" value="' . $cart_item['quantity'] . '" class="input-text qty text" pattern="[0-9]*" inputmode="numeric" name="cart[' . $cart_item_key . '][qty]' . '">';
+                  // <input type="number" id="quantity_5c8012795265d" class="input-text qty text" step="2" min="2" max="80" name="cart[dac8ce96201895132d4e554f03990705][qty]" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="john deere lg264 quantity">
 
-                  echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item ); // PHPCS: XSS ok.
+                  // echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item ); // PHPCS: XSS ok.
                   ?>
               </div>
             </div>
