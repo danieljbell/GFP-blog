@@ -119,9 +119,18 @@ defined( 'ABSPATH' ) || exit;
                       'product_name' => $_product->get_name(),
                     ), $_product, false );
                   }
-                  
+                  // print_r();
+                  global $wpdb;
+                  $qty_increment = $wpdb->get_row( "SELECT meta_value FROM $wpdb->postmeta WHERE post_id = " . $cart_item['product_id'] . " AND meta_key = 'qty_increment'" );
                   echo '<label>Quantity:</label>';
-                  echo '<input type="number" value="' . $cart_item['quantity'] . '" class="input-text qty text" pattern="[0-9]*" inputmode="numeric" name="cart[' . $cart_item_key . '][qty]' . '">';
+                  if (!$qty_increment) {
+                    echo '<input type="number" value="' . $cart_item['quantity'] . '" class="input-text qty text" pattern="[0-9]*" inputmode="numeric" name="cart[' . $cart_item_key . '][qty]' . '">';
+                  } else {
+                    echo '<input type="number" step="' . $qty_increment->meta_value . '" value="' . $cart_item['quantity'] . '" class="input-text qty text" pattern="[0-9]*" inputmode="numeric" name="cart[' . $cart_item_key . '][qty]' . '">';
+                  }
+                  
+                  
+                  
                   // <input type="number" id="quantity_5c8012795265d" class="input-text qty text" step="2" min="2" max="80" name="cart[dac8ce96201895132d4e554f03990705][qty]" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="john deere lg264 quantity">
 
                   // echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item ); // PHPCS: XSS ok.
