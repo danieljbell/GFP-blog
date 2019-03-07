@@ -1280,18 +1280,17 @@ ADD EXCERPTS FOR PAGES
 add_post_type_support( 'page', 'excerpt' );
 
 
-
-/**
- * Adjust the quantity input values
- */
-add_filter( 'woocommerce_quantity_input_args', 'jk_woocommerce_quantity_input_args', 10, 2 ); // Simple products
-
-function jk_woocommerce_quantity_input_args( $args, $product ) {
-  if ( is_singular( 'product' ) ) {
-    $args['input_value']  = 2;  // Starting value (we only want to affect product pages, not cart)
+/* 
+====================================================================
+ADD TAX EXEMPT CAPABILITY
+@LINK - https://trackitweb.com/tax-exempt-customers-for-woocommerce/
+====================================================================
+*/
+  if (is_user_logged_in() && !is_admin()) {
+    add_filter( 'init', 'make_customer_tax_exempt' );
   }
-  $args['max_value']  = 80;   // Maximum value
-  $args['min_value']  = 2;    // Minimum value
-  $args['step']     = 2;    // Quantity steps
-  return $args;
-}
+  function make_customer_tax_exempt() {
+    $tax_exempt = current_user_can( 'tax_exempt');
+    wc()->customer->set_is_vat_exempt( $tax_exempt );
+  }
+ // This ends the tax-exempt section.
