@@ -173,6 +173,8 @@
     $path = $_SERVER['REQUEST_URI'];
     $path_array = explode('/', $path);
     if (($path_array[1] === 'checkout') && ($path_array[2] === 'order-received')) : 
+    global $order;
+    $order_id = $order->get_meta('_order_number_formatted');
   ?>
     var allPurchased = document.querySelectorAll('.gfp-order-details--list .gfp-order-details--item');
     var purchasedItems = [];
@@ -191,7 +193,7 @@
         { event: "setEmail", email: "" },
       <?php endif; ?>
       { event: "setSiteType", type: deviceType },
-      { event: "trackTransaction", id: "transaction_id", item: purchasedItems}
+      { event: "trackTransaction", id: "<?php echo $order_id; ?>", item: purchasedItems}
     );
   <?php endif; ?>
 
