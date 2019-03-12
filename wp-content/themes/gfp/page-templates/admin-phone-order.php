@@ -83,7 +83,7 @@ Template Name: Admin Phone Order
                 <input type="text" name="new_customer_last_name" id="new_customer_last_name" class="mar-r--more">
                 <label for="new_customer_email_address">Email</label>
                 <input type="email" name="new_customer_email_address" id="new_customer_email_address">
-                <input type="submit" class="visually-hidden">
+                <input type="submit" class="btn-solid--brand" value="Create Customer">
               </form>
             </div>
           </div>
@@ -102,7 +102,7 @@ Template Name: Admin Phone Order
             <input type="text" name="sku" id="sku" class="mar-r--more mar-b">
             <label for="qty" class="mar-r">Quantity</label>
             <input type="number" min="1" name="qty" id="qty" value="1">
-            <input type="submit" class="visually-hidden">
+            <input type="submit" class="btn-solid--brand" value="Add Part">
           </div>
         </form>
         <table class="skus visually-hidden">
