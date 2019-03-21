@@ -235,6 +235,10 @@ function formatCartItems($response) {
     $name = $line_item_details->get_name();
     $product_brands = get_terms('pa_brand');
     $qty_increment = $wpdb->get_row( "SELECT meta_value FROM $wpdb->postmeta WHERE post_id = " . $line_item_details->get_id() . " AND meta_key = 'qty_increment'" );
+    $inc = 1;
+    if ($qty_increment) {
+      $inc = $qty_increment->meta_value;
+    }
     if ($product_brands) {
       foreach ($product_brands as $key => $brand) {
         $name = str_replace($brand->name . ' ', '', $name);
@@ -251,7 +255,7 @@ function formatCartItems($response) {
       'productKey'          => $line_item[key],
       'productSku'          => $line_item_details->get_sku(),
       'productQty'          => $line_item[quantity],
-      'productQtyInc'       => $qty_increment->meta_value,
+      'productQtyInc'       => $inc,
       'productRegularPrice' => number_format($line_item_details->get_regular_price(), 2, '.', ''),
       'productSalePrice'    => number_format($line_item_details->get_sale_price(), 2, '.', ''),
       'productImg'          => $thumb,
