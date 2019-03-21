@@ -394,6 +394,7 @@ function add_item_to_cart() {
     $cart->add_to_cart($id, 1);
   }
   $response = $cart->get_cart();
+  // wp_send_json(wc_get_product($id));
   wp_send_json(array(
     'subtotal' => $cart->get_totals()['subtotal'],
     'lineItems' => formatCartItems($cart->get_cart())
