@@ -235,7 +235,7 @@ function formatCartItems($response) {
     $name = $line_item_details->get_name();
     $product_brands = get_terms('pa_brand');
     $qty_increment = $wpdb->get_row( "SELECT meta_value FROM $wpdb->postmeta WHERE post_id = " . $line_item_details->get_id() . " AND meta_key = 'qty_increment'" );
-    if ($qty_increment->meta_value) {
+    if ($qty_increment->meta_value > 1) {
       $inc = $qty_increment->meta_value;
     } else {
       $inc = 1;
