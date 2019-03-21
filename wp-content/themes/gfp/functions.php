@@ -235,7 +235,7 @@ function formatCartItems($response) {
     $name = $line_item_details->get_name();
     $product_brands = get_terms('pa_brand');
     $qty_increment = $wpdb->get_row( "SELECT meta_value FROM $wpdb->postmeta WHERE post_id = " . $line_item_details->get_id() . " AND meta_key = 'qty_increment'" );
-    if ($qty_increment->meta_value > 1) {
+    if ($qty_increment->meta_value) {
       $inc = $qty_increment->meta_value;
     } else {
       $inc = 1;
@@ -393,7 +393,7 @@ function add_item_to_cart() {
   $cart = WC()->instance()->cart;
   $id = $_POST['product_id'];
   $qty_increment = $wpdb->get_row( "SELECT meta_value FROM $wpdb->postmeta WHERE post_id = " . $id . " AND meta_key = 'qty_increment'" );
-  if ($qty_increment) {
+  if ($qty_increment->meta_value) {
     $cart->add_to_cart($id, $qty_increment->meta_value);
   } else {
     $cart->add_to_cart($id, 1);
