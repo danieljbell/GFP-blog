@@ -43,14 +43,30 @@
   <aside class="search--navigation">
     <nav>
       <ul>
+        <li><a href="<?php echo site_url() . '/?s=' . $_GET['s']; ?>#products">Products</a></li>
         <li><a href="<?php echo site_url() . '/?s=' . $_GET['s']; ?>#pages">Pages</a></li>
         <li><a href="<?php echo site_url() . '/?s=' . $_GET['s']; ?>#models">Models</a></li>
         <li><a href="<?php echo site_url() . '/?s=' . $_GET['s']; ?>#categories">Categories</a></li>
-        <li><a href="<?php echo site_url() . '/?s=' . $_GET['s']; ?>#products">Products</a></li>
       </ul>
     </nav>
   </aside>
   <section class="search--listings">
+    <div class="box--with-header mar-b--most">
+      <header>
+        <h2 id="products">Products</h2>
+      </header>
+      <?php
+        if ($products->have_posts()) :
+          echo '<ul class="grid--third grid--phone-half">';
+            while ($products->have_posts()) : $products->the_post();
+              get_template_part('partials/display', 'product-card--slim');
+            endwhile;
+          echo '</ul>';
+        else :
+          echo '<p>No products found matching <mark><strong>' . $_GET['s'] . '</strong></mark>.</p>';
+        endif; wp_reset_query();
+      ?>
+    </div>
     <div class="box--with-header mar-b--most">
       <header>
         <h2 id="pages">Pages</h2>
@@ -100,22 +116,6 @@
         } else {
           echo '<p>No categories found matching <mark><strong>' . $_GET['s'] . '</strong></mark>.</p>';
         } 
-      ?>
-    </div>
-    <div class="box--with-header mar-b--most">
-      <header>
-        <h2 id="products">Products</h2>
-      </header>
-      <?php
-        if ($products->have_posts()) :
-          echo '<ul class="grid--third grid--phone-half">';
-            while ($products->have_posts()) : $products->the_post();
-              get_template_part('partials/display', 'product-card--slim');
-            endwhile;
-          echo '</ul>';
-        else :
-          echo '<p>No products found matching <mark><strong>' . $_GET['s'] . '</strong></mark>.</p>';
-        endif; wp_reset_query();
       ?>
     </div>
     
