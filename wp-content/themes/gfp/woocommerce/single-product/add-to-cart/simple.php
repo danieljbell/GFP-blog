@@ -48,6 +48,36 @@ if ( $product->is_in_stock() ) : ?>
 
     <?php if (!$nla_part[0] || ($nla_part[0] && ($nla_part[0] === 'no'))) : ?>
 
+      <?php  
+      
+        $current_promotions_args = array(
+          'post_type' => 'promotions',
+          'posts_per_page' => -1,
+          'meta_key' => 'promotion_end_date',
+          'meta_value' => date('Ymd'),
+          'meta_compare' => '>='
+        );
+
+        $current_promotions_query = new WP_Query($current_promotions_args);
+
+        $product_category = get_the_terms($product->get_ID(), 'product_cat');
+
+        if ($current_promotions_query->have_posts()) : while ($current_promotions_query->have_posts()) : $current_promotions_query->the_post();
+          if (($product_category) && ($product_category[0]->term_id === get_field('categories_on_sale')[0]->term_id)) {
+            $promotion_body_copy = get_field('promotion_body_copy');
+            $promotion_end_date = get_field('promotion_end_date');
+            if ($promotion_type === 'coupon') {
+              $coupon_details = get_field('coupon');
+              echo '<p>' . $promotion_body_copy . '. Use coupon code <span class="current-promotions--promo-code">' . $coupon_details->post_title . '</span> when checking out to save! <span class="offer-text" style="color: inherit;">Offer expires <span class="promo-countdown" style="color: inherit !important;" data-expires="' . date("Ymd", strtotime($promotion_end_date)) . '">on ' . date("F j, Y", strtotime($promotion_end_date)) . '</span></span></p>';
+            } else {
+              echo '<p>' . $promotion_body_copy . '. <span class="offer-text" style="color: inherit;">Offer expires <span class="promo-countdown" style="color: inherit !important;" data-expires="' . date("Ymd", strtotime($promotion_end_date)) . '">on ' . date("F j, Y", strtotime($promotion_end_date)) . '</span></span></p>';
+            }
+          }
+          // echo '<hr />';
+        endwhile; endif; wp_reset_postdata();
+
+      ?>
+
       <button id="single-product--add-to-cart" data-sku="<?php echo $product->sku; ?>" data-product-title="<?php echo $product->name; ?>" type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="single_add_to_cart_button btn-solid--brand-two button alt add-to-cart mar-b--more"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
 
     <?php endif; ?>
@@ -55,36 +85,6 @@ if ( $product->is_in_stock() ) : ?>
     <?php do_action( 'woocommerce_template_single_excerpt' ); ?>
 
     <?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
-    
-    <?php  
-      
-      $current_promotions_args = array(
-        'post_type' => 'promotions',
-        'posts_per_page' => -1,
-        'meta_key' => 'promotion_end_date',
-        'meta_value' => date('Ymd'),
-        'meta_compare' => '>='
-      );
-
-      $current_promotions_query = new WP_Query($current_promotions_args);
-
-      $product_category = get_the_terms($product->get_ID(), 'product_cat');
-
-      if ($current_promotions_query->have_posts()) : while ($current_promotions_query->have_posts()) : $current_promotions_query->the_post();
-        if (($product_category) && ($product_category[0]->term_id === get_field('categories_on_sale')[0]->term_id)) {
-          $promotion_body_copy = get_field('promotion_body_copy');
-          $promotion_end_date = get_field('promotion_end_date');
-          if ($promotion_type === 'coupon') {
-            $coupon_details = get_field('coupon');
-            echo '<p>' . $promotion_body_copy . '. Use coupon code <span class="current-promotions--promo-code">' . $coupon_details->post_title . '</span> when checking out to save! <span class="offer-text" style="color: inherit;">Offer expires <span class="promo-countdown" style="color: inherit !important;" data-expires="' . date("Ymd", strtotime($promotion_end_date)) . '">on ' . date("F j, Y", strtotime($promotion_end_date)) . '</span></span></p>';
-          } else {
-            echo '<p>' . $promotion_body_copy . '. <span class="offer-text" style="color: inherit;">Offer expires <span class="promo-countdown" style="color: inherit !important;" data-expires="' . date("Ymd", strtotime($promotion_end_date)) . '">on ' . date("F j, Y", strtotime($promotion_end_date)) . '</span></span></p>';
-          }
-        }
-        // echo '<hr />';
-      endwhile; endif; wp_reset_postdata();
-
-    ?>
 
   </form>
 
