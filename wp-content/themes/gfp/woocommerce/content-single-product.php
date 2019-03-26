@@ -248,6 +248,7 @@ global $product;
 				} else {
 					do_action( 'woocommerce_template_single_price' );
 					do_action( 'woocommerce_template_single_add_to_cart' );
+					echo '<p><small>California Use Warning:<br><a href="www.P65Warnings.ca.gov" target="_blank" rel="noopener noreferrer">Cancer & Reproductive Harm</a></small></p>';
 
 					$oversized = $wpdb->query( $wpdb->prepare( 
 	          "

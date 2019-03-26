@@ -47,15 +47,26 @@ if ($fitment) {
 
 <div class="woocommerce-tabs wc-tabs-wrapper">
     <ul class="tabs wc-tabs" role="tablist">
-      <li class="reviews_tab" id="tab-title-reviews" role="tab" aria-controls="tab-reviews">
-        <a href="#tab-reviews">Reviews</a>
-      </li>
       <?php if ($fitment) : ?>
         <li class="fitment_tab" id="tab-title-fitment" role="tab" aria-controls="tab-fitment">
           <a href="#tab-fitment">Product Fitment</a>
         </li>
       <?php endif; ?>
+      <li class="reviews_tab" id="tab-title-reviews" role="tab" aria-controls="tab-reviews">
+        <a href="#tab-reviews">Reviews</a>
+      </li>
     </ul>
+    <?php if ($fitment) : ?>
+      <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--fitment panel entry-content wc-tab" id="tab-fitment" role="tabpanel" aria-labelledby="tab-title-fitment">
+        <p><strong><?php echo $product->get_name() . ' fits ' . count($fitment) . ' models'; ?></strong></p>
+        <input type="text" id="fitment-text-filter" placeholder="Start typing your model to filter the list" style="width: 100%; margin-bottom: 1rem; font-size: 0.8em; border-radius: 4px;">
+        <ul class="single--part-fitment-list">
+        <?php foreach ($sorted_fitment as $key => $fit) {
+          echo '<li class="single--part-fitment-item part-fitment-item--', $fit->slug, '">', $fit->description ,'</li>';
+        } ?>
+        </ul>
+      </div>
+    <?php endif; ?>
     <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--reviews panel entry-content wc-tab" id="tab-reviews" role="tabpanel" aria-labelledby="tab-title-reviews">
       <?php
         if ($comments) :
@@ -143,17 +154,6 @@ if ($fitment) {
 
       <?php endif; ?>
     </div>
-    <?php if ($fitment) : ?>
-      <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--fitment panel entry-content wc-tab" id="tab-fitment" role="tabpanel" aria-labelledby="tab-title-fitment">
-        <p><strong><?php echo $product->get_name() . ' fits ' . count($fitment) . ' models'; ?></strong></p>
-        <input type="text" id="fitment-text-filter" placeholder="Start typing your model to filter the list" style="width: 100%; margin-bottom: 1rem; font-size: 0.8em; border-radius: 4px;">
-        <ul class="single--part-fitment-list">
-        <?php foreach ($sorted_fitment as $key => $fit) {
-          echo '<li class="single--part-fitment-item part-fitment-item--', $fit->slug, '">', $fit->description ,'</li>';
-        } ?>
-        </ul>
-      </div>
-    <?php endif; ?>
   </div>
   
 
