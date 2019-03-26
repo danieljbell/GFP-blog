@@ -115,7 +115,7 @@
       formatedItems.push({
         id: allCartItems[i].querySelector('a.remove').dataset.product_sku.toUpperCase(),
         price: allCartItems[i].querySelector('.regular-price').dataset.price,
-        quantity: allCartItems[i].querySelector('.quantity input').value,
+        quantity: allCartItems[i].querySelector('.gfp-order-details--item-quantity input').value,
       });
     }
     window.criteo_q.push(

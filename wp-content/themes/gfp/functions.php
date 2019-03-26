@@ -740,6 +740,12 @@ function create_customer() {
 
 }
 
+function add_coupon() {
+  $cart = WC()->instance()->cart;
+  $cart->apply_coupon('GFPJOE10');
+  wp_send_json($cart);
+}
+
 
 add_action('wp_ajax_find_user_by_email', 'find_user_by_email');
 add_action('wp_ajax_draft_order', 'draft_order');
@@ -770,6 +776,8 @@ add_action('wp_ajax_get_order_notes', 'get_order_notes');
 add_action('wp_ajax_nopriv_get_order_notes', 'get_order_notes');
 add_action('wp_ajax_send_order_comment', 'send_order_comment');
 add_action('wp_ajax_nopriv_send_order_comment', 'send_order_comment');
+add_action('wp_ajax_add_coupon', 'add_coupon');
+add_action('wp_ajax_nopriv_add_coupon', 'add_coupon');
 
 
 

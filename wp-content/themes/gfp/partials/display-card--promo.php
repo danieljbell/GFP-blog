@@ -31,8 +31,13 @@
     <header style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<?php echo $promotion_image; ?>);">
       <div class="promo-card--meta">
         <?php 
+          // print_r($promotion_type);
           if ($promotion_type !== 'landing-page') :
-            echo '<div class="promo-card--tag">' . $discount['amount'] . ' Off</div>';
+            if ($promotion_type === 'coupon') :
+              echo '<div class="promo-card--tag">Free</div>';
+            else : 
+              echo '<div class="promo-card--tag">' . $discount['amount'] . ' Off</div>';
+            endif;
           else :
             echo '<div class="promo-card--tag">Feature</div>';
           endif;
@@ -44,6 +49,8 @@
       <?php
         if ($promotion_type === 'landing-page') :
           echo '<div class="btn-solid--brand-two">Learn More</div>';
+        elseif ($promotion_type === 'coupon') :
+          echo '<div class="btn-solid--brand-two">Get it Now!</div>';
         else :
           echo '<div class="btn-solid--brand-two">Save ' . $discount['amount'] . ' Now</div>';
         endif;
