@@ -742,7 +742,8 @@ function create_customer() {
 
 function add_coupon() {
   $cart = WC()->instance()->cart;
-  $cart->apply_coupon('GFPJOE10');
+  $coupon = $_POST['coupon'];
+  $cart->apply_coupon($coupon);
   wp_send_json($cart);
 }
 
