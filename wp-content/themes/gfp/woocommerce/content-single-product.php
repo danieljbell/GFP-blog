@@ -214,6 +214,10 @@ global $product;
 			// echo '<div class="single-product--content">';
 				do_action( 'woocommerce_template_single_title' );
 				do_action( 'woocommerce_template_single_rating' );
+
+				if ($nla_part[0] === 'yes') {
+					echo '<p>Sorry, this part is no longer available.</p>';
+				}
 				
 
 				$part_replacements = get_post_meta($post->ID, 'product_subs');
@@ -265,11 +269,6 @@ global $product;
 						</div>
 	        <?php
 	        endif;
-				}
-
-				
-				if ($nla_part[0] === 'yes') {
-					echo '<p>Sorry, this part is no longer available.</p>';
 				}
 				
 				echo '<div class="product-content">', get_the_content(), '</div>';
