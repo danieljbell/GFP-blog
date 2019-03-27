@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $product;
-$nla_part = get_post_meta($product->get_ID(), 'nla_part');
+$nla_part = get_post_meta($product->get_id(), 'nla_part');
 
 
 ?>
