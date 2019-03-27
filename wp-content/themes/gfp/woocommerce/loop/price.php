@@ -21,18 +21,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $product;
-
+$nla_part = get_post_meta($product->get_ID(), 'nla_part');
 
 
 ?>
 
-
-<?php if ($product->get_sale_price()) : ?>
-  <span class="price">
-    <del><span class="woocommerce-Price-amount amount"><?php echo $product->get_regular_price(); ?></span></del>
-    <br>
-    <ins><span class="woocommerce-Price-amount amount">See Price in Cart</span></ins>
-  </span>
-<?php else : ?>
-  <span class="price"><?php echo $product->get_price_html(); ?></span>
+<?php if ($nla_part[0] !== 'yes') : ?>
+  <?php if ($product->get_sale_price()) : ?>
+    <span class="price">
+      <del><span class="woocommerce-Price-amount amount"><?php echo $product->get_regular_price(); ?></span></del>
+      <br>
+      <ins><span class="woocommerce-Price-amount amount">See Price in Cart</span></ins>
+    </span>
+  <?php else : ?>
+    <span class="price"><?php echo $product->get_price_html(); ?></span>
+  <?php endif; ?>
 <?php endif; ?>
