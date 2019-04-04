@@ -61,6 +61,8 @@ if ( ! defined( 'ABSPATH' ) ) {
         <a href="<?php echo esc_url( wp_lostpassword_url() ); ?>"><?php esc_html_e( 'Lost your password?', 'woocommerce' ); ?></a>
       </p>
 
+      <p><a href="/login-help/">Need Help?</a></p>
+
       <?php do_action( 'woocommerce_login_form_end' ); ?>
 
     </form>
