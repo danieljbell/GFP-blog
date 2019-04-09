@@ -406,6 +406,17 @@ PAYMENT STYLES
   color: #fff;
 }
 
+.woocommerce-checkout p.create-account label {
+  display: flex;
+  align-items: center;
+  
+  input {
+    width: auto;
+    margin-right: 0.5rem;
+  }
+
+}
+
 
 // .woocommerce-order-received .hero {
 //   padding-top: 4rem;
