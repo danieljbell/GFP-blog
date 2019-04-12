@@ -81,6 +81,33 @@
   </div>
 </footer>
 
+<?php
+  $alert_query = new WP_Query(array(
+    'post_type' => 'alerts',
+    'posts_per_page' => 1,
+    'meta_query' => array(
+      'relation' => 'AND',
+      array(
+        'key' => 'alert_start_date',
+        'value' => date('Ymd'),
+        'compare' => '<='
+      ),
+      array(
+        'key' => 'alert_end_date',
+        'value' => date('Ymd'),
+        'compare' => '>='
+      )
+    )
+  ));
+  if ($alert_query->have_posts()) : while ($alert_query->have_posts()) : $alert_query->the_post();
+    echo '<div class="alert--is-hidden alert alert--site-wide">';
+      echo '<button class="alert--site-wide-dismiss">&times;</button>';
+      echo '<p><strong>' . get_the_title() . '</strong></p>';
+      echo '<p>' . get_the_content() . '</p>';
+    echo '</div>';
+  endwhile; endif; wp_reset_postdata();
+?>
+
 
 <?php 
   if (!is_cart() || !is_checkout()) {
