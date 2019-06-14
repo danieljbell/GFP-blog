@@ -58,4 +58,37 @@ $wrapper_classes   = apply_filters( 'woocommerce_single_product_image_gallery_cl
       </figure>
     </div>
   </div>
+  <?php
+  $url = 'https://www.reynoldsfarmequipment.com/equipment/wp-json/wc/v3/products?consumer_key=ck_98527574fe1890924764e22a78794ff9079bd932&consumer_secret=cs_e843d8b3ec40b5c6606b8466a6acd2c39796c1f3&per_page=5';
+        $getJSON = curl_init();
+        curl_setopt($getJSON, CURLOPT_URL, $url);
+        curl_setopt($getJSON, CURLOPT_HEADER, 0);
+        curl_setopt($getJSON, CURLOPT_RETURNTRANSFER, 1);
+        
+        $usedEquip = curl_exec($getJSON);
+        $usedEquip = json_decode($usedEquip);
+        
+        if (count($usedEquip) > 0) {
+          echo '<div class="rfe-used-equip box--with-header mar-t--more">';
+            echo '<h3 class="has-text-center">Interested in Used Equipment?</h3>';
+            echo '<p class="has-text-center mar-b"><small>Used Equipment brought to you by:</small><br><a href="https://www.reynoldsfarmequipment.com/equipment/category/used?utm_medium=GFP&utm_source=' . get_the_permalink() . '&utm_campaign=used_on_gfp"><img src="https://www.reynoldsfarmequipment.com/wp-content/themes/rfe/dist/img/reynolds-logo.svg" alt="Reynolds Farm Equipment" style="max-width: 125px; display: inline-block; margin-top: 5px;"></p>';
+            echo '<ul class="used-equip--list">';
+              foreach ($usedEquip as $key => $equip) {
+                echo '<li class="used-equip--item"><a href="' . $equip->permalink . '?utm_medium=GFP&utm_source=' . get_the_permalink() . '&utm_campaign=used_on_gfp">';
+                  echo '<div class="used-equip--image">';
+                    echo '<img src="' . $equip->images[0]->src . '" alt="' . $equip->name . '">';
+                  echo '</div>';
+                  echo '<h4>' . $equip->name . '</h4>';
+                  if ($equip->price !== $equip->regular_price) {
+                    echo '<p>Price: <del>$' . number_format($equip->regular_price, "2", '.', ',') . '</del><ins>$' . number_format($equip->price, '2', '.', ',') . '</ins></p>';
+                  } else {
+                    echo '<p>Price: $' . number_format($equip->regular_price, "2", '.', ',') . '</p>';
+                  }
+                  echo '<p class="btn-solid--brand mar-t"><small>See More Details</small></p>';
+                echo '</a></li>';
+              }
+            echo '</ul>';
+          echo '</div>';
+        }
+  ?>
 </div>

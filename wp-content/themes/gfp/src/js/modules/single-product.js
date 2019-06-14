@@ -151,4 +151,22 @@
   //   console.log('clicked');
   // })
 
+  var usedSlider = tns({
+    container: '.used-equip--list',
+    items: 1,
+    // slideBy: 'page',
+    autoplay: true,
+    controls: false,
+    center: true,
+    edgePadding: 50,
+    navPosition: 'bottom',
+    autoplayHoverPause: true
+    // responsive: {
+    //     960: {
+    //         items: 3,
+    //         nav: true,
+    //     } 
+    // }
+  });
+
 })(jQuery);

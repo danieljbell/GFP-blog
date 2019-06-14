@@ -262,3 +262,107 @@
     padding-left: 1.2rem;
   }
 }
+
+.used-equip--list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.used-equip--item {
+  padding: 0 0.75rem;
+
+  a {
+    display: block;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.1);
+    color: $black;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  h4 {
+    font-size: 1.25em;
+  }
+  
+  del {
+    color: $black;
+    opacity: 0.5;
+  }
+
+  ins {
+    color: red;
+    font-weight: bold;
+    display: inline-block;
+    margin-left: 0.5rem;
+  }
+
+}
+
+.used-equip--image {
+  position: relative;
+  padding-bottom: 56.25%;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+
+  img {
+    width: 100%;
+    max-width: 100%;
+    display: block;
+    margin-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+  }
+
+}
+
+.single-product {
+  .tns-outer {
+    position: relative;
+    left: -1rem;
+    width: calc(100% + 2rem);
+
+    max-width: 600px;
+    // margin-left: auto;
+    // margin-right: auto;
+    @include phone {
+      max-width: calc(100vw - 6rem);
+    }
+  }
+
+  [data-action="stop"],
+  [data-action="start"] {
+    display: none;
+  }
+
+  .tns-nav {
+    order: 1;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    button {
+      background-color: $medium-gray;
+      // width: 10px;
+      // height: 10px;
+      border: 0;
+      border-radius: 50%;
+      padding: 0.5rem;
+      margin-right: 0.75rem;
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &.tns-nav-active {
+        background-color: $brand;
+      }
+    }
+  }
+}
