@@ -365,6 +365,8 @@ global $product;
 				*/
 				
 				do_action( 'woocommerce_output_product_data_tabs' );
+
+				get_template_part('partials/display', 'used-equipment');
 				
 		?>
 

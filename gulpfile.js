@@ -53,7 +53,7 @@ gulp.task('js', function () {
     './wp-content/themes/gfp/src/js/modules/modal.js',
     './wp-content/themes/gfp/src/js/modules/sign-up-form.js',
     './wp-content/themes/gfp/src/js/modules/sticky-navigation.js',
-    './wp-content/themes/gfp/src/js/modules/sticky.js',
+    // './wp-content/themes/gfp/src/js/modules/sticky.js',
     './wp-content/themes/gfp/src/js/modules/cart.js',
     './wp-content/themes/gfp/src/js/modules/checkout.js',
     './wp-content/themes/gfp/src/js/modules/search-bar.js',

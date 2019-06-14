@@ -34,8 +34,8 @@ $wrapper_classes   = apply_filters( 'woocommerce_single_product_image_gallery_cl
   'images',
 ) );
 ?>
-<div class="asdfsticky--container">
-  <div class="asdfsticky--element">
+<div class="sticky--container">
+  <div class="sticky--element">
     <div class="<?php echo esc_attr( implode( ' ', array_map( 'sanitize_html_class', $wrapper_classes ) ) ); ?>" data-columns="<?php echo esc_attr( $columns ); ?>" style="opacity: 0; transition: opacity .25s ease-in-out;">
       <figure class="woocommerce-product-gallery__wrapper">
         <?php
@@ -58,58 +58,4 @@ $wrapper_classes   = apply_filters( 'woocommerce_single_product_image_gallery_cl
       </figure>
     </div>
   </div>
-  <?php
-  // $arrContextOptions=array(
-  //   "ssl"=>array(
-  //     "verify_peer"=>false,
-  //     "verify_peer_name"=>false,
-  //   ),
-  // );  
-
-  $response = file_get_contents(get_stylesheet_directory_uri() . '/config.php', false, stream_context_create($arrContextOptions));
-  $lines = explode(PHP_EOL, $response);
-  $rfe_ck = '';
-  $rfe_cs = '';
-  foreach ($lines as $key => $line) {
-    $thing = explode('=', $line);
-    if ($thing[0] === 'rfe_consumer_key') {
-      $rfe_ck = $thing[1];
-    }
-    if ($thing[0] === 'rfe_consumer_secret') {
-      $rfe_cs = $thing[1];
-    }
-  }
-
-  $url = "https://www.reynoldsfarmequipment.com/equipment/wp-json/wc/v3/products?consumer_key=$rfe_ck&consumer_secret=$rfe_cs&per_page=5";
-        $getJSON = curl_init();
-        curl_setopt($getJSON, CURLOPT_URL, $url);
-        curl_setopt($getJSON, CURLOPT_HEADER, 0);
-        curl_setopt($getJSON, CURLOPT_RETURNTRANSFER, 1);
-        
-        $usedEquip = curl_exec($getJSON);
-        $usedEquip = json_decode($usedEquip);
-        
-        if ($usedEquip && count($usedEquip) > 0) {
-          echo '<div class="rfe-used-equip box--with-header mar-t--more">';
-            echo '<h3 class="has-text-center">Interested in Used Equipment?</h3>';
-            echo '<p class="has-text-center mar-b"><small>Used Equipment brought to you by:</small><br><a href="https://www.reynoldsfarmequipment.com/equipment/category/used?utm_medium=GFP&utm_source=' . get_the_permalink() . '&utm_campaign=used_on_gfp"><img src="https://www.reynoldsfarmequipment.com/wp-content/themes/rfe/dist/img/reynolds-logo.svg" alt="Reynolds Farm Equipment" style="max-width: 125px; display: inline-block; margin-top: 5px;"></p>';
-            echo '<ul class="used-equip--list">';
-              foreach ($usedEquip as $key => $equip) {
-                echo '<li class="used-equip--item"><a href="' . $equip->permalink . '?utm_medium=GFP&utm_source=' . get_the_permalink() . '&utm_campaign=used_on_gfp">';
-                  echo '<div class="used-equip--image">';
-                    echo '<img src="' . $equip->images[0]->src . '" alt="' . $equip->name . '">';
-                  echo '</div>';
-                  echo '<h4>' . $equip->name . '</h4>';
-                  if ($equip->price !== $equip->regular_price) {
-                    echo '<p>Price: <del>$' . number_format($equip->regular_price, "2", '.', ',') . '</del><ins>$' . number_format($equip->price, '2', '.', ',') . '</ins></p>';
-                  } else {
-                    echo '<p>Price: $' . number_format($equip->regular_price, "2", '.', ',') . '</p>';
-                  }
-                  echo '<p class="btn-solid--brand mar-t"><small>See More Details</small></p>';
-                echo '</a></li>';
-              }
-            echo '</ul>';
-          echo '</div>';
-        }
-  ?>
 </div>
