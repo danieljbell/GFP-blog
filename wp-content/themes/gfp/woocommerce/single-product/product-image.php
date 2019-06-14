@@ -59,7 +59,28 @@ $wrapper_classes   = apply_filters( 'woocommerce_single_product_image_gallery_cl
     </div>
   </div>
   <?php
-  $url = 'https://www.reynoldsfarmequipment.com/equipment/wp-json/wc/v3/products?consumer_key=ck_98527574fe1890924764e22a78794ff9079bd932&consumer_secret=cs_e843d8b3ec40b5c6606b8466a6acd2c39796c1f3&per_page=5';
+  // $arrContextOptions=array(
+  //   "ssl"=>array(
+  //     "verify_peer"=>false,
+  //     "verify_peer_name"=>false,
+  //   ),
+  // );  
+
+  $response = file_get_contents(get_stylesheet_directory_uri() . '/config.php', false, stream_context_create($arrContextOptions));
+  $lines = explode(PHP_EOL, $response);
+  $rfe_ck = '';
+  $rfe_cs = '';
+  foreach ($lines as $key => $line) {
+    $thing = explode('=', $line);
+    if ($thing[0] === 'rfe_consumer_key') {
+      $rfe_ck = $thing[1];
+    }
+    if ($thing[0] === 'rfe_consumer_secret') {
+      $rfe_cs = $thing[1];
+    }
+  }
+
+  $url = "https://www.reynoldsfarmequipment.com/equipment/wp-json/wc/v3/products?consumer_key=$rfe_ck&consumer_secret=$rfe_cs&per_page=5";
         $getJSON = curl_init();
         curl_setopt($getJSON, CURLOPT_URL, $url);
         curl_setopt($getJSON, CURLOPT_HEADER, 0);
@@ -68,7 +89,7 @@ $wrapper_classes   = apply_filters( 'woocommerce_single_product_image_gallery_cl
         $usedEquip = curl_exec($getJSON);
         $usedEquip = json_decode($usedEquip);
         
-        if (count($usedEquip) > 0) {
+        if ($usedEquip && count($usedEquip) > 0) {
           echo '<div class="rfe-used-equip box--with-header mar-t--more">';
             echo '<h3 class="has-text-center">Interested in Used Equipment?</h3>';
             echo '<p class="has-text-center mar-b"><small>Used Equipment brought to you by:</small><br><a href="https://www.reynoldsfarmequipment.com/equipment/category/used?utm_medium=GFP&utm_source=' . get_the_permalink() . '&utm_campaign=used_on_gfp"><img src="https://www.reynoldsfarmequipment.com/wp-content/themes/rfe/dist/img/reynolds-logo.svg" alt="Reynolds Farm Equipment" style="max-width: 125px; display: inline-block; margin-top: 5px;"></p>';
