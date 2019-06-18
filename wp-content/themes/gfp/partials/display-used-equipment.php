@@ -1,6 +1,20 @@
 <?php
 
-$url = "https://www.reynoldsfarmequipment.com/equipment/wp-json/wc/v3/products?consumer_key=ck_98527574fe1890924764e22a78794ff9079bd932&consumer_secret=cs_e843d8b3ec40b5c6606b8466a6acd2c39796c1f3&per_page=10&category=142";
+$response = file_get_contents(get_stylesheet_directory_uri() . '/config.php');
+$lines = explode(PHP_EOL, $response);
+$rfe_ck = '';
+$rfe_cs = '';
+foreach ($lines as $key => $line) {
+  $thing = explode('=', $line);
+  if ($thing[0] === 'rfe_consumer_key') {
+    $rfe_ck = $thing[1];
+  }
+  if ($thing[0] === 'rfe_consumer_secret') {
+    $rfe_cs = $thing[1];
+  }
+}
+
+$url = "https://www.reynoldsfarmequipment.com/equipment/wp-json/wc/v3/products?consumer_key=$rfe_ck&consumer_secret=$rfe_cs&per_page=10&category=142";
 $getJSON = curl_init();
 curl_setopt($getJSON, CURLOPT_URL, $url);
 curl_setopt($getJSON, CURLOPT_HEADER, 0);
