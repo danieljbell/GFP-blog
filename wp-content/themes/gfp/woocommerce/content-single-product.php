@@ -273,6 +273,8 @@ global $product;
 				
 				echo '<div class="product-content">', get_the_content(), '</div>';
 
+				/*
+				=========================
 				$product_alternative = get_post_meta($post->ID, 'product_alternatives');
 				$product_alternatives = explode('|', $product_alternative[0]);
 				$alt_array = explode('|', $deere_alternatives[0]);
@@ -359,8 +361,12 @@ global $product;
 						echo '</ul>';
 					echo '</div>';
 				}
+				=========================
+				*/
 				
 				do_action( 'woocommerce_output_product_data_tabs' );
+
+				get_template_part('partials/display', 'used-equipment');
 				
 		?>
 
