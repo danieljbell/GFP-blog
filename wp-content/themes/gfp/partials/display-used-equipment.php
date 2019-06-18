@@ -62,7 +62,7 @@ if ($usedEquip && count($usedEquip) > 0) {
             echo '</div>';
           }
           if ($hours !== '') {
-            echo '<p style="font-size: 0.9em;">' . $hours . ' Hours</p>';
+            echo '<p style="font-size: 0.9em;">' . number_format($hours, '2', '.', ',') . ' Hours</p>';
           }
           echo '<p style="font-size: 0.9em;">' . $equip_location . ', ' . $state . '</p>';
           echo '<p class="btn-solid--brand mar-t"><small>See More Details</small></p>';
