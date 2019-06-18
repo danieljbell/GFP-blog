@@ -26,7 +26,7 @@ Thumbs.db
 # "themes" directory
 !wp-content/themes/
 !wp-content/mu-plugins/
-wp-content/*
+# wp-content/*
 wp-content/mu-plugins/local-by-flywheel-demo-urls.php
 wp-content/mu-plugins/force-strong-passwords/
 wp-content/mu-plugins/mu-plugin.php
@@ -34,6 +34,7 @@ wp-content/mu-plugins/slt-force-strong-passwords.php
 wp-content/mu-plugins/stop-long-comments.php
 wp-content/mu-plugins/wpengine-common/
 wp-content/plugins/
+wp-content/uploads/
 
 # ignore specific themes
 wp-content/themes/twenty*/
