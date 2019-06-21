@@ -19,6 +19,7 @@ Template Name: Check Order Status
   <div class="site-width">
 
     <form method="post" action="<?php echo admin_url( 'admin-post.php' ); ?>" id="order_tracking_form">
+      <p>The order tracking results only works for customers who have created an account, guest check out orders will not populate.</p>
       <label for="email_address">Email Address:</label>
       <input type="text" name="email_address" id="email_address" value="<?php echo $_GET['email_address']; ?>">
       <label for="zipcode">Shipping Zipcode:</label>
