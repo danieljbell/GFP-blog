@@ -59,6 +59,7 @@ get_header(); ?>
 	?>
 
 	<?php get_template_part('partials/modals/display', 'product-image'); ?>
+	<?php get_template_part('partials/modals/display', 'checkInventory'); ?>
 
 <?php get_footer();
 

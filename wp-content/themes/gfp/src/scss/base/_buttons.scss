@@ -102,3 +102,11 @@ WOOCOMMERCE ACCOUNT BUTTONS
     font-size: 0.8em;
     padding: 0.25em 0.75em;
 }
+
+.btn-text {
+    background-color: transparent;
+    border: 0;
+    padding: 1rem;
+    color: $brand;
+    text-decoration: underline;
+}
