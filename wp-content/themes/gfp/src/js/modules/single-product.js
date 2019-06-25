@@ -171,4 +171,76 @@
     });
   }
 
+  $('#checkInventory').on('click', function(e) {
+    e.preventDefault();
+    // console.log($('#single-product--add-to-cart').data('sku'));
+    $.ajax({
+      url: window.ajax_order_tracking.ajax_url,
+      method: 'POST',
+      data: {
+        action: 'getInventory',
+        partNumber: $('#single-product--add-to-cart').data('sku'),
+        _ajax_nonce: window.ajax_order_tracking.nonce
+      },
+      success: function(res) {
+        var fulfillmentLocations = ['FISHERS', 'ATLANTA', 'LEBANON', 'MOORESVILLE', 'MUNCIE'];
+        var modal = $('.modal--checkInventory');
+        var modalContent = modal.find('.modal-content');
+        var data = res.data;
+        var totalInv = 0;
+        var invByLoc = [
+          {
+            name: 'FISHERS',
+            warehouse: 1,
+            inv: 0
+          },
+          {
+            name: 'MUNCIE',
+            warehouse: 2,
+            inv: 0
+          },
+          {
+            name: 'ATLANTA',
+            warehouse: 3,
+            inv: 0
+          },
+          {
+            name: 'LEBANON',
+            warehouse: 8,
+            inv: 0
+          },
+          {
+            name: 'MOORESVILLE',
+            warehouse: 9,
+            inv: 0
+          }
+        ];
+
+        for (var i = 0; i < data.length; i++) {
+          if (fulfillmentLocations.includes(data[i].WK_LOC)) {
+            totalInv += Number(data[i].WK_PMOH);
+            for (var j = 0; j < invByLoc.length; j++) {
+              if (invByLoc[j].name === data[i].WK_LOC) {
+                invByLoc[j].inv += Number(data[i].WK_PMOH);
+              }
+            }
+          }
+        }
+
+        var rowString = '';
+        $.each(invByLoc, function(index, val) {
+          rowString += '<tr><td>Warehouse ' + val.warehouse + ':</td><td>' + val.inv + ' <span>in stock</span></td></tr>';
+        });
+
+        var centralWarehouse = '';
+        if (totalInv === 0) {
+          var centralWarehouse = '<p><em>No worries, we can still get your part! Our fullfillment warehouses don\'t have stock, but we can get your parts from our central warehouse in two business days.</em></p>';
+        }
+
+        modalContent.html('<table class="inv-table"><tbody>' + rowString + '</tbody><tfoot><tr><td>Total In Stock Inventory:</td><td>' + totalInv + ' <span>in stock</span></td></tr></tfoot></table>' + centralWarehouse);
+
+      },
+    })
+  })
+
 })(jQuery);

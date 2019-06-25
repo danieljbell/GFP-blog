@@ -243,3 +243,24 @@ table.skus {
   }
 
 }
+
+.inv-table {
+  width: 100%;
+  td {
+    border-color: $medium-gray;
+    &:last-child {
+      text-align: right;
+      span {
+        font-size: 0.6em;
+      }
+    }
+  }
+  
+  tfoot {
+    td {
+      border-top: 3px solid $medium-gray;
+      font-weight: bold;
+    }
+  }
+
+}

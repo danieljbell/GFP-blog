@@ -747,6 +747,36 @@ function add_coupon() {
   wp_send_json($cart);
 }
 
+function getInventory() {
+  check_ajax_referer( 'nonce_name' );
+  $part_number = $_POST['partNumber'];
+  
+  $curl = curl_init();
+
+  curl_setopt_array($curl, array(
+    CURLOPT_URL => "https://idmobileaccess.pfw.com/ID/MobileServer/public/Json/getpartsavailability?&_dc=1561480567248&usr=dbell%40rfemail.com&prt=" . $part_number . "&page=1&start=0&limit=25",
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => "",
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 30,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => "GET",
+    CURLOPT_HTTPHEADER => array(
+      "Cache-Control: no-cache",
+      "Content-Type: application/json",
+    ),
+  ));
+
+  $response = curl_exec($curl);
+  $err = curl_error($curl);
+
+  curl_close($curl); 
+
+  wp_send_json(array(
+    'partNumber' => $part_number,
+    'data' => json_decode($response)
+  ));
+}
 
 add_action('wp_ajax_find_user_by_email', 'find_user_by_email');
 add_action('wp_ajax_draft_order', 'draft_order');
@@ -779,6 +809,8 @@ add_action('wp_ajax_send_order_comment', 'send_order_comment');
 add_action('wp_ajax_nopriv_send_order_comment', 'send_order_comment');
 add_action('wp_ajax_add_coupon', 'add_coupon');
 add_action('wp_ajax_nopriv_add_coupon', 'add_coupon');
+add_action('wp_ajax_getInventory', 'getInventory');
+add_action('wp_ajax_nopriv_getInventory', 'getInventory');
 
 
 
