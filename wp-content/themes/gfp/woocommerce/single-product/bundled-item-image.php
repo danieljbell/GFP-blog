@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     $asdf = wc_get_product($product_id);
     $image_title   = esc_attr( get_the_title( $image_post_id ) );
     $image_data    = wp_get_attachment_image_src( $image_post_id, 'full' );
-    $image_link    = 'https://res.cloudinary.com/greenfarmparts/image/upload/e_brightness:30/fl_tiled,l_overlay,o_10/' . $asdf->get_sku() . '-0.jpg';
+    $image_link    = 'https://res.cloudinary.com/greenfarmparts/image/upload/fl_tiled,l_overlay,o_10/' . $asdf->get_sku() . '-0.jpg';
     $image         = get_the_post_thumbnail( $product_id, $image_size, array(
       'title'                   => $image_title,
       'data-caption'            => get_post_field( 'post_excerpt', $image_post_id ),
