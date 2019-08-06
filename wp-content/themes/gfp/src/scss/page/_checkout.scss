@@ -422,6 +422,9 @@ PAYMENT STYLES
   margin-right: 0.5rem;
 }
 
+.shipping_address fieldset[disabled] {
+  opacity: 0.5;
+}
 
 // .woocommerce-order-received .hero {
 //   padding-top: 4rem;

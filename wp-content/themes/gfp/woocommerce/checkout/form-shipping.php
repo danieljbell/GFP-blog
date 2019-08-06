@@ -23,12 +23,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <div class="woocommerce-shipping-fields">
   <?php if ( true === WC()->cart->needs_shipping_address() ) : ?>
-
-  <label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
-    <input id="ship-to-different-address-checkbox" class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" type="checkbox" name="ship_to_different_address" value="1" /> <span><?php _e( 'Need to ship to a different address?', 'woocommerce' ); ?></span>
-  </label>
     
-    <div class="shipping-details--container shipping-details--is-hidden">
+    <div class="shipping-details--container">
       <h3 id="ship-to-different-address">Shipping Details</h3>
 
       <div class="shipping_address">
@@ -36,16 +32,24 @@ if ( ! defined( 'ABSPATH' ) ) {
         <?php do_action( 'woocommerce_before_checkout_shipping_form', $checkout ); ?>
 
         <div class="woocommerce-shipping-fields__field-wrapper">
-          <?php
-            $fields = $checkout->get_checkout_fields( 'shipping' );
+          <label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox" style="display: inline-block; margin-bottom: 1rem;">
+            <input id="ship-to-different-address-checkbox" class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" type="checkbox" name="ship_to_different_address" value="1" />
+            <span style="font-size: 0.9em;"><?php _e( 'Need to ship to a different address?', 'woocommerce' ); ?></span>
+          </label>
 
-            foreach ( $fields as $key => $field ) {
-              if ( isset( $field['country_field'], $fields[ $field['country_field'] ] ) ) {
-                $field['country'] = $checkout->get_value( $field['country_field'] );
+          <fieldset id="diff_shipping_address" style="border: 0;" disabled>
+            <?php
+              $fields = $checkout->get_checkout_fields( 'shipping' );
+
+              foreach ( $fields as $key => $field ) {
+                if ( isset( $field['country_field'], $fields[ $field['country_field'] ] ) ) {
+                  $field['country'] = $checkout->get_value( $field['country_field'] );
+                }
+                woocommerce_form_field( $key, $field, $checkout->get_value( $key ) );
               }
-              woocommerce_form_field( $key, $field, $checkout->get_value( $key ) );
-            }
-          ?>
+            ?>            
+          </fieldset>
+
         </div>
 
         <?php do_action( 'woocommerce_after_checkout_shipping_form', $checkout ); ?>
