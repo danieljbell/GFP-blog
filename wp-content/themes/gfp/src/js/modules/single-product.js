@@ -229,7 +229,11 @@
 
         var rowString = '';
         $.each(invByLoc, function(index, val) {
-          rowString += '<tr><td>Warehouse ' + val.warehouse + ':</td><td>' + val.inv + ' <span>in stock</span></td></tr>';
+          if (val.warehouse === 1) {
+            rowString += '<tr><td>Warehouse ' + val.warehouse + ': <em style="font-size: 0.75em; display: block;">Shipping Facility</em></td><td>' + val.inv + ' <span>in stock</span></td></tr>';
+          } else {
+            rowString += '<tr><td>Warehouse ' + val.warehouse + ':</td><td>' + val.inv + ' <span>in stock</span></td></tr>';
+          }
         });
 
         var centralWarehouse = '';
@@ -237,7 +241,7 @@
           var centralWarehouse = '<p><em>No worries, we can still get your part! Our fullfillment warehouses don\'t have stock, but we can get your parts from our central warehouse in two business days.</em></p>';
         }
 
-        modalContent.html('<table class="inv-table"><tbody>' + rowString + '</tbody><tfoot><tr><td>Total In Stock Inventory:</td><td>' + totalInv + ' <span>in stock</span></td></tr></tfoot></table>' + centralWarehouse);
+        modalContent.html('<table class="inv-table"><tbody>' + rowString + '</tbody><tfoot><tr><td>Total In Stock Inventory:</td><td>' + totalInv + ' <span>in stock</span></td></tr></tfoot></table>' + centralWarehouse + '<small style="display: block; margin-top: 2rem;">Warehouse 1 is our primary shipping and fulfillment center. While other warehouses may have inventory, all shipping is from warehouse 1, so please allow 1-2 business days for parts to be transfered to warehouse 1.</small>');
 
       },
     })

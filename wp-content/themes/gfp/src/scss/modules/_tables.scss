@@ -248,6 +248,7 @@ table.skus {
   width: 100%;
   td {
     border-color: $medium-gray;
+    vertical-align: bottom;
     &:last-child {
       text-align: right;
       span {
