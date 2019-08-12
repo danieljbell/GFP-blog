@@ -82,7 +82,7 @@
         <div class="drawer-item-content">
           <p class="drawer-item-title"><a href="<?php echo $permalink; ?>"><?php echo $name; ?></a></p>
           <?php if ($sale_price) : ?>
-            <p class="drawer-item-price"><span class="drawer-item-sku"><?php echo $sku; ?></span> - <del>$<?php echo $price; ?></del> <span class="drawer-item-sale-price">$5.99</span> each</p>
+            <p class="drawer-item-price"><span class="drawer-item-sku"><?php echo $sku; ?></span> - <del>$<?php echo $price; ?></del> <span class="drawer-item-sale-price"></span> each</p>
           <?php else : ?>
             <p class="drawer-item-price"><span class="drawer-item-sku"><?php echo $sku; ?></span> - $<?php echo $price; ?> each</p>
           <?php endif; ?>
