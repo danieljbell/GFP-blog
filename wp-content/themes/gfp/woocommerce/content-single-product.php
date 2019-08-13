@@ -265,7 +265,7 @@ global $product;
 	        if (!$oversized && !$part_replacements) : ?>
 						<div class="notification--free-shipping">
 							<img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/shipping.svg" alt="Shipping Icon">
-							This product is eligible for free shipping with orders over $49.99!
+							This product is eligible for free shipping with orders over $75!
 						</div>
 	        <?php
 	        endif;
