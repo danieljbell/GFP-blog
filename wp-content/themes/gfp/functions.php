@@ -1338,6 +1338,6 @@ ADD TAX EXEMPT CAPABILITY
   }
   function make_customer_tax_exempt() {
     $tax_exempt = current_user_can( 'tax_exempt');
-    wc()->customer->set_is_vat_exempt( $tax_exempt );
+    WC()->customer->set_is_vat_exempt( $tax_exempt );
   }
  // This ends the tax-exempt section.
