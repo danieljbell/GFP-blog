@@ -1333,11 +1333,12 @@ ADD TAX EXEMPT CAPABILITY
 @LINK - https://trackitweb.com/tax-exempt-customers-for-woocommerce/
 ====================================================================
 */
-  // if (is_user_logged_in() && !is_admin()) {
-  //   add_filter( 'init', 'make_customer_tax_exempt' );
-  // }
-  // function make_customer_tax_exempt() {
-  //   $tax_exempt = current_user_can( 'tax_exempt');
-  //   WC()->customer->set_is_vat_exempt( $tax_exempt );
-  // }
+  if (is_user_logged_in() && !is_admin()) {
+    add_filter( 'init', 'make_customer_tax_exempt' );
+  }
+  function make_customer_tax_exempt() {
+    global $WC;
+    $tax_exempt = current_user_can( 'tax_exempt');
+    WC()->customer->set_is_vat_exempt( $tax_exempt );
+  }
  // This ends the tax-exempt section.
