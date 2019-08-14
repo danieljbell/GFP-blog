@@ -1334,7 +1334,7 @@ ADD TAX EXEMPT CAPABILITY
 ====================================================================
 */
   if (is_user_logged_in() && !is_admin()) {
-    add_filter( 'init', 'make_customer_tax_exempt' );
+    add_filter( 'wp_enqueue_scripts', 'make_customer_tax_exempt' );
   }
   function make_customer_tax_exempt() {
     global $WC;
