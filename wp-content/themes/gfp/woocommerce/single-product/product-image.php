@@ -44,7 +44,9 @@ $wrapper_classes   = apply_filters( 'woocommerce_single_product_image_gallery_cl
           // print_r();
           // echo '<img src="https://res.cloudinary.com/greenfarmparts/image/upload/e_overlay,l_sample/v1542129610/' . $product->get_sku() . '-' . $i . '.jpg" />';
           // https://res.cloudinary.com/greenfarmparts/image/upload/e_brightness:20/fl_tiled,l_overlay,o_15/03h1505-0.jpg
-          echo '<a href="https://res.cloudinary.com/greenfarmparts/image/upload/fl_tiled,l_overlay,o_10/' . $product->get_sku() . '-0.jpg" data-modal-launch="display-product-image"><img src="https://res.cloudinary.com/greenfarmparts/image/upload/fl_tiled,l_overlay,o_10/' . $product->get_sku() . '-0.jpg" class="wp-post-image" alt="' . $product->get_sku() . '-0" title="' . $product->get_sku() . '-0.jpg"></a>';
+          // https://res.cloudinary.com/greenfarmparts/image/fetch/fl_tiled,l_overlay,o_10/w_400,h_400,c_lfill/https://greenfarmparts.com/wp-content/uploads/2019/02/GY20850-0.jpg
+          // print_r();
+         echo '<a href="https://res.cloudinary.com/greenfarmparts/image/upload/fl_tiled,l_overlay,o_10/' . $product->get_sku() . '-0.jpg" data-modal-launch="display-product-image"><img src="https://res.cloudinary.com/greenfarmparts/image/fetch/fl_tiled,l_overlay,o_10/' . str_replace('gfp.local', 'greenfarmparts.com', wp_get_attachment_image_url($post_thumbnail_id, 'full')) . '" class="wp-post-image" alt="' . $product->get_sku() . '-0" title="' . $product->get_sku() . '-0.jpg"></a>';
         } else {
           $html  = '<div class="woocommerce-product-gallery__image--placeholder">';
           $html .= sprintf( '<img src="%s" alt="%s" class="wp-post-image" />', esc_url( wc_placeholder_img_src() ), esc_html__( 'Awaiting product image', 'woocommerce' ) );
