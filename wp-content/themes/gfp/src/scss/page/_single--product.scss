@@ -74,7 +74,6 @@
   margin: 0 auto 1rem;
   @include desktop {
     max-width: 100%;
-    margin: 0;
   }
 }
 
@@ -85,6 +84,7 @@
 .woocommerce-product-gallery__thumbs {
   list-style-type: none;
   display: flex;
+  flex-wrap: wrap;
   
   > li {
     cursor: pointer;
