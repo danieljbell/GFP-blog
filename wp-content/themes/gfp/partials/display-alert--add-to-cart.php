@@ -73,7 +73,8 @@
         <div class="drawer-item-image">
           <a href="<?php echo $permalink; ?>">
             <?php if (has_post_thumbnail($id)) : ?>
-              <img src="https://res.cloudinary.com/greenfarmparts/image/upload/e_brightness:30,w_100,h_100,c_fill/<?php echo $sku; ?>-0.jpg" alt="">
+
+              <img src="<?php echo 'https://res.cloudinary.com/greenfarmparts/image/fetch/w_100,h_100,c_pad/' . str_replace('gfp.local', 'greenfarmparts.com', wp_get_attachment_image_url($line_item_details->get_image_id(), 'thumb')); ?>" alt="<?php echo $line_item_details->get_name(); ?>">
             <?php else :  ?>
               <img src="<?php echo get_stylesheet_directory_URI() . '/dist/img/partPicComingSoon.jpg' ?>" alt="No Part Image">
             <?php endif; ?>

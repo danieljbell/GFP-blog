@@ -8,7 +8,9 @@
 <li class="products--item product-card--slim" data-sku="<?php echo $product->get_sku(); ?>">
     <div class="products--image">
       <?php if ( has_post_thumbnail() ) : ?>
-        <img src="https://res.cloudinary.com/greenfarmparts/image/upload/e_brightness:30,w_100,h_100,c_fill/<?php echo $product->get_sku(); ?>-0.jpg" alt="">
+        <a href="<?php echo $product->get_permalink(); ?>" title="<?php echo $product->get_permalink(); ?>">
+          <img src="<?php echo 'https://res.cloudinary.com/greenfarmparts/image/fetch/' . str_replace('gfp.local', 'greenfarmparts.com', wp_get_attachment_image_url($product->get_image_id(), 'thumb')); ?>" alt="<?php echo $product->get_name(); ?>">
+        </a>
       <?php else : ?>
         <img src="<?php echo wc_placeholder_img_src(); ?>" alt="Part Photo Coming Soon">
       <?php endif; ?>
