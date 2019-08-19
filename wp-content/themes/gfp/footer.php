@@ -252,7 +252,9 @@
           }
         });
       } else {
-        document.querySelector('.promo-card-list').classList.add('slider--not-active');
+        if (document.querySelector('.promo-card-list')) {
+          document.querySelector('.promo-card-list').classList.add('slider--not-active');
+        }
       }
     })();
   </script>
