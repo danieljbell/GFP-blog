@@ -26,7 +26,7 @@
           <p>12501 Reynolds Drive Fishers, IN</p>
         </address>
         <p>Hours: 7:30 am - 5:00 pm EST Monday - Friday</p>
-        <p>P: 877-620-6070</p>
+        <p>877-620-6070</p>
         <script type="text/javascript" src="//cdn.callrail.com/companies/938812638/f2c1c30be27bc728ef3e/12/swap.js"></script> 
         <p><a href="mailto:info@greenfarmparts.com">info@greenfarmparts.com</a></p>
       </div>
