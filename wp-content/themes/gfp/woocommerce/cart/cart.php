@@ -19,7 +19,12 @@ defined( 'ABSPATH' ) || exit;
 
 // echo '<pre>';
 // print_r(WC()->instance()->cart);
-
+if ($_GET['pc']) {
+  $cart = WC()->instance()->cart;
+  // $coupon = $_POST['coupon'];
+  $cart->apply_coupon($_GET['pc']);
+  // wp_send_json($cart);
+}
 ?>
 
 <div class="pad-y--most">
