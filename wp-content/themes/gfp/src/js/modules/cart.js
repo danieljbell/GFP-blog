@@ -1,5 +1,24 @@
 (function($) {
 
+  // console.log();
+
+  if ($('body').hasClass('woocommerce-cart') && getParameterByName('pc')) {
+    var origin = window.origin;
+    var pathName = window.location.pathname;
+    $.ajax({
+      url: window.ajax_order_tracking.ajax_url,
+      method: 'POST',
+      data: {
+        action: 'add_coupon',
+        coupon: getParameterByName('pc'),
+        _ajax_nonce: window.ajax_order_tracking.nonce,
+      },
+      success: function(res) {
+        window.location = window.origin + pathName;
+      }
+    });
+  }
+
   if (!document.body.classList.contains('woocommerce-cart')) {
     return;
   }
