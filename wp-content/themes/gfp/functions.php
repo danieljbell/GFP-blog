@@ -198,6 +198,8 @@ add_action( 'woocommerce_checkout_coupon_form', 'woocommerce_checkout_coupon_for
 add_action( 'woocommerce_catalog_ordering', 'woocommerce_catalog_ordering', 30 );
 add_action( 'woocommerce_order_review', 'woocommerce_order_review', 10 );
 add_action( 'woocommerce_checkout_payment', 'woocommerce_checkout_payment', 20 );
+// add_action( 'woocommerce_checkout_order_review', 'woocommerce_order_review', 10 );
+// add_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20 );
 
 
 

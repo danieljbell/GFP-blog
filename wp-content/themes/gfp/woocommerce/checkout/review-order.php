@@ -22,12 +22,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <table class="shop_table woocommerce-checkout-review-order-table">
-  <!-- <thead>
-    <tr>
-      <th class="product-name"><?php _e( 'Product', 'woocommerce' ); ?></th>
-      <th class="product-total"><?php _e( 'Total', 'woocommerce' ); ?></th>
-    </tr>
-  </thead> -->
   <tbody>
     <?php
       do_action( 'woocommerce_review_order_before_cart_contents' );

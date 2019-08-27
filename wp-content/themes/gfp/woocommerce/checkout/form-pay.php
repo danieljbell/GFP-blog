@@ -45,37 +45,12 @@ $totals = $order->get_order_item_totals();
               </div>
               <div class="gfp-order-details--item-price">
                 <?php
-                  // $regular_price = $product->get_regular_price();
-                  // $sale_price = $item->get_subtotal();
-                  // $customer_discount_price = $item->get_total();
-
-                if ($item->get_subtotal() !== $item->get_total()) {
-                  echo '<del>$<span class="regular_price">' . $item->get_subtotal() . '</span></del>';
-                  echo '<span class="sale-price">$' . $item->get_total() . '</span>';
-                } else {
-                  echo '$<span class="regular_price">' . $item->get_subtotal() . '</span>';
-                }
-
-                  // echo '$' . $item->get_subtotal();
-                  // echo '$' . $item->get_total();
-                  // echo $customer_discount_price . '<br />';
-                  
-                  // if ($is_sale) {
-                  //   echo '<del>$<span class="regular-price" data-price="', $line->get_regular_price(), '">', $line->get_regular_price() * $qty, '</span></del>';
-                  //   echo '<span class="sale-price" data-sale-price="', $line->get_sale_price(), '">$', $line->get_sale_price() * $qty, '</span>';
-                  //   if ($qty > 1) {
-                  //     echo '&nbsp;<span class="each-price"> &ndash;&nbsp; $', $line->get_sale_price(), ' each</span>';
-                  //   }
-                  // } else {
-                  //   echo '$<span class="regular-price" data-price="', $line->get_regular_price(), '">', $line->get_regular_price() * $qty, '</span>';
-                  //   if ($qty > 1) {
-                  //     echo '&nbsp;<span class="each-price"> &ndash;&nbsp; $', $line->get_regular_price(), ' each</span>';
-                  //   }
-                  // }
-
-                  // echo $regular_price . '<br />';
-                  // echo $item->get_subtotal() . '<br />';
-                  // echo $item->get_total() . '<br />';
+                  if ($item->get_subtotal() !== $item->get_total()) {
+                    echo '<del>$<span class="regular_price">' . $item->get_subtotal() . '</span></del>';
+                    echo '<span class="sale-price">$' . $item->get_total() . '</span>';
+                  } else {
+                    echo '$<span class="regular_price">' . $item->get_subtotal() . '</span>';
+                  }
                 ?>
               </div>
               <div class="gfp-order-details--item-quantity">
