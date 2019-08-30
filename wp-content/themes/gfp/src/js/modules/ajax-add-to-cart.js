@@ -72,15 +72,15 @@
     }
     $('.cart--count').text(count);
 
-    if ((49.99 - subtotal) < 0.01) {
+    if ((75 - subtotal) < 0.01) {
       $('.countdown-to-free-shipping .free').show();
       $('.countdown-to-free-shipping .not-free').hide();
     } else {
       $('.countdown-to-free-shipping .free').hide();
       $('.countdown-to-free-shipping .not-free').show()
-      $('.countdown-to-free-shipping .countdown').text((49.99 - subtotal).toFixed(2));
+      $('.countdown-to-free-shipping .countdown').text((75 - subtotal).toFixed(2));
       $('.progress .bar .status').animate({
-        width: ((subtotal / 49.99) * 100).toFixed(2) + '%'
+        width: ((subtotal / 75) * 100).toFixed(2) + '%'
       });
     }
 

@@ -3,8 +3,8 @@
   $totals = $cart->get_totals();
   $cart_line_items = $cart->get_cart();
   $item_count = 0;
-  $amount_left = 49.99 - $totals['subtotal'];
-  $percent_to_free = ($totals['subtotal'] / 49.99) * 100;
+  $amount_left = 75 - $totals['subtotal'];
+  $percent_to_free = ($totals['subtotal'] / 75) * 100;
   foreach ($cart_line_items as $key => $line_item) {
     $item_count = $item_count + $line_item['quantity'];
   }
@@ -30,7 +30,7 @@
         <div class="progress">
           <p class="start">$0</p>
           <p class="bar"><span class="status" style="width: <?php echo number_format($percent_to_free, 0, '.', ','); ?>%;"></span></p>
-          <p class="end">$49.99</p>
+          <p class="end">$75</p>
         </div>
       </div>
     <?php else : ?>
@@ -44,7 +44,7 @@
         <div class="progress">
           <p class="start">$0</p>
           <p class="bar"><span class="status" style="width: <?php echo number_format($percent_to_free, 0, '.', ','); ?>%;"></span></p>
-          <p class="end">$49.99</p>
+          <p class="end">$75</p>
         </div>
       </div>
     <?php endif; ?>
