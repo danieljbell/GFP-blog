@@ -24,3 +24,11 @@
   display: inline-block;
   margin-right: 0.75rem;
 }
+
+.woo-breadcrumbs {
+  padding-top: 1rem;
+  width: calc(100% - 2rem);
+  max-width: 1080px;
+  margin: 0 auto;
+  font-size: 0.9em;
+}
