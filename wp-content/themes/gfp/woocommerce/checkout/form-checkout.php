@@ -40,10 +40,16 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
       
       <div class="gfp-checkout--contents">
 
-        <?php do_action( 'woocommerce_checkout_before_customer_details' ); ?>
-        <?php do_action( 'woocommerce_checkout_billing' ); ?>
-        <?php wc_get_template( 'checkout/terms.php' ); ?>
+        <div>
+          <?php do_action( 'woocommerce_checkout_before_customer_details' ); ?>
+          <?php do_action( 'woocommerce_checkout_billing' ); ?>
+          <?php wc_get_template( 'checkout/terms.php' ); ?>
+        </div>
+        <div>
+        
         <?php do_action( 'woocommerce_checkout_shipping' ); ?>
+        </div>
+
         <?php do_action( 'woocommerce_checkout_after_customer_details' ); ?>
         <div class="box--with-header">
           <header>Order Items</header>
@@ -122,7 +128,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
     <?php endif; ?>
 
 
-    <div class="gfp-checkout--totals">
+    <!-- <div class="gfp-checkout--totals">
       <div class="gfp-checkout--totals-inner">
 
         <?php //wc_print_notices(); ?>
@@ -139,7 +145,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
         <?php do_action( 'woocommerce_checkout_after_order_review' ); ?>
 
       </div>
-    </div>
+    </div> -->
 
   </form>
   

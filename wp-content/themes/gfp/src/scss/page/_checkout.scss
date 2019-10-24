@@ -7,11 +7,18 @@ abbr {
 
 form.woocommerce-checkout,
 .order-pay {
-  display: grid;
-  @include desktop {
-    grid-template-columns: 1fr 350px;
-    grid-gap: 3rem;
+  // display: flex;
+}
+
+.gfp-checkout--contents {
+  display: flex;
+  flex-wrap: wrap;
+
+  > * {
+    flex: 1;
+    flex-basis: 50%;
   }
+
 }
 
 .gfp-checkout--totals-inner {
