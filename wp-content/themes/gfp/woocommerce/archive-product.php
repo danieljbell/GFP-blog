@@ -193,7 +193,9 @@ do_action( 'woocommerce_before_main_content' );
           <ul style="list-style-type: none;">
             <?php foreach ($child_cats as $child_cat) : ?>
               <li>
-                <a href="/product-category/<?php echo $child_cat->slug; ?>" style="font-size: 0.9em;"><?php echo $child_cat->cat_name; ?> (<?php echo number_format($child_cat->count, 0, '.', ','); ?>)</a>
+                <a href="/product-category/<?php echo $child_cat->slug; ?>" style="font-size: 0.9em;">
+                  <?php echo str_replace('John Deere ','',$child_cat->cat_name); ?> (<?php echo number_format($child_cat->count, 0, '.', ','); ?>)
+                </a>
               </li>
             <?php endforeach; ?>
           </ul>
