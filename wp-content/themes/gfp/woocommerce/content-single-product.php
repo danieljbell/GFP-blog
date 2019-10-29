@@ -252,6 +252,9 @@ global $product;
 				} else {
 					do_action( 'woocommerce_template_single_price' );
 					do_action( 'woocommerce_template_single_add_to_cart' );
+					echo '<div class="box--with-header">';
+						echo '<p>We ship all of our genuine John Deere parts, including this ' . $product->get_name() . ', five days per week. We ship primarily via UPS, USPS, FedEx and truck freight. Once your order leaves our warehouse, you will receive a tracking number via email. Most orders ship within 1-3 business days. If you have placed an order on the weekend, during a holiday or after 4pm EST during the week, we will begin processing your order during our next business day.</p>';
+					echo '</div>';
 					echo '<p class="mar-t"><small>California Use Warning:<br><a href="http://www.P65Warnings.ca.gov" target="_blank" rel="noopener noreferrer">Cancer & Reproductive Harm</a></small></p>';
 
 					$oversized = $wpdb->query( $wpdb->prepare( 
