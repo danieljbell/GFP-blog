@@ -66,4 +66,13 @@
   </div>
 </section>
 
+<section class="pad-y--most">
+  <div class="site-width">
+    <div class="box--with-header grid--half-only">
+      <h2>About Green Farm Parts</h2>
+      <p>Green Farm Parts is your all-in-one source for genuine John Deere parts and accessories.  You can shop for your John Deere parts by equipment model or by part number.  Our extensive parts diagrams allow you to see every component of your equipment, ensuring that you are ordering parts that are correct for your machine.  As a John Deere dealer since 1955, we are committed to providing you with fair prices and excellent customer service.  Shop online 24 hours a day for all of your John Deere parts and accessories needs.</p>
+    </div>
+  </div>
+</section>
+
 <?php get_footer(); ?>
