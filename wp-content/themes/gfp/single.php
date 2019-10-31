@@ -27,7 +27,7 @@
     <section class="hero" <?php if (has_post_thumbnail()) { echo 'style="' . $hero_bg . '"'; } else { echo 'style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(' . get_stylesheet_directory_URI() . '/dist/img/hero--generic-' . mt_rand(1,5) . '.jpg);"'; } ?>>
       
       <div class="site-width">
-        <h1><?php echo ($current_cat[0]->slug === 'talk-with-a-tech') ? 'Talk With A Tech ' : '';  ?><?php echo get_the_title(); ?></h1>
+        <h1><?php echo get_the_title(); ?></h1>
         <h2><?php echo get_the_excerpt(); ?></h2>
       </div>
 
