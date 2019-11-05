@@ -18,37 +18,6 @@
     <h3 class="drawer--header"><span class="item-count"><?php echo $item_count; ?> Item in your Cart</span><br /><span class="cart-subtotal">Cart Subtotal: <span class="subtotal-amount">$<?php echo $cart->get_totals()['subtotal']; ?></span></span></h3>
   <?php endif; ?>
 
-  <div class="countdown-to-free-shipping">
-    <?php if (($amount_left < 0.01)) : ?>
-      <div class="free">
-        <h4>Great!</h4>
-        <p>Your order is eligible for free shipping.<br /><em>Oversized items will still be charged shipping fees.</em></p>
-      </div>
-      <div class="not-free" style="display: none;">
-        <h4>Keep Shopping!</h4>
-        <p>Add $<span class="countdown"><?php echo number_format($amount_left, 2, '.', ','); ?></span> to your order to get free shipping</p>
-        <div class="progress">
-          <p class="start">$0</p>
-          <p class="bar"><span class="status" style="width: <?php echo number_format($percent_to_free, 0, '.', ','); ?>%;"></span></p>
-          <p class="end">$75</p>
-        </div>
-      </div>
-    <?php else : ?>
-      <div class="free" style="display: none;">
-        <h4>Great!</h4>
-        <p>Your order is eligible for free shipping.<br /><em>Oversized items will still be charged shipping fees.</em></p>
-      </div>
-      <div class="not-free">
-        <h4>Keep Shopping!</h4>
-        <p>Add $<span class="countdown"><?php echo number_format($amount_left, 2, '.', ','); ?></span> to your order to get free shipping</p>
-        <div class="progress">
-          <p class="start">$0</p>
-          <p class="bar"><span class="status" style="width: <?php echo number_format($percent_to_free, 0, '.', ','); ?>%;"></span></p>
-          <p class="end">$75</p>
-        </div>
-      </div>
-    <?php endif; ?>
-  </div>
   <ul class="drawer--items-list">
     <?php 
       foreach ($cart_line_items as $line_item) :

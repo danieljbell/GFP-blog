@@ -1,4 +1,4 @@
-(function($) {
+(function ($) {
 
   var cartDrawer = $('.drawer--add-to-cart');
   var cartItemList = document.querySelector('.drawer--items-list');
@@ -32,18 +32,18 @@
 
   // addToCartButton.on('click', addLineItem);
 
-  body.on('change', '.drawer--item .drawer-item-input', function(e) {
+  body.on('change', '.drawer--item .drawer-item-input', function (e) {
     var item = $(this).parents('.drawer--item');
     changeQuantity(item);
   })
 
-  body.on('keyup', function(e) {
+  body.on('keyup', function (e) {
     if ((e.keyCode === 27) && body.hasClass('cart-drawer--open')) {
       closeDrawer();
     }
   });
 
-  cartDrawer.on('click', '.drawer-remove-item', function() {
+  cartDrawer.on('click', '.drawer-remove-item', function () {
     var elem = $(this);
     removeLineItem(elem);
   });
@@ -72,17 +72,17 @@
     }
     $('.cart--count').text(count);
 
-    if ((75 - subtotal) < 0.01) {
-      $('.countdown-to-free-shipping .free').show();
-      $('.countdown-to-free-shipping .not-free').hide();
-    } else {
-      $('.countdown-to-free-shipping .free').hide();
-      $('.countdown-to-free-shipping .not-free').show()
-      $('.countdown-to-free-shipping .countdown').text((75 - subtotal).toFixed(2));
-      $('.progress .bar .status').animate({
-        width: ((subtotal / 75) * 100).toFixed(2) + '%'
-      });
-    }
+    // if ((75 - subtotal) < 0.01) {
+    //   $('.countdown-to-free-shipping .free').show();
+    //   $('.countdown-to-free-shipping .not-free').hide();
+    // } else {
+    //   $('.countdown-to-free-shipping .free').hide();
+    //   $('.countdown-to-free-shipping .not-free').show()
+    //   $('.countdown-to-free-shipping .countdown').text((75 - subtotal).toFixed(2));
+    //   $('.progress .bar .status').animate({
+    //     width: ((subtotal / 75) * 100).toFixed(2) + '%'
+    //   });
+    // }
 
   }
 
@@ -103,7 +103,7 @@
         _ajax_nonce: window.ajax_order_tracking.nonce,
         product_id: productID
       },
-      success: function(results) {
+      success: function (results) {
         // console.log(results);
         cartSubtotal.text('$' + results.subtotal);
         populateCart(results.lineItems);
@@ -117,7 +117,7 @@
     var productID = elem.parents('.drawer--item').data('product-id');
     var productKey = elem.parents('.drawer--item').data('product-key');
     elem.parents('.drawer--item').addClass('remove');
-    elem.parents('.drawer--item').on('transitionend', function() {
+    elem.parents('.drawer--item').on('transitionend', function () {
       $(this).remove();
     })
     $.ajax({
@@ -129,11 +129,11 @@
         product_id: productID,
         product_key: productKey
       },
-      success: function(results) {
+      success: function (results) {
         cartSubtotal.text('$' + results.subtotal);
         updateCartCount(results.lineItems, results.subtotal);
       },
-      error: function(error) {
+      error: function (error) {
         console.log(error);
       }
     })
@@ -154,12 +154,12 @@
         product_key: productKey,
         qty: parseInt(val)
       },
-      success: function(results) {
+      success: function (results) {
         console.log(results);
         cartSubtotal.text('$' + results.subtotal);
         updateCartCount(results.lineItems, results.subtotal);
       },
-      error: function(error) {
+      error: function (error) {
         console.log(error);
       }
     });
@@ -167,7 +167,7 @@
 
   function populateCart(lineItems) {
     console.log(lineItems);
-    cartItemList.innerHTML = lineItems.map(function(item) {
+    cartItemList.innerHTML = lineItems.map(function (item) {
       var productQtyInc = 1;
       if (item.productQtyInc) {
         productQtyInc = item.productQtyInc;
@@ -178,21 +178,21 @@
         var priceHTML = '<p class="drawer-item-price">Yes Sale</p>';
       }
       return (
-        '<li class="drawer--item" data-product-id="' + item.productID + '" data-product-key="' + item.productKey + '">' + 
-          '<div class="drawer-item-action">' +
-            '<button class="drawer-remove-item">&times;</button>' +
-          '</div>' +
-          '<div class="drawer-item-image">' +
-            '<a href="' + item.productPermalink + '">' +
-              item.productImg +
-            '</a>' +
-          '</div>' +
-          '<div class="drawer-item-content">' +
-            '<p class="drawer-item-title"><a href="' + item.productPermalink + '">' + item.productName + '</a></p>' +
-              priceHTML +
-            '<label for="" class="drawer-item-label">Quantity:</label>' +
-            '<input type="number" class="drawer-item-input" min="' + productQtyInc + '" step="' + productQtyInc + '" value="' + item.productQty + '">' +
-          '</div>' +
+        '<li class="drawer--item" data-product-id="' + item.productID + '" data-product-key="' + item.productKey + '">' +
+        '<div class="drawer-item-action">' +
+        '<button class="drawer-remove-item">&times;</button>' +
+        '</div>' +
+        '<div class="drawer-item-image">' +
+        '<a href="' + item.productPermalink + '">' +
+        item.productImg +
+        '</a>' +
+        '</div>' +
+        '<div class="drawer-item-content">' +
+        '<p class="drawer-item-title"><a href="' + item.productPermalink + '">' + item.productName + '</a></p>' +
+        priceHTML +
+        '<label for="" class="drawer-item-label">Quantity:</label>' +
+        '<input type="number" class="drawer-item-input" min="' + productQtyInc + '" step="' + productQtyInc + '" value="' + item.productQty + '">' +
+        '</div>' +
         '</li>'
       );
     }).join('');
