@@ -1,35 +1,35 @@
 <?php
   
-  if (is_cart()) {
-    $current_promotions_args = array(
-      'post_type' => 'promotions',
-      'posts_per_page' => 1,
-      'orderby'        => 'rand',
-      'meta_key' => 'promotion_end_date',
-      'meta_value' => date('Ymd'),
-      'meta_compare' => '>='
-    );
-  } else {
-    $current_promotions_args = array(
-      'post_type' => 'promotions',
-      'posts_per_page' => -1,
-      'meta_key' => 'promotion_end_date',
-      'meta_value' => date('Ymd'),
-      'meta_compare' => '>='
-    );
-  }
+  // if (is_cart()) {
+  //   $current_promotions_args = array(
+  //     'post_type' => 'promotions',
+  //     'posts_per_page' => 1,
+  //     'orderby'        => 'rand',
+  //     'meta_key' => 'promotion_end_date',
+  //     'meta_value' => date('Ymd'),
+  //     'meta_compare' => '>='
+  //   );
+  // } else {
+  //   $current_promotions_args = array(
+  //     'post_type' => 'promotions',
+  //     'posts_per_page' => -1,
+  //     'meta_key' => 'promotion_end_date',
+  //     'meta_value' => date('Ymd'),
+  //     'meta_compare' => '>='
+  //   );
+  // }
   
-  $current_promotions_query = new WP_Query($current_promotions_args);
+  // $current_promotions_query = new WP_Query($current_promotions_args);
 
-  if ($current_promotions_query->have_posts()) :
-    echo '<ul class="current-promotions--list">';
-      while ($current_promotions_query->have_posts()) : $current_promotions_query->the_post();
-        if (get_field('categories_on_sale')[0]->term_id !== get_queried_object()->term_id) {
-          get_template_part('partials/display', 'card--promo-sidebar');
-        }
-      endwhile;
-    echo '</ul>';
-  endif; wp_reset_postdata();
+  // if ($current_promotions_query->have_posts()) :
+  //   echo '<ul class="current-promotions--list">';
+  //     while ($current_promotions_query->have_posts()) : $current_promotions_query->the_post();
+  //       if (get_field('categories_on_sale')[0]->term_id !== get_queried_object()->term_id) {
+  //         get_template_part('partials/display', 'card--promo-sidebar');
+  //       }
+  //     endwhile;
+  //   echo '</ul>';
+  // endif; wp_reset_postdata();
 
 ?>
 
