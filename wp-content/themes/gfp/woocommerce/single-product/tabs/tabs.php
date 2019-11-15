@@ -37,10 +37,11 @@ $comments = get_comments(array(
   'post_id' => $post->ID
 ));
 
-$fitment = get_the_terms($post->ID, 'pa_part-catalog');
-if ($fitment) {
-  $sorted_fitment = array_sort($fitment, 'description', SORT_ASC);
-}
+// $fitment = get_the_terms($post->ID, 'pa_part-catalog');
+// print_r($fitment);
+// if ($fitment) {
+//   $sorted_fitment = array_sort($fitment, 'description', SORT_ASC);
+// }
 
 
 //if ( ! empty( $tabs ) ) : ?>
@@ -170,45 +171,3 @@ if ($fitment) {
   
 
 <?php //endif; ?>
-
-<?php
-/*
-=========================
-SORT ARRAY BY NESTED KEY
-@Link - http://php.net/manual/en/function.sort.php
-=========================
-*/
-function array_sort($array, $on, $order=SORT_ASC) {
-    $new_array = array();
-    $sortable_array = array();
-
-    if (count($array) > 0) {
-        foreach ($array as $k => $v) {
-            if (is_array($v)) {
-                foreach ($v as $k2 => $v2) {
-                    if ($k2 == $on) {
-                        $sortable_array[$k] = $v2;
-                    }
-                }
-            } else {
-                $sortable_array[$k] = $v;
-            }
-        }
-
-        switch ($order) {
-            case SORT_ASC:
-                asort($sortable_array);
-            break;
-            case SORT_DESC:
-                arsort($sortable_array);
-            break;
-        }
-
-        foreach ($sortable_array as $k => $v) {
-            $new_array[$k] = $array[$k];
-        }
-    }
-
-    return $new_array;
-}
-?>
