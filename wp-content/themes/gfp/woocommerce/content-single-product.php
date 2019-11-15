@@ -39,20 +39,20 @@ $nla_part = get_post_meta($post->ID, 'nla_part');
 <?php
 global $product;
 
-	$args = array(
-		'post_type' 		=> 'product',
-		'meta_key'			=> 'product_alternatives',
-		'meta_value' 		=> $product->get_sku(),
-		'meta_compare'	=> 'LIKE'
-	);
-	$query = new WP_Query( $args );
-	if ($query->have_posts()) :
-		while($query->have_posts()) : $query->the_post();
-		$deere_part = $post->ID;
-		$deere_alternatives = get_post_meta($post->ID, 'product_alternatives');
-		// print_r($deere_alternatives);
-		endwhile;
-	endif; wp_reset_postdata();
+	// $args = array(
+	// 	'post_type' 		=> 'product',
+	// 	'meta_key'			=> 'product_alternatives',
+	// 	'meta_value' 		=> $product->get_sku(),
+	// 	'meta_compare'	=> 'LIKE'
+	// );
+	// $query = new WP_Query( $args );
+	// if ($query->have_posts()) :
+	// 	while($query->have_posts()) : $query->the_post();
+	// 	$deere_part = $post->ID;
+	// 	$deere_alternatives = get_post_meta($post->ID, 'product_alternatives');
+	// 	// print_r($deere_alternatives);
+	// 	endwhile;
+	// endif; wp_reset_postdata();
 ?>
 
 <div id="product-<?php the_ID(); ?>" <?php wc_product_class(); ?>>
@@ -221,7 +221,7 @@ global $product;
 				
 
 				$part_replacements = get_post_meta($post->ID, 'product_subs');
-				if (($part_replacements[0] !== '') && ($nla_part[0] !== 'yes') && ($deere_alternatives[0] === '')) {
+				if (($part_replacements[0] !== '') && ($nla_part[0] !== 'yes')) {
 					echo '<div class="part--replaced_by mar-t">';
 						echo '<p class="mar-b">This part is no longer available. It\'s been replaced by:</p>';
 						echo '<ul>';
@@ -275,97 +275,6 @@ global $product;
 				}
 				
 				echo '<div class="product-content">', get_the_content(), '</div>';
-
-				/*
-				=========================
-				$product_alternative = get_post_meta($post->ID, 'product_alternatives');
-				$product_alternatives = explode('|', $product_alternative[0]);
-				$alt_array = explode('|', $deere_alternatives[0]);
-				$product = wc_get_product($post->ID);
-				
-				$has_alt_parts = false;
-				foreach ($product_alternatives as $part) {
-					$wc_part_id = wc_get_product_id_by_sku($part);
-					if ($wc_part_id) {
-						$has_alt_parts = true;
-					}
-				}
-
-				// if on deere part or alt part, open up div
-				if ($has_alt_parts && ($product_alternatives[0] !== '') || ($alt_array[0] !== '')) {
-					echo '<div class="mar-y--most box--with-header">';
-						echo '<header>Alternative Products to ' . $product->get_name() . '</header>';
-						echo '<ul class="product-alternatives--list">';
-				
-
-						// on the deere part
-						if ($product_alternatives[0] !== '') {
-							$parts = array();
-							foreach ($product_alternatives as $part) {
-								$wc_part_id = wc_get_product_id_by_sku($part);
-								if ($wc_part_id) {
-									$wc_part = wc_get_product($wc_part_id);
-									array_push($parts, array(
-										'name' => $wc_part->get_name(),
-										'link' => $wc_part->get_permalink(),
-										'image' => $wc_part->get_image('thumbnail'),
-										'price' => $wc_part->get_price()
-									));
-								}
-							}
-						} else {
-							$parts = array();
-							foreach ($alt_array as $part) {
-								$wc_part_id = wc_get_product_id_by_sku($part);
-								if ($wc_part_id) {
-									$wc_part = wc_get_product($wc_part_id);
-									if ($post->ID === $wc_part->get_ID()) {
-										$deere_part = wc_get_product($deere_part);
-										array_push($parts, array(
-											'name' => $deere_part->get_name(),
-											'link' => $deere_part->get_permalink(),
-											'image' => $deere_part->get_image('thumbnail'),
-											'price' => $deere_part->get_price()
-										));
-									} else {
-										array_push($parts, array(
-											'name' => $wc_part->get_name(),
-											'link' => $wc_part->get_permalink(),
-											'image' => $wc_part->get_image('thumbnail'),
-											'price' => $wc_part->get_price()
-										));
-									}
-								}
-							}
-						}
-						if (count($parts) > 0) :
-						foreach ($parts as $part) {
-							?>
-							<li class="product-alternatives--item">
-								<a href="<?php echo $part['link']; ?>">
-									<div class="product-alternatives--image">
-										<?php echo $part['image']; ?>
-									</div>
-									<div class="product-alternatives--meta">
-										<p class="product-alternatives--name"><?php echo $part['name']; ?></p>
-										<?php if ($part['price'] < $product->get_price()) : ?>
-											<p class="prodct-alternatives--price">$<?php echo $part['price']; ?> &mdash; <strong style="color: red;">Save $<?php echo number_format((float)$product->get_price() - $part['price'], 2, '.', ''); ?></strong></p>
-										<?php else : ?>
-											<p class="prodct-alternatives--price">$<?php echo $part['price']; ?></p>
-										<?php endif; ?>
-									</div>
-								</a>
-							</li>
-							<?php
-						}
-						endif;
-				
-				// if on deere part or alt part, close div
-						echo '</ul>';
-					echo '</div>';
-				}
-				=========================
-				*/
 				
 				do_action( 'woocommerce_output_product_data_tabs' );
 
