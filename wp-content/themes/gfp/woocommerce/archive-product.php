@@ -29,60 +29,6 @@ $current_promotions_args = array(
 );
 
 $current_promotions_query = new WP_Query($current_promotions_args);
-
-/*
-=========================
-// finds a nested array value
-function in_array_r($needle, $haystack, $strict = false) {
-  foreach ($haystack as $item) {
-    if (($strict ? $item === $needle : $item == $needle) || (is_array($item) && in_array_r($needle, $item, $strict))) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-?>
-
-
-<?php if (in_array_r($current_page->slug, $promotions)) : ?>
-
-<?php
-// print_r($promotions);
-  foreach ($promotions as $promotion) {
-    foreach ($promotion['promo_categories'] as $promo) {
-      if (in_array_r($current_page->slug, $promotion) && (substr($promotion['expires'], 0, 8) > date('Ymd'))) {
-        $promo_price = '$' . $promotion['discount_amount'];
-        if ($promotion['discount_type'] === 'percentage') {
-          $promo_price = $promotion['discount_amount'] . '%';
-        }
-        
-?>
-  <section class="hero hero--is-sale" data-offer-expiry="<?php echo $promotion['expires']; ?>">
-    <div class="site-width">
-      <h1>Save <?php echo $promo_price; ?> off <?php echo $current_page->name; ?>. Ends in </h1>
-      <h2></h2>
-    </div>
-  </section>
-<?php
-      }
-    }
-  }
-?>  
-
-<?php else : ?>
-  
-  <!-- <section class="hero">
-    <div class="site-width">
-      <h1><?php echo $current_page->name; ?></h1>
-      <h2><?php echo $current_page->count; ?></h2>
-    </div>
-  </section> -->
-
-<?php endif; ?>
-=========================
-*/
 ?>
 
 
@@ -159,24 +105,6 @@ do_action( 'woocommerce_before_main_content' );
             endif; 
           ?> 
         </ul>
-        <div class="box--with-header mar-b">
-          <header>Filter By Model</header>
-          <?php
-            $part_catalog_terms = get_terms(array(
-              'taxonomy' => 'pa_part-catalog',
-              // 'hide_empty' => false
-            ));
-            // print_r($part_catalog_terms);
-            $sorted_part_catalog_terms = array_sort($part_catalog_terms, 'description', SORT_ASC);
-            echo '<select id="filter--select-fitment" style="width: 100%; background-color: #fff;">';
-              echo '<option value="" disabled selected>Choose Your Model</option>';
-            foreach ($sorted_part_catalog_terms as $key => $term) {
-              echo '<option value="' . $term->slug . '">' . $term->description . '</option>';
-            }
-            echo '</select>';
-            
-          ?>
-        </div>
         <?php
           $current_category = get_queried_object();
           $current_term_id = $current_category->term_id;
