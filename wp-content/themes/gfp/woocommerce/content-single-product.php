@@ -221,7 +221,7 @@ global $product;
 				
 
 				$part_replacements = get_post_meta($post->ID, 'product_subs');
-				if (($part_replacements[0] !== '') && ($nla_part[0] !== 'yes')) {
+				if (($part_replacements[0] !== '') && ($nla_part[0] !== 'yes') && ($deere_alternatives[0] === '')) {
 					echo '<div class="part--replaced_by mar-t">';
 						echo '<p class="mar-b">This part is no longer available. It\'s been replaced by:</p>';
 						echo '<ul>';
