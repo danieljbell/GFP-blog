@@ -1,4 +1,4 @@
-(function () {
+(function ($) {
   if (window.location.pathname !== '/parts-diagram/') {
     return;
   }
@@ -16,7 +16,8 @@
   }
 
   function getQty(target) {
-    return 'getting qty';
+    var qty = $(target).parents('.ariPLCart').siblings('.ariPLQtyInput').find('input').val();
+    console.log(qty);
   }
 
-})();
+})(jQuery);
