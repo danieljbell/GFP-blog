@@ -12,7 +12,7 @@ ADD GLOBAL CSS TO PAGE
 ==============================
 */
 function enqueue_global_css() {
-  wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '1.0.59');
+  wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '1.0.60');
 }
 add_action('wp_enqueue_scripts', 'enqueue_global_css');
 
@@ -22,7 +22,7 @@ ADD GLOBAL JS TO PAGE
 ==============================
 */
 function enqueue_global_js() {
-  wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.59', true);
+  wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.60', true);
 
   // if (is_page_template( 'page-templates/check-order-status.php' ) || is_account_page()) {
     $translation_array = array(
@@ -335,7 +335,7 @@ function get_product_prices() {
 }
 
 function get_product_info() {
-  check_ajax_referer( 'nonce_name' );
+  // check_ajax_referer( 'nonce_name' );
   $sku = $_POST['sku'];
   $wc_product_id = wc_get_product_id_by_sku($sku);
   $wc_product = wc_get_product($wc_product_id);
@@ -1344,3 +1344,26 @@ ADD TAX EXEMPT CAPABILITY
     WC()->customer->set_is_vat_exempt( $tax_exempt );
   }
  // This ends the tax-exempt section.
+
+
+ /*
+ ==============================
+REMOVE wc-cart-fragmanets
+ ==============================
+ */
+/** remove from homepage */
+add_action( 'wp_enqueue_scripts', 'dequeue_woocommerce_cart_fragments', 11); 
+function dequeue_woocommerce_cart_fragments() {
+  if (is_front_page()) wp_dequeue_script('wc-cart-fragments'); 
+}
+
+
+/*
+====================
+REMOVE HEARTBEAT
+====================
+*/
+add_action( 'init', 'stop_heartbeat', 1 );
+function stop_heartbeat() {
+wp_deregister_script('heartbeat');
+}
