@@ -36,7 +36,7 @@
               <li>
                 <a href="<?php echo site_url(); ?>/shop?filter_brand=<?php echo $term->slug; ?>&query_type_brand=or">
                   <img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/<?php echo $term->slug; ?>.png">
-                  <?php echo $term->name; ?>
+                  <span><?php echo $term->name; ?></span>
                 </a>
               </li>
             <?php endforeach; ?>
