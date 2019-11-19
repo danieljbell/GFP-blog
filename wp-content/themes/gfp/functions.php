@@ -1032,6 +1032,32 @@ function save_nla_parts( $post_id ) {
 add_action( 'woocommerce_process_product_meta', 'save_nla_parts' );
 
 /*
+===================================
+CREATE CUSTOM FIELD FOR UPSELL PART
+===================================
+*/
+function create_upsell_parts() {
+  global $woocommerce, $post;
+  woocommerce_wp_checkbox(array( 
+    'id'            => 'upsell_part', 
+    'wrapper_class' => 'show_if_simple', 
+    'label'         => __('Add to Upsell Parts', 'woocommerce' )
+  ));
+}
+add_action( 'woocommerce_product_options_general_product_data', 'create_upsell_parts' );
+
+/*
+=================================
+SAVE CUSTOM FIELD FOR UPSELL PART
+=================================
+*/
+function save_upsell_parts( $post_id ) {
+ $woocommerce_checkbox = isset( $_POST['upsell_part'] ) ? 'yes' : 'no';
+  update_post_meta( $post_id, 'upsell_part', $woocommerce_checkbox );
+}
+add_action( 'woocommerce_process_product_meta', 'save_upsell_parts' );
+
+/*
 ============================================
 CREATE CUSTOM FIELD FOR PRODUCT ALTERNATIVES
 ============================================

@@ -48,6 +48,26 @@
     removeLineItem(elem);
   });
 
+  if (document.querySelector('.upsellAddToCart')) {
+    var upsellSlider = tns({
+      container: '.upsellAddToCart',
+      items: 1,
+      // slideBy: 'page',
+      autoplay: true,
+      controls: false,
+      // center: true,
+      edgePadding: 50,
+      navPosition: 'bottom',
+      autoplayHoverPause: true
+      // responsive: {
+      //     960: {
+      //         items: 3,
+      //         nav: true,
+      //     } 
+      // }
+    });
+  }
+
   function openDrawer() {
     if (body.hasClass('woocommerce-cart')) {
       window.location.reload(false);

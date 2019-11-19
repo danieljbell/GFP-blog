@@ -63,4 +63,24 @@
     <?php endforeach; ?>
   </ul>
   <p class="has-text-center mar-y--more"><a href="/cart/" class="btn-solid--brand">Checkout</a></p>
+
+  <?php
+    $upsell_parts = new WP_Query(array(
+      'post_type' 		=> 'product',
+      'meta_key'			=> 'upsell_part',
+      'meta_value' 		=> 'yes'
+    ));
+    if ($upsell_parts->have_posts()) : 
+      echo '<div class="box--with-header" style="background-color: #fff;">';
+        echo '<header>Don\'t forget!</header>';
+        echo '<ul class="upsellAddToCart">';
+          while ($upsell_parts->have_posts()) : 
+            $upsell_parts->the_post();
+              get_template_part('partials/display', 'product-card--slim');
+          endwhile;
+        echo '</ul>';
+      echo '</div>';
+    endif;
+    wp_reset_postdata();
+  ?>
 </div>
