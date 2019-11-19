@@ -32,11 +32,14 @@
         <li class="mega-menu">
           <button class="navigation--button">Shop By Brand</button>
           <ul class="mega-menu--list mega-menu--shop-by-brand">
-            <?php
-              foreach (get_terms('pa_brand') as $key => $term) {
-                echo '<li><a href="' . site_url() . '/shop?filter_brand=' . $term->slug . '&query_type_brand=or"><img src="' . get_stylesheet_directory_URI() . '/dist/img/' . $term->slug . '.png">' . $term->name . '</a></li>';
-              }
-            ?>
+            <?php foreach (get_terms('pa_brand') as $key => $term) : ?>
+              <li>
+                <a href="<?php echo site_url(); ?>/shop?filter_brand=<?php echo $term->slug; ?>&query_type_brand=or">
+                  <img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/<?php echo $term->slug; ?>.png">
+                  <?php echo $term->name; ?>
+                </a>
+              </li>
+            <?php endforeach; ?>
           </ul>
         </li>
         <li>
