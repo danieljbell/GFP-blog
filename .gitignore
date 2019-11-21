@@ -36,6 +36,11 @@ wp-content/mu-plugins/wpengine-common/
 wp-content/plugins/
 wp-content/uploads/
 wp-content/themes/gfp/config.php
+wp-content/__wpe_admin_ajax.log
+wp-content/ai1wm-backups/
+wp-content/index.php
+wp-content/mysql.sql
+wp-content/object-cache.php
 
 # ignore specific themes
 wp-content/themes/twenty*/
