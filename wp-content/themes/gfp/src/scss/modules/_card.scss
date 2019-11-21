@@ -222,3 +222,32 @@
   } 
 
 }
+
+.card--upsell-product {
+  padding: 0 3rem;
+
+  .card-upsell-product--container {
+    border: 1px solid $medium-gray;
+    border-radius: 5px;
+    display: table;
+    width: 100%;
+  }
+
+  .card-upsell-product--image,
+  .card-upsell-product--content {
+    display: table-cell;
+    vertical-align: middle;
+  }
+  
+  a {
+    display: block;
+  }
+
+  img {
+    display: block;
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: cover;
+  }
+
+}

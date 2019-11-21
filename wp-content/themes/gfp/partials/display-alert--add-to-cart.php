@@ -76,7 +76,25 @@
         echo '<ul class="upsellAddToCart">';
           while ($upsell_parts->have_posts()) : 
             $upsell_parts->the_post();
-              get_template_part('partials/display', 'product-card--slim');
+            $product = wc_get_product($post->ID);
+            ?>
+              <li class="card card--upsell-product">
+                <div class="card-upsell-product--container">
+                  <div class="card-upsell-product--image">
+                    <?php if ( has_post_thumbnail() ) : ?>
+                      <a href="<?php echo $product->get_permalink(); ?>" title="<?php echo $product->get_permalink(); ?>">
+                        <img src="<?php echo 'https://res.cloudinary.com/greenfarmparts/image/fetch/' . str_replace('gfp.local', 'greenfarmparts.com', wp_get_attachment_image_url($product->get_image_id(), 'thumb')); ?>" alt="<?php echo $product->get_name(); ?>">
+                      </a>
+                    <?php else : ?>
+                      <img src="<?php echo wc_placeholder_img_src(); ?>" alt="Part Photo Coming Soon">
+                    <?php endif; ?>
+                  </div>
+                  <div class="card-upsell-product--content">
+                    <p><?php echo get_the_title(); ?></p>
+                  </div>
+                </div>
+              </li>
+            <?php
           endwhile;
         echo '</ul>';
       echo '</div>';

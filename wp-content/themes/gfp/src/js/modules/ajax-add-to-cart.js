@@ -56,7 +56,7 @@
       autoplay: true,
       controls: false,
       // center: true,
-      edgePadding: 50,
+      edgePadding: 0,
       navPosition: 'bottom',
       autoplayHoverPause: true
       // responsive: {
