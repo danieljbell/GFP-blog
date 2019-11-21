@@ -55,16 +55,15 @@
       // slideBy: 'page',
       autoplay: true,
       controls: false,
-      // center: true,
-      edgePadding: 0,
+      center: true,
+      edgePadding: 50,
       navPosition: 'bottom',
-      autoplayHoverPause: true
-      // responsive: {
-      //     960: {
-      //         items: 3,
-      //         nav: true,
-      //     } 
-      // }
+      autoplayHoverPause: true,
+      responsive: {
+        600: {
+          edgePadding: 15,
+        }
+      }
     });
   }
 

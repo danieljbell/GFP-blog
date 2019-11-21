@@ -90,7 +90,8 @@
                     <?php endif; ?>
                   </div>
                   <div class="card-upsell-product--content">
-                    <p><?php echo get_the_title(); ?></p>
+                    <p class="mar-b"><?php echo get_the_title(); ?><br>$<?php echo $product->get_price(); ?></p>
+                    <button class="add-to-cart btn-solid--brand-two" value="<?php echo $post->ID; ?>">Add to Cart</button>
                   </div>
                 </div>
               </li>
