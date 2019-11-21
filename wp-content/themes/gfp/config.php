@@ -1,0 +1,2 @@
+rfe_consumer_key=ck_98527574fe1890924764e22a78794ff9079bd932
+rfe_consumer_secret=cs_e843d8b3ec40b5c6606b8466a6acd2c39796c1f3

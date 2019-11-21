@@ -1,0 +1,229 @@
+#customer_login {
+  display: flex;
+  justify-content: center;
+  @include phone {
+    flex-direction: column;
+    align-items: center;
+  }
+  @include tablet {
+    flex-direction: column;
+    align-items: center;
+  }
+  > * {
+    width: 100%;
+    max-width: 350px;
+    &:first-child {
+      margin-bottom: 2rem;
+      @include desktop {
+        margin-right: 1.5rem;
+        margin-bottom: 0;
+      }
+    }
+    &:last-child {
+      @include desktop {
+        margin-left: 1.5rem;
+      }
+    }
+  }
+
+  p {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+
+    button {
+      max-width: 100px;
+      margin: 0 auto 1rem;
+    }
+    
+  }
+
+}
+
+.woocommerce-MyAccount-navigation {
+  margin-bottom: 2rem;
+  @include tablet {
+    margin-bottom: 0;
+  }
+  @include desktop {
+    margin-bottom: 0;
+  }
+}
+
+.woocommerce-MyAccount-navigation ul {
+  max-height: 0;
+  visibility: hidden;
+  opacity: 0;
+  list-style-type: none;
+  padding-left: 0;
+  min-width: 140px;
+  @include phone {
+    transition: all 500ms ease-in-out;
+  }
+  @include tablet {
+    max-height: initial;
+    visibility: visible;
+    opacity: 1;
+  }
+  @include desktop {
+    max-height: initial;
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  &.is-open {
+    max-height: 400px;
+    visibility: visible;
+    opacity: 1;
+  }
+
+}
+
+.woocommerce-MyAccount-navigation li {
+  background-color: $light-gray;
+  border-bottom: 1px solid $medium-gray;
+  @include phone {
+    border-left: 1px solid $medium-gray;
+    border-right: 1px solid $medium-gray;
+  }
+
+  &:last-child {
+    border-bottom: 0;
+    @include phone {
+      border-bottom: 1px solid $medium-gray;
+    }
+  }
+  
+  &.is-active {
+    background-color: $brand;
+
+    a {
+      color: #fff;
+      position: relative;
+
+      &:after {
+        display: none;
+        content: "";
+        height: 0;
+        width: 0;
+        border-top: 18px solid transparent;
+        border-left: 14px solid $brand;
+        border-bottom: 18px solid transparent;
+        position: absolute;
+        left: 100%;
+        top: 0;
+        bottom: 0;
+        @include tablet {
+          display: block;
+        }
+        @include desktop {
+          display: block;
+        }
+      }
+
+    }
+
+  }
+
+  &:not(.is-active):hover {
+    background-color: darken($light-gray, 7%);
+  }
+
+  a {
+    display: block;
+    padding: 0.5rem 1rem;
+    font-size: 0.9em;
+    
+    &:hover {
+      text-decoration: none;
+    }
+
+  }
+
+}
+
+
+// this is bad, move this
+.woocommerce-account .woocommerce {
+  display: flex;
+  flex-direction: column;
+  @include tablet {
+    flex-direction: row;
+  }
+  @include desktop {
+    flex-direction: row;
+  }
+  
+  @supports (display: ggggrid) {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    grid-gap: 3rem;
+  }
+
+  .woocommerce-MyAccount-content {
+    overflow-x: hidden;
+  }
+
+  > * {
+    flex: 1;
+  }
+
+  > *:nth-child(1) {
+    // display: none;
+  }
+
+  > *:nth-child(2) {
+    @include tablet {
+      padding-left: 3rem;
+      flex-grow: 5;
+    }
+    @include desktop {
+      padding-left: 3rem;
+      flex-grow: 5;
+    }
+  }
+
+}
+
+#toggleAccountNavigation {
+  width: 100%;
+  text-align: left;
+  padding: 1rem;
+  background-color: $medium-gray;
+  border: 0;
+  color: $black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // margin-bottom: 2rem;
+  @include tablet {
+    display: none;
+  }
+  @include desktop {
+    display: none;
+  }
+}
+
+.woocommerce-MyAccount-navigation .hamburger:hover {
+  opacity: 1;
+}
+
+.woocommerce-MyAccount-navigation .hamburger-inner,
+.woocommerce-MyAccount-navigation .hamburger-inner:before,
+.woocommerce-MyAccount-navigation .hamburger-inner:after {
+  background-color: $black;
+  height: 2px;
+  width: 25px;
+}
+
+.woocommerce-MyAccount-navigation .hamburger-inner:before {
+  top: -7px;
+}
+
+.woocommerce-MyAccount-navigation .hamburger-inner:after {
+  top: 7px;
+}
+
+.woocommerce-MyAccount-navigation .is-active .hamburger-inner:after {
+  top: 0px;
+}

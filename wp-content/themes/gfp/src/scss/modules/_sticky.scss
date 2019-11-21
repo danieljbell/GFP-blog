@@ -1,0 +1,21 @@
+// .sticky--container {
+//   position: relative;
+// }
+
+// .sticky--element {
+//   width: 100%;
+// }
+
+// .sticky--element--is-fixed {
+//   position: fixed;  
+//   top: 0;
+// }
+
+.sticky--container {
+
+}
+
+.sticky--element {
+  position: sticky;
+  top: 3rem;  
+}

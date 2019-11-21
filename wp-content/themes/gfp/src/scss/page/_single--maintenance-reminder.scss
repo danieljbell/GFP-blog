@@ -1,0 +1,182 @@
+.single .category-maintenance-reminder.post .site-width {
+  grid-template-columns: 350px 2fr;
+}
+
+.single .category-maintenance-reminder.post .model-image {
+  @include desktop {
+    height: 100%;
+    max-height: 300px;
+  }
+  img {
+    @include desktop {
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+#modelModifiers {
+  margin-bottom: 2rem;
+  @include desktop {
+    margin-bottom: 0;
+  }
+}
+
+.single .category-maintenance-reminder.post h1 {
+  font-size: 1.75rem;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.single .category-maintenance-reminder.post h2 {
+  font-size: 1rem;
+  font-weight: normal;
+  line-height: 1.3;
+  margin-bottom: 1.5rem;
+}
+
+.single .category-maintenance-reminder.post h3 span {
+  display: none;
+}
+
+.single .category-maintenance-reminder #saveForLater {
+  display: none;
+  // @include tablet {
+  //   display: inline-block;  
+  // }
+  // @include desktop {
+  //   display: inline-block;    
+  // }
+}
+
+.single .category-maintenance-reminder .product-image-container {
+  background-color: #fff;
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 100%;
+  max-width: 200px;
+  padding: 1rem;
+  border: 1px solid $medium-gray;
+  box-shadow: 4px 4px 10px rgba(black, 0.1);
+  text-align: center;
+  border-radius: 5px;
+}
+
+.single .category-maintenance-reminder .product-image--is-hidden {
+  opacity: 0;
+}
+
+.maintenance-kit-container {
+  padding: 1.5rem;
+  border: 1px solid $medium-gray;
+  box-shadow: 4px 4px 8px rgba(black, 0.1);
+  display: block;
+  background-color: $light-gray;
+  border-radius: 5px;
+  display: none;
+  @include desktop {
+    display: block;
+    margin-top: 5rem;
+  }
+  
+  &:hover {
+    text-decoration: none;
+  }
+
+  h3 {
+    text-align: center;
+    font-size: 1.5rem;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  
+  img {
+    max-width: 125px;
+    display: block;
+    float: left;
+    padding-right: 1rem;
+  }
+
+  p {
+    color: lighten($black, 10%);
+    margin-bottom: 0 !important;
+  }
+
+  ul {
+    color: lighten($black, 10%);
+    padding-left: 1rem;
+    font-size: 0.9em;
+  }
+
+  .maintenance-kit-content {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
+}
+
+.maintenance-kit-container--is-fixed {
+  position: fixed;
+  max-width: 350px;
+  top: 3rem;
+  margin-top: 0 !important;
+}
+
+.related-model-links {
+  background-color: $light-gray;
+  border-radius: 5px;
+  border: 1px solid $medium-gray;
+  padding: 1.5rem;
+  @include desktop {
+    padding: 3rem 2rem;
+  }
+}
+
+.related-model-link-list {
+  list-style-type: none;
+}
+
+.related-model-link-item {
+  margin-bottom: 2rem;
+  display: table;
+  width: 100%;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  h3 {
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
+
+}
+
+.related-model-image,
+.related-model-content {
+  display: table-cell;
+  vertical-align: top;
+}
+
+.related-model-image {
+  width: 75px;
+}
+
+.related-model-image img {
+  width: 100%;
+  max-width: 50px;
+  max-height: 50px;
+}
+
+.related-model-content button {
+  border: 0;
+  background-color: transparent;
+  color: $brand;
+  &:hover {
+    text-decoration: underline;
+  }
+}

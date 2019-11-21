@@ -1,0 +1,265 @@
+.alert {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background-color: #fff;
+  z-index: 100;
+  padding: 1rem;
+  border-radius: 4px;
+  border: 1px solid $medium-gray;
+  box-shadow: 0 0 5px rgba(black, 0.1);
+  display: flex;
+}
+
+.alert--success {
+  animation-name: flyInRight;
+  animation-duration: 500ms;
+  // border-color: $light-gray;
+  background-color: $light-gray;
+  // color: #fff;
+  .alert--close {
+    background-color: $brand-two;
+    color: #fff;
+  }
+}
+
+.alert--add-to-cart {
+  position: fixed;
+  z-index: 100;
+  bottom: 0rem;
+  right: 0;
+  left: 0;
+  border-radius: 5px 5px 0 0;
+  box-shadow: 6px 6px 12px rgba(black, 0.2);
+  transform: translateY(calc(100% + 1px));
+  transition: all 500ms ease-in-out;
+  @include tablet {
+    left: auto;
+    right: 2rem;
+    width: 100%;
+    max-width: 350px;
+  }
+  @include desktop {
+    left: auto;
+    right: 2rem;
+    width: 100%;
+    max-width: 350px;    
+  }
+  
+  &.alert--is-active {
+    transform: translateY(0);
+  }
+
+  &.alert--is-minimized {
+    transform: translateY(calc(100% - 38px));
+  }
+
+}
+
+.alert--header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;
+  background-color: $brand-two;
+  border-radius: 5px 5px 0 0;
+  position: relative;
+  cursor: pointer;
+}
+
+.alert--close {
+  background-color: transparent;
+  border: 0;
+  padding: 0.5rem;
+  background-color: $brand;
+  color: #fff;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  line-height: 0;
+  margin-right: 0.5rem;
+  transition: transform 250ms ease-in-out;
+  .alert--add-to-cart & {
+    margin-right: 0;
+    width: auto;
+    height: auto;
+    position: absolute;
+    right: 0.5rem;
+    padding: 7px;
+    line-height: 7px;
+    font-size: 1.5rem;
+    background-color: transparent;
+    color: $brand;
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+  }
+
+  .alert--is-minimized & {
+    transform: rotate(45deg);
+    font-weight: bold;
+  }
+
+}
+
+.alert--add-to-cart .alert--content {
+  background-color: #fff;
+  padding: 1rem 0.75rem 0;
+  border-left: 1px solid $medium-gray;
+  border-right: 1px solid $medium-gray;
+  max-height: 75vh;
+  @include tablet {
+    padding-bottom: 1.5rem;
+  }
+  @include desktop {
+    padding-bottom: 1.5rem;
+  }
+}
+
+.alert--content input {
+  padding: 0;
+  max-width: 2rem;
+  text-align: right;
+  border: 0;
+}
+
+.alert--cart-list {
+  list-style-type: none;
+  max-height: 50vh;
+  overflow-y: scroll;
+}
+
+.alert--cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid $medium-gray;
+  padding: 0.5em 0;
+  font-size: 0.9em;
+}
+
+.alert--cart-actions {
+  flex-shrink: 0;
+}
+
+.alert--remove-item {
+  border: 0;
+  padding: 0;
+  background-color: transparent; 
+}
+
+.alert--cart-part-type,
+.alert--cart-part-number {
+  display: block;
+}
+
+.alert--cart-part-type {
+  font-weight: bold;
+}
+
+.alert--cart-part-number {
+  font-style: italic;
+  color: lighten($black, 10%);
+  font-size: 0.9em;
+
+  del {
+    opacity: 0.5;
+  }
+
+  .sale-price {
+    color: red;
+  }
+
+}
+
+.alert--content .btn-solid--brand {
+  position: relative;
+  left: -0.75rem;
+  width: calc(100% + 1.5rem);
+  border-radius: 0;
+  font-size: 1.1em;
+  font-weight: bold;
+  @include tablet {
+    position: static;
+    left: auto;
+    width: auto;
+    border-radius: 4px;
+    font-size: inherit;
+  }
+  @include desktop {
+    position: static;
+    left: auto;
+    width: auto;
+    border-radius: 4px;
+    font-size: inherit;
+  }
+}
+
+.woocommerce-info {
+  background-color: $brand;
+  color: #fff;
+  padding: 0.5em 1em;
+  margin-bottom: 1.5rem;
+}
+
+.woocommerce-message {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  z-index: 100;
+  background-color: #fff;
+  padding: 1.5rem;
+  box-shadow: 0 0 15px 5px rgba($brand-two, 0.5);
+  border-radius: 5px;
+  border: 1px solid $medium-gray;
+}
+
+.alert--site-wide {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  z-index: 100;
+  transition: all 500ms ease-out;
+  display: block;
+  max-width: 300px;
+  font-size: 0.9em;
+  
+  &.alert--is-hidden {
+    transform: translateX(300%);
+  }
+
+  p:first-of-type {
+    padding-right: 2rem;
+  }
+
+  strong {
+    font-size: 1.2em;
+  }
+  
+  .alert--site-wide-dismiss {
+    position: absolute;
+    top: 0.5rem;
+    right: 0;
+    background-color: transparent;
+    border: 0;
+    padding: 0.5rem;
+    background-color: $brand;
+    color: #fff;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    line-height: 0;
+    margin-right: 0.5rem;
+    transition: transform 250ms ease-in-out;   
+  }
+
+  .promocode {
+    display: inline-block;
+    background-color: $brand-two;
+    color: #fff;
+    font-weight: bold;
+    padding: 0 0.25em;
+  }
+
+}

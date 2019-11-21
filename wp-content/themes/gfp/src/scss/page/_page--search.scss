@@ -1,0 +1,40 @@
+.page-search--results .site-width {
+  display: flex;
+  padding: 3rem 0;
+}
+
+.search--navigation {
+  flex-basis: 175px;
+  display: none;
+  @include desktop {
+    display: block;
+  }
+
+  ul {
+    list-style-type: none;
+  }
+
+  li:last-child a {
+    border-bottom: 0;
+  }
+
+  a {
+    display: block;
+    padding: 0.5rem;
+    background-color: $light-gray;
+    border-bottom: 1px solid $medium-gray;
+    &:hover {
+      background-color: $brand;
+      text-decoration: none;
+      color: #fff;
+    }
+  }
+
+}
+
+.search--listings {
+  @include desktop {
+    flex-basis: calc(100% - 175px);
+    padding-left: 3rem;
+  }
+}

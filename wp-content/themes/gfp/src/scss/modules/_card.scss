@@ -1,0 +1,224 @@
+.card {
+  display: grid;
+  @include tablet {
+    grid-template-columns: 1fr;
+    grid-gap: 2rem;
+  }
+  @include desktop {
+    grid-template-columns: 1fr;
+    grid-gap: 2rem;
+  }
+}
+
+.card-meta {
+  display: none;
+  @include tablet {
+    display: block;
+  }
+  @include desktop {
+    display: block;
+  }
+}
+
+// .card-content {
+//   display: inline-block;
+//   vertical-align: top;
+// }
+
+.card time {
+  font-size: 0.85em;
+}
+
+.card-category {
+  text-transform: uppercase;
+  font-weight: bold;
+  a {
+    font-size: 0.7em;
+    background-color: $brand-two;
+    display: inline-block;
+    padding: 0.25em 0.5em;
+    border-radius: 4px;
+    color: #fff;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.card-title {
+  font-size: 1.4rem;
+  line-height: 1.1;
+  margin-top: 0.25rem;
+}
+
+.card-description {
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.card .single-tags--list {
+  padding-top: 0.25rem;
+  padding-left: 0;
+  display: none;
+  @include tablet {
+    display: flex;
+  }
+  @include desktop {
+    display: flex;
+  }
+}
+
+.card .single-tags--item a {
+  font-size: 0.6rem;
+}
+
+.card--promo-card {
+  width: 100%;
+  max-width: 350px;
+  margin-right: 2rem;
+  margin-left: 2rem;
+  flex: 1;
+  border: 1px solid $medium-gray;
+  background-color: #fff;
+  padding: 1rem;
+
+  a {
+    display: block;
+    color: $black;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  header {
+    position: relative;
+    left: -1rem;
+    top: -1rem;
+    width: calc(100% + 2rem);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 175px;
+    border-bottom: 5px solid $brand-two;
+    transition: all 250ms ease-in-out;
+  }
+
+  &:hover header {
+    border-color: darken($brand-two, 15%); 
+  }
+
+  .promo-card--meta {
+    position: absolute;
+    top: 1rem;
+    left: -1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .promo-card--tag,
+  .promo-card--title {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #fff;
+    padding: 0.2em 0.4em;
+    font-size: 1.25rem;
+  }
+
+  .promo-card--tag {
+    background-color: $brand;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    box-shadow: -4px 5px 6px rgba(black, 0.1);
+  }
+
+  .promo-card--title {
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: #fff;
+    color: $brand;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    box-shadow: -4px 5px 6px rgba(black, 0.1);
+    font-size: 1.8em;
+  }
+
+  .promo-card--content {
+    position: relative;
+    padding-top: 1rem;
+    span {
+      color: $brand;
+    }
+  }
+
+  .btn-solid--brand-two {
+    font-weight: bold;
+    position: absolute;
+    top: -2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    color: $brand;
+  }
+
+  &:hover .btn-solid--brand-two {
+    background-color: darken($brand-two, 15%);
+    border-color: darken($brand-two, 15%);
+  }
+
+}
+
+.expiring {
+  color: red !important;
+  font-weight: bold;
+}
+
+.card--promo-sidebar {
+  margin: 1.5rem 0;
+  position: relative;
+  
+  a:hover {
+    text-decoration: none;
+  }
+
+}
+
+.card--promo-sidebar .card-bg {
+  
+}
+
+.card--promo-sidebar .card-content {
+  padding: 5rem 1.5rem 1.5rem;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center center;
+}
+
+.card--promo-sidebar-title {
+  color: $brand-two;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1.8rem;
+  line-height: 0.9;
+  text-shadow: 3px 3px 5px #000;
+  transform: translateY(calc(100%));
+  transition: all 400ms ease-out;
+  padding-bottom: 1rem;
+}
+
+.card--promo-sidebar-details {
+  color: #fff;
+  font-size: 0.9em;
+  transform: translateY(calc(100% + 1.5rem));
+  transition: all 400ms ease-out;
+}
+
+.card--promo-sidebar a:hover {
+  
+  .card--promo-sidebar-title,
+  .card--promo-sidebar-details {
+    transform: translateY(0);
+  } 
+
+}

@@ -1,0 +1,16 @@
+.single-current-promo {
+  font-size: 0.8rem;
+  // background-color: $brand-two;
+  // padding: 2rem 1rem;
+  // color: #fff;
+  // text-align: center;
+
+  .single & {
+    margin-top: 3rem;
+  }
+
+}
+
+.single-current-promo-copy {
+  margin-bottom: 1.5em;
+}

@@ -1,0 +1,11 @@
+.error404 .hero {
+  display: flex;
+  align-items: center;
+  min-height: 75vh;
+  background-image: linear-gradient(rgba(black, 0.5), rgba(black, 0.5)), url(../img/hero--main.jpg);
+  
+  form {
+    margin-top: 2rem;
+  }
+
+}

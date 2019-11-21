@@ -1,0 +1,117 @@
+select,
+input,
+textarea {
+  padding: 0.5rem;
+  font-family: inherit;
+  font-size: 0.9em;
+  border: 1px solid #ccc;
+  max-width: 100%;  
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: $light-gray;
+  background-image: url(../img/select-arrow.svg);
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position: 97% 12px;
+}
+
+input {
+
+}
+
+// .form--maintenance-sign-up {
+//   width: 100%;
+//   max-width: 300px;
+//   margin: 0 auto;
+// }
+
+.form--maintenance-sign-up input[type='text'],
+.form--maintenance-sign-up input[type='email'],
+.form--maintenance-sign-up input[type='number'],
+.form--maintenance-sign-up select {
+  width: 100%;
+  background-color: $light-gray;
+  border-radius: 5px;
+  box-shadow: 3px 3px 8px rgba(black, 0.1);
+}
+
+.form--maintenance-sign-up .mc-field-group {
+  margin-bottom: 1rem;
+}
+
+.form--maintenance-sign-up label + input,
+.form--maintenance-sign-up label + select {
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.form--maintenance-sign-up .input-group ul {
+  list-style-type: none;
+  margin: 1.5rem 0;
+}
+
+.form--maintenance-sign-up .input-group li {
+  display: table;
+  * {
+    display: table-cell;
+    &:last-child {
+      padding-left: 0.5rem;
+    }
+  }
+}
+
+.form--maintenance-sign-up input[type="submit"] {
+  display: block;
+  width: 100%;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.form-errors {
+  background-color: rgba(red, 0.05);
+  border: 1px solid lighten(red, 30%);
+  border-radius: 5px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  .form-errors--close {
+    border: 0;
+    background-color: red;
+    width: 1.5rem;
+    height: 1.5rem;
+    line-height: 0;
+    padding: 0.5rem;
+    border-radius: 50%;
+    color: #fff;
+    margin-right: 0.5rem;
+  }
+}
+
+label.input--error {
+  font-weight: bold;
+  color: red;
+}
+
+input.input--error {
+  border-color: red;
+}
+
+.quick-order-form {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+  
+  > * {
+    margin-right: 1.5rem;
+    
+    &:last-child {
+      margin-right: 0rem;
+    }
+
+  }
+
+}

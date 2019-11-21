@@ -1,0 +1,115 @@
+.site-footer {
+    border-top: 7px solid $brand-two;
+    background-color: #29652d;
+    color: #fff;
+    padding: 4rem 0 2rem;
+    font-weight: 300;
+}
+
+.site-footer h2 {
+    font-size: 1.3rem;
+    line-height: 1.4;
+    font-weight: normal;
+}
+
+.site-footer a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-wrap {
+    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 5rem;
+}
+
+.footer-wrap > div {
+    flex-basis: 33%;
+}
+
+.footer-links ul {
+    list-style-type: none;
+    padding-left: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(75px, 150px));
+}
+
+.footer-links li {
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.footer-address-content {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    p {
+        margin-bottom: 0.25em;
+    }
+    > p:first-child {
+        font-size: 1.1rem;
+        font-weight: 700;
+    }
+}
+
+.footer-payment-list {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    padding: 2rem 0 1rem;
+}
+
+.footer-payment-list li {
+    margin-right: 1rem;
+}
+
+.footer-payment-list svg {
+    max-width: 50px;
+    max-height: 20px;
+}
+
+.footer-payment-list path {
+    fill: #fff;
+}
+
+.footer-copyright {
+    text-align: center;
+    font-size: 0.75rem;
+}
+
+.footer-newsletter {
+
+    .input-group {
+        position: relative;
+    }
+
+    input {
+        width: calc(100% - 4.5rem);
+        padding: 0.75rem .5rem;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .input-group-btn {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+
+    .btn-solid--brand-two {
+        border-color: $brand-two;
+        border-bottom-color: transparent;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        padding: 0.64rem 0.75rem;
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: $brand;
+    }
+
+}

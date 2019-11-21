@@ -1,0 +1,547 @@
+.menu-open {
+  position: fixed;
+  overflow: hidden;
+}
+
+.site-header {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  position: relative;
+  z-index: 100;
+  background-color: #fff;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.site-header > .site-width {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-header .menu-item--logo-container img {
+  width: 100%;
+  max-width: 185px;
+  min-height: 45px;
+  display: block;
+  padding: 0.75rem 0;
+  @include desktop {
+    max-width: 225px;
+    padding: 0;
+  }
+}
+
+.navigation--level-zero {
+  display: none;
+  position: fixed;
+  background-color: #ffffff;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(100vh - 100px);
+
+  > li {
+    @include desktop {
+      display: flex;
+    }
+  }
+  
+  @include desktop {
+    position: static;
+    background-color: transparent;
+    display: flex;
+    list-style-type: none;
+    height: auto;
+  }
+
+  .menu-open & {
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+
+}
+
+.navigation--button {
+  width: 100%;
+  color: $brand;
+  text-align: left;
+  border: 0;
+  background-color: transparent;
+  padding: 1rem;
+  border-bottom: 1px solid $medium-gray;
+  @include desktop {
+    border-bottom: 0;
+    padding: 2rem 1rem;
+    text-align: center;
+    width: auto;
+  }
+  @include phone {
+    display: block;
+  }
+  
+  &:focus {
+    outline: none;
+  }
+
+}
+
+.mobile-search-container {
+  order: -2;
+}
+
+.cart-container {
+  display: block;
+  border-bottom: 1px solid $medium-gray;
+  order: -1;
+  padding: 0 1rem;
+  position: relative;
+  @include desktop {
+    order: 0;
+    padding: 1.4rem 0rem 1.4rem 1rem;
+    border-bottom: 0;
+  }
+
+  strong {
+    position: absolute;
+    font-size: 1.25rem;
+    top: 1px;
+    right: 15px;
+    z-index: 1;
+    @include desktop {
+      top: 10px;
+      right: 0;
+    }
+  }
+
+  a {
+    font-weight: bold;
+    display: block;
+    padding: 1rem 0;
+    @include desktop {
+      padding: 0;
+    }
+  }
+
+  img {
+    float: right;
+    position: relative;
+    top: -8px;
+    @include desktop {
+      position: static;
+    }
+  }
+
+}
+
+.menu-item--menu-toggle {
+  .menu-open & {
+    position: fixed;
+    right: 1rem;
+  }
+  @include desktop {
+    display: none;
+  }
+}
+
+.site-header .mobile-only a {
+  display: block;
+  padding: 1rem;
+  border-bottom: 1px solid $medium-gray;
+}
+
+
+/*
+=========================
+MEGA MENU
+=========================
+*/
+.mega-menu {
+  position: relative;
+}
+
+.navigation--button {
+  .mega-menu:hover & {
+    @include desktop {
+      background-color: $brand-two;
+      color: #fff;
+    }
+  }
+}
+
+.mega-menu--shop-by-part,
+.mega-menu--child-list {
+  list-style-type: none;
+}
+
+.mega-menu--list {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: $light-gray;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-shadow: 0px 10px 25px rgba(black, 0.3);
+  list-style-type: none;
+  padding: 1rem;
+  min-height: 400px;
+  min-width: 600px;
+  transition: all 500ms ease-in-out;
+  @include phone {
+    display: block;
+    min-width: unset;
+    width: 100%;
+    position: static;
+    padding: 0;
+    min-height: unset;
+    visibility: hidden;
+    opacity: 0;
+    max-height: 0px;
+  }
+
+  .mega-menu:hover & {
+    @include desktop {
+      display: block;
+    }
+    // visibility: visible;
+    // opacity: 1;
+    // max-height: 800px;
+  }
+
+  &.mobile-open {
+    visibility: visible;
+    opacity: 1;
+    max-height: 3000px; 
+  }
+}
+
+// .mega-menu--shop-by-equipment {
+//   display: block;
+
+// }
+
+li.loading {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+}
+
+.equipment-results {
+  padding: 0 1rem;
+  position: relative;
+  .btn-outline--brand {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: transparent;
+    font-size: 0.8em;
+    padding: 0.25em 0.5em;
+    &:hover {
+      background-color: $brand;
+    }
+  }
+}
+
+button.mega-menu--equipment-parent {
+  background-color: #fff !important;
+  position: relative;
+  border: 0;
+  width: 100%;
+  padding: 1rem;
+  font-size: 0.85em;
+  img {
+    display: block;
+    margin: 0 auto;
+  }
+  
+  &.display-back {
+    &:after {
+      content: 'Back';
+      color: $black;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    color: white;
+    
+    img {
+      display: none;
+    }
+
+  }
+
+}
+
+.mega-menu--shop-by-part .mega-menu--child-list {
+  list-style-type: none;
+  padding-left: 3rem !important;
+  font-size: 0.95em;
+  > li {
+    display: inline-block;
+    width: 100%;
+    max-width: calc((100%/2) - 1rem);
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    float: left;
+    padding: 1rem;
+    background-color: #fff;
+    border: 1px solid $medium-gray;
+    border-radius: 5px;
+    box-shadow: 3px 3px 8px rgba(black, 0.05);
+    position: relative;
+    min-height: 100px;
+    &:nth-child(2n) {
+      margin-right: 0;
+    }
+  }
+  > li a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    bottom: 0;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.mega-menu--shop-by-brand {
+  .mega-menu:hover & {
+    @include desktop {
+      display: flex !important;
+    }
+  }
+  .mega-menu & {
+    flex-wrap: wrap;
+    min-height: unset;
+    > * {
+      // flex: 1;
+      flex-basis: 33%;
+      text-align: center;
+      padding: 1rem;
+    }
+  }
+  a {
+    background-color: #fff;
+    display: inline-block;
+    padding: 1rem;
+    border: 1px solid $medium-gray;
+    box-shadow: 2px 2px 5px rgba(black, 0.1);
+    border-radius: 5px;
+    width: 100%;
+  }
+  img {
+    display: block;
+    margin: 0 auto 0.5rem;
+    max-width: 100px;
+    max-height: 100px;
+    &[src*="deere"] {
+      max-width: 80px;
+    }
+  }
+}
+
+.mega-menu--list.mega-menu--shop-by-brand a {
+  background-color: #fff !important;
+  color: $brand !important;
+}
+
+.mega-menu--list.mega-menu--shop-by-brand a:after,
+.mega-menu--list.mega-menu--shop-by-brand a:before {
+  display: none !important;
+}
+
+.mega-menu--parent,
+ul.mega-menu--list > li {
+  
+  > a {
+    display: block;
+    padding: 0.5rem;
+    border-bottom: 1px solid $medium-gray;
+    max-width: 185px;
+    font-size: 0.9rem;
+    position: relative;
+    &:hover {
+      text-decoration: none;
+    }
+    
+    @include phone {
+      max-width: unset;
+      padding: 1rem;
+    }
+
+  }
+
+  &:last-child > a {
+    border-bottom: 0;
+  }
+
+  &:not(.mega-menu--parent--is-hidden) > a {
+    background-color: $brand;
+    color: #fff;
+    &:after {
+      display: block;
+      content: "";
+      height: 0;
+      width: 0;
+      border-top: 18px solid transparent;
+      border-left: 14px solid #29652d;
+      border-bottom: 18px solid transparent;
+      position: absolute;
+      left: 100%;
+      top: 0;
+      bottom: 0;
+      z-index: 1;
+      @include phone {
+        display: none;
+      }
+    }
+  }
+
+}
+
+.mega-menu--child-list,
+.menu-shop-by-part-container > ul > li .sub-menu {
+  position: absolute;
+  top: 0;
+  right: 1rem;
+  bottom: 1rem;
+  width: calc(100% - 2rem - 185px);
+  padding-left: 2rem;
+  padding-top: 1rem;
+  overflow: scroll;
+  @include phone {
+    transition: all 300ms ease-in-out;
+    position: static;
+    width: auto;
+    padding: 1rem;
+    border-bottom: 1px solid $medium-gray;
+    visibility: visible;
+    opacity: 1;
+    max-height: 800px;
+  }
+  
+  .mega-menu--parent--is-hidden & {
+    display: none;
+    @include phone {
+      display: block;
+      visibility: hidden;
+      opacity: 0;
+      max-height: 0px;
+      padding: 0;
+    }
+  }
+
+}
+
+.mega-menu--child-item {
+  display: inline-block;
+  width: 100%;
+  margin-right: 1rem;
+  max-width: calc(50% - 1rem);
+  margin-bottom: 1rem;
+  transition: all 250ms ease-in-out;
+  
+  button {
+    background-color: #fff;
+    border: 1px solid $medium-gray;
+    box-shadow: 3px 3px 6px rgba(black, 0.1);
+    border-radius: 5px;
+  }
+
+  &:hover {
+    // @include desktop {
+    //   box-shadow: 4px 4px 10px rgba(black, 0.1);
+    //   transform: translate(-5px, -5px) scale(1.03);
+    // }
+  }
+  &:nth-child(2n) {
+      margin-right: 0;
+    }
+  @include phone {
+    max-width: calc(50% - 0.5rem);
+    &:nth-child(2n) {
+      margin-right: 0;
+    }
+  }
+
+  li {
+    margin-bottom: 0.5rem;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.8em;
+    padding: 1rem;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  ul {
+    position: absolute;
+    padding-top: 1rem;
+    padding-left: 1rem;
+    @include phone {
+      position: static;
+    }
+
+    a {
+      text-align: left;
+    }
+
+  }
+
+}
+
+.mega-menu--item-image {
+  max-width: 75px;
+}
+
+.screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 98;
+  background-color: rgba(black, 0.6);
+  opacity: 1;
+  transition: opacity 250ms ease-in-out;
+  visibility: visible;
+
+  &.screen--is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    z-index: -1;
+  }
+
+}
+
+.site-header .open-drawer {
+  border: 0;
+  background: transparent;
+  display: block;
+  width: 100%;
+  text-align: left;
+  color: $brand;
+  @include phone {
+    padding-top: 1rem;
+  }
+}

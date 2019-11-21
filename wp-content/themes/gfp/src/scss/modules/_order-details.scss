@@ -1,0 +1,69 @@
+.gfp-order {
+  display: flex;
+  @include phone {
+    flex-direction: column;
+  }
+  @supports (display: gggggrid) {
+    display: grid;
+    @include tablet {
+      grid-template-columns: 1fr 350px;
+      grid-gap: 3rem;
+    }
+    @include desktop {
+      grid-template-columns: 1fr 350px;
+      grid-gap: 3rem;
+    }
+  }
+
+  h2 {
+    font-size: 1.17rem;
+    text-transform: uppercase;
+    background-color: $brand;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+
+}
+
+.gfp-order-details--contents {
+  flex: 2;
+  @include desktop {
+    padding-right: 2rem;
+  }
+}
+
+.gfp-order-details--totals {
+  flex: 1;
+  position: relative;
+  @include phone {
+    order: -1;
+    margin-bottom: 7rem;
+  }
+  @include desktop {
+    padding-left: 2rem;
+  }
+}
+
+.gfp-order-details--totals-inner {
+  background-color: $light-gray;
+  box-shadow: 0 0 25px 5px rgba(black, 0.05);
+  padding: 1.5rem;
+  border-radius: 5px;
+  border: 1px solid $medium-gray;
+  position: relative;
+}
+
+.gfp-order-details--totals .coupon {
+  font-size: 0.9em;
+  display: flex;
+  margin-bottom: 2rem;
+  input {
+    flex-grow: 1;
+  }
+  button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0
+  }
+}
