@@ -281,12 +281,6 @@ global $product;
 				get_template_part('partials/display', 'used-equipment');
 				
 		?>
-
-		<?php
-			if ( function_exists('dynamic_sidebar') ) :
-        dynamic_sidebar( 'Product Recommendations' );
-      endif; 
-		?>
 	</div>
 
 	<?php

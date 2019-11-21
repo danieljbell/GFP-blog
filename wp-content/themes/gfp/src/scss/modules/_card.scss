@@ -222,3 +222,51 @@
   } 
 
 }
+
+.card--upsell-product {
+  padding: 0 1rem;
+
+  .card-upsell-product--container {
+    background-color: #fff;
+    border: 1px solid $medium-gray;
+    border-radius: 5px;
+    display: table;
+    width: 100%;
+    border-collapse: separate;
+  }
+
+  .card-upsell-product--image,
+  .card-upsell-product--content {
+    text-align: center;
+    padding: 10px;
+    @include desktop {
+      display: table-cell;
+    }
+  }
+
+  .card-upsell-product--image {
+    @include desktop {
+      width: 80px;
+    }
+  }
+
+  .card-upsell-product--content {
+    font-size: 0.85em;
+    @include desktop {
+      padding-left: 2rem;
+    }
+  }
+  
+  a {
+    display: block;
+  }
+
+  img {
+    display: block;
+    max-width: 80px;
+    max-height: 80px;
+    object-fit: cover;
+    margin: 0 auto;
+  }
+
+}
