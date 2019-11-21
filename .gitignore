@@ -24,12 +24,6 @@ Thumbs.db
 # "mu-plugins" directory
 # "plugins" directory
 # "themes" directory
-<<<<<<< HEAD
-wp-content/*
-!wp-content/mu-plugins/
-wp-content/plugins/
-!wp-content/themes/
-=======
 !wp-content/themes/
 !wp-content/mu-plugins/
 # wp-content/*
@@ -47,7 +41,6 @@ wp-content/ai1wm-backups/
 wp-content/index.php
 wp-content/mysql.sql
 wp-content/object-cache.php
->>>>>>> c1d038b32b9738fa97332a3e2b1bb0f3cf76c99e
 
 # ignore specific themes
 wp-content/themes/twenty*/
