@@ -53,20 +53,25 @@ do_action( 'woocommerce_before_main_content' );
 
         <?php          
             if (is_tax()) {
-              if ($current_promotions_query->have_posts()) :
-                while ($current_promotions_query->have_posts()) : $current_promotions_query->the_post();
-                  if (get_field('categories_on_sale')[0]->term_id === get_queried_object()->term_id) {
-                    echo '<section class="hero mar-b--more" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(' . get_field('promotion_image') . ');">';
-                      echo '<h1>' . get_queried_object()->name . '</h1>';
-                      echo '<h2>Save Now! <span class="offer-text" style="color: inherit;">Offer expires <span class="promo-countdown" style="color: inherit !important;" data-expires="' . date("Ymd", strtotime(get_field('promotion_end_date'))) . '">on ' . date("F j, Y", strtotime(get_field('promotion_end_date'))) . '</span></span><h2>';
-                    echo '</section>';
-                  }
-                endwhile;  
-              else : 
+              // if ($current_promotions_query->have_posts()) :
+              //   while ($current_promotions_query->have_posts()) : $current_promotions_query->the_post();
+              //     if (get_field('categories_on_sale')[0]->term_id === get_queried_object()->term_id) {
+              //       echo '<section class="hero mar-b--more" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(' . get_field('promotion_image') . ');">';
+              //         echo '<h1>' . get_queried_object()->name . '</h1>';
+              //         echo '<h2>Save Now! <span class="offer-text" style="color: inherit;">Offer expires <span class="promo-countdown" style="color: inherit !important;" data-expires="' . date("Ymd", strtotime(get_field('promotion_end_date'))) . '">on ' . date("F j, Y", strtotime(get_field('promotion_end_date'))) . '</span></span><h2>';
+              //       echo '</section>';
+              //     }
+              //   endwhile;  
+              // else : 
                 $query_obj = get_queried_object();
-                echo '<h1>' . $query_obj->description . ' Parts</h1>';
-                echo '<h2>' . number_format($query_obj->count, 0, '.', ',') . ' Parts</h2>';
-              endif; wp_reset_postdata();
+                if ($query_obj->name !== '' && $query_obj->description !== '') {
+                  echo '<h1>' . $query_obj->name . ' - ' . number_format($query_obj->count, 0, '.', ',') . ' Parts</h1>';
+                  echo '<h2 class="mar-b--more" style="font-weight: normal; font-size: inherit;">' . $query_obj->description . '</h2>';
+                } else {
+                  echo '<h1>John Deere ' . $query_obj->name . ' - ' . number_format($query_obj->count, 0, '.', ',') . ' Parts</h1>';
+                  echo '<h2 class="mar-b--more" style="font-weight: normal; font-size: inherit;">Shop our online catalog of John Deere ' . $query_obj->name . ' Parts 24 hours a day!  We sell new, genuine John Deere parts and accessories.</h2>';
+                }
+              // endif; wp_reset_postdata();
             }
         ?>
 

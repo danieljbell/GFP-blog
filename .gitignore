@@ -44,6 +44,7 @@ wp-content/object-cache.php
 
 # ignore specific themes
 wp-content/themes/twenty*/
+wp-content/themes/storefront
 # wp-content/themes/index.php
 
 # ignore node/grunt dependency directories
