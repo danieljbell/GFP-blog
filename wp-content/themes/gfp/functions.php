@@ -1058,6 +1058,32 @@ function save_upsell_parts( $post_id ) {
 add_action( 'woocommerce_process_product_meta', 'save_upsell_parts' );
 
 /*
+===================================
+CREATE CUSTOM FIELD FOR VENDOR PART
+===================================
+*/
+function create_vendor_parts() {
+  global $woocommerce, $post;
+  woocommerce_wp_checkbox(array( 
+    'id'            => 'vendor_part', 
+    'wrapper_class' => 'show_if_simple', 
+    'label'         => __('Is Vendor Part?', 'woocommerce' )
+  ));
+}
+add_action( 'woocommerce_product_options_general_product_data', 'create_vendor_parts' );
+
+/*
+=================================
+SAVE CUSTOM FIELD FOR VENDOR PART
+=================================
+*/
+function save_vendor_parts( $post_id ) {
+ $woocommerce_checkbox = isset( $_POST['vendor_part'] ) ? 'yes' : 'no';
+  update_post_meta( $post_id, 'vendor_part', $woocommerce_checkbox );
+}
+add_action( 'woocommerce_process_product_meta', 'save_vendor_parts' );
+
+/*
 ============================================
 CREATE CUSTOM FIELD FOR PRODUCT ALTERNATIVES
 ============================================
