@@ -780,6 +780,30 @@ function getInventory() {
   ));
 }
 
+function create_product_from_phone_order() {
+  check_ajax_referer( 'nonce_name' );
+  $sku = $_POST['sku'];
+  $price = $_POST['price'];
+  $product = wp_insert_post(array(
+    'post_title' => 'John Deere ' . $sku,
+    'post_type' => 'product',
+    'post_status' => 'publish',
+    'meta_input' => array(
+      '_regular_price' => $price,
+      '_price' => $price,
+      '_sku' => $sku
+    )
+  ));
+  $new_product = wc_get_product($product);
+  wp_send_json(array(
+    'id'    => $new_product->id,
+    'name' => $new_product->get_name(),
+    'link' => $new_product->get_permalink(),
+    'img' => '<img src="' . get_stylesheet_directory_URI() . '/dist/img/partPicComingSoon.jpg" alt="No Part Image">',
+    'price' => $new_product->get_price()
+  ));
+}
+
 add_action('wp_ajax_find_user_by_email', 'find_user_by_email');
 add_action('wp_ajax_draft_order', 'draft_order');
 add_action('wp_ajax_create_customer', 'create_customer');
@@ -813,6 +837,8 @@ add_action('wp_ajax_add_coupon', 'add_coupon');
 add_action('wp_ajax_nopriv_add_coupon', 'add_coupon');
 add_action('wp_ajax_getInventory', 'getInventory');
 add_action('wp_ajax_nopriv_getInventory', 'getInventory');
+add_action('wp_ajax_create_product_from_phone_order', 'create_product_from_phone_order');
+add_action('wp_ajax_nopriv_create_product_from_phone_order', 'create_product_from_phone_order');
 
 
 

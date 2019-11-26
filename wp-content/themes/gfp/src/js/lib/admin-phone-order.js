@@ -1,4 +1,4 @@
-(function($) {
+(function ($) {
 
   var userID;
 
@@ -32,8 +32,8 @@
           _ajax_nonce: window.ajax_order_tracking.nonce,
           email_address: $(this).val(),
         },
-        success: function(results) {
-          
+        success: function (results) {
+
           if (results.success === false) {
             // $('.returning-customer').html('<li>' + results.message + '</li>');
           } else {
@@ -49,7 +49,7 @@
             container.find('.customer-shipping .zip').html(results.shipping.postcode);
           }
         },
-        error: function(error) {
+        error: function (error) {
           console.log(error);
         }
       })
@@ -63,11 +63,16 @@
     $('.returning-customer').addClass('visually-hidden');
   }
 
-  function addSku(e) {
-    e.preventDefault();
+  function addSku(e, product_id) {
     console.log('add sku');
-    var sku = $(this).find('#sku').val().toUpperCase();
-    var qty = $(this).find('#qty').val()
+    if (e !== null) {
+      e.preventDefault();
+      var sku = $(this).find('#sku').val().toUpperCase();
+      var qty = $(this).find('#qty').val()
+    } else {
+      var sku = product_id;
+      var qty = 1;
+    }
     $.ajax({
       url: window.ajax_order_tracking.ajax_url,
       method: 'POST',
@@ -77,10 +82,13 @@
         sku: sku,
         qty: qty
       },
-      success: function(res) {
+      success: function (res) {
         console.log(res);
         if (!res.id) {
-          alert('invalid part number');
+          var confirmResp = confirm('Part does not exist. Create it now?');
+          if (confirmResp) {
+            createSku(sku);
+          }
           return;
         }
         $('table.skus').removeClass('visually-hidden');
@@ -92,11 +100,32 @@
     })
   }
 
+  function createSku(sku) {
+    var price = prompt('What is list price for ' + sku + '?');
+    if (price !== null) {
+      console.log(sku + ' = $' + price);
+      $.ajax({
+        url: window.ajax_order_tracking.ajax_url,
+        method: 'POST',
+        data: {
+          action: 'create_product_from_phone_order',
+          _ajax_nonce: window.ajax_order_tracking.nonce,
+          sku: sku,
+          price: price
+        },
+        success: function (res) {
+          console.log(res);
+          addSku(null, res.product_id);
+        }
+      })
+    }
+  }
+
   function getTotals() {
     console.log('getting totals');
     var rows = $('table.skus tbody tr');
     var total = 0;
-    $.each(rows, function(i, elem) {
+    $.each(rows, function (i, elem) {
       var price = $(elem).find('td:nth-child(3)').text();
       var qty = Number($(elem).find('td:nth-child(4)').text());
       price = price.replace('$', '');
@@ -107,7 +136,7 @@
   }
 
   function createCustomer(e) {
-    e.preventDefault(); 
+    e.preventDefault();
     console.log('creating customer');
     var firstName = $(this).find('#new_customer_first_name').val();
     var lastName = $(this).find('#new_customer_last_name').val();
@@ -123,7 +152,7 @@
         last_name: lastName,
         email_address: emailAddress
       },
-      success: function(res) {
+      success: function (res) {
         userID = res.customer;
         $('#createNewCustomer').addClass('visually-hidden');
         if (res.returning === true) {
@@ -141,7 +170,7 @@
     $(this).html('<img src="/wp-content/themes/gfp/dist/img/spinner--light.svg" class="spinner" style="vertical-align: middle; max-width: 25px; margin-right: 0.5rem;"> Creating Order');
     var lineItems = [];
     var table = $('table.skus tbody tr');
-    $.each(table, function(i, elem) {
+    $.each(table, function (i, elem) {
       lineItems.push({
         id: $(elem).find('[data-sku-id]').data('skuId'),
         qty: $(elem).find('td:nth-child(4)').text()
@@ -157,7 +186,7 @@
         customer: userID,
         lineItems: lineItems
       },
-      success: function(res) {
+      success: function (res) {
         console.log(res);
         $('#createOrder').hide();
         $('#createOrder').parent().append('<a href="' + res.login + '" class="btn-solid--brand mar-r">Collect Payment</a><a href="/wp-admin/post.php?post=' + res.id + '&action=edit" class="btn-solid--brand-two" target="_blank">View Draft Order</a>');
