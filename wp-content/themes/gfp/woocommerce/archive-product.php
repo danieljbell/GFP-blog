@@ -69,7 +69,7 @@ do_action( 'woocommerce_before_main_content' );
                   echo '<h2 class="mar-b--more" style="font-weight: normal; font-size: inherit;">' . $query_obj->description . '</h2>';
                 } else {
                   echo '<h1>John Deere ' . $query_obj->name . ' - ' . number_format($query_obj->count, 0, '.', ',') . ' Parts</h1>';
-                  echo '<h2 class="mar-b--more" style="font-weight: normal; font-size: inherit;">Shop our online catalog of John Deere ' . $query_obj->name . ' Parts 24 hours a day!  We sell new, genuine John Deere parts and accessories.</h2>';
+                  echo '<h2 class="mar-b--more" style="font-weight: normal; font-size: inherit;">Shop our online catalog of John Deere ' . $query_obj->name . ' 24 hours a day!  We sell new, genuine John Deere parts and accessories.</h2>';
                 }
               // endif; wp_reset_postdata();
             }
