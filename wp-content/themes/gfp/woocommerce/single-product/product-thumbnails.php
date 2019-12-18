@@ -30,10 +30,14 @@ $attachment_ids = $product->get_gallery_image_ids();
 
 if ( $attachment_ids && has_post_thumbnail() ) {
   $i = 1;
+  $main_image = wp_get_attachment_image_url($post_thumbnail_id, 'full');
+  $main_image_string = str_replace('gfp.local', 'greenfarmparts.com', $main_image);
   echo '<ul class="woocommerce-product-gallery__thumbs">';
-    echo '<li>' . apply_filters( 'woocommerce_single_product_image_thumbnail_html', '<img src="https://res.cloudinary.com/greenfarmparts/image/fetch/w_75,h_75,c_fill/' . wp_get_attachment_image_url($post_thumbnail_id, 'full') . '" data-full-image="https://res.cloudinary.com/greenfarmparts/fetch/fl_tiled,l_overlay,o_10/' . wp_get_attachment_image_url($post_thumbnail_id, 'full') . '" />', $post_thumbnail_id ) . '</li>';
+    echo '<li>' . apply_filters( 'woocommerce_single_product_image_thumbnail_html', '<img src="https://res.cloudinary.com/greenfarmparts/image/fetch/w_75,h_75,c_fill/' . $main_image_string . '" data-full-image="https://res.cloudinary.com/greenfarmparts/image/fetch/fl_tiled,l_overlay,o_10/' . $main_image_string . '" />', $post_thumbnail_id ) . '</li>';
     foreach ( $attachment_ids as $attachment_id ) {
-      echo '<li>' . apply_filters( 'woocommerce_single_product_image_thumbnail_html', '<img src="https://res.cloudinary.com/greenfarmparts/image/fetch/w_75,h_75,c_fill/' . wp_get_attachment_image_url($attachment_id) .'" data-full-image="' . wp_get_attachment_image_url($attachment_id, 'full') . '" />', $attachment_id ) . '</li>';
+      $img = wp_get_attachment_image_url($attachment_id, 'full');
+      $img_string = str_replace('gfp.local', 'greenfarmparts.com', $img);
+      echo '<li>' . apply_filters( 'woocommerce_single_product_image_thumbnail_html', '<img src="https://res.cloudinary.com/greenfarmparts/image/fetch/w_75,h_75,c_fill/' . $img_string .'" data-full-image="https://res.cloudinary.com/greenfarmparts/image/fetch/fl_tiled,l_overlay,o_10/' . $img_string . '" />', $attachment_id ) . '</li>';
       $i++;
     }
   echo '</ul>';
