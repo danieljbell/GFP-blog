@@ -9,10 +9,14 @@
     <div class="products--image">
       <?php if ( has_post_thumbnail() ) : ?>
         <a href="<?php echo $product->get_permalink(); ?>" title="<?php echo $product->get_permalink(); ?>">
-          <img src="<?php echo 'https://res.cloudinary.com/greenfarmparts/image/fetch/' . str_replace('gfp.local', 'greenfarmparts.com', wp_get_attachment_image_url($product->get_image_id(), 'thumb')); ?>" alt="<?php echo $product->get_name(); ?>">
+          <img src="<?php echo 'https://res.cloudinary.com/greenfarmparts/image/fetch/w_125,h_150,c_fill/' . str_replace('gfp.local', 'greenfarmparts.com', wp_get_attachment_image_url($product->get_image_id(), 'thumb')); ?>" alt="<?php echo $product->get_name(); ?>">
         </a>
       <?php else : ?>
-        <img src="<?php echo wc_placeholder_img_src(); ?>" alt="Part Photo Coming Soon">
+        <?php
+          $src = wc_placeholder_img_src();
+          $string = str_replace('gfp.local', 'greenfarmparts.com', $src);
+        ?>
+        <img src="https://res.cloudinary.com/greenfarmparts/image/fetch/w_125/<?php echo $string; ?>" alt="Part Photo Coming Soon">
       <?php endif; ?>
     </div>
     <div class="products--content">
