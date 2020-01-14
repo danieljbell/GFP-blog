@@ -257,21 +257,6 @@ global $product;
 					echo '</div>';
 					echo '<p class="mar-t"><small>California Use Warning:<br><a href="http://www.P65Warnings.ca.gov" target="_blank" rel="noopener noreferrer">Cancer & Reproductive Harm</a></small></p>';
 
-					$oversized = $wpdb->query( $wpdb->prepare( 
-	          "
-	            SELECT * FROM wp_woocommerce_per_product_shipping_rules
-	            WHERE product_id = %s
-	          ", 
-	          $post->ID
-	        ) );
-
-	        if (!$oversized && !$part_replacements) : ?>
-						<div class="notification--free-shipping">
-							<img src="<?php echo get_stylesheet_directory_URI(); ?>/dist/img/shipping.svg" alt="Shipping Icon">
-							This product is eligible for free shipping with orders over $75!
-						</div>
-	        <?php
-	        endif;
 				}
 				
 				echo '<div class="product-content">', get_the_content(), '</div>';
