@@ -214,10 +214,6 @@ global $product;
 			// echo '<div class="single-product--content">';
 				do_action( 'woocommerce_template_single_title' );
 				do_action( 'woocommerce_template_single_rating' );
-
-				if ($nla_part[0] === 'yes') {
-					echo '<p>Sorry, this part is no longer available.</p>';
-				}
 				
 
 				$part_replacements = get_post_meta($post->ID, 'product_subs');
@@ -250,13 +246,16 @@ global $product;
 						echo '</ul>';
 					echo '</div>';
 				} else {
-					do_action( 'woocommerce_template_single_price' );
-					do_action( 'woocommerce_template_single_add_to_cart' );
-					echo '<div class="box--with-header">';
-						echo '<p>We ship all of our genuine John Deere parts, including this ' . $product->get_name() . ', five days per week. We ship primarily via UPS, USPS, FedEx and truck freight. Once your order leaves our warehouse, you will receive a tracking number via email. Most orders ship within 1-3 business days. If you have placed an order on the weekend, during a holiday or after 4pm EST during the week, we will begin processing your order during our next business day.</p>';
-					echo '</div>';
-					echo '<p class="mar-t"><small>California Use Warning:<br><a href="http://www.P65Warnings.ca.gov" target="_blank" rel="noopener noreferrer">Cancer & Reproductive Harm</a></small></p>';
-
+					if ($nla_part[0] === 'yes') {
+						echo '<p>Sorry, this part is no longer available.</p>';
+					} else {
+						do_action( 'woocommerce_template_single_price' );
+						do_action( 'woocommerce_template_single_add_to_cart' );
+						echo '<div class="box--with-header">';
+							echo '<p>We ship all of our genuine John Deere parts, including this ' . $product->get_name() . ', five days per week. We ship primarily via UPS, USPS, FedEx and truck freight. Once your order leaves our warehouse, you will receive a tracking number via email. Most orders ship within 1-3 business days. If you have placed an order on the weekend, during a holiday or after 4pm EST during the week, we will begin processing your order during our next business day.</p>';
+						echo '</div>';
+						echo '<p class="mar-t"><small>California Use Warning:<br><a href="http://www.P65Warnings.ca.gov" target="_blank" rel="noopener noreferrer">Cancer & Reproductive Harm</a></small></p>';
+					}
 				}
 				
 				echo '<div class="product-content">', get_the_content(), '</div>';
