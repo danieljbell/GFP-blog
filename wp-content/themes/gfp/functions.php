@@ -1084,6 +1084,32 @@ function save_vendor_parts( $post_id ) {
 add_action( 'woocommerce_process_product_meta', 'save_vendor_parts' );
 
 /*
+====================================
+CREATE CUSTOM FIELD FOR VINTAGE PART
+====================================
+*/
+function create_vintage_parts() {
+  global $woocommerce, $post;
+  woocommerce_wp_checkbox(array( 
+    'id'            => 'vintage_part', 
+    'wrapper_class' => 'show_if_simple', 
+    'label'         => __('Is Vintage Part?', 'woocommerce' )
+  ));
+}
+add_action( 'woocommerce_product_options_general_product_data', 'create_vintage_parts' );
+
+/*
+==================================
+SAVE CUSTOM FIELD FOR VINTAGE PART
+==================================
+*/
+function save_vintage_parts( $post_id ) {
+ $woocommerce_checkbox = isset( $_POST['vintage_part'] ) ? 'yes' : 'no';
+  update_post_meta( $post_id, 'vintage_part', $woocommerce_checkbox );
+}
+add_action( 'woocommerce_process_product_meta', 'save_vintage_parts' );
+
+/*
 ============================================
 CREATE CUSTOM FIELD FOR PRODUCT ALTERNATIVES
 ============================================
