@@ -59,6 +59,13 @@ if ( ! defined( 'ABSPATH' ) ) {
         <td data-title="<?php esc_attr_e( 'Shipping', 'woocommerce' ); ?>"><?php woocommerce_shipping_calculator(); ?></td>
       </tr>
 
+    <?php else : ?>
+
+      <tr>
+        <th>Shipping</th>
+        <td style="font-size: 0.85em;">Calculated At Checkout</td>
+      </tr>
+
     <?php endif; ?>
 
     <?php foreach ( WC()->cart->get_fees() as $fee ) : ?>

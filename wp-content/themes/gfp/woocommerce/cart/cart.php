@@ -174,7 +174,6 @@ if ($_GET['pc']) {
           <?php do_action( 'woocommerce_cart_coupon' ); ?>
         </div>
       <?php } ?>
-
       <?php
         do_action( 'woocommerce_before_cart_contents' );
 
@@ -184,9 +183,9 @@ if ($_GET['pc']) {
          * @hooked woocommerce_cross_sell_display
          * @hooked woocommerce_cart_totals - 10
          */
-        // do_action( 'woocommerce_cart_collaterals' );
-        do_action( 'woocommerce_cart_totals' );
-        do_action( 'woocommerce_before_cart' );
+        do_action( 'woocommerce_cart_collaterals' );
+        // do_action( 'woocommerce_cart_totals' );
+        // do_action( 'woocommerce_before_cart' );
       ?>
     </div>  
   </div>
