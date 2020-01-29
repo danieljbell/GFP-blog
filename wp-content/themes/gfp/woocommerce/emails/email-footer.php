@@ -21,6 +21,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
+          </td>
+        </tr>
+      </table>
     </td>
   </tr>
 </table>

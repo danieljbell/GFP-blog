@@ -58,7 +58,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
       <tr>
-        <td bgcolor="#f0f0f0" align="center">
+        <td bgcolor="#f0f0f0" align="center" style="padding: 25px 0 50px;">
 
           <!-- Header -->
           <table border="0" cellpadding="0" cellspacing="0" width="100%" class="email-header">
@@ -66,7 +66,7 @@ if ( ! defined( 'ABSPATH' ) ) {
               <td align="center">
                 <table class="content-table" align="center" border="0" cellpadding="0" cellspacing="0" width="600">
                   <tr>
-                    <td style="padding: 50px 0 25px;" align="center" valign="top">
+                    <td style="padding: 0px 0 25px;" align="center" valign="top">
                       <a href="https://www.greenfarmparts.com">
                         <img style="display: block" src="https://gallery.mailchimp.com/c80372a35929a7b281b76c090/images/84c255e8-00f1-44a3-9962-9213a077f4d8.png" width="280" height="64" border="0" alt="Green Farm Parts">
                       </a>
@@ -77,3 +77,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             </tr>
           </table>
           <!-- /Header -->
+
+          <table border="0" cellpadding="0" cellspacing="0" width="600">
+            <tr>
+              <td bgcolor="#ffffff" style="padding: 25px;">
