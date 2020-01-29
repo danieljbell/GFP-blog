@@ -58,18 +58,19 @@ global $product;
 <div id="product-<?php the_ID(); ?>" <?php wc_product_class(); ?>>
 
 	<?php
-		$wooproduct = wc_get_product( $post->ID );
-		if (wp_get_attachment_url( $wooproduct->get_image_id() )) {
-			$image = wp_get_attachment_url( $wooproduct->get_image_id() );
+		// print_r($product);
+		// $product = wc_get_product( $post->ID );
+		if (wp_get_attachment_url( $product->get_image_id() )) {
+			$image = wp_get_attachment_url( $product->get_image_id() );
 		} else {
 			$image = get_stylesheet_directory_URI() . '/dist/img/partPicComingSoon.jpg';
 		}
 
-		if ($wooproduct->get_attributes()['pa_brand']) {
-			$brand = $wooproduct->get_attributes()['pa_brand']->get_terms()[0]->name;
+		if ($product->get_attributes()['pa_brand']) {
+			$brand = $product->get_attributes()['pa_brand']->get_terms()[0]->name;
 		}
 		
-		if ( $wooproduct->get_review_count() && 'yes' === get_option( 'woocommerce_enable_review_rating' ) ) {
+		if ( $product->get_review_count() && 'yes' === get_option( 'woocommerce_enable_review_rating' ) ) {
 			$aggregate_rating = true;
 		}
 		
@@ -79,112 +80,7 @@ global $product;
 	?>
 
 
-	<script type="application/ld+json">
-		{
-		  "@context": "http://schema.org",
-		  "@graph": [
-		  	{
-		  		"@context": "http://schema.org",
-		  		"@type": "Product",
-				  "name": <?php echo '"' . get_the_title() . '"'; ?>,
-				  "image": [
-						<?php
-							if ($wooproduct->get_gallery_image_ids()) {
-								echo '"' . wp_get_attachment_url($wooproduct->get_image_id()) . '",';
-								$i = 1;
-								foreach ($wooproduct->get_gallery_image_ids() as $image) {
-									if ($i < count($wooproduct->get_gallery_image_ids())) {
-										echo '"' . wp_get_attachment_url($image) . '",';
-									} else {
-										echo '"' . wp_get_attachment_url($image) . '"';
-									}
-									$i++;
-								}
-							} else {
-								echo '"' . wp_get_attachment_url($wooproduct->get_image_id()) . '"';
-							}
-						?>
-				  ],
-				  "description": <?php echo '"' . strip_tags($post->post_excerpt) . '"'; ?>,
-				  "url": "<?php echo $wooproduct->get_permalink(); ?>",
-				  "offers": {
-				    "@type": "Offer",
-				    "availability": "InStock",
-				    "itemCondition": "NewCondition",
-				    "price": "<?php echo $wooproduct->get_price(); ?>",
-				    "priceCurrency": "USD"
-				  },
-				  <?php if ($aggregate_rating) : ?>
-				  	"aggregateRating": {
-					    "@type": "AggregateRating",
-					    "ratingValue": "<?php echo $wooproduct->get_average_rating(); ?>",
-					    "reviewCount": "<?php echo count($wooproduct->get_rating_counts()); ?>"
-					  },
-			  	<?php endif; ?>
-				  <?php if ($wooproduct->get_attributes()['pa_brand']) {
-				  	echo '"brand": "' . $brand . '",';
-				  } ?>
-				  <?php if ($review_comments) : ?>
-				  	"review": [
-							<?php 
-								$i = 0;
-								foreach ($review_comments as $review_comment) :
-							?>
-								{
-									"@type": "Review",
-									"author": "<?php echo $review_comment->comment_author; ?>",
-									"datePublished": "<?php echo $review_comment->comment_date_gmt; ?>",
-									"description": "<?php echo $review_comment->comment_content; ?>"
-								}<?php if ($i < (count($review_comments) - 1)) { echo ','; }  ?>
-							<?php 
-									$i++;
-								endforeach;
-							?>
-				  	],
-			  	<?php endif; ?>
-				  "sku": "<?php echo $wooproduct->get_sku(); ?>"
-		  	},
-		  	{
-		      "@context": "https://schema.org/",
-		      "@type": "BreadcrumbList",
-		      "itemListElement": [
-		        {
-		          "@type": "ListItem",
-		          "position": "1",
-		          "item": {
-		            "name": "Home",
-		            "@id": "<?php echo site_url(); ?>"
-		          }
-		        },
-		        <?php
-		        	$i = 1;
-		        	foreach ($wooproduct->get_category_ids() as $key => $category_id) :
-		        		$count = count($wooproduct->get_category_ids());
-		        		$i++;
-		        		$term_obj = get_term_by('id', $category_id, 'product_cat');
-		        ?>
-		        {
-		        	"@type": "ListItem",
-		        	"position": "<?php echo $i; ?>",
-		        	"item": {
-			        	"name": "<?php echo $term_obj->name; ?>",
-			        	"@id": "<?php echo site_url() . '/category/' . ($term_obj->slug); ?>"
-			        }
-		        },
-		        <?php endforeach; ?>
-		        {
-		        	"@type": "ListItem",
-		        	"position": "<?php echo $i + 1; ?>",
-		        	"item": {
-			        	"name": "<?php echo $wooproduct->get_name(); ?>",
-			        	"@id": "<?php echo $wooproduct->get_permalink(); ?>"
-			        }
-		        }
-		      ]
-		    }
-		  ]
-		}
-	</script>
+	
 	<?php
 		/**
 		 * Hook: woocommerce_before_single_product_summary.
