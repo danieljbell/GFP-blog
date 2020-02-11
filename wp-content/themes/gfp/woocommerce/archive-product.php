@@ -111,7 +111,6 @@ do_action( 'woocommerce_before_main_content' );
 
 
           <?php
-            print_r(get_term_meta(get_queried_object()->term_id, 'isModel', true));
             if (get_term_meta(get_queried_object()->term_id, 'isModel', true)) {
               $things = new WP_Query(array(
                 'posts_per_page' => -1,
