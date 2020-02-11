@@ -790,6 +790,7 @@ function filter_model_cat() {
   $query = new WP_Query(array(
     'post_type' => 'product',
     'posts_per_page' => -1,
+    'orderby' => 'menu_order',
     'tax_query' => array(
       'relation' => 'AND',
       array(
