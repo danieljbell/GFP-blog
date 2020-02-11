@@ -134,12 +134,30 @@ do_action( 'woocommerce_before_main_content' );
                 'object_ids' => $things->posts
               ));
 
+              $replaced_name = [];
+
+              foreach ($other_cats as $cat) {
+                $name = str_replace('John Deere ', '', $cat->name);
+                array_push($replaced_name, array(
+                  'id'   => $cat->term_id,
+                  'name' => $name
+                ));
+              }
+              
+              usort($replaced_name, "my_sort_function");
+
+              function my_sort_function($a, $b) {
+                return $a->name < $b->name;
+              }
+              
+
               echo '<div class="box--with-header mar-b--most">';
                 echo '<header>Filter By Category</header>';
                 echo '<select class="filterModelCategory">';
-                  foreach ($other_cats as $cat) {
-                    if ($cat->term_id !== get_queried_object()->term_id) {
-                      echo '<option value="' . $cat->term_id . '">' . $cat->name . '</option>';
+                  foreach ($replaced_name as $cat) {
+                    // print_r($cat);
+                    if ($cat['id'] !== get_queried_object()->term_id) {
+                      echo '<option value="' . $cat['id'] . '">' . $cat['name'] . '</option>';
                     }
                   }
                 echo '</select>';
