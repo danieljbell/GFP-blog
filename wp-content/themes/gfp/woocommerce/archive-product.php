@@ -79,7 +79,7 @@ do_action( 'woocommerce_before_main_content' );
                 
                 $diagramLink = get_term_meta(get_queried_object()->term_id, 'diagramLink', true);
                 if ($diagramLink) {
-                  echo '<div class="box--with-header mar-b--most"><img src="/wp-content/themes/gfp/dist/img/cogs.svg" alt=""><h4>Need A Detailed Parts Diagram?</h4><p><a href="' . $diagramLink . '"></a></p></div>';
+                  echo '<div class="box--with-header mar-b--most" style="display: table; width: 100%;"><div style="display: table-cell; vertical-align: middle;"><img src="/wp-content/themes/gfp/dist/img/cogs.svg" alt="" style=""></div><div style="display: table-cell; vertical-align: middle;"><h4>Need A Detailed Parts Diagram?</h4><p><a href="' . $diagramLink . '">View the Diagram</a></p></div></div>';
                 }
               // endif; wp_reset_postdata();
             }
