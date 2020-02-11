@@ -233,11 +233,11 @@ function formatCartItems($response) {
   $lineItems = array();
 
   foreach ($response as $key => $line_item) {
-    $line_item_details = $line_item[data];
+    $line_item_details = $line_item['data'];
     $name = $line_item_details->get_name();
     $product_brands = get_terms('pa_brand');
     $qty_increment = $wpdb->get_row( "SELECT meta_value FROM $wpdb->postmeta WHERE post_id = " . $line_item_details->get_id() . " AND meta_key = 'qty_increment'" );
-    if ($qty_increment->meta_value) {
+    if ($qty_increment && $qty_increment->meta_value) {
       $inc = $qty_increment->meta_value;
     } else {
       $inc = 1;
@@ -255,12 +255,12 @@ function formatCartItems($response) {
     $singleLineItem = array(
       'productName'         => $name,
       'productID'           => $line_item_details->get_id(),
-      'productKey'          => $line_item[key],
+      'productKey'          => $line_item['key'],
       'productSku'          => $line_item_details->get_sku(),
-      'productQty'          => $line_item[quantity],
+      'productQty'          => $line_item['quantity'],
       'productQtyInc'       => $inc,
-      'productRegularPrice' => number_format($line_item_details->get_regular_price(), 2, '.', ''),
-      'productSalePrice'    => number_format($line_item_details->get_sale_price(), 2, '.', ''),
+      'productRegularPrice' => number_format(intval($line_item_details->get_regular_price()), 2, '.', ''),
+      'productSalePrice'    => number_format(intval($line_item_details->get_sale_price()), 2, '.', ''),
       'productImg'          => $thumb,
       'productPermalink'    => $line_item_details->get_permalink()
     );
@@ -395,7 +395,7 @@ function add_item_to_cart() {
   $cart = WC()->instance()->cart;
   $id = $_POST['product_id'];
   $qty_increment = $wpdb->get_row( "SELECT meta_value FROM $wpdb->postmeta WHERE post_id = " . $id . " AND meta_key = 'qty_increment'" );
-  if ($qty_increment->meta_value) {
+  if ($qty_increment && $qty_increment->meta_value) {
     $cart->add_to_cart($id, $qty_increment->meta_value);
   } else {
     $cart->add_to_cart($id, 1);
@@ -780,6 +780,64 @@ function getInventory() {
   ));
 }
 
+
+function filter_model_cat() {
+  check_ajax_referer( 'nonce_name' );
+
+  $primary_id = $_POST['primaryID'];
+  $filter_id = $_POST['filterID'];
+
+  $query = new WP_Query(array(
+    'post_type' => 'product',
+    'posts_per_page' => -1,
+    'tax_query' => array(
+      'relation' => 'AND',
+      array(
+        'taxonomy' => 'product_cat',
+        'field'    => 'id',
+        'terms'    => $primary_id
+      ),
+      array(
+        'taxonomy' => 'product_cat',
+        'field'    => 'id',
+        'terms'    => $filter_id
+      ),
+    )
+  ));
+
+  $results = [];
+  foreach ($query->posts as $item) {
+    $thumb = get_the_post_thumbnail_url($item->ID, 'full');
+    if (!$thumb) {
+      $thumb = get_stylesheet_directory_URI() . '/dist/img/partPicComingSoon.jpg';
+    }
+
+    $thumb = str_replace('gfp.local', 'greenfarmparts.com', $thumb);
+
+    $thumb = 'https://res.cloudinary.com/greenfarmparts/image/fetch/w_75,h_75,c_fill/' . $thumb;
+
+    array_push($results, array(
+      'id'    => $item->ID,
+      'sku' => get_post_meta($item->ID, '_sku')[0],
+      'url'    => $item->guid,
+      'title' => $item->post_title,
+      'price' => get_post_meta($item->ID, '_regular_price')[0],
+      'thumb' => $thumb
+    ));
+  }
+
+  wp_send_json(array(
+    'chach' => true,
+    'name' => 'Daniel',
+    'primary' => $primary_id,
+    'filter' => $filter_id,
+    'results' => $results
+  ));
+}
+
+
+add_action('wp_ajax_filter_model_cat', 'filter_model_cat');
+add_action('wp_ajax_nopriv_filter_model_cat', 'filter_model_cat');
 add_action('wp_ajax_find_user_by_email', 'find_user_by_email');
 add_action('wp_ajax_draft_order', 'draft_order');
 add_action('wp_ajax_create_customer', 'create_customer');

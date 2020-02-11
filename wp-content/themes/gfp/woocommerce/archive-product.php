@@ -20,15 +20,15 @@ defined( 'ABSPATH' ) || exit;
 get_header( 'shop' );
 
 
-$current_promotions_args = array(
-  'post_type' => 'promotions',
-  'posts_per_page' => -1,
-  'meta_key' => 'promotion_end_date',
-  'meta_value' => date('Ymd'),
-  'meta_compare' => '>='
-);
+// $current_promotions_args = array(
+//   'post_type' => 'promotions',
+//   'posts_per_page' => -1,
+//   'meta_key' => 'promotion_end_date',
+//   'meta_value' => date('Ymd'),
+//   'meta_compare' => '>='
+// );
 
-$current_promotions_query = new WP_Query($current_promotions_args);
+// $current_promotions_query = new WP_Query($current_promotions_args);
 ?>
 
 
@@ -68,8 +68,13 @@ do_action( 'woocommerce_before_main_content' );
                   echo '<h1>' . $query_obj->name . ' - ' . number_format($query_obj->count, 0, '.', ',') . ' Parts</h1>';
                   echo '<h2 class="mar-b--more" style="font-weight: normal; font-size: inherit;">' . $query_obj->description . '</h2>';
                 } else {
-                  echo '<h1>John Deere ' . $query_obj->name . ' - ' . number_format($query_obj->count, 0, '.', ',') . ' Parts</h1>';
-                  echo '<h2 class="mar-b--more" style="font-weight: normal; font-size: inherit;">Shop our online catalog of John Deere ' . $query_obj->name . ' 24 hours a day!  We sell new, genuine John Deere parts and accessories.</h2>';
+                  if (strpos($query_obj->name, 'Deere')) {
+                    echo '<h1>' . $query_obj->name . ' - ' . number_format($query_obj->count, 0, '.', ',') . ' Parts</h1>';
+                    echo '<h2 class="mar-b--more" style="font-weight: normal; font-size: inherit;">Shop our online catalog of ' . $query_obj->name . ' 24 hours a day!  We sell new, genuine John Deere parts and accessories.</h2>';
+                  } else {
+                    echo '<h1>John Deere ' . $query_obj->name . ' - ' . number_format($query_obj->count, 0, '.', ',') . ' Parts</h1>';
+                    echo '<h2 class="mar-b--more" style="font-weight: normal; font-size: inherit;">Shop our online catalog of John Deere ' . $query_obj->name . ' 24 hours a day!  We sell new, genuine John Deere parts and accessories.</h2>';
+                  }
                 }
               // endif; wp_reset_postdata();
             }
@@ -103,6 +108,42 @@ do_action( 'woocommerce_before_main_content' );
       </section>
 
       <aside class="product-list--promos">
+
+
+          <?php
+            if (get_term_meta(get_queried_object()->term_id, 'isModel', true)) {
+              $things = new WP_Query(array(
+                'posts_per_page' => -1,
+                'tax_query' => array(
+                  array(
+                    'taxonomy' => 'product_cat',
+                    'field' => 'id',
+                    'terms' => get_queried_object()->term_id
+                  )
+                  ),
+                  'fields' => 'ids'
+              ));
+              // $object_ids = ;
+              $other_cats = get_categories(array(
+                'taxonomy' => 'product_cat',
+                'object_ids' => $things->posts
+              ));
+
+              echo '<div class="box--with-header mar-b--most">';
+                echo '<header>Filter By Category</header>';
+                echo '<select class="filterModelCategory">';
+                  foreach ($other_cats as $cat) {
+                    if ($cat->term_id !== get_queried_object()->term_id) {
+                      echo '<option value="' . $cat->term_id . '">' . $cat->name . '</option>';
+                    }
+                  }
+                echo '</select>';
+              echo '</div>';
+            }
+          
+          ?>
+
+
         <ul class="filters--list">
           <?php 
             if ( function_exists('dynamic_sidebar') ) :
