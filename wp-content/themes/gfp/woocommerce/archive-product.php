@@ -76,6 +76,11 @@ do_action( 'woocommerce_before_main_content' );
                     echo '<h2 class="mar-b--more" style="font-weight: normal; font-size: inherit;">Shop our online catalog of John Deere ' . $query_obj->name . ' 24 hours a day!  We sell new, genuine John Deere parts and accessories.</h2>';
                   }
                 }
+                
+                $diagramLink = get_term_meta(get_queried_object()->term_id, 'diagramLink', true);
+                if ($diagramLink) {
+                  echo '<div class="box--with-header mar-b--most"><img src="/wp-content/themes/gfp/dist/img/cogs.svg" alt=""><h4>Need A Detailed Parts Diagram?</h4><p><a href="' . $diagramLink . '"></a></p></div>'
+                }
               // endif; wp_reset_postdata();
             }
         ?>
