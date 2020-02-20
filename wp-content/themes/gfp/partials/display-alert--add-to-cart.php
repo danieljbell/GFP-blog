@@ -83,7 +83,7 @@
                   <div class="card-upsell-product--image">
                     <?php if ( has_post_thumbnail() ) : ?>
                       <a href="<?php echo $product->get_permalink(); ?>" title="<?php echo $product->get_permalink(); ?>">
-                        <img src="<?php echo 'https://res.cloudinary.com/greenfarmparts/image/fetch/' . str_replace('gfp.local', 'greenfarmparts.com', wp_get_attachment_image_url($product->get_image_id(), 'thumb')); ?>" alt="<?php echo $product->get_name(); ?>">
+                        <img src="<?php echo 'https://res.cloudinary.com/greenfarmparts/image/fetch/w_100,h_100,c_pad/' . str_replace('gfp.local', 'greenfarmparts.com', wp_get_attachment_image_url($product->get_image_id(), 'thumb')); ?>" alt="<?php echo $product->get_name(); ?>">
                       </a>
                     <?php else : ?>
                       <img src="<?php echo wc_placeholder_img_src(); ?>" alt="Part Photo Coming Soon">
