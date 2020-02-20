@@ -65,15 +65,18 @@ do_action( 'woocommerce_before_main_content' );
               // else : 
                 $query_obj = get_queried_object();
                 if ($query_obj->name !== '' && $query_obj->description !== '') {
-                  echo '<h1>' . $query_obj->name . ' - ' . number_format($query_obj->count, 0, '.', ',') . ' Parts</h1>';
-                  echo '<h2 class="mar-b--more" style="font-weight: normal; font-size: inherit;">' . $query_obj->description . '</h2>';
+                  echo '<h1>' . $query_obj->name . '</h1>';
+                  echo '<p>' . number_format($query_obj->count, 0, '.', ',') . ' Parts</p>';
+                  echo '<p class="mar-b--more" style="font-weight: normal; font-size: inherit;">' . $query_obj->description . '</p>';
                 } else {
                   if (strpos($query_obj->name, 'Deere')) {
-                    echo '<h1>' . $query_obj->name . ' - ' . number_format($query_obj->count, 0, '.', ',') . ' Parts</h1>';
-                    echo '<h2 class="mar-b--more" style="font-weight: normal; font-size: inherit;">Shop our online catalog of ' . $query_obj->name . ' 24 hours a day!  We sell new, genuine John Deere parts and accessories.</h2>';
+                    echo '<h1>' . $query_obj->name . '</h1>';
+                    echo '<p>' . number_format($query_obj->count, 0, '.', ',') . ' Parts</p>';
+                    echo '<p class="mar-b--more" style="font-weight: normal; font-size: inherit;">Shop our online catalog of ' . $query_obj->name . ' 24 hours a day!  We sell new, genuine John Deere parts and accessories.</p>';
                   } else {
-                    echo '<h1>John Deere ' . $query_obj->name . ' - ' . number_format($query_obj->count, 0, '.', ',') . ' Parts</h1>';
-                    echo '<h2 class="mar-b--more" style="font-weight: normal; font-size: inherit;">Shop our online catalog of John Deere ' . $query_obj->name . ' 24 hours a day!  We sell new, genuine John Deere parts and accessories.</h2>';
+                    echo '<h1>John Deere ' . $query_obj->name . '</h1>';
+                    echo '<p>' . number_format($query_obj->count, 0, '.', ',') . ' Parts</p>';
+                    echo '<p class="mar-b--more" style="font-weight: normal; font-size: inherit;">Shop our online catalog of John Deere ' . $query_obj->name . ' 24 hours a day!  We sell new, genuine John Deere parts and accessories.</p>';
                   }
                 }
                 
