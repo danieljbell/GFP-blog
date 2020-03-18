@@ -84,6 +84,13 @@ if ( $product->is_in_stock() ) : ?>
 
     <?php endif; ?>
 
+    <?php
+      $is_vintage = get_post_meta($product->get_id(), 'vintage_part', true);
+      if ($is_vintage) {
+        echo '<p class="mar-b--more"><em>This part is a new, old stock part that we source from an alternative warehouse. This part is non-returnable and sold "as is" without warranty, expressed or implied.</em><p>';
+      }
+    ?>
+
     <?php do_action( 'woocommerce_template_single_excerpt' ); ?>
 
     <?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>

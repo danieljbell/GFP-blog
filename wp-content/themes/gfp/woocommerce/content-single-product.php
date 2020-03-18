@@ -146,10 +146,6 @@ global $product;
 					} else {
 						do_action( 'woocommerce_template_single_price' );
 						do_action( 'woocommerce_template_single_add_to_cart' );
-						$is_vintage = get_post_meta($product->get_id(), 'vintage_part', true);
-						if ($is_vintage) {
-							echo '<p class="mar-b--more"><em>This part is a new, old stock part that we source from an alternative warehouse. This part is non-returnable and sold "as is" without warranty, expressed or implied.</em><p>';
-						}
 						echo '<div class="box--with-header">';
 							echo '<p>We ship all of our genuine John Deere parts, including this ' . $product->get_name() . ', five days per week. We ship primarily via UPS, USPS, FedEx and truck freight. Once your order leaves our warehouse, you will receive a tracking number via email. Most orders ship within 1-3 business days. If you have placed an order on the weekend, during a holiday or after 4pm EST during the week, we will begin processing your order during our next business day.</p>';
 						echo '</div>';
