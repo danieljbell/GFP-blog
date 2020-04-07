@@ -159,6 +159,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
       <div class="gfp-checkout--payment-info">
         <div class="box--with-header">
           <header>Payment Information</header>
+          <p class="mar-b" style="background-color: red; color: white; padding: 10px;"><strong>Attention:</strong> <em>Due to the adverse effects of COVID-19, please expect an additional 2-3 business days on shipping times for your order.</em></p>
           <?php 
             do_action( 'woocommerce_checkout_payment' );
             wc_get_template( 'checkout/terms.php' );

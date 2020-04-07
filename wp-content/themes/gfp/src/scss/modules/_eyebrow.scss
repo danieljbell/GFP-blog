@@ -2,6 +2,9 @@
   position: relative;
   z-index: 100;
   background-color: $brand;
+}
+
+.eyebrow .site-width {
   display: none;
   @include desktop {
     display: block;
