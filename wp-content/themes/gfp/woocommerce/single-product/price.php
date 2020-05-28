@@ -25,11 +25,15 @@ global $product;
 ?>
 
 <?php if ($product->get_sale_price()) : ?>
-  <p class="price">
-    <del><span class="woocommerce-Price-amount amount"><?php echo $product->get_regular_price(); ?></span></del>
-    <ins><span class="woocommerce-Price-amount amount">See Price in Cart</span></ins>
+  <p class="price" style="font-size: 1.2em;">
+    <del style="display: block;"><span class="woocommerce-Price-amount amount">Brick &amp; Mortar Price: $<?php echo number_format($product->get_regular_price() * 1.12, 2, '.', ','); ?></span></del>
+    <del style="display: block;"><span class="woocommerce-Price-amount amount" style="font-weight: bold; color: green;">Green Farm Parts Price: $<?php echo number_format($product->get_regular_price(), 2, '.', ','); ?></span></del>
+    <ins><span class="woocommerce-Price-amount amount">Sale Price: See Price in Cart</span></ins>
   </p>
 <?php else : ?>
-  <p class="price"><?php echo $product->get_price_html(); ?></p>
+  <p class="price" style="font-size: 1.2em;">
+    <del style="display: block;"><span class="woocommerce-Price-amount amount">Brick &amp; Mortar Price: $<?php echo number_format($product->get_regular_price() * 1.12, 2, '.', ','); ?></span></del>
+    <ins><span class="woocommerce-Price-amount amount" style="color: green;">Green Farm Parts Price: $<?php echo $product->get_regular_price(); ?></span></ins>
+  </p>
 <?php endif; ?>
 

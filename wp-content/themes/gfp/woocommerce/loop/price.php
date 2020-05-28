@@ -28,12 +28,15 @@ $nla_part = get_post_meta($product->get_id(), 'nla_part');
 
 <?php if ($nla_part[0] !== 'yes') : ?>
   <?php if ($product->get_sale_price()) : ?>
-    <span class="price">
-      <del><span class="woocommerce-Price-amount amount"><?php echo $product->get_regular_price(); ?></span></del>
-      <br>
-      <ins><span class="woocommerce-Price-amount amount">See Price in Cart</span></ins>
-    </span>
+    <p class="price" style="font-size: 0.8em;">
+      <del style="display: block;"><span class="woocommerce-Price-amount amount">MSRP Price: $<?php echo number_format($product->get_regular_price() * 1.12, 2, '.', ','); ?></span></del>
+      <del style="display: block;"><span class="woocommerce-Price-amount amount" style="font-weight: bold; color: green;">GFP Price: $<?php echo number_format($product->get_regular_price(), 2, '.', ','); ?></span></del>
+      <ins><span class="woocommerce-Price-amount amount">Sale Price: See in Cart</span></ins>
+    </p>
   <?php else : ?>
-    <span class="price"><?php echo $product->get_price_html(); ?></span>
+    <p class="price" style="font-size: 0.8em;">
+      <del style="display: block;"><span class="woocommerce-Price-amount amount">MSRP: $<?php echo number_format($product->get_regular_price() * 1.12, 2, '.', ','); ?></span></del>
+      <ins><span class="woocommerce-Price-amount amount" style="color: green;">GFP Price: $<?php echo $product->get_regular_price(); ?></span></ins>
+    </p>
   <?php endif; ?>
 <?php endif; ?>
