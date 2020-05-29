@@ -191,10 +191,10 @@
       if (item.productQtyInc) {
         productQtyInc = item.productQtyInc;
       }
-      if (item.SalePrice !== "") {
+      if (item.productSalePrice === null) {
         var priceHTML = '<p class="drawer-item-price"><span class="drawer-item-sku">' + item.productSku + '</span> - $' + item.productRegularPrice + ' each</p>';
       } else {
-        var priceHTML = '<p class="drawer-item-price">Yes Sale</p>';
+        var priceHTML = '<p class="drawer-item-price"><span class="drawer-item-sku">' + item.productSku + '</span> - <del>$' + item.productRegularPrice + '</del> <ins><span class="drawer-item-sale-price">$' + item.productSalePrice + ' each</span></ins></p>';
       }
       return (
         '<li class="drawer--item" data-product-id="' + item.productID + '" data-product-key="' + item.productKey + '">' +

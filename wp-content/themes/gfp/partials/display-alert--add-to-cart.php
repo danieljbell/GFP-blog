@@ -13,9 +13,9 @@
 <div class="drawer drawer--add-to-cart" role="alert">
   <button class="close-drawer btn-solid--brand-two"><span>&times;</span> Hide Cart</button>
   <?php if (($item_count > 1) || ($item_count === 0)) : ?>
-    <h3 class="drawer--header"><span class="item-count"><?php echo $item_count; ?> Items in your Cart</span><br /><span class="cart-subtotal">Cart Subtotal: <span class="subtotal-amount">$<?php echo $cart->get_totals()['subtotal']; ?></span></span></h3>
+    <h3 class="drawer--header"><span class="item-count"><?php echo $item_count; ?> Items in your Cart</span><br /><span class="cart-subtotal">Cart Subtotal: <span class="subtotal-amount">$<?php echo number_format($cart->get_totals()['subtotal'],2,'.',','); ?></span></span></h3>
   <?php else : ?>
-    <h3 class="drawer--header"><span class="item-count"><?php echo $item_count; ?> Item in your Cart</span><br /><span class="cart-subtotal">Cart Subtotal: <span class="subtotal-amount">$<?php echo $cart->get_totals()['subtotal']; ?></span></span></h3>
+    <h3 class="drawer--header"><span class="item-count"><?php echo $item_count; ?> Item in your Cart</span><br /><span class="cart-subtotal">Cart Subtotal: <span class="subtotal-amount">$<?php echo number_format($cart->get_totals()['subtotal'],2,'.',','); ?></span></span></h3>
   <?php endif; ?>
 
   <ul class="drawer--items-list">
@@ -32,8 +32,8 @@
           $name = str_replace($brand->name . ' ', '', $name);
         }
         $name = str_replace($sku, '', $name);
-        $price = $line_item_details->get_regular_price();
-        $sale_price = $line_item_details->get_sale_price();
+        $price = number_format($line_item_details->get_regular_price(),2,'.',',');
+        $sale_price = number_format($line_item_details->get_sale_price(),2,'.',',');
        ?>
       <li class="drawer--item" data-product-id="<?php echo $id; ?>" data-product-key="<?php echo $line_item['key']; ?>">
         <div class="drawer-item-action">
@@ -52,7 +52,7 @@
         <div class="drawer-item-content">
           <p class="drawer-item-title"><a href="<?php echo $permalink; ?>"><?php echo $name; ?></a></p>
           <?php if ($sale_price) : ?>
-            <p class="drawer-item-price"><span class="drawer-item-sku"><?php echo $sku; ?></span> - <del>$<?php echo $price; ?></del> <span class="drawer-item-sale-price"></span> each</p>
+            <p class="drawer-item-price"><span class="drawer-item-sku"><?php echo $sku; ?></span> - <del>$<?php echo $price; ?></del> <span class="drawer-item-sale-price">$<?php echo $sale_price; ?> each</span></p>
           <?php else : ?>
             <p class="drawer-item-price"><span class="drawer-item-sku"><?php echo $sku; ?></span> - $<?php echo $price; ?> each</p>
           <?php endif; ?>

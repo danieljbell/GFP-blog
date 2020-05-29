@@ -36,7 +36,7 @@ $nla_part = get_post_meta($product->get_id(), 'nla_part');
   <?php else : ?>
     <p class="price" style="font-size: 0.8em;">
       <del style="display: block;"><span class="woocommerce-Price-amount amount">MSRP: $<?php echo number_format($product->get_regular_price() * 1.12, 2, '.', ','); ?></span></del>
-      <ins><span class="woocommerce-Price-amount amount" style="color: green;">GFP Price: $<?php echo $product->get_regular_price(); ?></span></ins>
+      <ins><span class="woocommerce-Price-amount amount" style="color: green;">GFP Price: $<?php echo number_format($product->get_regular_price(),2,'.',','); ?></span></ins>
     </p>
   <?php endif; ?>
 <?php endif; ?>

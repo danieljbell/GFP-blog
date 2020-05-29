@@ -33,7 +33,7 @@ global $product;
 <?php else : ?>
   <p class="price" style="font-size: 1.2em;">
     <del style="display: block;"><span class="woocommerce-Price-amount amount">Brick &amp; Mortar Price: $<?php echo number_format($product->get_regular_price() * 1.12, 2, '.', ','); ?></span></del>
-    <ins><span class="woocommerce-Price-amount amount" style="color: green;">Green Farm Parts Price: $<?php echo $product->get_regular_price(); ?></span></ins>
+    <ins><span class="woocommerce-Price-amount amount" style="color: green;">Green Farm Parts Price: $<?php echo number_format($product->get_regular_price(), 2, '.', ','); ?></span></ins>
   </p>
 <?php endif; ?>
 

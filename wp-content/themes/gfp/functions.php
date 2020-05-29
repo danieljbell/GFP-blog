@@ -12,7 +12,7 @@ ADD GLOBAL CSS TO PAGE
 ==============================
 */
 function enqueue_global_css() {
-  wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '1.0.65');
+  wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '1.0.66');
 }
 add_action('wp_enqueue_scripts', 'enqueue_global_css');
 
@@ -22,7 +22,7 @@ ADD GLOBAL JS TO PAGE
 ==============================
 */
 function enqueue_global_js() {
-  wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.65', true);
+  wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.66', true);
 
   // if (is_page_template( 'page-templates/check-order-status.php' ) || is_account_page()) {
     $translation_array = array(
@@ -259,8 +259,8 @@ function formatCartItems($response) {
       'productSku'          => $line_item_details->get_sku(),
       'productQty'          => $line_item['quantity'],
       'productQtyInc'       => $inc,
-      'productRegularPrice' => number_format($line_item_details->get_regular_price(), 2, '.', ''),
-      'productSalePrice'    => number_format($line_item_details->get_sale_price(), 2, '.', ''),
+      'productRegularPrice' => number_format($line_item_details->get_regular_price(), 2, '.', ','),
+      'productSalePrice'    => number_format($line_item_details->get_sale_price(), 2, '.', ','),
       'productImg'          => $thumb,
       'productPermalink'    => $line_item_details->get_permalink()
     );
@@ -403,7 +403,7 @@ function add_item_to_cart() {
   $response = $cart->get_cart();
   // wp_send_json(wc_get_product($id));
   wp_send_json(array(
-    'subtotal' => $cart->get_totals()['subtotal'],
+    'subtotal' => number_format($cart->get_totals()['subtotal'],2,'.',','),
     'lineItems' => formatCartItems($cart->get_cart())
   ));
 }
