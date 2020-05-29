@@ -259,8 +259,8 @@ function formatCartItems($response) {
       'productSku'          => $line_item_details->get_sku(),
       'productQty'          => $line_item['quantity'],
       'productQtyInc'       => $inc,
-      'productRegularPrice' => number_format(intval($line_item_details->get_regular_price()), 2, '.', ''),
-      'productSalePrice'    => number_format(intval($line_item_details->get_sale_price()), 2, '.', ''),
+      'productRegularPrice' => number_format($line_item_details->get_regular_price(), 2, '.', ''),
+      'productSalePrice'    => number_format($line_item_details->get_sale_price(), 2, '.', ''),
       'productImg'          => $thumb,
       'productPermalink'    => $line_item_details->get_permalink()
     );
