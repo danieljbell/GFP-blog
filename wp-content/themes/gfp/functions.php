@@ -1038,7 +1038,7 @@ function gfp_ajax_search( $request ) {
           $name = $cat->category_nicename;
           $name = explode('-', $name);
           $name = implode(' ', $name);
-          $thumb_id = get_woocommerce_term_meta( $cat->term_id, 'thumbnail_id', true );
+          $thumb_id = get_term_meta( $cat->term_id, 'thumbnail_id', true );
           $image = wp_get_attachment_url( $thumb_id );
           if (!$image) {
             $image = get_stylesheet_directory_URI() . '/dist/img/partPicComingSoon.jpg';
