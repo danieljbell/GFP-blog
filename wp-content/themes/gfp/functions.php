@@ -1022,7 +1022,7 @@ function gfp_ajax_search( $request ) {
       if ($products) :
         foreach($products as $product):
           $product = new WC_product($product->ID);
-          $attachmentIds = $product->get_gallery_attachment_ids();
+          $attachmentIds = $product->get_gallery_image_ids();
           $imgURL = wp_get_attachment_url( $attachmentId[0] );
           $results[] = [
             'title' => $product->get_name(),
