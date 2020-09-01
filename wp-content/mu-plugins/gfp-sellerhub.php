@@ -95,3 +95,71 @@ function jsforwp_single_posts( $data ) {
   return $single_post;
 
 }
+
+
+function get_google_data() {
+  register_rest_route( 'sellerhub/v1', '/googledata', [
+    'methods'   => 'POST',
+    'callback'  => 'get_postdata_google'
+  ] );
+}
+add_action( 'rest_api_init', 'get_google_data' );
+
+function get_postdata_google ( $request ) {
+
+  $offset = json_decode($request->get_body())->offset;
+
+  $product_data = array();
+
+  $posts = new WP_Query(array(
+    'post_type' => 'product',
+    'posts_per_page' => 100,
+    'offset'    => $offset,
+    'meta_query' => array(
+      array(
+        'key' => '_thumbnail_id',
+        'compare' => 'EXISTS'
+      ),
+      array(
+        'key' => 'nla_part',
+        'value' => 'no'
+      )
+    )
+  ));
+
+  if ($posts->have_posts()) :
+    while ($posts->have_posts()) : $posts->the_post();
+      $prod = new stdClass();
+      $prod->id = get_the_id();
+      $terms = get_the_terms($prod->id, 'pa_brand');
+      $prod_meta = get_post_meta($prod->id);
+      $prod->sku = $prod_meta['_sku'][0];
+      $prod->title = get_the_title();
+      $prod->description = get_the_excerpt();
+      $prod->url = get_the_permalink();
+      $prod->price = $prod_meta['_regular_price'][0];
+      $prod->img = get_the_post_thumbnail_url($prod->id);
+      ($terms ? $prod->brand = $terms[0]->name : 'John Deere');
+      array_push($product_data, $prod);
+    endwhile;
+  endif;
+
+  // global $wpdb;
+  // $results = $wpdb->get_results( $wpdb->prepare( 
+  //   "
+  //     SELECT * FROM wp_posts
+  //     LEFT JOIN wp_postmeta ON ID = post_id
+  //     WHERE post_type = %s
+  //     AND meta_key = '_sku'
+  //     LIMIT 1
+  //   ", 
+  //   'product'
+  // ) );
+
+  return array(
+    'offset'  => $offset,
+    'count'   => $posts->post_count,
+    'posts'   => $product_data
+  );
+
+}
