@@ -119,10 +119,6 @@ function get_postdata_google ( $request ) {
       array(
         'key' => '_thumbnail_id',
         'compare' => 'EXISTS'
-      ),
-      array(
-        'key' => 'nla_part',
-        'value' => 'no'
       )
     )
   ));
@@ -130,36 +126,50 @@ function get_postdata_google ( $request ) {
   if ($posts->have_posts()) :
     while ($posts->have_posts()) : $posts->the_post();
       $prod = new stdClass();
-      $prod->id = get_the_id();
-      $terms = get_the_terms($prod->id, 'pa_brand');
-      $prod_meta = get_post_meta($prod->id);
+      $prod->woo_id = get_the_id();
+      $terms = get_the_terms($prod->woo_id, 'pa_brand');
+      $prod_meta = get_post_meta($prod->woo_id);
       $prod->sku = $prod_meta['_sku'][0];
       $prod->title = get_the_title();
       $prod->description = get_the_excerpt();
       $prod->url = get_the_permalink();
       $prod->price = $prod_meta['_regular_price'][0];
-      $prod->img = get_the_post_thumbnail_url($prod->id);
+      $prod->img = get_the_post_thumbnail_url($prod->woo_id);
       ($terms ? $prod->brand = $terms[0]->name : 'John Deere');
       array_push($product_data, $prod);
     endwhile;
   endif;
 
-  // global $wpdb;
-  // $results = $wpdb->get_results( $wpdb->prepare( 
-  //   "
-  //     SELECT * FROM wp_posts
-  //     LEFT JOIN wp_postmeta ON ID = post_id
-  //     WHERE post_type = %s
-  //     AND meta_key = '_sku'
-  //     LIMIT 1
-  //   ", 
-  //   'product'
-  // ) );
-
   return array(
     'offset'  => $offset,
     'count'   => $posts->post_count,
-    'posts'   => $product_data
+    'total'   => $posts->found_posts,
+    'products'   => $product_data
+  );
+
+}
+
+function get_nla_parts() {
+  register_rest_route( 'sellerhub/v1', '/nla_parts', [
+    'methods'   => 'POST',
+    'callback'  => 'get_postdata_nla_parts'
+  ] );
+}
+add_action( 'rest_api_init', 'get_nla_parts' );
+
+function get_postdata_nla_parts ( $request ) {
+
+  $offset = json_decode($request->get_body())->offset;
+
+  global $wpdb;
+  $results = $wpdb->get_results( 
+    $wpdb->prepare("SELECT product_id FROM {$wpdb->prefix}woocommerce_per_product_shipping_rules LIMIT 100 OFFSET %d", $offset) 
+ );
+
+  return array(
+    'offset'  => $offset,
+    'count'   => count($results),
+    'results' => $results
   );
 
 }
