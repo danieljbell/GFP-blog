@@ -161,14 +161,34 @@ function get_postdata_nla_parts ( $request ) {
 
   $offset = json_decode($request->get_body())->offset;
 
-  global $wpdb;
-  $results = $wpdb->get_results( 
-    $wpdb->prepare("SELECT product_id FROM {$wpdb->prefix}woocommerce_per_product_shipping_rules LIMIT 100 OFFSET %d", $offset) 
- );
+//   global $wpdb;
+//   $results = $wpdb->get_results( 
+//     $wpdb->prepare("SELECT product_id FROM {$wpdb->prefix}woocommerce_per_product_shipping_rules LIMIT 100 OFFSET %d", $offset) 
+//  );
+  $results = array();
+
+  $posts = new WP_Query(array(
+    'post_type' => 'product',
+    'posts_per_page' => 100,
+    'offset'    => $offset,
+    'meta_query' => array(
+      array(
+        'key' => 'nla_part',
+        'value' => 'yes'
+      )
+    )
+  ));
+
+  if ($posts->have_posts()) :
+    while ($posts->have_posts()) : $posts->the_post();
+      array_push($results, get_the_id());
+    endwhile;
+  endif;
 
   return array(
     'offset'  => $offset,
     'count'   => count($results),
+    'total'   => $posts->found_posts,
     'results' => $results
   );
 
