@@ -1505,3 +1505,15 @@ add_action( 'init', 'stop_heartbeat', 1 );
 function stop_heartbeat() {
 wp_deregister_script('heartbeat');
 }
+
+
+/*
+==============================
+REMOVE PHONE NUMBER VALIDATION
+==============================
+*/
+add_filter( 'woocommerce_checkout_fields', 'remove_phone_validation' );
+function remove_phone_validation( $woo_checkout_fields_array ) {
+	unset( $woo_checkout_fields_array['billing']['billing_phone']['validate'] );
+	return $woo_checkout_fields_array;
+}
