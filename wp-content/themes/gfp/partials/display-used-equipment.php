@@ -52,7 +52,7 @@ if ($usedEquip && count($usedEquip) > 0) {
             foreach ($equip->meta_data as $md) {
               if ($md->key === 'used_equipment_images') {
                 $img_string = $md->value;
-                $single_img = explode($img_string,'|')[0];
+                $single_img = explode('|', $img_string)[0];
                 echo '<img src="' . $single_img . '" alt="' . $equip->name . '">';
               }
             }
