@@ -49,7 +49,13 @@ if ($usedEquip && count($usedEquip) > 0) {
         }
         echo '<li class="used-equip--item"><a href="' . $equip->permalink . '?utm_medium=GFP&utm_source=' . urlencode(get_the_permalink()) . '&utm_campaign=used_on_gfp">';
           echo '<div class="used-equip--image">';
-            echo '<img src="' . $equip->images[0]->src . '" alt="' . $equip->name . '">';
+            foreach ($equip->meta_data as $md) {
+              if ($md->key === 'used_equipment_images') {
+                $img_string = $md->value;
+                $single_img = explode($img_string,'|')[0];
+                echo '<img src="' . $single_img . '" alt="' . $equip->name . '">';
+              }
+            }
           echo '</div>';
           echo '<h4>' . $equip->name . '</h4>';
           if ($equip->price !== $equip->regular_price) {
