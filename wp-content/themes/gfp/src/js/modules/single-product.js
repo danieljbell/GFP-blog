@@ -1,14 +1,14 @@
-(function($) {
+(function ($) {
 
   var reviewLink = document.querySelectorAll('.woocommerce-review-link');
   if (reviewLink) {
-    reviewLink.forEach(function(link) {
-      link.addEventListener('click', function(e) {
+    reviewLink.forEach(function (link) {
+      link.addEventListener('click', function (e) {
         e.preventDefault();
       });
     });
   }
-  
+
   /*
   =========================
   FITMENT TEXT FILTER
@@ -17,11 +17,11 @@
 
   // Get Vars
   var fitmentTextFilter = document.querySelector('#fitment-text-filter'),
-      productFitmentTags = document.querySelectorAll('.single--part-fitment-list li');
+    productFitmentTags = document.querySelectorAll('.single--part-fitment-list li');
 
   // Check that page has text filter
   if (fitmentTextFilter) {
-    fitmentTextFilter.addEventListener('keyup', function(e) {
+    fitmentTextFilter.addEventListener('keyup', function (e) {
       var value = e.target.value.toUpperCase();
       // Loop over all fitment and add/remove hidden class
       for (var i = 0; i < productFitmentTags.length; i++) {
@@ -36,7 +36,7 @@
 
   var productThumbs = document.querySelectorAll('.woocommerce-product-gallery__thumbs li');
   if (productThumbs) {
-    productThumbs.forEach(function(thumb) {
+    productThumbs.forEach(function (thumb) {
       thumb.addEventListener('click', swapFeaturedPhoto);
     });
   }
@@ -73,7 +73,7 @@
   // })
 
 
-  $('.woocommerce-product-gallery__wrapper a').on('click', function(e) {
+  $('.woocommerce-product-gallery__wrapper a').on('click', function (e) {
     e.preventDefault();
     $('.modal--display-product-image .modal-container').css('max-width', '800px');
     $('.modal--display-product-image .modal-content').html('<img src="' + e.target.src + '">');
@@ -104,17 +104,17 @@
   // Get Vars
   // var productForm = document.querySelector('#single-product--add-to-cart-form'),
   //     addProductToCart = document.querySelector('#single-product--add-to-cart');
-  
+
   // if (addProductToCart) {
 
   //   addProductToCart.addEventListener('click', function(e) {
   //     e.preventDefault();
   //     var addToCartDrawer = document.querySelector('.alert--add-to-cart');
-      
+
   //     atomic(window.location.origin + '?add-to-cart=' + e.target.value)
   //       .then(function(response) {
   //         addToCartDrawer.classList.add('alert--is-active');
-          
+
   //         addProductToCart(e.target.value);
 
   //         function addProductToCart(productID) {
@@ -171,7 +171,7 @@
     });
   }
 
-  $('#checkInventory').on('click', function(e) {
+  $('#checkInventory').on('click', function (e) {
     e.preventDefault();
     // console.log($('#single-product--add-to-cart').data('sku'));
     $.ajax({
@@ -182,53 +182,42 @@
         partNumber: $('#single-product--add-to-cart').data('sku'),
         _ajax_nonce: window.ajax_order_tracking.nonce
       },
-      success: function(res) {
-        var fulfillmentLocations = ['FISHERS', 'ATLANTA', 'LEBANON', 'MOORESVILLE', 'MUNCIE'];
+      success: function (res) {
         var modal = $('.modal--checkInventory');
         var modalContent = modal.find('.modal-content');
-        var data = res.data;
-        var totalInv = 0;
+        var data = res.data.data[0];
+        var totalInv = data && data.reynolds ? data.reynolds : 0;
+
         var invByLoc = [
           {
-            name: 'FISHERS',
+            name: 'fishers',
             warehouse: 1,
-            inv: 0
+            inv: data && data.fishers ? data.fishers.onHand - data.fishers.quantityReserved - data.fishers.quantityAllocated : 0
           },
           {
-            name: 'MUNCIE',
+            name: 'muncie',
             warehouse: 2,
-            inv: 0
+            inv: data && data.muncie ? data.muncie.onHand - data.muncie.quantityReserved - data.muncie.quantityAllocated : 0
           },
           {
-            name: 'ATLANTA',
+            name: 'atlanta',
             warehouse: 3,
-            inv: 0
+            inv: data && data.atlanta ? data.atlanta.onHand - data.atlanta.quantityReserved - data.atlanta.quantityAllocated : 0
           },
           {
-            name: 'LEBANON',
+            name: 'lebanon',
             warehouse: 8,
-            inv: 0
+            inv: data && data.lebanon ? data.lebanon.onHand - data.lebanon.quantityReserved - data.lebanon.quantityAllocated : 0
           },
           {
-            name: 'MOORESVILLE',
+            name: 'mooresville',
             warehouse: 9,
-            inv: 0
+            inv: data && data.mooresville ? data.mooresville.onHand - data.mooresville.quantityReserved - data.mooresville.quantityAllocated : 0
           }
         ];
 
-        for (var i = 0; i < data.length; i++) {
-          if (fulfillmentLocations.includes(data[i].WK_LOC)) {
-            totalInv += Number(data[i].WK_PMOH);
-            for (var j = 0; j < invByLoc.length; j++) {
-              if (invByLoc[j].name === data[i].WK_LOC) {
-                invByLoc[j].inv += Number(data[i].WK_PMOH);
-              }
-            }
-          }
-        }
-
         var rowString = '';
-        $.each(invByLoc, function(index, val) {
+        $.each(invByLoc, function (index, val) {
           if (val.warehouse === 1) {
             rowString += '<tr><td>Warehouse ' + val.warehouse + ': <em style="font-size: 0.75em; display: block;">Shipping Facility</em></td><td>' + val.inv + ' <span>in stock</span></td></tr>';
           } else {

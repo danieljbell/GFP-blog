@@ -12,7 +12,7 @@ ADD GLOBAL CSS TO PAGE
 ==============================
 */
 function enqueue_global_css() {
-  wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '1.0.66');
+  wp_enqueue_style('global', get_stylesheet_directory_URI() . '/dist/css/global.css', array(), '1.0.67');
 }
 add_action('wp_enqueue_scripts', 'enqueue_global_css');
 
@@ -22,7 +22,7 @@ ADD GLOBAL JS TO PAGE
 ==============================
 */
 function enqueue_global_js() {
-  wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.66', true);
+  wp_enqueue_script('global', get_stylesheet_directory_URI() . '/dist/js/global.js', array(), '1.0.67', true);
 
   // if (is_page_template( 'page-templates/check-order-status.php' ) || is_account_page()) {
     $translation_array = array(
@@ -756,7 +756,7 @@ function getInventory() {
   $curl = curl_init();
 
   curl_setopt_array($curl, array(
-    CURLOPT_URL => "https://idmobileaccess.pfw.com/ID/MobileServer/public/Json/getpartsavailability?&_dc=1561480567248&usr=dbell%40rfemail.com&prt=" . $part_number . "&page=1&start=0&limit=25",
+    CURLOPT_URL => "https://scorecard.reynoldsfarmequipment.com/cdk/parts/" . $part_number,
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",
     CURLOPT_MAXREDIRS => 10,
@@ -766,6 +766,7 @@ function getInventory() {
     CURLOPT_HTTPHEADER => array(
       "Cache-Control: no-cache",
       "Content-Type: application/json",
+      "X-Requested-With: XMLHttpRequest"
     ),
   ));
 
