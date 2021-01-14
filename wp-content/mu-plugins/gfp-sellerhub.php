@@ -160,11 +160,6 @@ add_action( 'rest_api_init', 'get_nla_parts' );
 function get_postdata_nla_parts ( $request ) {
 
   $offset = json_decode($request->get_body())->offset;
-
-//   global $wpdb;
-//   $results = $wpdb->get_results( 
-//     $wpdb->prepare("SELECT product_id FROM {$wpdb->prefix}woocommerce_per_product_shipping_rules LIMIT 100 OFFSET %d", $offset) 
-//  );
   $results = array();
 
   $posts = new WP_Query(array(
@@ -192,4 +187,41 @@ function get_postdata_nla_parts ( $request ) {
     'results' => $results
   );
 
+}
+
+function get_oversized_shipping ( ) {
+  register_rest_route( 'sellerhub/v1', '/oversize', [
+    'methods'   => 'POST',
+    'callback'  => 'get_oversized_shipping_data'
+  ] );
+}
+add_action( 'rest_api_init', 'get_oversized_shipping' );
+
+function get_oversized_shipping_data( $request ) {
+  $offset = json_decode($request->get_body())->offset;
+  $results = array();
+
+  global $wpdb;
+  $count = $wpdb->get_results( 
+      "
+          SELECT 
+            COUNT(1) AS total
+          FROM wp_woocommerce_per_product_shipping_rules
+      "
+  );
+  $result = $wpdb->get_results(
+    $wpdb->prepare(
+      "
+        SELECT * FROM wp_woocommerce_per_product_shipping_rules ORDER BY rule_id ASC LIMIT %d OFFSET %d
+      ",
+      array(10, intval($offset))
+    )
+  );
+
+  return array(
+    'offset'  => $offset,
+    'count'   => $wpdb->num_rows,
+    'total'   => $count[0],
+    'results' => $result
+  );
 }
