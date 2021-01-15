@@ -214,7 +214,7 @@ function get_oversized_shipping_data( $request ) {
       "
         SELECT * FROM wp_woocommerce_per_product_shipping_rules ORDER BY rule_id ASC LIMIT %d OFFSET %d
       ",
-      array(10, intval($offset))
+      array(100, intval($offset))
     )
   );
 
