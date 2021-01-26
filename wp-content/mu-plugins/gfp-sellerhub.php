@@ -111,42 +111,42 @@ function get_postdata_google ( $request ) {
 
   $product_data = array();
 
-  global $wpdb;
-  $result = $wpdb->get_results(
-    $wpdb->prepare(
-      "
-        SELECT 
-          wp.ID AS woo_id,
-          pm1.meta_value AS sku,
-          wp.post_title AS title,
-          wp.post_excerpt AS description,
-          REPLACE(wp.guid, 'blog.', '') AS url,
-          pm3.meta_value AS price,
-          CONCAT('https://greenfarmparts.com/wp-content/uploads/', am1.meta_value) AS img,
-          wp_ship.rule_item_cost AS shipping
-        FROM wp_posts AS wp
-        LEFT JOIN wp_postmeta AS pm1 ON wp.ID = pm1.post_id
-        LEFT JOIN wp_postmeta AS pm2 ON wp.ID = pm2.post_id
-        LEFT JOIN wp_postmeta AS pm3 ON wp.ID = pm3.post_id
-        LEFT JOIN wp_postmeta AS am1 ON am1.post_id = pm2.meta_value AND am1.meta_key = '_wp_attached_file'
-        LEFT JOIN wp_woocommerce_per_product_shipping_rules AS wp_ship ON wp.ID = wp_ship.product_id
-        WHERE post_type = 'product'
-        AND post_status = 'publish'
-        AND pm1.meta_key = '_sku'
-        AND pm2.meta_key = '_thumbnail_id'
-        AND pm2.meta_value IS NOT NULL
-        AND pm3.meta_key = '_regular_price'
-        LIMIT %d 
-        OFFSET %d
-      ",
-      array(100, intval($offset))
+  $posts = new WP_Query(
+    array(
+      'post_type' => 'product',
+      'posts_per_page' => 100,
+      'offset'    => $offset,
+      'meta_query' => array(
+        array(
+          'key' => '_thumbnail_id',
+          'compare' => 'EXISTS'
+        )
+      )
     )
   );
 
+  if ($posts->have_posts()) :
+    while ($posts->have_posts()) : $posts->the_post();
+      $prod = new stdClass();
+      $prod->woo_id = get_the_id();
+      $terms = get_the_terms($prod->woo_id, 'pa_brand');
+      $prod_meta = get_post_meta($prod->woo_id);
+      $prod->sku = $prod_meta['_sku'][0];
+      $prod->title = get_the_title();
+      $prod->description = get_the_excerpt();
+      $prod->url = get_the_permalink();
+      $prod->price = $prod_meta['_regular_price'][0];
+      $prod->img = get_the_post_thumbnail_url($prod->woo_id);
+      ($terms ? $prod->brand = $terms[0]->name : 'John Deere');
+      array_push($product_data, $prod);
+    endwhile;
+  endif;
+
   return array(
     'offset'  => $offset,
-    'count'   => $wpdb->num_rows,
-    'products'   => $result
+    'count'   => $posts->post_count,
+    'total'   => $posts->found_posts,
+    'products'   => $product_data
   );
 
 }
