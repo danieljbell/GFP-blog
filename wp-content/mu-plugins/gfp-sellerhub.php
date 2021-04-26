@@ -227,3 +227,64 @@ function get_oversized_shipping_data( $request ) {
     'results' => $result
   );
 }
+
+function get_all_products ( ) {
+  register_rest_route( 'sellerhub/v1', '/all-products', [
+    'methods'   => 'GET',
+    'callback'  => 'get_all_products_data'
+  ] );
+}
+add_action( 'rest_api_init', 'get_all_products' );
+
+function get_all_products_data( $request ) {
+  $offset = intval($request['offset']);
+  $product_data = array();
+
+  $posts = new WP_Query(
+    array(
+      'post_type' => 'product',
+      'posts_per_page' => 100,
+      'offset'    => $offset
+    )
+  );
+
+  if ($posts->have_posts()) :
+    while ($posts->have_posts()) : $posts->the_post();
+      $prod_meta = get_post_meta(get_the_id());
+      $terms = get_the_terms($prod->woo_id, 'pa_brand');
+      $image_url = get_the_post_thumbnail_url($prod->woo_id);
+      if ($image_url === false) { $image_url = null; }
+
+      $prod = new stdClass();
+      $prod->woo_id = get_the_id();
+      $prod->sku = $prod_meta['_sku'][0];
+      $prod->title = get_the_title();
+      $prod->description = get_the_excerpt();
+      $prod->url = get_the_permalink();
+      $prod->regular_price = floatval($prod_meta['_regular_price'][0]);
+      $prod->sale_price = $prod_meta['_sale_price'][0] ? floatval($prod_meta['_sale_price'][0]) : null;
+      $prod->img = $image_url;
+      ($terms ? $prod->brand = str_replace('&nbsp;', ' ', $terms[0]->name) : 'John Deere');
+      $prod->weight = floatval($prod_meta['_weight'][0]);
+      $prod->height = floatval($prod_meta['_height'][0]);
+      $prod->length = floatval($prod_meta['_length'][0]);
+      $prod->width = floatval($prod_meta['_width'][0]);
+      $prod->is_nla = $prod_meta['nla_part'][0] && $prod_meta['nla_part'][0] === 'yes' ? true : false;
+      $prod->is_vendor = $prod_meta['vendor_part'][0] && $prod_meta['vendor_part'][0] === 'yes' ? true : false;
+      $prod->is_vintage = $prod_meta['vintage_part'][0] && $prod_meta['vintage_part'][0] === 'yes' ? true : false;
+
+
+
+      // if ($prod->woo_id === 1035217) {
+        array_push($product_data, $prod);
+      // }
+    endwhile;
+  endif;
+
+  return array(
+    'offset'  => $offset,
+    'count'   => $posts->post_count,
+    'total'   => $posts->found_posts,
+    'products'   => $product_data
+  );
+}

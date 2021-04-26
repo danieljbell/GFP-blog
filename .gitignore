@@ -41,6 +41,9 @@ wp-content/ai1wm-backups/
 wp-content/index.php
 wp-content/mysql.sql
 wp-content/object-cache.php
+wp-content/advanced-cache.php
+wp-content/cache/
+wp-content/w3tc-config/
 
 # ignore specific themes
 wp-content/themes/twenty*/
