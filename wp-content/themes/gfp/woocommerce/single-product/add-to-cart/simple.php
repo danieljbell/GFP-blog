@@ -80,7 +80,7 @@ if ( $product->is_in_stock() ) : ?>
 
       <button id="single-product--add-to-cart" data-sku="<?php echo $product->sku; ?>" data-product-title="<?php echo $product->name; ?>" type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="single_add_to_cart_button btn-solid--brand-two button alt add-to-cart mar-b--more"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
 
-      <button class="btn-text" id="checkInventory" data-modal-launch="checkInventory">Check Inventory</button>  
+      <!-- <button class="btn-text" id="checkInventory" data-modal-launch="checkInventory">Check Inventory</button>   -->
 
     <?php endif; ?>
 
